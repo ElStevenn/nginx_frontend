@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+
+    <script src="/scripts/crypto-searcher.js"></script>
+    <script src="/scripts/set-profile.js" defer></script>
+    <!-- <script src="/scripts/user-settings/user-settings-profile.js" defer></script> -->
+    <script src="/scripts/user-settings/user-settings-account.js" defer></script>
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/user-header.css">
+    <link rel="stylesheet" href="/styles/user-settings.css">
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-left"  id="header-left-side">
+            <img src="/images/leverage_cuck.png" alt="Logo">
+            <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
+        </div>
+
+        <div class="header-right">
+
+            <!-- Search Bar with Icon -->
+            <div class="search-container">
+                <img src="/images/search.png" alt="Search Icon" id="search-icon" class="search-icon">
+                <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off">
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+
+
+            <img src="/images/bell.png" alt="Theme Toggle Icon">
+            <img src="/images/list.png" alt="Menu Icon" onclick="toggleMenu2(event)">
+
+            <!-- List Menu -->
+            <div id="list-menu" class="list-menu">
+                <img src="/images/close.png" alt="Close Button" class="close-button" onclick="closeMenus(event)">
+                <div class="profile-container">
+                    <img src="/images/account.png" alt="User Icon" class="profile-picture" id="profile-icon1" style="filter: none; border-radius: 50%;">
+                    <div class="profile-text">
+                        <span class="profile-username" style="margin-bottom: -10px;"><b id="user-username">@Username</b></span>
+                        <p class="profile-name-surname" id="given_name">Name Surname</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="mini-section">
+                    <img src="/images/user_profile.png" alt="Icon">
+                    <span class="profile-text">Your Profile</span>
+                </div>
+                <div class="mini-section">
+                    <img src="/images/butt.png" alt="Icon">
+                    <span class="profile-text">Become a trader</span>
+                    <img src="/images/free.png" alt="Icon" style="margin-top: 1px; margin-left: 30px;">
+                </div>
+                <div class="mini-section">
+                    <img src="/images/subscription-business-model.png" alt="Icon">
+                    <span class="profile-text">Choose Your Plan</span>
+                </div>
+                <div class="mini-section">
+                    <img src="/images/reading-book.png" alt="Icon">
+                    <span class="profile-text">Learn how it works</span>
+                </div>
+                <div class="mini-section">
+                    <img src="/images/approve.png" alt="Icon">
+                    <span class="profile-text">Documentation</span>
+                </div>
+                <hr>
+                <a href="/settings/profile">
+                    <div class="mini-section">
+                        <img src="/images/settings.png" alt="Icon">
+                        <span class="profile-text">Settings</span>
+                    </div>
+                </a> 
+                <div class="mini-section">
+                    <img src="/images/share.png" alt="Icon">
+                    <span class="profile-text">Try this</span>
+                </div>
+                <div class="mini-section">
+                    <img src="/images/analysis.png" alt="Icon">
+                    <span class="profile-text">See other services</span>
+                </div>
+            </div>
+
+            <img src="/images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
+
+            <!-- Mini menu for the user -->
+            <div id="profile-menu" class="profile-menu"> <!-- i've removed the 'hidden' -->
+                <div class="profile-header" style="display: flex; align-items: center;">
+                    <img src="/images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
+                    <div>
+                        <span class="profile-name" style="font-size: 16px; font-weight: bold;" id="user-username2">@Username</span>
+                        <p style="font-size: 14px; margin: 0;" id="given_name2">Name Surname</p>
+                    </div>
+                </div>                
+                <hr>
+                <ul class="menu-links">
+                    <li><img src="/images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
+                    <li><img src="/images/settings.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Do something</li>
+                    <li onclick="log_out(event)"> <img src="/images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
+                    <hr>
+                    <li><a href="/terms"> <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
+
+                    <li><img src="/images/help.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Help </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <div id="notification-bar" class="notification-bar">
+        <p id="notification-message">Your profile has been updated successfully!</p>
+        <span id="close-notification" class="close-notification">&times;</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Left Pane (User Summary and Navigation Menu) -->
+        <div id="leftPane">
+            <!-- User Summary -->
+            <div class="profile-summary">
+                <img src="/images/account.png" alt="User Profile picture" id="user-profile-picture">
+                <div class="user-info">
+                    <span class="username" id="user-name-main">@Username</span>
+                    <span class="fullname" id="full-name-main">Name Surname</span>
+                </div>
+            </div>
+            
+            <hr class="left-pane-hr">
+            <!-- Navigation Menu -->
+            <ul class="settings-menu">
+                <li data-section="profile" onclick="showSection('profile', event)"><img src="/images/user_profile.png" alt="Profile Icon">Profile</li>
+                <li data-section="account" onclick="showSection('account', event)"><img src="/images/account.png" alt="Account Icon">Account</li>
+                <li data-section="appearance" onclick="showSection('appearance', event)"><img src="/images/paint-brush.png" alt="Appearance Icon">Appearance</li>
+                <li data-section="billing" onclick="showSection('billing', event)"><img src="/images/billing_plan.png" alt="Billing Icon">Billing & Plans</li>
+                <li data-section="api" onclick="showSection('api', event)"><img src="/images/api.png" alt="API Icon">API Connections</li>
+            </ul>                     
+        </div>
+
+        <!-- Right Pane (Content Area) -->
+        <div id="rightPane">
+            
+            <!-- Profile Section -->
+            <div id="profile" class="settings-section active">
+                <h2>Public Profile</h2>
+                <hr>
+                <!-- Profile Picture on the Far Right -->
+                <div class="far-right-profile-pic">
+                    <p class="profile-pic-title">Profile Picture</p>
+                    <img src="/images/account.png" alt="Current Profile Picture" id="current-profile-pic">
+                    <button type="button" class="edit-profile-pic-button">
+                        <img src="/images/pencil.png" alt="Edit Icon" class="edit-profile-icon">
+                        Edit
+                    </button>
+                    <!-- Hidden file input to trigger file selection -->
+                    <input type="file" id="profile-pic-input" accept="image/*" style="display: none;">
+                </div>
+                
+
+                <form>
+
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="first-name">Name</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="Enter your first name">
+                        <p class="label-description">Your name may apear in Trade Visionary  where you contribute or are mentioned. You can remove it at any time.</p>
+                    </div>
+                    <!-- Surname -->
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" name="surname" placeholder="Enter your surname">
+                        <p class="label-description">Your surname will stay here, even if you update your Google Account.</p>
+                    </div>
+           
+                    <!-- Select Public Email -->
+                    <div class="form-group">
+                        <label for="public-email">Public Email</label>
+                        <div class="email-select-container">
+                            <select id="public-email" name="public-email">
+                                <option value="non-selected-value">Select a verified email to display</option>
+                            </select>
+                            <a href="#" class="remove-email">X Remove</a>  
+                        </div>
+                        <p>You can add new emails adding new trading accounts <a href="#" style="color: #42a5f5;">here</a>.</p>
+                    </div>
+                    
+                    
+                    <!-- Bio -->
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio-input" name="bio" rows="3"></textarea>
+                        <p class="label-description">Write a short description about yourself, it'll apear in your profile</p>
+                    </div>                
+
+                    <h2>Profile settings</h2>
+                    <hr>
+
+                    <!-- URL -->
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="url" id="url-input" name="url" value="https://example.com" placeholder="https://yourwebsite.com">
+                        <p class="label-description">Provide a link to your Profit & Loss statement to make it easier for you to access.</p>
+                    </div>
+        
+                    <!-- Main Used Exchange -->
+                    <div class="form-group">
+                        <label for="main-used-exchange">Used Exchange</label>
+                        <select id="main-used-exchange" name="used-exchange">
+                            <option value="Bitget">Bitget</option>
+                        </select>
+                        <p>Select the exchange you use.</p>
+                    </div>
+        
+                    <!-- Trading Experience -->
+                    <div class="form-group">
+                        <label for="trading-experience">Trading Experience</label>
+                        <select id="trading-experience" name="trading-experience">
+                            <option value="none-selected">Select your experience</option>
+                            <option value="less-one-year">Less than 1 year</option>
+                            <option value="1-2-years">1-2 years</option>
+                            <option value="2-5-years">2-5 years</option>
+                            <option value="5-10-years">5-10 years</option>
+                            <option value="10-years">10+ years</option>
+                        </select>
+                        <p>Select your trading experience.</p>
+                    </div>
+                    
+                    
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" value="Barcelona/Spain" placeholder="Enter your location">
+                        <p class="label-description">Enter your current location.</p>
+                    </div>
+        
+                    <!-- Save Button -->
+                    <button type="submit" onclick="update_user_profile(event)">Save Changes</button>
+                </form>
+            </div>
+
+
+            <!-- Account Section -->
+            <div id="account" class="settings-section">
+                <h2>Change Username</h2>
+                <hr>
+
+                <!-- Change Username -->
+                <p class="label-description-b">Changing your username can have <a href="#">unintended side effects</a>.</p>
+                <div class="form-group">
+                    <button class="clasic-config-button">Change Username</button>
+                    <p class="label-description" style="margin-top: 10px;">You can only change your username once per month.</p>
+                </div>
+        
+                <!-- Add / Remove Account -->
+                <h2 style="margin-top: 40px;">Manage Trading Accounts</h2>
+                <hr>
+                <p class="label-description-b">You can only use one trading account for trading; however, you can have multiple accounts to view assets. For more information, please check the <a href="#">accounts documentation</a>.</p>
+                <div class="trading-account">
+                    <!-- User selects current trading account -->
+                    <div class="trad-acc-select">
+                        <label for="select-trade-account">Main trading account</label>
+                        <div class="select-link-container">
+                            <select id="trading-account" name="trading-account">
+                                <option value="no-added">No trading account added</option>
+                            </select>
+                            <a href="#" class="remove-email">X Remove</a> 
+                        </div>
+                        <p class="label-description">You can only have one trading account where you execute trades</p>
+                    </div>
+                    <div class="trad-acc-add">
+                        <label>Add new trading account</label>
+                        <button class="clasic-config-button" onclick="openCredentialsWindow()">Add account</button>
+                    </div>
+                </div>
+
+                     <!-- Delete Account -->
+
+                <button type="submit" onclick="">Save Changes</button>     
+            </div>
+            <div id="appearance" class="settings-section">
+                <h2>Apperance Section (Not added yet)</h2>
+                <hr>
+            </div>
+       
+            <div id="billing" class="settings-section">
+                <h2>Billing & Plans Section (Not added yet)</h2>
+                <hr>
+            </div>
+
+            <div id="api" class="settings-section">
+                <h2>API Connections Section (Not added yet)</h2>
+                <hr>
+            </div>
+
+        </div>
+    </div>
+    <script src="/scripts/user-settings/user-settings-profile.js" defer></script>
+</body>
+</html>

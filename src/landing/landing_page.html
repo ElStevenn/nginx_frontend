@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leverage Pro</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" crossorigin="anonymous" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            width: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 28px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a i {
+            margin-right: 8px;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            height: 100vh;
+            background: url('images/background_picture.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 50px; /* Reduced padding to move text up */
+        }
+
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 64px; /* Increased font size */
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff4081, #40eb34);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: slideInLeft 1.5s;
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            animation: slideInRight 1.5s;
+        }
+
+        .hero .cta-button {
+            padding: 15px 40px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            animation: bounceIn 2s;
+        }
+
+        .hero .cta-button:hover {
+            background-color: #f50057;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeInDown {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes slideInLeft {
+            from {opacity: 0; transform: translateX(-100px);}
+            to {opacity: 1; transform: translateX(0);}
+        }
+
+        @keyframes slideInRight {
+            from {opacity: 0; transform: translateX(100px);}
+            to {opacity: 1; transform: translateX(0);}
+        }
+
+        @keyframes bounceIn {
+            from {opacity: 0; transform: scale(0.3);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+        /* Features Section */
+        .features {
+            background-color: #1c1c1c;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s;
+        }
+
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .feature-item {
+            background-color: #2b2b2b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 280px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+            animation: fadeInUp 1s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-item img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+
+        @keyframes fadeInUp {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .step-item {
+            background-color: #1c1c1c;
+            padding: 30px;
+            border-radius: 10px;
+            width: 280px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s;
+        }
+
+        .step-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .step-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+
+        /* Our Team Section */
+        .team {
+            background-color: #1c1c1c;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .team h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .team-member {
+            background-color: #2b2b2b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 240px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeInUp 1s;
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .team-member h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: #b0b0b0;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s;
+        }
+
+        .testimonials-slider {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .testimonial-item {
+            background-color: #1c1c1c;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s;
+            position: relative;
+        }
+
+        .testimonial-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            left: calc(50% - 30px);
+        }
+
+        .testimonial-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0b0b0;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-item h4 {
+            font-size: 18px;
+            color: #e0e0e0;
+            margin: 0;
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            background-color: #1f1f1f;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            animation: fadeInUp 1s;
+        }
+
+        .cta-section .cta-button {
+            padding: 15px 40px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            animation: bounceIn 2s;
+        }
+
+        .cta-section .cta-button:hover {
+            background-color: #f50057;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #ff4081;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2b2b2b;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        .contact-form input::placeholder, .contact-form textarea::placeholder {
+            color: #9e9e9e;
+        }
+
+        .contact-form button {
+            padding: 12px 30px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background-color: #f50057;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #1f1f1f;
+            padding: 20px 40px;
+            text-align: center;
+            color: #b0b0b0;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: #e0e0e0;
+            margin: 0 10px;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ff4081;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-left h1 {
+                font-size: 24px;
+                padding-top: 60px;
+            }
+
+            .hero h2 {
+                font-size: 48px;
+            }
+
+            .features-grid, .steps, .team-grid, .testimonials-slider {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features, .how-it-works, .team, .contact {
+                padding: 40px 20px;
+            }
+
+            .header-right a {
+                margin-left: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .header-right {
+                margin-top: 10px;
+            }
+
+            .header-right a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+
+            .cta-section p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Leverage Pro Logo" onclick="window.location.href='';">
+            <h1>Trade Visionary</h1>
+        </div>
+        <div class="header-right">
+            <a href="#features"><i class="fas fa-chart-line"></i> Features</a>
+            <a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+            <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+            <a href="#testimonials"><i class="fas fa-comments"></i> Testimonials</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>FROM TRADERS <b>TO TRADERS</b></h2>
+        <p>Experience the ultimate trading platform designed to elevate your financial success. Join Trade Visionary today and unlock your full potential.</p>
+        <button class="cta-button" onclick="window.location.href='/login'">Get Started Now</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Why Traders Choose Trade Visionary</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <img src="images/feature1.png" alt="Advanced Analytics">
+                <h3>Advanced Analytics</h3>
+                <p>Gain insights with real-time data and analytics to make informed trading decisions.</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/feature2.png" alt="User-Friendly Interface">
+                <h3>User-Friendly Interface</h3>
+                <p>Navigate our platform with ease and enjoy a seamless trading experience.</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/feature3.png" alt="Secure Transactions">
+                <h3>Secure Transactions</h3>
+                <p>Trade confidently knowing your assets and data are protected with top-tier security.</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/feature4.png" alt="24/7 Support">
+                <h3>24/7 Support</h3>
+                <p>Get assistance anytime with our dedicated customer support team.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step-item">
+                <h3>1. Sign Up</h3>
+                <p>Create your free account and join our community of traders.</p>
+            </div>
+            <div class="step-item">
+                <h3>2. Customize</h3>
+                <p>Set up your trading preferences and personalize your dashboard.</p>
+            </div>
+            <div class="step-item">
+                <h3>3. Trade</h3>
+                <p>Start trading with real-time data and advanced tools at your fingertips.</p>
+            </div>
+            <div class="step-item">
+                <h3>4. Profit</h3>
+                <p>Monitor your performance and achieve your financial goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="team" id="team">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="images/team1.jpg" alt="Team Member">
+                <h3>John Doe</h3>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="images/team2.jpg" alt="Team Member">
+                <h3>Jane Smith</h3>
+                <p>Chief Technology Officer</p>
+            </div>
+            <div class="team-member">
+                <img src="images/team3.jpg" alt="Team Member">
+                <h3>Mike Johnson</h3>
+                <p>Head of Marketing</p>
+            </div>
+            <div class="team-member">
+                <img src="images/team4.jpg" alt="Team Member">
+                <h3>Emily Davis</h3>
+                <p>Lead Developer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2>Hear From Our Satisfied Traders</h2>
+        <div class="testimonials-slider">
+            <div class="testimonial-item">
+                <img src="images/user1.jpg" alt="User Photo">
+                <p>"Trade Visionary has completely transformed my trading approach. The analytics tools are unmatched."</p>
+                <h4>- Sarah L.</h4>
+            </div>
+            <div class="testimonial-item">
+                <img src="images/user2.jpg" alt="User Photo">
+                <p>"I love how intuitive the platform is. I was able to start trading immediately without any hassle."</p>
+                <h4>- Mark R.</h4>
+            </div>
+            <div class="testimonial-item">
+                <img src="images/user3.jpg" alt="User Photo">
+                <p>"Their customer support is phenomenal. They resolved my issue in minutes."</p>
+                <h4>- Emily W.</h4>
+            </div>
+            <div class="testimonial-item">
+                <img src="images/user4.jpg" alt="User Photo">
+                <p>"The best trading platform I've ever used. Highly recommended!"</p>
+                <h4>- James K.</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section" id="register">
+        <h2>Ready to Elevate Your Trading?</h2>
+        <p>Join Trade Visionary now and take the first step towards achieving your financial goals.</p>
+        <button class="cta-button" onclick="window.location.href='register.html'">Register Now</button>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 Leverage Pro. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+</body>
+</html>

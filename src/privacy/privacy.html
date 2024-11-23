@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Privacy Policy</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papCnrha6uA+N6zSe/NmFjPOX3G9LUR6jrH0bnOz5qvL3dOq5Z1R/+ZjB3aIvbjHoMk+MVw/H5hnD5O0X7dKgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 80px; /* Added padding to prevent overlap with fixed header */
+        }
+
+        .content-container {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Fixed Top Header Styles */
+        .header {
+            width: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 28px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a i {
+            margin-right: 8px;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-size: 24px;
+            color: #ff4081;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        p, ul {
+            color: #e0e0e0;
+            font-size: 16px;
+            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        a {
+            color: #ff4081;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #f50057;
+        }
+
+        img {
+            border-radius: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            width: 100%;
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer a {
+            color: #ff4081;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #f50057;
+        }
+
+        /* Animation (Optional) */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p, ul {
+                font-size: 14px;
+            }
+
+            .header-right a {
+                font-size: 14px;
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Top Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Trade Visionary Logo" onclick="window.location.href='/';">
+            <h1>Trade Visionary</h1>
+        </div>
+        <div class="header-right">
+            <a href="#features"><i class="fas fa-chart-line"></i> Features</a>
+            <a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+            <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+            <a href="#testimonials"><i class="fas fa-comments"></i> Testimonials</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/login?action=register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </header>
+
+    <div class="content-container">
+        <h2>Privacy Policy</h2>
+
+        <p>Effective Date: 09/24/2023</p>
+
+        <p>This Privacy Policy describes how Trade Visionary ("we," "us," or "our") collects, uses, and discloses your personal information when you use our website and services (collectively, the "Service"). By accessing or using the Service, you agree to this Privacy Policy.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We may collect the following types of information:</p>
+        <ul>
+            <li><strong>Personal Information:</strong> Name, email address, and other contact details when you create an account or contact us.</li>
+            <li><strong>Google Account Information:</strong> If you sign in using Google OAuth, we may access your Google profile information, such as your email address and profile picture.</li>
+            <li><strong>Usage Data:</strong> Information about how you use the Service, including your IP address, browser type, pages visited, and the date and time of your visit.</li>
+            <li><strong>Cookies and Tracking Technologies:</strong> Data collected through cookies and similar technologies to enhance your experience.</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>We use your information for the following purposes:</p>
+        <ul>
+            <li><strong>To Provide and Maintain the Service:</strong> Ensure the functionality and security of our Service.</li>
+            <li><strong>To Personalize Your Experience:</strong> Customize content and recommendations.</li>
+            <li><strong>To Communicate with You:</strong> Send updates, newsletters, and respond to your inquiries.</li>
+            <li><strong>To Process Transactions:</strong> Handle payments and subscriptions.</li>
+            <li><strong>To Improve Our Service:</strong> Analyze usage to enhance features and user experience.</li>
+            <li><strong>To Comply with Legal Obligations:</strong> Meet regulatory requirements and enforce our Terms.</li>
+        </ul>
+
+        <h2>3. Sharing Your Information</h2>
+        <p>We may share your information in the following circumstances:</p>
+        <ul>
+            <li><strong>With Service Providers:</strong> Third-party vendors who assist us in operating the Service (e.g., hosting providers, analytics).</li>
+            <li><strong>For Legal Reasons:</strong> If required by law, subpoena, or legal process, or to protect our rights and property.</li>
+            <li><strong>In Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales.</li>
+            <li><strong>With Your Consent:</strong> When you provide explicit consent to share your information.</li>
+        </ul>
+
+        <h2>4. Cookies and Tracking Technologies</h2>
+        <p>We use cookies and similar tracking technologies to track activity on our Service and hold certain information. You can instruct your browser to refuse all cookies or indicate when a cookie is being sent.</p>
+
+        <h2>5. Data Security</h2>
+        <p>We take reasonable measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet or electronic storage is completely secure.</p>
+
+        <h2>6. Third-Party Services</h2>
+        <p>Our Service may contain links to third-party websites or services that are not owned or controlled by us. We have no control over their content, privacy policies, or practices and assume no responsibility for them.</p>
+
+        <h2>7. International Data Transfers</h2>
+        <p>Your information may be transferred to and maintained on servers located outside of your state, province, country, or other governmental jurisdiction. By providing your information, you consent to such transfers.</p>
+
+        <h2>8. Children's Privacy</h2>
+        <p>Our Service is not intended for individuals under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and become aware that your child has provided us with personal information, please contact us.</p>
+
+        <h2>9. Your Rights and Choices</h2>
+        <p>You have the right to access, update, or delete your personal information. You may:</p>
+        <ul>
+            <li>Access and update your account information through your profile settings.</li>
+            <li>Opt-out of receiving marketing communications by following the unsubscribe instructions.</li>
+            <li>Request the deletion of your personal data by contacting us.</li>
+        </ul>
+
+        <h2>10. Changes to This Privacy Policy</h2>
+        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated effective date.</p>
+
+        <h2>11. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+        <ul>
+            <li>By email: <a href="mailto:privacy@tradevisionary.net">privacy@tradevisionary.net</a></li>
+            <li>Through our <a href="/contact">Contact Us</a> page.</li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Trade Visionary. All rights reserved.</p>
+        <p>
+            <a href="/contact">Help</a> |
+            <a href="/privacy">Privacy</a> |
+            <a href="/terms">Terms</a>
+        </p>
+    </footer>
+</body>
+</html>

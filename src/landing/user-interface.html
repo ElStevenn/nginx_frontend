@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Portfolio</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <script src="scripts/set-profile.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            width: 100%;
+            height: 65px;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            color: #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 36px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-right img {
+            width: 40px;
+            height: 40px;
+            margin-left: 15px;
+            filter: invert(100%);
+            cursor: pointer;
+        }
+
+        .blue-text {
+            color: #42a5f5;
+        }
+
+        .orange-text {
+            color: #ffa726;
+        }
+
+        /* Profile and List Menu Styles */
+        .profile-menu {
+            position: absolute;
+            top: 240px; /* Adjust this as needed!*/
+            right: 3px;
+            background-color: #252525;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+            padding: 0;
+            z-index: 2000;
+            width: 220px;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+
+            /* Animation styles */
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.5);
+            transform-origin: top right;
+            transition: all 0.1s ease; 
+            pointer-events: none;
+        }
+
+        .profile-menu.show {
+            max-height: 900px;
+            padding: 10px;
+            opacity: 1;
+            transform: scale(1);        
+            pointer-events: auto;
+        }
+
+        .mini-section {
+            margin-top: 5px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .mini-section:hover {
+            background-color: #424242;
+            border-radius: 5px;
+        }
+
+        .mini-section img {
+            width: 25px;
+            height: 25px;
+            margin-right: 5px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            max-width: 12px;
+            max-height: 12px;
+            object-fit: contain;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.2s;
+        }
+
+        .close-button:hover {
+            transform: scale(1.2);
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-picture {
+            margin-left: 7px;
+            padding: 5px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .profile-text {
+            margin-left: 10px;
+            padding-top: 10px;
+        }
+
+        .profile-header {
+            padding: 10px 0;
+            text-align: left;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .profile-email {
+            font-size: 14px;
+            color: #9e9e9e;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #424242;
+            margin: 10px 0;
+        }
+
+        .menu-links {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .menu-links li {
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-links li:hover {
+            background-color: #494949;
+            border-radius: 5px;
+        }
+
+        .menu-links img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            object-fit: contain;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-left h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body onclick="closeMenu(event)">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left"  id="header-left-side">
+            <img src="images/leverage_cuck.png" alt="Logo">
+            <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
+        </div>
+        <div class="header-right">
+            <img src="images/sun.png" alt="Theme Toggle Icon">
+            <img src="images/list.png" alt="Menu Icon" onclick="toggleMenu2(event)">
+
+            <!-- List Menu -->
+            <div id="list-menu" class="list-menu">
+                <img src="images/close.png" alt="Close Button" class="close-button" onclick="closeMenus(event)">
+                <div class="profile-container ">
+                    <img src="images/account.png" alt="User Icon" class="profile-picture" id="profile-icon1" style="filter: none; border-radius: 50%;">
+                    <div class="profile-text">
+                        <span class="profile-username" style="margin-bottom: -10px;"><b id="user-username">@Username</b></span>
+                        <p class="profile-name-surname" id="given_name">Name Surname</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="mini-section">
+                    <img src="images/user_profile.png" alt="Icon">
+                    <span class="profile-text">Your Profile</span>
+                </div>
+                <div class="mini-section">
+                    <img src="images/butt.png" alt="Icon">
+                    <span class="profile-text">Become a trader</span>
+                    <img src="images/free.png" alt="Icon" style="margin-top: 1px; margin-left: 30px;">
+                </div>
+                <div class="mini-section">
+                    <img src="images/subscription-business-model.png" alt="Icon">
+                    <span class="profile-text">Choose Your Plan</span>
+                </div>
+                <div class="mini-section">
+                    <img src="images/reading-book.png" alt="Icon">
+                    <span class="profile-text">Learn how it works</span>
+                </div>
+                <div class="mini-section">
+                    <img src="images/approve.png" alt="Icon">
+                    <span class="profile-text">Documentation</span>
+                </div>
+                <hr>
+                <div class="mini-section">
+                    <img src="images/share.png" alt="Icon">
+                    <span class="profile-text">Try this</span>
+                </div>
+                <div class="mini-section">
+                    <img src="images/analysis.png" alt="Icon">
+                    <span class="profile-text">See other servoces</span>
+                </div>
+            </div>
+
+            <img src="images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
+
+            <!-- Mini menu for the user -->
+             <div id="profile-menu" class="profile-menu"> 
+                <div class="profile-header" style="display: flex; align-items: center;">
+                    <img src="images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
+                    <div>
+                        <span class="profile-name" style="font-size: 16px; font-weight: bold;" id="user-username2">@Username</span>
+                        <p style="font-size: 14px; margin: 0;" id="given_name2">Name Surname</p>
+                    </div>
+                </div>                
+                <hr>
+                <ul class="menu-links">
+                    <li><img src="images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
+                    <li><img src="images/settings.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Do something</li>
+                    <li onclick="log_out(event)"> <img src="images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Log Out </li>
+                    <hr>
+                    <li><a href="/terms"> <img src="images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
+                    <li><img src="images/settings.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Settings</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Optional JavaScript -->
+    <script>
+        function toggleMenu1(event) {
+            event.stopPropagation();
+            const profileMenu = document.getElementById('profile-menu');
+            profileMenu.classList.toggle('hidden');
+        }
+
+        function toggleMenu2(event) {
+            event.stopPropagation();
+            const listMenu = document.getElementById('list-menu');
+            listMenu.classList.toggle('show');
+        }
+
+        function closeMenu(event) {
+            const profileMenu = document.getElementById('profile-menu');
+            const listMenu = document.getElementById('list-menu');
+
+            if (!profileMenu.contains(event.target)) {
+                profileMenu.classList.add('hidden');
+            }
+            if (!listMenu.contains(event.target)) {
+                listMenu.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>

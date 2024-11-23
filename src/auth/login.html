@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papCnrha6uA+N6zSe/NmFjPOX3G9LUR6jrH0bnOz5qvL3dOq5Z1R/+ZjB3aIvbjHoMk+MVw/H5hnD5O0X7dKgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 80px; /* Added padding to prevent overlap with fixed header */
+        }
+
+        .login-container {
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            padding-top: 50px;
+        }
+
+        /* Fixed Top Header Styles */
+        .header {
+            width: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 28px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a i {
+            margin-right: 8px;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Login Page Header Styles */
+        .login-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .login-header .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 10px;
+        }
+
+        .login-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .auth-box {
+            background-color: #1c1c1c;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #ff4081;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #e0e0e0;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            max-width: 300px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .auth-form input {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #2b2b2b;
+            color: #e0e0e0;
+        }
+
+        .auth-form input::placeholder {
+            color: #9e9e9e;
+        }
+
+        .auth-button {
+            padding: 12px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .auth-button:hover {
+            background-color: #f50057;
+        }
+
+        .forgot-password {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #ff4081;
+        }
+
+        .separator {
+            color: #e0e0e0;
+            margin: 20px 0;
+            font-size: 16px;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #424242;
+        }
+
+        .separator::before {
+            left: 0;
+        }
+
+        .separator::after {
+            right: 0;
+        }
+
+        .google-login-button {
+            padding: 10px 35px;
+            border: none;
+            background-color: #ffffff;
+            color: #000;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .google-login-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .google-login-button img {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        img {
+            border-radius: 5px;
+        }
+
+        .toggle-link {
+            color: #ff4081;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toggle-link:hover {
+            color: #f50057;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .welcome-text {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .auth-form input {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .auth-button {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .google-login-button {
+                font-size: 14px;
+                padding: 10px 25px;
+            }
+        }
+
+        /* Animation (Optional) */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Fixed Top Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Trade Visionary Logo" onclick="window.location.href='/';">
+            <h1>Trade Visionary</h1>
+        </div>
+        <div class="header-right">
+            <a href="#features"><i class="fas fa-chart-line"></i> Features</a>
+            <a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+            <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+            <a href="#testimonials"><i class="fas fa-comments"></i> Testimonials</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/login?action=register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <!-- Login Page Header -->
+        <div class="login-header">
+            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+            <h1>LOGIN</h1>
+            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+        </div>
+
+        <div class="auth-box" id="login-box">
+            <img src="images/account.png" alt="User Icon" class="user-icon">
+            <h2 class="welcome-text">Welcome to Trade Visionary</h2>
+            <p>Maximize your earnings while focusing on what truly matters. Let's get you logged in.</p>
+            <!-- Login form -->
+            <form class="auth-form" id="login-form">
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+            <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+            <div class="separator">OR</div>
+            <button class="google-login-button" onclick="window.location.href='http://localhost:8000/google/login';">
+                <img src="images/google.png" alt="Google Logo">
+                Continue With Google
+            </button>
+            <p>Don't have an account? <span class="toggle-link" onclick="showRegister()">Register</span></p>
+        </div>
+
+        <!-- Registration Box -->
+        <div class="auth-box" id="register-box" style="display: none;">
+            <img src="images/account.png" alt="User Icon" class="user-icon">
+            <h2 class="welcome-text">Create an Account</h2>
+            <p>Join Leverage Pro and start maximizing your earnings today!</p>
+            <!-- Registration form -->
+            <form class="auth-form" id="register-form">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="surname" placeholder="Surname" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit" class="auth-button">Continue</button>
+            </form>
+            <div class="separator">OR</div>
+            <button class="google-login-button" onclick="window.location.href='http://localhost:8000/google/login';">
+                <img src="images/google.png" alt="Google Logo">
+                Continue With Google
+            </button>
+            <p>Already have an account? <span class="toggle-link" onclick="showLogin()">Login</span></p>
+        </div>
+    </div>
+
+    <script>
+        function showRegister() {
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('register-box').style.display = 'flex';
+        }
+    
+        function showLogin() {
+            document.getElementById('register-box').style.display = 'none';
+            document.getElementById('login-box').style.display = 'flex';
+        }
+    
+        // Check URL parameters and display accordingly
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            if (action === 'register') {
+                showRegister();
+            } else {
+                showLogin();
+            }
+        };
+    </script>
+    
+</body>
+</html>

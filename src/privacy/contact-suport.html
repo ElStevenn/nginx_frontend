@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Support</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papCnrha6uA+N6zSe/NmFjPOX3G9LUR6jrH0bnOz5qvL3dOq5Z1R/+ZjB3aIvbjHoMk+MVw/H5hnD5O0X7dKgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 80px; /* Added padding to prevent overlap with fixed header */
+        }
+
+        /* Fixed Top Header Styles */
+        .header {
+            width: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 28px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a i {
+            margin-right: 8px;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Contact Support Page Container */
+        .contact-container {
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            padding-top: 50px;
+        }
+
+        /* Contact Support Page Header Styles */
+        .contact-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-header .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 10px;
+        }
+
+        .contact-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Auth Box Styles (Reused for Contact Support) */
+        .auth-box {
+            background-color: #1c1c1c;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #ff4081;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #e0e0e0;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            max-width: 400px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-form input, .auth-form textarea, .auth-form select {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #2b2b2b;
+            color: #e0e0e0;
+        }
+
+        .auth-form input::placeholder, .auth-form textarea::placeholder, .auth-form select::placeholder {
+            color: #9e9e9e;
+        }
+
+        .auth-button {
+            padding: 12px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .auth-button:hover {
+            background-color: #f50057;
+        }
+
+        .resend-code, .contact-support-link {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .resend-code:hover, .contact-support-link:hover {
+            color: #ff4081;
+        }
+
+        .separator {
+            color: #e0e0e0;
+            margin: 20px 0;
+            font-size: 16px;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #424242;
+        }
+
+        .separator::before {
+            left: 0;
+        }
+
+        .separator::after {
+            right: 0;
+        }
+
+        .google-login-button {
+            padding: 10px 35px;
+            border: none;
+            background-color: #ffffff;
+            color: #000;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .google-login-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .google-login-button img {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        img {
+            border-radius: 5px;
+        }
+
+        .toggle-link {
+            color: #ff4081;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toggle-link:hover {
+            color: #f50057;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .quiz-input {
+            padding: 8px;
+            width: 100%;
+            max-width: 100px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #2b2b2b;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .header-left h1 {
+                font-size: 24px;
+            }
+
+            .contact-header h1 {
+                font-size: 36px;
+            }
+
+            .welcome-text {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .auth-form input, .auth-form textarea, .auth-form select {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .auth-button {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .google-login-button {
+                font-size: 14px;
+                padding: 10px 25px;
+            }
+
+            .quiz-input {
+                max-width: 80px;
+            }
+        }
+
+        /* Animation (Optional) */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Top Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Trade Visionary Logo" onclick="window.location.href='/';">
+            <h1>Trade Visionary</h1>
+        </div>
+        <div class="header-right">
+            <a href="#features"><i class="fas fa-chart-line"></i> Features</a>
+            <a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+            <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+            <a href="#testimonials"><i class="fas fa-comments"></i> Testimonials</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </header>
+
+    <div class="contact-container">
+        <!-- Contact Support Page Header -->
+        <div class="contact-header">
+            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+            <h1>CONTACT SUPPORT</h1>
+            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+        </div>
+
+        <div class="auth-box" id="contact-box">
+            <img src="images/support.png" alt="Support Icon" class="user-icon">
+            <h2 class="welcome-text">We're Here to Help</h2>
+            <p>Please fill out the form below and our support team will get back to you as soon as possible.</p>
+            <!-- Contact Support Form -->
+            <form class="auth-form" id="contact-form" action="YOUR_CONTACT_ENDPOINT" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="tel" name="phone" placeholder="Your Phone Number (Optional)">
+                <select name="preferred_contact" required>
+                    <option value="" disabled selected>Preferred Contact Method</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                    <option value="no_preference">No Preference</option>
+                </select>
+                <select name="type_of_help" required>
+                    <option value="" disabled selected>Type of Assistance</option>
+                    <option value="technical_issue">Technical Issue</option>
+                    <option value="billing">Billing</option>
+                    <option value="general_inquiry">General Inquiry</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="message" rows="5" placeholder="Describe Your Issue" required></textarea>
+                
+                <!-- Quiz Container -->
+                <div class="quiz-container">
+                    <div class="quiz-question">What is 5 + 3?</div>
+                    <input type="text" id="quiz-answer" class="quiz-input" placeholder="Your Answer" required>
+                </div>
+
+                <button type="submit" class="auth-button">Submit</button>
+            </form>
+            <p>Need to go back? <span class="toggle-link" onclick="goToHome()">Return Home</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle Return Home action
+        function goToHome() {
+            // Redirect to the home page or desired page
+            window.location.href = 'http://localhost/home'; // Replace with your actual home URL
+        }
+
+        // Handle form submission with quiz validation
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Get the user's answer to the quiz
+            const userAnswer = document.getElementById('quiz-answer').value.trim();
+
+            // Define the correct answer
+            const correctAnswer = '8';
+
+            // Validate the quiz answer
+            if (userAnswer !== correctAnswer) {
+                alert('Incorrect answer to the verification question. Please try again.');
+                return;
+            }
+
+            // If the answer is correct, proceed with form submission
+            // You can use AJAX to submit the form without reloading the page
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Your message has been sent successfully!');
+                    this.reset();
+                } else {
+                    alert('There was an error sending your message. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error sending your message. Please try again later.');
+            });
+        });
+    </script>
+</body>
+</html>

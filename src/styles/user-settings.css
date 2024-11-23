@@ -1,0 +1,564 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main-content {
+    display: flex;
+    margin-top: 80px; 
+    justify-content: center; 
+    padding: 20px; 
+    min-height: calc(100vh - 80px);
+}
+
+
+#leftPane {
+    background-color: #1e1e1e;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    width: 250px;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+#rightPane {
+    position: relative;
+    background-color: #2e2e2e;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden; 
+    flex-grow: 1;
+    max-width: 800px; /* DO NOT MODIFY THIS */
+    width: 100%; /* DO NOT MODIFY THIS */
+    min-width: 0;
+}
+
+textarea:focus {
+border-color: #0053cfce;
+}
+
+.far-right-profile-pic {
+    position: absolute;
+    top: 80px;
+    right: 10%;
+    width: 150px;
+    text-align: center;
+}
+
+
+.profile-pic-title {
+    font-size: 15px;
+    color: #e0e0e0;
+    font-weight: bold;
+    margin-bottom: 7px;
+    margin-left: -69px;
+}
+
+.far-right-profile-pic img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+/* Left Pane Styles */
+.profile-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative; 
+}
+
+.profile-summary img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-left: 15px;
+    
+}
+
+.profile-summary .user-info {
+    display: flex;
+    flex-direction: column;
+    /* Ensure it doesn't take full width */
+    max-width: 150px;
+}
+
+.profile-summary .user-info .username {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+.profile-summary .user-info .fullname {
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
+/* Navigation menu styles */
+.settings-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-menu li {
+    padding: 10px 0 10px 20px;
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    margin-top: 3px;
+}
+
+.settings-menu li:not(:last-child) {
+    border-radius: 5px;
+}
+
+.settings-menu li img {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    filter: invert(70%);
+}
+
+.settings-menu li:hover {
+    background-color: #2e2e2e;
+}
+
+.settings-menu li.active {
+    background-color: #313131;
+    color: #fff;
+    border-left: 4px solid #ff4081; /* Pink vertical rectangle */
+    padding-left: 16px; /* Adjust padding */
+}
+
+.settings-menu li:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.settings-menu li:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.left-pane-hr {
+    border: none;
+    height: 0.5px; 
+    background: linear-gradient(to right, #444, #666, #444);
+    margin: 30px 0;
+    width: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
+}
+
+/* Settings sections */
+.settings-section {
+    min-height: calc(100vh - 160px);
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.settings-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #ff4081;
+    margin-bottom: 5px;
+    margin-top: 13px;
+    font-size: 22px;
+}
+
+.settings-section hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    max-width: 800px;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-firstname-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+
+.form-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group.profile-picture-group {
+    flex: 0 0 auto;
+}
+
+
+.form-group {
+    flex: 1 1 0;
+    min-width: 0; 
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.settings-section input[type="text"],
+.settings-section input[type="email"],
+.settings-section input[type="password"],
+.settings-section input[type="url"],
+.settings-section textarea,
+.settings-section select {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 4px; 
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #e0e0e0;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding-right: 90px;
+}
+
+.settings-section textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px;
+    color: #e0e0e0;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.settings-section input[type="text"]:focus,
+.settings-section input[type="email"]:focus,
+.settings-section input[type="password"]:focus,
+.settings-section input[type="url"]:focus,
+.settings-section textarea:focus {
+    border-color: #42a5f5;
+    outline: none; 
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+.form-group p {
+    margin-top: 0px;
+    color: #b0b0b0;
+    font-size: 11px;
+}
+
+
+button[type="submit"],
+button[type="button"] {
+    padding: 10px 20px;
+    background-color: #ff4081;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #e91e63;
+}
+
+/* Profile Picture Update Styles */
+.profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#current-profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+button.edit-profile-pic-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    background-color: #2e2e2e;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border: groove 0.5px #666;
+    margin-top: -35px;
+    margin-left: -7px;
+    z-index: 50;
+}
+
+button.edit-profile-pic-button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    filter: invert(100%); 
+}
+
+button.edit-profile-pic-button:hover {
+    background-color: #2e2e2e;
+}
+
+.profile-pic-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic-actions input[type="file"] {
+    margin-bottom: 5px;
+}
+
+.profile-pic-actions p {
+    margin: 0;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.settings-section .form-group:not(.profile-picture-group) {
+    max-width: 400px; 
+}
+
+.search-icon{
+    filter: invert(100%);
+}
+
+.label-description {
+    color: #b0b0b0;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.label-description-b {
+    color: #c5c5c5;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+.label-description-b a{
+    text-decoration: underline;
+    color: #42a5f5;
+
+}
+
+.clasic-config-button {
+    padding: 4px 11px 4px 11px; 
+    background-color: #434343;
+    color: #e0e0e0;
+    border-radius: 6px;
+    border: 0.5px solid #6d6d6d;
+    cursor: pointer;
+    font-size: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.clasic-config-button:hover {
+    background-color: #555555;
+    transition: background-color 0.3s ease;
+}
+
+
+#public-email {
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+    
+    /* Styling the select box */
+    background-color: #2e2e2e; /* Darker background */
+    border: 1px solid #444; /* Slightly lighter border */
+    color: #e0e0e0; 
+    padding: 7px 30px 7px 10px; 
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Positioning the custom arrow using external image */
+    background-image: url('/images/sort.png'); /* Path to your custom arrow image */
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px 8px; /* Adjust based on your image dimensions */
+    cursor: pointer;
+}
+
+/* Optional: Change the select's focus state */
+#public-email:focus {
+    outline: none;
+    border-color: #42a5f5; 
+}
+
+.email-select-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; /
+}
+
+.remove-email {
+    margin-right: 70px;
+    margin-bottom: 7px;
+    color: #b0b0b0;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.remove-email:hover {
+    text-decoration: underline; 
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .far-right-profile-pic {
+        position: static; 
+        margin: 0 auto 20px; 
+    }
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    #leftPane, #rightPane {
+        width: 100%;
+        max-width: 600px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    #rightPane {
+        margin-top: 20px;
+    }
+    #leftPane {
+        border-right: none;
+    }
+
+    .profile-pic-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #current-profile-pic {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+/* Notification Bar Styles */
+.notification-bar {
+    position: fixed;
+    top: 8%;
+    right: 15px; 
+    max-width: 300px; /* Set a maximum width */
+    background-color: #323232;
+    color: #fff;
+    padding: 10px 17px;
+    font-size: 14px;
+    z-index: 9999;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+    /* Start hidden */
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* When the notification bar is visible */
+.notification-bar.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification-bar.success {
+    background-color: #4CAF50; 
+}
+
+.notification-bar.error {
+    background-color: #f44336; 
+}
+
+/* Close Button Styles */
+.close-notification {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.close-notification:hover {
+    opacity: 1;
+}
+/*Managing Trading Accounts*/
+.trading-account {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.trad-acc-select, .trad-acc-add {
+    display: flex;
+    margin-left: 10px;
+    flex-direction: column;
+}
+
+.select-link-container {
+    display: flex;
+    align-items: center;
+}
+
+.select-link-container select {
+    margin-right: 10px;
+}
