@@ -3,20 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
+<script src="scripts/main-scripts/globalProvider.js"></script>
 <script src="scripts/set-profile.js"></script>
 <script src="scripts/dashboard-script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/scripts/crypto-searcher.js"></script>
+<script src="/scripts/dashboardDataHandler.js"></script>
 <link rel="stylesheet" href="styles/user-header.css">
 <link rel="stylesheet" href="styles/user-dashboard.css">
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-<style>
-
-
-
-
-    </style>
-  
 </head>
 <body>
     <header class="header">
@@ -109,108 +104,53 @@
             </div>
         </div>
     </header>
-
-    <div class="content">
-        <div class="section section1">
-            <h2 class="table-title">Summary of Last Operations</h2>
-            <!-- Filters -->
-            <div class="summary-filters">
-                <a href="#">Today</a>
-                <a href="#" class="active">Latest</a>
-                <a href="#">Last Week</a>
-                <a href="#">Last Month</a>
-                <img src="images/calendar.png" alt="Calendar Select">
-            </div>
-
-
-            <!-- Table with Operations -->
-            <table class="table-operations">
-                <tr>
-                    <th>Symbol</th>
-                    <th>Date</th>
-                    <th>Net PNL</th>
-                    <th>Side</th>
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>2023-09-15</td>
-                    <td>$500</td>
-                    <td>Buy</td>
-                </tr>
-                <tr>
-                    <td>XYZ</td>
-                    <td>2023-09-16</td>
-                    <td>$-250</td>
-                    <td>Sell</td>
-                </tr>
-                <tr>
-                    <td>DEF</td>
-                    <td>2023-09-17</td>
-                    <td>$300</td>
-                    <td>Buy</td>
-                </tr>
-                <tr>
-                    <td>GHI</td>
-                    <td>2023-09-18</td>
-                    <td>$-100</td>
-                    <td>Sell</td>
-                </tr>
-                <tr>
-                    <td>JKL</td>
-                    <td>2023-09-19</td>
-                    <td>$450</td>
-                    <td>Buy</td>
-                </tr>
-                <tr>
-                    <td>MNO</td>
-                    <td>2023-09-20</td>
-                    <td>$-200</td>
-                    <td>Sell</td>
-                </tr>
-                <tr>
-                    <td>PQR</td>
-                    <td>2023-09-21</td>
-                    <td>$600</td>
-                    <td>Buy</td>
-                </tr>
-            </table>            
-                
-        <!-- Cryptos With high funding rates -->
-        <div class="higer_coins" id="higer_coins">
-            <img id="loading" src="images/loading_v2.gif" alt="Loading...">
+        <!-- Main Layout Container -->
+        <div class="main-layout">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <button class="nav-button">Assets</button>
+                <button class="nav-button">Other part I</button>
+                <button class="nav-button">Other part II</button>
+            </aside>
+    
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Top Row -->
+                <div class="top-row">
+                    <!-- Left Column: Assets -->
+                    <div class="assets-section">
+                        <h2>Assets</h2>
+                        <p id="user-assets">10 USDT</p>
+                    </div>
+                    
+                    <!-- Right Column: Assets Chart -->
+                    <div class="assets-chart-section">
+                        <canvas id="assetsChart"></canvas>
+                    </div>
+                </div>
+    
+                <!-- Bottom Row -->
+                <div class="bottom-row">
+                    <!-- Left Column: Allocation Chart -->
+                    <div class="allocation-chart-section">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                    
+                    <!-- Right Column: Recent Trades -->
+                    <div class="recent-trades-section">
+                        <h2>Recent Trades</h2>
+                        <ul>
+                            <li>Trade 1: Buy 5 BTC</li>
+                            <li>Trade 2: Sell 3 ETH</li>
+                            <li>Trade 3: Buy 10 USDT</li>
+                            <!-- Add more trades as needed -->
+                        </ul>
+                    </div>
+                </div>
+            </main>
         </div>
-
-            
-
-        </div>
-        <div class="section section2">
-            <p>This is the right section, and a chart has been added below:</p>
-
-            <!-- Canvas for the Chart -->
-            <canvas id="myChart" width="400" height="300"></canvas>
-
-            <!-- Sample Crypto Ad -->
-            <div class="crypto-ad">
-                <h3>Invest in Crypto Today!</h3>
-                <p>Join the crypto revolution and start investing in Bitcoin, Ethereum, and more.</p>
-                <button>Learn More</button>
-            </div>
-        </div>
+    
     </div>
-    <footer class="footer">
-        <div class="footer-left">
-            <div class="button-container">
-                <div class="button-item">
-                    <p>Trading status</p>
-                    <button>Active</button>
-                </div>
-                <div class="button-item">
-                    <p>Auto trading status</p>
-                    <button>Active</button>
-                </div>
-            </div>
-        </div>
-    </footer>
     <div id="overlay" class="overlay"></div>
 </body>
 </html>

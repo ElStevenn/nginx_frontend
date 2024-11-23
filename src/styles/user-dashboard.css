@@ -89,28 +89,7 @@ a {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-/* Footer Styles */
-.footer {
-    width: 100%;
-    height: 120px; 
-    background-color: #1f1f1f;
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 90;
-    color: #e0e0e0;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5);
-}
 
-.footer-left {
-    width: 30%;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .button-container {
     display: flex;
@@ -146,11 +125,6 @@ a {
     background-color: #f50057;
 }
 
-.footer-right {
-    width: 70%;
-    padding: 20px;
-    box-sizing: border-box;
-}
 
 .funding-rate {
     font-size: 18px;
@@ -162,46 +136,6 @@ a {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-.footer-right h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    color: #ff4081;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    text-align: center;  /* Center the text */
-    margin-top: 0px;
-    margin-bottom: 10px;
-}
-
-.footer-right ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
-    gap: 10px;
-    color: #e0e0e0;
-}
-
-.footer-right ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-    font-size: 18px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.footer-right a {
-    text-decoration: none;
-    color: #e0e0e0;
-}
-
-.footer-right a:hover {
-    color: #ff4081;
-    transition: 0.3s;
-}
 
 .section1 h2, .section1 p,
 .section2 h2, .section2 p {
@@ -291,22 +225,8 @@ a {
         margin-bottom: 20px;
     }
 
-    .footer {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-left, .footer-right {
-        width: 100%;
-        text-align: center;
-    }
-
     .button-container {
         flex-direction: column;
-    }
-
-    .footer-right ul {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .search-container {
@@ -451,3 +371,161 @@ a {
     color: #ff4081;
     margin: 20px 0;
 }
+
+
+/* Main Layout Container */
+.main-layout {
+    display: flex;
+    height: 90vh; /* 100vh - 10vh for header */
+    margin-top: 10vh; /* Ensures content starts below the header */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 20%;
+    background-color: #1c1c1c;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.nav-button {
+    background-color: #424242;
+    color: #e0e0e0;
+    border: none;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #ff4081;
+    color: #ffffff;
+}
+
+/* Main Content Styles */
+.main-content {
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* Top and Bottom Rows */
+.top-row, .bottom-row {
+    display: flex;
+    height: 45vh; /* Approximately half of the main content height minus some gap */
+    gap: 20px;
+}
+
+/* Assets Section */
+.assets-section {
+    width: 50%;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.assets-section h2 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+.assets-section p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Assets Chart Section */
+.assets-chart-section {
+    width: 50%;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Allocation Chart Section */
+.allocation-chart-section {
+    width: 50%;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Recent Trades Section */
+.recent-trades-section {
+    width: 50%;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.recent-trades-section h2 {
+    margin-bottom: 15px;
+}
+
+.recent-trades-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recent-trades-section li {
+    background-color: #424242;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.recent-trades-section li:hover {
+    background-color: #ff4081;
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .main-layout {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .nav-button {
+        flex: 1;
+        margin: 10px 5px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .top-row, .bottom-row {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .assets-section, .assets-chart-section,
+    .allocation-chart-section, .recent-trades-section {
+        width: 100%;
+        height: auto;
+    }
+}
+

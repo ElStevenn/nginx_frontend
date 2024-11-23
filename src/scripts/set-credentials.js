@@ -1,100 +1,7 @@
 let user_bearer_token = null;
-const user_api_ip = "http://localhost:8000";
-const exchange_api_ip = "http://localhost:8001"; 
-
-
-
-function show403Error() {
-    document.body.innerHTML = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>403 Forbidden</title>
-            <style>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-
-                body {
-                    height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #121212;
-                    color: #e0e0e0;
-                    font-family: 'Roboto', sans-serif;
-                    text-align: center;
-                    padding: 20px;
-                }
-
-                .error-container {
-                    max-width: 600px;
-                    background-color: #1e1e1e;
-                    padding: 40px 30px;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                }
-
-                h1 {
-                    font-family: 'Montserrat', sans-serif;
-                    color: #ff4081;
-                    font-size: 48px;
-                    margin-bottom: 20px;
-                }
-
-                p {
-                    font-size: 18px;
-                    margin-bottom: 30px;
-                    line-height: 1.6;
-                }
-
-                a {
-                    display: inline-block;
-                    padding: 12px 25px;
-                    background-color: #ff4081;
-                    color: #fff;
-                    text-decoration: none;
-                    border-radius: 5px;
-                    font-size: 16px;
-                    transition: background-color 0.3s ease;
-                }
-
-                a:hover {
-                    background-color: #e91e63;
-                }
-
-                @media (max-width: 480px) {
-                    h1 {
-                        font-size: 36px;
-                    }
-
-                    p {
-                        font-size: 16px;
-                    }
-
-                    a {
-                        padding: 10px 20px;
-                        font-size: 14px;
-                    }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="error-container">
-                <h1>403 Forbidden</h1>
-                <p>Sorry, you don't have permission to access this page.</p>
-                <a href="/dashboard">Return to Dashboard</a>
-            </div>
-        </body>
-        </html>
-    `;
-}
 
 async function get_proxy_ip() {
-    const url = exchange_api_ip + '/proxy/public-ip';
+    const url = exchangeAPI + '/proxy/public-ip';
 
     try {
         let response = await fetch(url, {
@@ -125,7 +32,7 @@ function getAccessKeyFromURL() {
 }
 
 async function validate_credentials(email_address, api_key, secret_key, account_name, passphrase, ip) {
-    const url = `${exchange_api_ip}/auth/register`;
+    const url = `${exchangeAPI}/auth/register`;
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -190,8 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Fetch and display the proxy IP
     async function fetchAndDisplayIP() {
-        const exchange_api_ip = "http://localhost:8001"; // Adjust this if necessary
-        const url = exchange_api_ip + '/proxy/public-ip';
+        const url = exchangeAPI + '/proxy/public-ip';
 
         try {
             let response = await fetch(url, {
@@ -285,7 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Handle access key errors
     if (accessKey == "" || !accessKey){
         show403Error();
-        return; // Ensure the rest of the code doesn't run if access is denied
+        return; 
     }
 
     // Show public IP
@@ -306,4 +212,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// V 2.0.0
+// V 2.0.1

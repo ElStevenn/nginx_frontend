@@ -1,5 +1,6 @@
+
 document.addEventListener('DOMContentLoaded', function() {
-    const url_base = 'http://localhost:8000/get_hight_founind_rates/-0.1'; 
+    const url_base = exchangeAPI + '/get_hight_founind_rates/-0.1'; 
 
     // Function to fetch data from the API endpoint
     async function fetchFundingRates() {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// Chart
+// Chart (revise this, it doesn't make sense here, 'localhost' cannot be here)
 document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost/get_historical_founding_rate/DYMUSDT', {
         method: 'GET',

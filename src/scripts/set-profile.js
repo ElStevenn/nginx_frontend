@@ -1,15 +1,5 @@
-function getCookie(name) {
-    const cookieArr = document.cookie.split(';');
-    for (let cookie of cookieArr) {
-        let [key, value] = cookie.trim().split('=');
-        if (key === name) {
-            return decodeURIComponent(value);
-        }
-    }
-    return null;
-}
-
 let userDataPromise = null;
+
 
 function get_user_data() {
     if (userDataPromise) {
@@ -29,9 +19,7 @@ function get_user_data() {
         }
 
         credentials = credentials.replace(/^"(.*)"$/, '$1');
-
-        const url = "http://localhost:8000/user_profile";
-
+        const url = globalAPI + "/user_profile";
         const headers = {
             "accept": "application/json",
             "Authorization": credentials
@@ -107,13 +95,6 @@ async function function_fetc_data_header() {
 }
 
 function_fetc_data_header();
-
-// Log out function
-function log_out() {
-    document.cookie = "credentials=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = '/login';
-}
-
 
 // Function to toggle the profile menu
 function toggleMenu1(event) {
@@ -221,3 +202,8 @@ document.getElementById('overlay').addEventListener('click', function(event) {
 document.getElementById('header-left-side').addEventListener('click', function(event) {
     window.location.href = "/dashboard"
 })
+
+function log_out() {
+    document.cookie = "credentials=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = '/login';
+}

@@ -1,19 +1,6 @@
-const api_url = "http://51.158.67.62:8080";
-const user_data_api_url = "http://localhost:8000";
-
 let isCryptoStarred = false; 
 let cryptoData = {}; 
 
-function getCookie(name) {
-    const cookieArr = document.cookie.split(';');
-    for (let cookie of cookieArr) {
-        let [key, value] = cookie.trim().split('=');
-        if (key === name) {
-            return decodeURIComponent(value);
-        }
-    }
-    return null;
-}
 
 function getValueAfterCryptoDetail() {
     const path = window.location.pathname; 
@@ -31,7 +18,7 @@ function getValueAfterCryptoDetail() {
 function getCryptoData() {
     const searched_crypto = getValueAfterCryptoDetail();
     if (searched_crypto) {
-        const url = `${api_url}/get_detail_event/${searched_crypto}`;
+        const url = cryptocurrencyAPI + `/get_detail_event/${searched_crypto}`;
 
         fetch(url, {
             method: 'GET',
@@ -161,16 +148,6 @@ function setupDescription(fullDescription) {
     }
 }
 
-
-function linkify(text) {
-    // Regular expression to match URLs
-    var urlPattern = /(https?:\/\/[^\s]+)/g;
-
-    // Replace URLs with anchor tags
-    return text.replace(urlPattern, function(url) {
-        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
-    });
-}
 
 function toggleDescription(event) {
     // Function to toggle the description display
@@ -329,8 +306,7 @@ async function get_main_panle_info() {
         return;
     }
     credentials = credentials.replace(/^"(.*)"$/, '$1');
-
-    const url = `${user_data_api_url}/get_main_panle_crypto/${searched_crypto}`;
+    const url = cryptocurrencyAPI + `/get_main_panle_crypto/${searched_crypto}`;
     const headers = {
         'Accept': 'application/json',
         "Authorization": credentials
@@ -389,7 +365,7 @@ async function toggleHighlightCrypto() {
     try {
         if (isCryptoStarred) {
             // If currently starred, remove it
-            const url = `${user_data_api_url}/remove_starred_symbol/${searched_crypto}`;
+            const url = cryptocurrencyAPI + `/remove_starred_symbol/${searched_crypto}`;
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: headers
@@ -407,7 +383,7 @@ async function toggleHighlightCrypto() {
             }
         } else {
             // If currently not starred, add it
-            const url = `${user_data_api_url}/add_new_starred_symbol`;
+            const url = globalAPI + '/add_new_starred_symbo';
             const body = JSON.stringify({
                 symbol: searched_crypto,
                 name: cryptoData.name,
@@ -429,7 +405,6 @@ async function toggleHighlightCrypto() {
             const starIcon = document.getElementById('starred_crypto');
             if (starIcon) {
                 starIcon.src = "/images/starred.png";
-                // starIcon.style = "";
             }
         }
 
@@ -439,11 +414,10 @@ async function toggleHighlightCrypto() {
 }
 
 async function get_current_funding_rate(symbol) {
-    const api_url = `https://api.bitget.com/api/v2/mix/market/current-fund-rate?symbol=${symbol}&productType=usdt-futures`; 
+    const exchange_url = bitgetAPI + `/api/v2/mix/market/current-fund-rate?symbol=${symbol}&productType=usdt-futures`; 
 
     try {
-        console.log("Fetching funding rate from URL:", api_url);
-        const api_response = await fetch(api_url);
+        const api_response = await fetch(exchange_url);
         
         if (!api_response.ok) {
             throw new Error(`Network response was not ok: ${api_response.statusText} (Status Code: ${api_response.status})`);
