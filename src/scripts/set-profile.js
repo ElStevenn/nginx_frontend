@@ -19,7 +19,7 @@ function get_user_data() {
         }
 
         credentials = credentials.replace(/^"(.*)"$/, '$1');
-        const url = globalAPI + "/user_profile";
+        const url = globalAPI + "/user/profile";
         const headers = {
             "accept": "application/json",
             "Authorization": credentials

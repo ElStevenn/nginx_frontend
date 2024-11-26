@@ -4,7 +4,7 @@
 .header {
     width: 100%;
     height: 65px;
-    background-color: #1f1f1f;
+    background-color: #000000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,13 +74,6 @@
     height: 40px;
     width: 375px;
     cursor: pointer;
-}
-
-.search-container img {
-    width: 30px;
-    height: 30px;
-    margin-left: 5px;
-    margin-right: 7px;
 }
 
 @media (max-width: 900px) {
@@ -282,7 +275,7 @@ header hr {
     height: 30px;
     margin-left: 10px; 
     margin-right: 10px; 
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 /* Search Input Styles */

@@ -1,4 +1,3 @@
-const mainAPI_url = "http://localhost:8000";
 
 // Function to open the credentials window
 function openCredentialsWindow() {
@@ -20,9 +19,9 @@ async function get_trading_accounts() {
         window.location.href = '/login';
         throw new Error("No credentials found");
     }
-    credentials = credentials.replace(/^"(.*)"$/, '$1');
 
-    const url = `${mainAPI_url}/accounts/users`;
+    credentials = credentials.replace(/^"(.*)"$/, '$1');
+    const url = globalAPI + '/accounts/users';
     const headers = {
         "Accept": "application/json",
         "Authorization": credentials
@@ -43,14 +42,14 @@ async function get_trading_accounts() {
         }
 
         const data = await response.json();
-        return data; // Returns a single account object or an array of account objects
+        return data; 
     } catch (error) {
         console.error('Fetch error:', error.message);
         throw error;
     }
 }
 
-// Function to populate the select element with trading accounts
+
 async function set_user_account() {
     try {
         const user_trading_accounts = await get_trading_accounts();
@@ -89,6 +88,12 @@ async function set_user_account() {
             const option = document.createElement('option');
             option.value = account.account_id; 
             option.textContent = account.account_name;
+
+            // If the account is the main account, set it as selected
+            if (account.type === "main-account") {
+                option.selected = true;
+            }
+
             accountSelector.appendChild(option);
         });
     } catch (error) {
@@ -97,6 +102,68 @@ async function set_user_account() {
         alert('Failed to load trading accounts. Please try again later.');
     }
 }
+
+
+async function set_account() {
+    /*Set user account*/
+    const account_data = await get_account_data();
+
+
+
+}
+
+
+async function save_account(event) {
+    /*Save user profile, at this moment only can save the main trade account*/
+    event.preventDefault();
+
+    var trading_account = document.getElementById('trading-account').value || '';
+
+    if (trading_account == 'no-added') {
+        trading_account = null;
+    }    
+
+    let credentials = getCookie("credentials");
+    if (!credentials) {
+        console.error("No credentials found");
+        window.location.href = '/login';
+        throw new Error("No credentials found");
+    }
+
+    credentials = credentials.replace(/^"(.*)"$/, '$1');
+    const url = globalAPI + '/accounts/configuration';
+    const headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": credentials
+    }
+    const data = {
+        'account_id': trading_account
+    }
+
+    try{
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data),
+        });
+        
+        if (response.ok) {
+            showNotification('Your profile has been updated successfully!', 'success');
+        } else {
+            const errorMessage = await response.text();
+            showNotification('Failed to fetch your profile with the API.' + errorMessage, 'error');
+        }
+        
+
+    }catch(error){
+        console.error("Error updating account:", error);
+        showNotification("An error ocurred while saving the profile. Plase try again", 'error');
+    }
+
+}
+
+
 
 // Ensure the set_user_account function is called when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {

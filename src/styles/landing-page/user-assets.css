@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #121212;
+    background-color: #1c1c1c;
     color: #e0e0e0;
     display: flex;
     flex-direction: column;
@@ -48,92 +48,6 @@ a {
 .section2 {
     width: 50%;
     background-color: #121212;
-}
-
-/* Table Styles */
-.table-operations {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    color: #e0e0e0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-.table-operations th, .table-operations td {
-    border: 1px solid #424242;
-    padding: 8px 12px;
-    text-align: left;
-}
-
-.table-operations th {
-    background-color: #2b2b2b;
-    color: #e0e0e0;
-    box-shadow: inset 0 -3px 0 #2b2b2b;
-}
-
-.table-operations tr:nth-child(even) {
-    background-color: #1f1f1f;
-}
-
-.table-operations tr:hover {
-    background-color: #333333;
-}
-
-.table-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    color: #ff4081;
-    margin-bottom: 10px;
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-
-
-.button-container {
-    display: flex;
-    align-items: flex-start;
-}
-
-.button-item {
-    margin: 0 20px;
-    text-align: center;
-}
-
-.button-item p {
-    margin: 0 0 5px 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    color: #e0e0e0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-}
-
-.button-item button {
-    padding: 2vh 4vw;
-    font-size: 2.5vh;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #ff4081;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-.button-item button:hover {
-    background-color: #f50057;
-}
-
-
-.funding-rate {
-    font-size: 18px;
-    color: #ff4081;
-    font-weight: bold;
-    background-color: rgba(255, 64, 129, 0.1);
-    padding: 2px 5px;
-    border-radius: 3px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -376,62 +290,43 @@ a {
 /* Main Layout Container */
 .main-layout {
     display: flex;
-    height: 90vh; /* 100vh - 10vh for header */
-    margin-top: 10vh; /* Ensures content starts below the header */
+    height: 90vh;                
+    margin-top: 10vh;          
+    margin-left: 18%;            
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 20%;
-    background-color: #1c1c1c;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
 
-.nav-button {
-    background-color: #424242;
-    color: #e0e0e0;
-    border: none;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
 
-.nav-button:hover {
-    background-color: #ff4081;
-    color: #ffffff;
-}
 
+/* - - -  - - - - - - - - - - - - - - -*/
 /* Main Content Styles */
 .main-content {
-    width: 80%;
+    width: 100%;                   
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
+    overflow-y: auto;             
 }
 
 /* Top and Bottom Rows */
-.top-row, .bottom-row {
+.top-row {
     display: flex;
-    height: 45vh; /* Approximately half of the main content height minus some gap */
+    height: 40%;                  
+    gap: 20px;
+}
+
+.bottom-row {
+    display: flex;
+    height: 45vh;
     gap: 20px;
 }
 
 /* Assets Section */
 .assets-section {
     width: 50%;
-    background-color: #1f1f1f;
     padding: 20px;
-    border-radius: 10px;
     box-sizing: border-box;
 }
 
@@ -448,9 +343,7 @@ a {
 /* Assets Chart Section */
 .assets-chart-section {
     width: 50%;
-    background-color: #1f1f1f;
     padding: 20px;
-    border-radius: 10px;
     box-sizing: border-box;
 }
 
@@ -461,6 +354,7 @@ a {
     padding: 20px;
     border-radius: 10px;
     box-sizing: border-box;
+    border: solid 0.5px #3a3a3a;
 }
 
 /* Recent Trades Section */
@@ -470,6 +364,7 @@ a {
     padding: 20px;
     border-radius: 10px;
     box-sizing: border-box;
+    border: solid 0.5px #3a3a3a;
 }
 
 .recent-trades-section h2 {
@@ -498,23 +393,11 @@ a {
 /* Responsive Design */
 @media (max-width: 1200px) {
     .main-layout {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .sidebar {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-    }
-
-    .nav-button {
-        flex: 1;
-        margin: 10px 5px;
+        margin-right: 25%;
     }
 
     .main-content {
-        width: 100%;
+        width: 25%;
     }
 
     .top-row, .bottom-row {
@@ -529,3 +412,91 @@ a {
     }
 }
 
+
+
+/* OTHER STYLES | DO NOT COPY THIS */
+/* Table Styles */
+.table-operations {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.table-operations th, .table-operations td {
+    border: 1px solid #424242;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.table-operations th {
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    box-shadow: inset 0 -3px 0 #2b2b2b;
+}
+
+.table-operations tr:nth-child(even) {
+    background-color: #1f1f1f;
+}
+
+.table-operations tr:hover {
+    background-color: #333333;
+}
+
+.table-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #ff4081;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+
+
+.button-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.button-item {
+    margin: 0 20px;
+    text-align: center;
+}
+
+.button-item p {
+    margin: 0 0 5px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #e0e0e0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.button-item button {
+    padding: 2vh 4vw;
+    font-size: 2.5vh;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ff4081;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.button-item button:hover {
+    background-color: #f50057;
+}
+
+
+.funding-rate {
+    font-size: 18px;
+    color: #ff4081;
+    font-weight: bold;
+    background-color: rgba(255, 64, 129, 0.1);
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}

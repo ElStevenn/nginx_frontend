@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Settings</title>
 
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
     <script src="/scripts/crypto-searcher.js"></script>
     <script src="/scripts/set-profile.js" defer></script>
-    <!-- <script src="/scripts/user-settings/user-settings-profile.js" defer></script> -->
+    
     <script src="/scripts/user-settings/user-settings-account.js" defer></script>
     
-
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/styles/user-header.css">
     <link rel="stylesheet" href="/styles/user-settings.css">
 
@@ -47,8 +48,8 @@
                 </div>
                 <hr>
                 <div class="mini-section">
-                    <img src="/images/user_profile.png" alt="Icon">
-                    <span class="profile-text">Your Profile</span>
+                    <img src="/images/icons/shield.png" alt="Shield Icon">
+                    <span class="profile-text">Security</span>
                 </div>
                 <div class="mini-section">
                     <img src="/images/butt.png" alt="Icon">
@@ -266,17 +267,20 @@
                             </select>
                             <a href="#" class="remove-email">X Remove</a> 
                         </div>
-                        <p class="label-description">You can only have one trading account where you execute trades</p>
+                        <p class="label-description">Select your main trading account for your dashboard</p>
                     </div>
                     <div class="trad-acc-add">
                         <label>Add new trading account</label>
                         <button class="clasic-config-button" onclick="openCredentialsWindow()">Add account</button>
                     </div>
                 </div>
-
-                     <!-- Delete Account -->
-
-                <button type="submit" onclick="">Save Changes</button>     
+                <!-- Delete Account -->
+                <h2 style="margin-top: 40px; color: rgb(207, 0, 0);">Delete Account</h2>
+                <hr>
+                <button type="delete-account-button">Delete your account</button>
+                <p class="label-description">Account deletion is permanent and cannot be undone.</p>
+                
+                <button type="submit" onclick="save_account(event)">Save Changes</button>     
             </div>
             <div id="appearance" class="settings-section">
                 <h2>Apperance Section (Not added yet)</h2>

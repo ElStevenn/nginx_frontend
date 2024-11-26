@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard</title>
-<script src="scripts/main-scripts/globalProvider.js"></script>
-<script src="scripts/set-profile.js"></script>
-<script src="scripts/dashboard-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/scripts/crypto-searcher.js"></script>
-<script src="/scripts/dashboardDataHandler.js"></script>
-<link rel="stylesheet" href="styles/user-header.css">
-<link rel="stylesheet" href="styles/user-dashboard.css">
-<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <title>Trade Visionary</title>
+    
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
+    <script src="/scripts/set-profile.js"></script>
+    <script src="/scripts/crypto-searcher.js"></script>
+
+    <script src="/scripts/dashboardDataHandler.js"></script>
+    <script src="/scripts/dashboard-script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="/styles/user-header.css">
+    <link rel="stylesheet" href="/styles/landing-page/sidebar.css">
+    <link rel="stylesheet" href="/styles/landing-page/user-assets.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header class="header">
@@ -43,8 +51,8 @@
             </div>
             <hr>
             <div class="mini-section">
-                <img src="images/user_profile.png" alt="Icon">
-                <span class="profile-text">Your Profile</span>
+                <img src="/images/icons/shield.png" alt="Icon">
+                <span class="profile-text">Security</span>
             </div>
             <div class="mini-section">
                 <img src="images/butt.png" alt="Icon">
@@ -72,7 +80,7 @@
             </a>            
             <div class="mini-section">
                 <img src="images/share.png" alt="Icon">
-                <span class="profile-text">Try this shit</span>
+                <span class="profile-text">Try this</span>
             </div>
             <div class="mini-section">
                 <img src="images/analysis.png" alt="Icon">
@@ -104,53 +112,70 @@
             </div>
         </div>
     </header>
+    
         <!-- Main Layout Container -->
-        <div class="main-layout">
-            <!-- Left Sidebar -->
-            <aside class="sidebar">
-                <button class="nav-button">Assets</button>
-                <button class="nav-button">Other part I</button>
-                <button class="nav-button">Other part II</button>
-            </aside>
-    
-            <!-- Main Content Area -->
-            <main class="main-content">
-                <!-- Top Row -->
-                <div class="top-row">
-                    <!-- Left Column: Assets -->
-                    <div class="assets-section">
-                        <h2>Assets</h2>
-                        <p id="user-assets">10 USDT</p>
-                    </div>
-                    
-                    <!-- Right Column: Assets Chart -->
-                    <div class="assets-chart-section">
-                        <canvas id="assetsChart"></canvas>
-                    </div>
+    <div class="main-layout">
+        <!-- Right Sidebar (Fixed) -->
+        <aside class="sidebar">
+            <button class="nav-button sidebar-selected">
+                <img src="images/icons/asset-allocation.png" alt="Assets Icon" class="sidebar-icon">
+                Assets
+            </button>            
+            <button class="nav-button">
+                <img src="images/icons/robot.png" alt="Trading Bots Icon" class="sidebar-icon">
+                Trading Bots
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/graph.png" alt="Copy Trading Icon" class="sidebar-icon">
+                Copy Trading
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/portfolio.png" alt="Your Portfolio Icon" class="sidebar-icon">
+                Your Portfolio
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/asset-allocation.png" alt="Your Profile Icon" class="sidebar-icon">
+                Sub Account
+            </button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Row -->
+            <div class="top-row">
+                <!-- Left Column: Assets -->
+                <div class="assets-section">
+                    <h2>Assets</h2>
+                    <p id="user-assets">10 USDT</p>
                 </div>
-    
-                <!-- Bottom Row -->
-                <div class="bottom-row">
-                    <!-- Left Column: Allocation Chart -->
-                    <div class="allocation-chart-section">
-                        <canvas id="allocationChart"></canvas>
-                    </div>
-                    
-                    <!-- Right Column: Recent Trades -->
-                    <div class="recent-trades-section">
-                        <h2>Recent Trades</h2>
-                        <ul>
-                            <li>Trade 1: Buy 5 BTC</li>
-                            <li>Trade 2: Sell 3 ETH</li>
-                            <li>Trade 3: Buy 10 USDT</li>
-                            <!-- Add more trades as needed -->
-                        </ul>
-                    </div>
+                
+                <!-- Right Column: Assets Chart -->
+                <div class="assets-chart-section">
+                    <canvas id="assetsChart"></canvas>
                 </div>
-            </main>
-        </div>
-    
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="bottom-row">
+                <!-- Left Column: Allocation Chart -->
+                <div class="allocation-chart-section">
+                    <canvas id="allocationChart"></canvas>
+                </div>
+                
+                <!-- Right Column: Recent Trades -->
+                <div class="recent-trades-section">
+                    <h2>Recent Trades</h2>
+                    <ul>
+                        <li>Trade 1: Buy 5 BTC</li>
+                        <li>Trade 2: Sell 3 ETH</li>
+                        <li>Trade 3: Buy 10 USDT</li>
+                        <!-- Add more trades as needed -->
+                    </ul>
+                </div>
+            </div>
+        </main>
     </div>
+
     <div id="overlay" class="overlay"></div>
 </body>
 </html>

@@ -11,7 +11,7 @@ async function get_whole_profile() {
     }
     credentials = credentials.replace(/^"(.*)"$/, '$1');
 
-    const url = "http://localhost:8000/get_whole_user_profile"
+    const url = globalAPI + "/user/detailed-profile"
     const headers = {
         "accept": "application/json",
         "Authorization": credentials
@@ -35,9 +35,9 @@ async function get_whole_profile() {
 
 }   
 
+
 async function set_user_profile() {
     const user_data = await get_whole_profile();
-    console.log("User data from user settings -> ", user_data);
 
     // Fetch static values to HTML
     var user_picture1 = document.getElementById('current-profile-pic');
@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 //  - SAVE USER PROFILE -
 async function update_user_profile(event) {
     event.preventDefault();
-    console.log("update_user_profile called");
 
     // Collect form data
     var input_first_name = document.getElementById('first-name').value.trim() || '';
@@ -166,8 +165,7 @@ async function update_user_profile(event) {
         "Accept": "application/json",
         "Authorization": credentials
     };
-
-    const url = "http://localhost:8000/set_user_conf_profile";
+    const url = globalAPI + "/user/profile-configuration";
 
     try {
         const response = await fetch(url, {
@@ -177,12 +175,8 @@ async function update_user_profile(event) {
         });
 
         if (response.ok) {
-            console.log("Response OK");
-            // Show success notification
             showNotification("Your profile has been updated successfully!", 'success');
         } else {
-            console.log("Response not OK");
-            // Show error notification
             showNotification("Failed to update profile. Please try again.", 'error');
         }
     } catch (error) {
@@ -258,13 +252,11 @@ function showSection(sectionId, event) {
 }
 
 
-
-
 document.querySelector('.edit-profile-pic-button').addEventListener('click', function() {
     document.getElementById('profile-pic-input').click();
 });
 
-// Handle the file selection
+
 document.getElementById('profiel-pic-input').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
@@ -294,4 +286,4 @@ window.addEventListener('popstate', function(event) {
 });
 
 
-// v.3.0.2
+// v.3.1.0

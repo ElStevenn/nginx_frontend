@@ -37,7 +37,7 @@ function getPointColor(value) {
 
 async function fetch_chart_data(limit) {
     const symbol = getValueAfterCryptoDetail();
-    const url = `http://51.158.67.62:8080/historical_funding_rate/${symbol}?limit=${limit}`;
+    const url = cryptocurrencyAPI + `/historical_funding_rate/${symbol}?limit=${limit}`;
 
     try {
         const response = await fetch(url, {

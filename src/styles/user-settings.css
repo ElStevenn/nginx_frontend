@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #121212;
+    background-color: #1c1c1c;
     color: #e0e0e0;
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
@@ -407,6 +407,25 @@ button.edit-profile-pic-button:hover {
     transition: background-color 0.3s ease;
 }
 
+.delete-account-button {
+    padding: 4px 11px 4px 11px; 
+    background-color: #434343;
+    color: #ac0505;
+    border-radius: 6px;
+    border: 0.5px solid #6d6d6d;
+    cursor: pointer;
+    font-size: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.delete-account-button:hover {
+    background-color: #555555;
+    transition: background-color 0.3s ease;
+}
 
 #public-email {
     appearance: none; /* Remove default styling */

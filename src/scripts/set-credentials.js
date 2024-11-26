@@ -76,8 +76,6 @@ async function validate_credentials(email_address, api_key, secret_key, account_
 }
 
 
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById('account-form');
     const confirmationScreen = document.getElementById('confirmation-screen');
