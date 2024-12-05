@@ -1,5 +1,4 @@
 
-const search_api = 'http://51.158.67.62:8080/';
 
 // Function to get a cookie by name
 function getCookie(name) {
@@ -20,7 +19,7 @@ async function add_new_crypto_searched(symbol, name, picture_url) {
     credentials = credentials.replace(/^"(.*)"$/, '$1');
 
     // Build request
-    const url = "http://localhost:8000/new_searched_crypto";
+    const url = globalAPI + "/search/new";
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -52,13 +51,13 @@ async function add_new_crypto_searched(symbol, name, picture_url) {
    
 }
 
-// Wait for the DOM to load
 document.addEventListener("DOMContentLoaded", () => {
     // DOM elements and variables
     const searchInput = document.getElementById("crypto-search-input");
     const searchResults = document.getElementById("search-results");
     const searchIcon = document.getElementById("search-icon");
     let websocket;
+    const messageQueue = [];
 
     // Function to display search results
     function displaySearchResults(results, isHistorical = false) {
@@ -114,14 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
         showSearchResults();
     }
 
-    // Function to get historical searches
     async function get_historical_searcher() {
-        // User Credentials
+        // User Credentials, url and header
         let credentials = getCookie("credentials");
+        if (!credentials) {
+            console.error("No credentials found for historical search.");
+            return;
+        }
         credentials = credentials.replace(/^"(.*)"$/, '$1');
-
-        // Request URL and headers
-        const url = "http://localhost:8000/get_last_searched_cryptos";
+        const url = `${globalAPI}/search/cryptos`;
         const headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -161,11 +161,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to initialize WebSocket connection
     function initWebSocket() {
+        if (typeof cryptocurrencyURL === 'undefined' || !cryptocurrencyURL) {
+            console.error("cryptocurrencyURL is not defined or empty.");
+            return;
+        }
+
+        const credentials = getCookie("credentials")?.replace(/^"(.*)"$/, '$1');
+        if (!credentials) {
+            console.error("No credentials found for WebSocket authentication.");
+            window.location.href = '/login';
+            return;
+        }
+
         const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-        websocket = new WebSocket(`${protocol}51.158.67.62:8080/search-crypto-ws`);
+        const websocketUrl = `${protocol}${cryptocurrencyURL.replace(/\/$/, '')}/crypto/search/ws?token=${encodeURIComponent(credentials)}`;
+
+        try {
+            websocket = new WebSocket(websocketUrl);
+        } catch (error) {
+            console.error("Failed to create WebSocket:", error);
+            return;
+        }
 
         websocket.onopen = () => {
             console.log("WebSocket connection established");
+            // Send any queued messages
+            while (messageQueue.length > 0) {
+                const msg = messageQueue.shift();
+                console.log("Sending queued message:", msg);
+                websocket.send(JSON.stringify(msg));
+            }
         };
 
         websocket.onmessage = (event) => {
@@ -189,12 +214,13 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         websocket.onclose = (event) => {
-            console.log(`WebSocket connection closed (Code: ${event.code}). Reconnecting in 3 seconds...`);
+            console.log(`WebSocket connection closed (Code: ${event.code}). Reason: ${event.reason}. Reconnecting in 3 seconds...`);
             setTimeout(initWebSocket, 3000);
         };
 
         websocket.onerror = (error) => {
             console.error("WebSocket error observed:", error);
+            // Optionally, close the WebSocket to trigger reconnection
             websocket.close();
         };
     }
@@ -227,13 +253,18 @@ document.addEventListener("DOMContentLoaded", () => {
         // Show loading indicator
         displayLoading();
 
-        // Send the search query via WebSocket
+        const payload = { query: query, limit: 10 };
+        console.log("Preparing to send search query:", payload);
+
         if (websocket && websocket.readyState === WebSocket.OPEN) {
-            const payload = { query: query, limit: 10 };
-            console.log("Sending search query:", payload);
+            console.log("WebSocket is open. Sending message.");
             websocket.send(JSON.stringify(payload));
+        } else if (websocket && (websocket.readyState === WebSocket.CONNECTING)) {
+            console.warn("WebSocket is connecting. Queuing message.");
+            messageQueue.push(payload);
         } else {
-            console.warn("WebSocket is not open. ReadyState:", websocket.readyState);
+            console.error("WebSocket is closed. Cannot send message.");
+            displayError("Unable to connect to the server. Please try again later.");
         }
     }
 

@@ -7,7 +7,8 @@ of truth for reusable resources and configuration values.
 */
 
 // IPS of the diferents apis
-const cryptocurrencyAPI = "http://51.158.67.62:8080";
+const cryptocurrencyAPI = "http://localhost:8080";
+const cryptocurrencyURL = "localhost:8080";
 const globalAPI = "http://localhost:8000";
 const exchangeAPI = "http://localhost:8001";
 

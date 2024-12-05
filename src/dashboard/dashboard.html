@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Trade Visionary</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/user-header.css">
+    <link rel="stylesheet" href="/styles/landing-page/sidebar.css">
+    <link rel="stylesheet" href="/styles/landing-page/user-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="/scripts/main-scripts/globalProvider.js" defer></script>
+    <script src="/scripts/main-scripts/set-profile.js" defer></script>
+    <script src="/scripts/user-dashboard/crypto-searcher.js" defer></script>
+    <script src="/scripts/dashboardDataHandler.js" defer></script>
+    <script src="/scripts/user-dashboard/dashboard-script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Logo">
+            <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
+        </div>
+         
+        <div class="header-right">
+            <!-- Search Bar with Icon -->
+            <div class="search-container">
+                <img src="/images/search.png" alt="Search Icon" id="search-icon" style="filter: invert(100%);">
+                <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off">
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+
+            <img src="/images/bell.png" alt="Notification icon" style="margin-left: 40px;">
+            <img src="images/list.png" alt="Icon 1" onclick="toggleMenu2(event)">
+
+        <!-- List Menu -->
+        <div id="list-menu" class="list-menu">
+            <img src="images/close.png" alt="Close Button" class="close-button" onclick="closeMenus(event)">
+            <div class="profile-container ">
+                <img src="images/account.png" alt="User Icon" class="profile-picture" id="profile-icon1" style="filter: none; border-radius: 50%;">
+                <div class="profile-text">
+                    <span class="profile-username" style="margin-bottom: -10px;"><b id="user-username">@Username</b></span>
+                    <p class="profile-name-surname" id="given_name">Name Surname</p>
+                </div>
+            </div>
+            <hr>
+            <div class="mini-section">
+                <img src="/images/icons/shield.png" alt="Icon">
+                <span class="profile-text">Security</span>
+            </div>
+            <div class="mini-section">
+                <img src="images/butt.png" alt="Icon">
+                <span class="profile-text">Become a trader</span>
+                <img src="images/free.png" alt="Icon" style="margin-top: 1px; margin-left: 30px;">
+            </div>
+            <div class="mini-section">
+                <img src="images/subscription-business-model.png" alt="Icon">
+                <span class="profile-text">Choose Your Plan</span>
+            </div>
+            <div class="mini-section">
+                <img src="images/reading-book.png" alt="Icon">
+                <span class="profile-text">Learn how it works</span>
+            </div>
+            <div class="mini-section">
+                <img src="images/approve.png" alt="Icon">
+                <span class="profile-text">Documentation</span>
+            </div>
+            <hr>
+            <a href="/settings/profile">
+                <div class="mini-section">
+                    <img src="/images/settings.png" alt="Icon">
+                    <span class="profile-text">Settings</span>
+                </div>
+            </a>            
+            <div class="mini-section">
+                <img src="images/share.png" alt="Icon">
+                <span class="profile-text">Try this</span>
+            </div>
+            <div class="mini-section">
+                <img src="images/analysis.png" alt="Icon">
+                <span class="profile-text">See other services</span>
+            </div>
+        </div>
+
+                
+            <img src="images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
+            
+            <!-- Mini menu for the user -->
+            <div id="profile-menu" class="profile-menu">
+                <div class="profile-header" style="display: flex; align-items: center;">
+                    <img src="images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
+                    <div>
+                        <span class="profile-name" style="font-size: 16px; font-weight: bold;" id="user-username2">@Username</span>
+                        <p style="font-size: 14px; margin: 0;" id="given_name2">Name Surname</p>
+                    </div>
+                </div>                
+                <hr>
+                <ul class="menu-links">
+                    <li><img src="images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
+                    <li><img src="images/icons/transfer.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Transfer Assets</li>
+                    <li onclick="log_out(event)"> <img src="images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
+                    <hr>
+                    <li><a href="/terms"> <img src="images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
+                    <li><img src="images/help.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Help </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+        <!-- Main Layout Container -->
+    <div class="main-layout" id="main-layout">
+        <!-- Right Sidebar (Fixed) -->
+        <aside class="sidebar">
+            <button class="toggle-button">Hide</button>
+            <button class="nav-button sidebar-selected">
+                <img src="images/icons/dashboard-interface.png" alt="Dashboard Icon" class="sidebar-icon">
+                <span class="nav-text">Dashboard</span>
+            </button>
+            <button class="nav-button" onclick="window.location.href='/portfolio';">
+                <img src="images/icons/portfolio.png" alt="Portfolio Icon" class="sidebar-icon">
+                <span class="nav-text">My Portfolio</span>
+            </button>
+            <h2><span class="nav-text">Trading</span></h2>
+            <button class="nav-button">
+                <img src="images/icons/robot.png" alt="Bot Icon" class="sidebar-icon">
+                <span class="nav-text">Arbitrage Bot</span> <span class="beta-label nav-text">BETA</span>
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/antenna.png" alt="Bot Icon" class="sidebar-icon">
+                <span class="nav-text">Signal Bot</span> <span class="new-label nav-text">NEW</span>
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/statistics.png" alt="Grid Bot Icon" class="sidebar-icon">
+                <span class="nav-text">Grid Bot</span>
+            </button>
+            <button class="nav-button">
+                <img src="images/icons/trading.png" alt="Smart Trade Icon" class="sidebar-icon">
+                <span class="nav-text">Smart Trade</span>
+            </button>
+
+            <button class="nav-button">
+                <img src="images/icons/shopping-cart.png" alt="Marketplace Icon" class="sidebar-icon">
+                <span class="nav-text">Marketplace</span>
+            </button>
+            <h2><span class="nav-text">Others</span></h2>
+            <button class="nav-button">
+                <img src="images/icons/group.png" alt="Invite Friends Icon" class="sidebar-icon">
+                <span class="nav-text">Invite Friends</span>
+            </button>
+        </aside>
+        
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Row -->
+            <div class="top-row">
+                <!-- Left Column: Assets -->
+                <div class="assets-section">
+                    <h2>Dashboard</h2>
+                    <p id="user-assets">10 USDT</p>
+                </div>
+                
+                <!-- Right Column: Assets Chart -->
+                <div class="assets-chart-section">
+                    <canvas id="assetsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="bottom-row">
+                <!-- Left Column: Allocation Chart -->
+                <div class="allocation-chart-section">
+                    <canvas id="allocationChart"></canvas>
+                </div>
+                
+                <!-- Right Column: Recent Trades -->
+                <div class="recent-trades-section">
+                    <h2>Recent Trades</h2>
+                    <ul>
+                        <li>Trade 1: Buy 5 BTC</li>
+                        <li>Trade 2: Sell 3 ETH</li>
+                        <li>Trade 3: Buy 10 USDT</li>
+                        <!-- Add more trades as needed -->
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        document.querySelector('.toggle-button').addEventListener('click', function() {
+            const main_layout = document.getElementById('main-layout');
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        
+            // Change the button text
+            if (sidebar.classList.contains('collapsed')) {
+                this.textContent = 'Show';
+                main_layout.style = "margin-left: 3%;"
+            } else {
+                this.textContent = 'Hide';
+                main_layout.style = "margin-left: 16%;"
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

@@ -1,3 +1,7 @@
+
+/* - - - - - - - - - - - - - - */
+/* - - - MAIN STYLES - - - - - */
+/* - - - - - - - - - - - - - - */
 body {
     margin: 0;
     padding: 0;
@@ -28,6 +32,9 @@ a {
     width: 250px;
     min-width: 200px;
     flex-shrink: 0;
+    border-left: 0.5px solid #6d6d6d;
+    border-top: 0.5px solid #6d6d6d;
+    border-bottom: 0.5px solid #6d6d6d;
 }
 
 #rightPane {
@@ -35,17 +42,21 @@ a {
     background-color: #2e2e2e;
     padding: 20px;
     box-sizing: border-box;
+    border-right: 0.5px solid #6d6d6d;
+    border-top: 0.5px solid #6d6d6d;
+    border-bottom: 0.5px solid #6d6d6d;
     overflow-y: auto;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     flex-grow: 1;
     max-width: 800px; /* DO NOT MODIFY THIS */
     width: 100%; /* DO NOT MODIFY THIS */
     min-width: 0;
 }
 
-textarea:focus {
-border-color: #0053cfce;
-}
+
+
+/* - - - USER CONFIGURATION - - - */
+
 
 .far-right-profile-pic {
     position: absolute;
@@ -164,29 +175,7 @@ border-color: #0053cfce;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
 }
 
-/* Settings sections */
-.settings-section {
-    min-height: calc(100vh - 160px);
-    display: none;
-}
 
-.settings-section.active {
-    display: block;
-}
-
-.settings-section h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: #ff4081;
-    margin-bottom: 5px;
-    margin-top: 13px;
-    font-size: 22px;
-}
-
-.settings-section hr {
-    border: none;
-    border-top: 1px solid #444;
-    margin-bottom: 20px;
-}
 
 /* Form Styles */
 form {
@@ -233,44 +222,6 @@ label {
     font-size: 14px;
 }
 
-.settings-section input[type="text"],
-.settings-section input[type="email"],
-.settings-section input[type="password"],
-.settings-section input[type="url"],
-.settings-section textarea,
-.settings-section select {
-    width: 100%; 
-    padding: 10px;
-    margin-bottom: 4px; 
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 5px;
-    color: #e0e0e0;
-    box-sizing: border-box;
-    font-size: 14px;
-    padding-right: 90px;
-}
-
-.settings-section textarea {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 10px;
-    color: #e0e0e0;
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 5px;
-    resize: vertical;
-}
-
-.settings-section input[type="text"]:focus,
-.settings-section input[type="email"]:focus,
-.settings-section input[type="password"]:focus,
-.settings-section input[type="url"]:focus,
-.settings-section textarea:focus {
-    border-color: #42a5f5;
-    outline: none; 
-}
 
 input[type="file"] {
     margin-top: 10px;
@@ -410,7 +361,7 @@ button.edit-profile-pic-button:hover {
 .delete-account-button {
     padding: 4px 11px 4px 11px; 
     background-color: #434343;
-    color: #ac0505;
+    color: #ff0000;;
     border-radius: 6px;
     border: 0.5px solid #6d6d6d;
     cursor: pointer;
@@ -545,21 +496,10 @@ button.edit-profile-pic-button:hover {
     background-color: #f44336; 
 }
 
-/* Close Button Styles */
-.close-notification {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #fff;
-    opacity: 0.8;
-}
 
-.close-notification:hover {
-    opacity: 1;
-}
-/*Managing Trading Accounts*/
+/* - - - - - - - - - - - - - - */
+/* - - - ACCOUNT SECTION - - - */
+/* - - - - - - - - - - - - - - */
 .trading-account {
     display: flex;
     justify-content: left;
@@ -580,4 +520,185 @@ button.edit-profile-pic-button:hover {
 
 .select-link-container select {
     margin-right: 10px;
+}
+
+.confirm-dialog-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.confirm-dialog {
+    background: #242424;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    width: 408px;
+    height: 280px;
+    border: solid 0.3px #646464;
+}
+
+.warning-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #5a2e2e;
+    border: solid 0.3px #8f0000;
+    padding: 13px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.warning-icon {
+    /* Adjust the size as needed */
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    
+    /* Apply CSS filter to change black image to red */
+    filter: invert(35%) sepia(100%) saturate(750%) hue-rotate(-50deg);
+}
+
+.warning-section span {
+    color: #fff; 
+    font-size: 14px;
+}
+
+.confirm-dialog h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.confirm-delete-button, .cancel-delete-button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 14px;
+    background: #373737;
+    border: solid 0.3px #646464;
+}
+
+.confirm-delete-button {
+    color: #c51212;
+}
+
+.confirm-delete-button:hover {
+    background: #c51212;
+    color: #fff;
+    border: transparent;
+}
+
+.cancel-delete-button {
+    color: #fff;
+}
+
+.cancel-delete-button:hover {
+    background: #555;
+}
+
+.delete-warnings-list {
+    text-align: left;
+    color: #e0e0e0;
+    font-size: 13px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.delete-warnings-list li {
+    margin-bottom: 6px;
+}
+
+
+
+
+/* - - - - - - - - - - - - - - */
+/*- - - OTHER - - -*/
+/* - - - - - - - - - - - - - - */
+/* Settings sections */
+.settings-section {
+    min-height: calc(100vh - 160px);
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.settings-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #ff4081;
+    margin-bottom: 5px;
+    margin-top: 13px;
+    font-size: 22px;
+}
+
+.settings-section hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin-bottom: 20px;
+}
+
+.settings-section input[type="text"],
+.settings-section input[type="email"],
+.settings-section input[type="password"],
+.settings-section input[type="url"],
+.settings-section textarea,
+.settings-section select {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 4px; 
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #e0e0e0;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding-right: 90px;
+}
+
+.settings-section textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px;
+    color: #e0e0e0;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.settings-section input[type="text"]:focus,
+.settings-section input[type="email"]:focus,
+.settings-section input[type="password"]:focus,
+.settings-section input[type="url"]:focus,
+.settings-section textarea:focus {
+    border-color: #42a5f5;
+    outline: none; 
+}
+
+
+/* Close Button Styles */
+.close-notification {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.close-notification:hover {
+    opacity: 1;
 }
