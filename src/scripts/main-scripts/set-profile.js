@@ -1,5 +1,6 @@
+// set-profile.js
+
 function toggleMenu1(event) {
-    console.log('toggleMenu1 called');
     event.stopPropagation();
 
     var profileMenu = document.getElementById('profile-menu');
@@ -64,8 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         userDataPromise = (async () => {
             let credentials = getCookie("credentials");
 
-            console.log("Credentials found ->", credentials);
-
             if (!credentials) {
                 console.error("No credentials found");
                 window.location.href = '/login';
@@ -88,6 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error("Unauthorized or Bad Request");
                 }
 
+                if (response.status === 404) {
+                    console.log("Credentials not found. Redirecting to /login.");
+                    window.location.href = '/login';
+                    throw new Error("Credentials not found");
+                }
+
                 if (!response.ok) {
                     const errorText = await response.text();
                     throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
@@ -106,43 +111,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function function_fetc_data_header() {
-        let user_data = await get_user_data();
+        try {
+            let user_data = await get_user_data();
 
-        if (!user_data) {
-            console.error("No user data found");
-            return;
-        }
+            if (!user_data) {
+                console.error("No user data found");
+                return;
+            }
 
-        const user_username = document.getElementById('user-username');
-        const user_username2 = document.getElementById('user-username2');
+            const user_username = document.getElementById('user-username');
+            const user_username2 = document.getElementById('user-username2');
 
-        if (user_username) {
-            user_username.textContent = `${user_data['username']}`; 
-            user_username2.textContent = `@${user_data['username']}`;
-        } else {
-            console.error("'user-username' element not found");
-        }
+            if (user_username) {
+                user_username.textContent = `${user_data['username']}`; 
+                user_username2.textContent = `@${user_data['username']}`;
+            } else {
+                console.error("'user-username' element not found");
+            }
 
-        const given_name = document.getElementById('given_name');
-        const given_name2 = document.getElementById('given_name2');
+            const given_name = document.getElementById('given_name');
+            const given_name2 = document.getElementById('given_name2');
 
-        if (given_name) {
-            given_name.textContent = user_data['name'];
-            given_name2.textContent = user_data['name'];
-        } else {
-            console.error("'given_name' element not found");
-        }
+            if (given_name) {
+                given_name.textContent = user_data['name'];
+                given_name2.textContent = user_data['name'];
+            } else {
+                console.error("'given_name' element not found");
+            }
 
-        const profile_picture1 = document.getElementById('profile-icon1');
-        const profile_picture2 = document.getElementById('profile-icon2');
-        const profile_picture3 = document.getElementById('profile-icon3');
+            const profile_picture1 = document.getElementById('profile-icon1');
+            const profile_picture2 = document.getElementById('profile-icon2');
+            const profile_picture3 = document.getElementById('profile-icon3');
 
-        if (profile_picture1) {
-            profile_picture1.src = user_data['url_picture'];
-            profile_picture2.src = user_data['url_picture'];
-            profile_picture3.src = user_data['url_picture'];
-        } else {
-            console.error("'profile_picture' element not found");
+            if (profile_picture1) {
+                profile_picture1.src = user_data['url_picture'];
+                profile_picture2.src = user_data['url_picture'];
+                profile_picture3.src = user_data['url_picture'];
+            } else {
+                console.error("'profile_picture' element not found");
+            }
+        } catch (error) {
+            // Errors are already handled in get_user_data
         }
     }
 
@@ -187,20 +196,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prevent clicks inside the profile menu from closing the menu
-    document.getElementById('profile-menu').addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
+    var profileMenuElement = document.getElementById('profile-menu');
+    if (profileMenuElement) {
+        profileMenuElement.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    } else {
+        console.error("'profile-menu' element not found");
+    }
 
     // Prevent clicks inside the list menu from closing the menu
-    document.getElementById('list-menu').addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
+    var listMenuElement = document.getElementById('list-menu');
+    if (listMenuElement) {
+        listMenuElement.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    } else {
+        console.error("'list-menu' element not found");
+    }
 
-    document.getElementById('overlay').addEventListener('click', function(event) {
-        closeMenus();
-    });
-
-    document.getElementById('header-left-side').addEventListener('click', function(event) {
-        window.location.href = "/dashboard"
-    });
+    var overlayElement = document.getElementById('overlay');
+    if (overlayElement) {
+        overlayElement.addEventListener('click', function(event) {
+            closeMenus();
+        });
+    } else {
+        console.error("'overlay' element not found");
+    }
 });

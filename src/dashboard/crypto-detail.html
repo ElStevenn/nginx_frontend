@@ -3,32 +3,36 @@
 <head>
     
     <meta charset="UTF-8">
-    <title id="title-name">Arbitrage Strategies</title>
+    <title id="title-name">Cryto Detail</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/user-header.css">
+    <link rel="stylesheet" href="/styles/chart-styles.css">
+    <link rel="stylesheet" href="/styles/crypto-detail.css">
+
 
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
-    <script src="scripts/main-scripts/globalProvider.js"></script>
-    <script src="/scripts/set-profile.js" defer></script>
 
-    <script src="/scripts/crypto-searcher.js"></script>
+    <!-- Scripts -->
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
+    <script src="/scripts/main-scripts/set-profile.js" defer></script>
+    <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
 
     <script src="/scripts/crytpo-detail.js" defer></script>
     <script src="/scripts/chart-script.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
-
-    <link rel="stylesheet" href="/styles/chart-styles.css">
-    <link rel="stylesheet" href="/styles/user-header.css">
-    <link rel="stylesheet" href="/styles/crypto-detail.css">
-
 </head>
 <body onclick="closeMenus(event)">
     <!-- Header -->
     <header class="header">
-        <div class="header-left" id="header-left-side">
+        <a href="/dashboard" class="header-left" id="header-left-side">
             <img src="/images/leverage_cuck.png" alt="Logo">
             <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
-        </div>
+        </a>
 
         <div class="header-right">
 
@@ -181,21 +185,69 @@
 
 
 
-
     <!-- Main Content -->
     <div class="main-content" id="main-content">
         <div id="error-message" style="display: none; color: red;"></div>
         <div id="leftPane" class="left-section">
-            <!-- Left section content -->
-            <h2>Historical Funding Rate</h2>
-        <div class="chart-container">
-            <canvas id="fundingRateChart"></canvas>
+            <!-- Tab Navigation -->
+            <div class="left-tab-container">
+                <button class="left-tab-button active" onclick="switchLeftPane('chart')">Chart</button>
+                <button class="left-tab-button" onclick="switchLeftPane('funding-rate')">Historical Funding Rate</button>
+             
+            </div>
+        
+            <!-- Funding Rate Section -->
+            <div id="funding-rate" class="left-pane-content active">
+                <h2>Historical Funding Rate</h2>
+                <div class="chart-container">
+                    <canvas id="fundingRateChart"></canvas>
+                </div>
+            </div>
+        
+            <!-- Chart Section -->
+            <div id="chart" class="left-pane-content">
+                <!-- Custom toolbar for intervals and actions -->
+                <div class="chart-controls">
+                    <!-- Left Actions: Interval Buttons and Indicators -->
+                    <div class="left-actions">
+                        <div class="chart-intervals">
+                            <button class="interval-button" data-interval="time">Time</button>
+                            <button class="interval-button active" data-interval="15">15m</button>
+                            <button class="interval-button" data-interval="60">1H</button>
+                            <button class="interval-button" data-interval="240">4H</button>
+                            <button class="interval-button" data-interval="D">1D</button>
+                        </div>
+                        <!-- Icon and Text Indicators Button with Border -->
+                        <button class="extra-button" id="indicators-button" title="Indicators">
+                            <img src="/images/icons/formula.png" alt="Indicators Icon" class="button-icon">
+                            <span class="button-text">Indicators</span>
+                        </button>
+                        <!-- Vertical Divider -->
+                        <div class="button-divider"></div>
+
+                    </div>
+
+
+                    <!-- Right Actions: Compare and Screenshot Buttons -->
+                    <div class="chart-actions">
+                        <!-- Icon and Text Compare Button -->
+                        <button class="extra-button" id="compare-button" title="Compare">
+                            <img src="/images/icons/settings.png" alt="Compare Icon" class="button-icon">
+                        </button>
+
+                        <!-- Icon and Text Screenshot Button -->
+                        <button class="extra-button" id="screenshot-button" title="Take Screenshot">
+                            <img src="/images/icons/camera.png" alt="Screenshot Icon" class="button-icon">
+                        </button>
+                    </div>
+                </div>
+                <div id="tradingview_chart_container" style="height: 500px; width: 100%;"></div>
+            </div>
+
         </div>
-            <hr>
-            <h2>Coin normal chart</h2>
-            <p>A chart of this crypto will be added</p>
-        </div>
+        
         <div class="resizer" id="dragMe"></div>
+
         <div id="rightPane" class="right-section">
             <!-- Tab Section -->
             <div class="tab-section-wrapper">
@@ -253,9 +305,9 @@
     <!-- 404 Error Content -->
     <div id="error-page" class="error-container" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000;">
         <div class="header">
-            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+            <img src="/images/leverage_cuck.png" alt="Logo" class="logo">
             <h1>404</h1>
-            <img src="images/leverage_cuck.png" alt="Logo" class="logo">
+            <img src="/images/leverage_cuck.png" alt="Logo" class="logo">
         </div>
         <h2 class="error-title">Oops!</h2>
         <p class="error-message">The page you are looking for does not exist.</p>

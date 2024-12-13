@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Deleted - Trade Visionary</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Include Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" crossorigin="anonymous" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header Styles */
+        .header {
+            width: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .header-left h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 28px;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right a i {
+            margin-right: 8px;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px); /* Adjust for header height */
+            padding: 20px;
+            margin-top: 80px; /* To prevent overlap with fixed header */
+        }
+
+        /* Loading Bar Styles */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #ff4081; /* Pink */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        /* Message Container Styles */
+        .message-container {
+            background-color: #1f1f1f;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 100%;
+            animation: fadeInUp 1s;
+            display: none; /* Hidden by default */
+        }
+
+        .message-container.success h2 {
+            color: #4CAF50; /* Success color */
+        }
+
+        .message-container.error h2 {
+            color: #f44336; /* Error color */
+        }
+
+        .message-container h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            animation: slideInLeft 1.5s;
+        }
+
+        .message-container p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+            line-height: 1.6;
+            animation: slideInRight 1.5s;
+        }
+
+        .message-container .action-button {
+            padding: 12px 30px;
+            background-color: #ff4081;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            animation: bounceIn 2s;
+        }
+
+        .message-container .action-button:hover {
+            background-color: #f50057;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #1f1f1f;
+            padding: 20px 40px;
+            text-align: center;
+            color: #b0b0b0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: #e0e0e0;
+            margin: 0 10px;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ff4081;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeInDown {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes slideInLeft {
+            from {opacity: 0; transform: translateX(-100px);}
+            to {opacity: 1; transform: translateX(0);}
+        }
+
+        @keyframes slideInRight {
+            from {opacity: 0; transform: translateX(100px);}
+            to {opacity: 1; transform: translateX(0);}
+        }
+
+        @keyframes fadeInUp {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes bounceIn {
+            from {opacity: 0; transform: scale(0.3);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-left h1 {
+                font-size: 24px;
+            }
+
+            .message-container {
+                padding: 30px;
+            }
+
+            .message-container h2 {
+                font-size: 28px;
+            }
+
+            .message-container p {
+                font-size: 16px;
+            }
+
+            .message-container .action-button {
+                font-size: 16px;
+                padding: 10px 25px;
+            }
+
+            .header-right a {
+                margin-left: 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .header-right {
+                margin-top: 10px;
+            }
+
+            .header-right a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+
+            .message-container h2 {
+                font-size: 24px;
+            }
+
+            .message-container p {
+                font-size: 14px;
+            }
+
+            .message-container .action-button {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
+    <script src="/scripts/user-delete.js"></script>
+</head>
+<body onload="check_deletion()">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/leverage_cuck.png" alt="Trade Visionary Logo" onclick="window.location.href='index.html';">
+            <h1>Trade Visionary</h1>
+        </div>
+        <div class="header-right">
+            <a href="#features"><i class="fas fa-chart-line"></i> Features</a>
+            <a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+            <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+            <a href="#testimonials"><i class="fas fa-comments"></i> Testimonials</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Loading Bar -->
+        <div id="loading-bar" class="loading-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Processing your request...</div>
+        </div>
+
+        <!-- Message Container -->
+        <div class="message-container" id="message-container">
+            <h2 id="deletion-message">Verifying account deletion...</h2>
+            <p id="deletion-details">Your Trade Visionary account has been successfully deleted. We're sorry to see you go!</p>
+            <button class="action-button" onclick="redirectToHome()">Return to Home</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Trade Visionary. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+
+</body>
+</html>

@@ -216,8 +216,6 @@ function showSection(sectionId, event) {
         event.preventDefault();
     }
 
-    console.log(`Attempting to show section: ${sectionId}`);
-
     // Update the URL without reloading the page
     history.pushState({ sectionId: sectionId }, '', '/settings/' + sectionId);
 
@@ -242,28 +240,58 @@ function showSection(sectionId, event) {
 
     var sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
-        console.log(`Section element with ID '${sectionId}' found.`);
         sectionElement.classList.add('active');
     } else {
-        console.error(`Section with ID '${sectionId}' not found.`);
-        // Optionally, default to 'profile' section
         showSection('profile');
     }
 }
+
+
+async function delete_user_full_account(event) {
+    let credentials = getCookie("credentials");
+    if (!credentials) {
+        console.error("No credentials found");
+        window.location.href = '/login';
+        throw new Error("No credentials found");
+    }
+
+    credentials = credentials.replace(/^"(.*)"$/, '$1');
+
+    const headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": credentials
+    };
+
+    const url = globalAPI + "/user/delete-account";
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: headers
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            window.location.href = data.redirect_url; // Use redirect URL from backend
+        } else {
+            const errorDetails = await response.json();
+            console.error("API Error:", errorDetails);
+            showNotification("An error occurred with the API: " + errorDetails.detail, 'error');
+        }
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        showNotification("An error occurred, we couldn't delete your account.", 'error');
+    }
+}
+
+
 
 
 document.querySelector('.edit-profile-pic-button').addEventListener('click', function() {
     document.getElementById('profile-pic-input').click();
 });
 
-
-document.getElementById('profiel-pic-input').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const img = document.getElementById('current-profile-pic');
-        img.src = URL.createObjectURL(file);
-    }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     var pathParts = window.location.pathname.split('/');
@@ -286,4 +314,5 @@ window.addEventListener('popstate', function(event) {
 });
 
 
-// v.3.1.0
+
+// v.3.2.1

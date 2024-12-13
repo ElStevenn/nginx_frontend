@@ -1,3 +1,4 @@
+/* MAIN STYLES */
 body {
     margin: 0;
     padding: 0;
@@ -15,42 +16,49 @@ a {
     display: flex;
     height: calc(93% - 100px); 
     overflow: hidden;
+    position: relative;
 }
 
 #leftPane {
-    background-color: #1e1e1e;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 15px;
+    background-color: transparent;
+    padding: 14px;
+    border-radius: 20px;
     margin-left: 10px;
-    overflow-y: auto;
-    flex-basis: 75%; 
+    flex: 3 1 75%; /* Adjust flex properties for responsiveness */
     min-width: 300px;
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    overflow: hidden; /* Hide vertical overflow to remove scrollbar */
 }
 
 #rightPane {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 20px;
     margin-right: 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    flex-basis: 25%; 
+    flex: 1 1 25%; /* Adjust flex properties for responsiveness */
     min-width: 240px;
     font-family: 'Roboto Mono', monospace;
-    padding: 15px;
-    border-radius: 10px; 
-    background-color: #1e1e1e; 
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    overflow: hidden; /* Hide vertical overflow to remove scrollbar */
 }
+
 
 #leftPane, #rightPane {
     transition: flex-basis 0.2s;
-}   
+} 
+
+/* - -  LEFT PANLE - - - */
+
+
 
 /* Resizable Divider */
 .resizer {
     width: 5px;
-    background-color: transparent;
     cursor: col-resize;
+    z-index: 999;
     position: relative;
-    z-index: 1;
 }
 
 .resizer:hover {
@@ -62,6 +70,9 @@ body.dragging {
     cursor: col-resize;
 }
 
+.main-content .resizer {
+    cursor: ew-resize;
+}
 
 .left-section h2,
 .right-section h2 {
@@ -99,40 +110,18 @@ body.dragging {
 }
 
 /* New Full-Width Section Styles */
-.full-width-section {
-width: calc(100% - 20px);
-border-radius: 15px;
-margin: 10px;
-background-color: #1e1e1e;
-padding: 20px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-box-sizing: border-box;
-margin-top: 75px;
-}
+.full-width-section {width: calc(100% - 20px);border-radius: 15px;margin: 10px;background-color: #1e1e1e;padding: 10px 20px;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);box-sizing: border-box;margin-top: 75px;}
 
 .crypto-info {
 display: flex;
 align-items: center;
 }
 
-.crypto-logo img {
-width: 80px;
-height: 80px;
-margin-right: 20px;
-border-radius: 50%;
-}
+.crypto-logo img {width: 70px;height: 70px;margin-right: 15px;border-radius: 50%;}
 
-.crypto-details h2 {
-font-family: 'Montserrat', sans-serif;
-color: #ff4081;
-margin: 0;
-font-size: 28px;
-}
+.crypto-details h2 {font-family: 'Montserrat', sans-serif;color: #ff4081;margin: 0;font-size: 24px;}
 
-.crypto-symbol {
-font-size: 24px;
-color: #e0e0e0;
-}
+.crypto-symbol {font-size: 21px;color: #e0e0e0;}
 
 .crypto-stats {
 display: flex;
@@ -161,17 +150,9 @@ font-size: 12px;
 margin-bottom: 2px; 
 }
 
-.stat-label {
-color: #9e9e9e;
-margin-right: 5px;
-font-size: 16px;
-}
+.stat-label {color: #9e9e9e;margin-right: 5px;font-size: 14px;}
 
-.stat-value {
-color: #e0e0e0;
-font-size: 16px;
-margin-top: 5px;
-}
+.stat-value {color: #e0e0e0;font-size: 14px;margin-top: 5px;}
 
 .stat-positive-text {
 color: #00e676;
@@ -283,8 +264,8 @@ border-bottom: 1px dashed #b0b0b0;
 }
 
 .hilight_icon{
-    height: 20px; 
-    width: 20px;
+    height: 19px;
+    width: 19px;
     cursor: pointer;
     margin-left: 5px;
 }
@@ -419,6 +400,83 @@ border-bottom: 1px dashed #b0b0b0;
     vertical-align: middle;
     margin-right: 10px;
 }
+
+/* Tab Navigation Styles */
+.left-tab-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+
+.left-tab-button {
+    position: relative; 
+    padding: 10px 12px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: 17px;
+    transition: color 0.3s;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.left-tab-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: #ffffff;
+    transition: width 0.3s ease-in-out;
+}
+
+.left-tab-button:hover::after,
+.left-tab-button.active::after { 
+    width: 100%; 
+}
+
+
+.left-tab-button:hover {
+    color: #ffffff;
+}
+
+.left-tab-button.active {
+    color: #ffffff; 
+}
+
+.left-tab-button:not(:first-child) {
+    margin-left: 0; 
+}
+
+/* Content Section Styles */
+.left-pane-content {
+    display: none;
+    flex: 1 1 auto;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+
+.left-pane-content.active {
+    display: flex;
+}
+
+.left-pane-content .chart-container,
+.left-pane-content .coin-chart {
+    flex: 1 1 auto;
+}
+
+/* Optional: Add some padding to the content sections */
+.left-pane-content h2 {
+    margin-top: 0;
+}
+
 /*Error style*/
 #error-page {
     background-color: #f0f0f0;
@@ -431,3 +489,5 @@ border-bottom: 1px dashed #b0b0b0;
 #error-page p {
     font-size: 18px;
 }
+
+

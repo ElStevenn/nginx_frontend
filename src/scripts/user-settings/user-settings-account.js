@@ -1,11 +1,8 @@
 
-// Function to open the credentials window
-function openCredentialsWindow() {
-    let user_bearer_token = getCookie("credentials").replace(/^"|"$/g, '');
 
-    // Open Window with encoded access_key to handle special characters
+function openCredentialsWindow() {
     window.open(
-        `/settings/set_credentials?access_key=${encodeURIComponent(user_bearer_token)}`,
+        `/settings/set_credentials`,
         `tinyWindow_${Date.now()}`,
         'width=700,height=700,top=100,left=200'
     );
@@ -49,7 +46,6 @@ async function get_trading_accounts() {
     }
 }
 
-
 async function set_user_account() {
     try {
         const user_trading_accounts = await get_trading_accounts();
@@ -78,8 +74,6 @@ async function set_user_account() {
 
         // Check if there are trading accounts available
         if (accountsArray.length === 0) {
-            console.log("No trading accounts found.");
-            // Optionally, you can disable the select or provide a link to add a new account
             return;
         }
 
@@ -103,18 +97,14 @@ async function set_user_account() {
     }
 }
 
-
 async function set_account() {
-    /*Set user account*/
+    /* Set user account */
     const account_data = await get_account_data();
-
-
-
+    // Add your logic here if needed
 }
 
-
 async function save_account(event) {
-    /*Save user profile, at this moment only can save the main trade account*/
+    /* Save user profile, at this moment only can save the main trade account */
     event.preventDefault();
 
     var trading_account = document.getElementById('trading-account').value || '';
@@ -141,7 +131,7 @@ async function save_account(event) {
         'account_id': trading_account
     }
 
-    try{
+    try {
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
@@ -152,20 +142,75 @@ async function save_account(event) {
             showNotification('Your profile has been updated successfully!', 'success');
         } else {
             const errorMessage = await response.text();
-            showNotification('Failed to fetch your profile with the API.' + errorMessage, 'error');
+            showNotification('Failed to update your profile with the API. ' + errorMessage, 'error');
         }
-        
-
-    }catch(error){
+    } catch(error) {
         console.error("Error updating account:", error);
-        showNotification("An error ocurred while saving the profile. Plase try again", 'error');
+        showNotification("An error occurred while saving the profile. Please try again", 'error');
     }
-
 }
-
-
 
 // Ensure the set_user_account function is called when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     set_user_account();
 });
+
+/* ----------------------- */
+/* New code starts here    */
+/* ----------------------- */
+
+// Function to handle menu highlighting based on URL
+document.addEventListener("DOMContentLoaded", function() {
+    // Extract the current section from the URL path
+    const pathParts = window.location.pathname.split("/");
+    let currentSection = pathParts[pathParts.length - 1]; // e.g., 'profile', 'account', etc.
+
+    // If the URL ends with 'settings' or is empty, default to 'profile'
+    if (currentSection === 'settings' || currentSection === '') {
+        currentSection = 'profile';
+    }
+
+    // Query the corresponding menu item
+    const currentMenuItem = document.querySelector(`.settings-menu li[data-section="${currentSection}"]`);
+
+    // If it exists, add the 'active' class to highlight the correct section
+    if (currentMenuItem) {
+        currentMenuItem.classList.add('active');
+        showSection(currentSection);
+    } else {
+        // If no match is found, default to 'profile'
+        const defaultItem = document.querySelector('.settings-menu li[data-section="profile"]');
+        if (defaultItem) defaultItem.classList.add('active');
+        showSection('profile');
+    }
+});
+
+// Define the showSection function if not already defined
+function showSection(sectionId, event) {
+    // Prevent default action if this function is called from an event
+    if (event) event.preventDefault();
+
+    // Hide all sections
+    const sections = document.querySelectorAll('.settings-section');
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Remove 'active' class from all menu items
+    const menuItems = document.querySelectorAll('.settings-menu li');
+    menuItems.forEach(item => item.classList.remove('active'));
+
+    // Show the selected section
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.classList.add('active');
+    }
+
+    // Add 'active' class to the corresponding menu item
+    const selectedMenuItem = document.querySelector(`.settings-menu li[data-section="${sectionId}"]`);
+    if (selectedMenuItem) {
+        selectedMenuItem.classList.add('active');
+    }
+}
+
+/* ----------------------- */
+/* New code ends here      */
+/* ----------------------- */

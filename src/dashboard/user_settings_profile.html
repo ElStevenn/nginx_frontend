@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
+    <!-- Add responsive meta tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/user-header.css">
     <link rel="stylesheet" href="/styles/user-settings.css">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="/scripts/main-scripts/globalProvider.js"></script>
-    <script src="/scripts/main-scripts/set-profile.js"></script>
-    <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
+    <script src="/scripts/main-scripts/globalProvider.js" defer></script>
+    <script src="/scripts/main-scripts/set-profile.js" defer></script>
+    <script src="/scripts/user-dashboard/crypto-searcher.js" defer></script>
     <script src="/scripts/user-settings/user-settings-account.js" defer></script>
+    <script src="/scripts/user-settings/user-settings-profile.js" defer></script>
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -23,20 +26,18 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-left"  id="header-left-side">
+        <a href="/dashboard" class="header-left" id="header-left-side">
             <img src="/images/leverage_cuck.png" alt="Logo">
             <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
-        </div>
+        </a>
 
         <div class="header-right">
-
             <!-- Search Bar with Icon -->
             <div class="search-container">
                 <img src="/images/search.png" alt="Search Icon" id="search-icon" class="search-icon">
                 <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off">
                 <div id="search-results" class="search-results hidden"></div>
             </div>
-
 
             <img src="/images/bell.png" alt="Theme Toggle Icon">
             <img src="/images/list.png" alt="Menu Icon" onclick="toggleMenu2(event)">
@@ -93,7 +94,7 @@
             <img src="/images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
 
             <!-- Mini menu for the user -->
-            <div id="profile-menu" class="profile-menu"> <!-- i've removed the 'hidden' -->
+            <div id="profile-menu" class="profile-menu">
                 <div class="profile-header" style="display: flex; align-items: center;">
                     <img src="/images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
                     <div>
@@ -105,10 +106,9 @@
                 <ul class="menu-links">
                     <li><img src="/images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
                     <li><img src="/images/icons/transfer.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Transfer Assets</li>
-                    <li onclick="log_out(event)"> <img src="/images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
+                    <li onclick="log_out(event)"><img src="/images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
                     <hr>
                     <li><a href="/terms"> <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
-
                     <li><img src="/images/help.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Help </li>
                 </ul>
             </div>
@@ -159,27 +159,22 @@
                         <img src="/images/pencil.png" alt="Edit Icon" class="edit-profile-icon">
                         Edit
                     </button>
-                    <!-- Hidden file input to trigger file selection -->
                     <input type="file" id="profile-pic-input" accept="image/*" style="display: none;">
                 </div>
                 
 
                 <form>
-
-                    <!-- First Name -->
                     <div class="form-group">
                         <label for="first-name">Name</label>
                         <input type="text" id="first-name" name="first-name" placeholder="Enter your first name">
                         <p class="label-description">Your name may apear in Trade Visionary  where you contribute or are mentioned. You can remove it at any time.</p>
                     </div>
-                    <!-- Surname -->
                     <div class="form-group">
                         <label for="surname">Surname</label>
                         <input type="text" id="surname" name="surname" placeholder="Enter your surname">
                         <p class="label-description">Your surname will stay here, even if you update your Google Account.</p>
                     </div>
            
-                    <!-- Select Public Email -->
                     <div class="form-group">
                         <label for="public-email">Public Email</label>
                         <div class="email-select-container">
@@ -191,8 +186,6 @@
                         <p>You can add new emails adding new trading accounts <a href="#" style="color: #42a5f5;">here</a>.</p>
                     </div>
                     
-                    
-                    <!-- Bio -->
                     <div class="form-group">
                         <label for="bio">Bio</label>
                         <textarea id="bio-input" name="bio" rows="3"></textarea>
@@ -202,14 +195,12 @@
                     <h2>Profile settings</h2>
                     <hr>
 
-                    <!-- URL -->
                     <div class="form-group">
                         <label for="url">URL</label>
                         <input type="url" id="url-input" name="url" value="https://example.com" placeholder="https://yourwebsite.com">
                         <p class="label-description">Provide a link to your Profit & Loss statement to make it easier for you to access.</p>
                     </div>
         
-                    <!-- Main Used Exchange -->
                     <div class="form-group">
                         <label for="main-used-exchange">Used Exchange</label>
                         <select id="main-used-exchange" name="used-exchange">
@@ -219,7 +210,6 @@
                         <p>Select the exchange you use.</p>
                     </div>
         
-                    <!-- Trading Experience -->
                     <div class="form-group">
                         <label for="trading-experience">Trading Experience</label>
                         <select id="trading-experience" name="trading-experience">
@@ -233,38 +223,30 @@
                         <p>Select your trading experience.</p>
                     </div>
                     
-                    
-                    <!-- Location -->
                     <div class="form-group">
                         <label for="location">Location</label>
                         <input type="text" id="location" name="location" value="Barcelona/Spain" placeholder="Enter your location">
                         <p class="label-description">Enter your current location.</p>
                     </div>
         
-                    <!-- Save Button -->
-                    <button type="submit" onclick="update_user_profile(event)">Save Changes</button>
+                    <button type="submit" onclick="update_user_profile(event)">Update Profile</button>
                 </form>
             </div>
-
 
             <!-- Account Section -->
             <div id="account" class="settings-section">
                 <h2>Change Username</h2>
                 <hr>
-
-                <!-- Change Username -->
                 <p class="label-description-b">Changing your username can have <a href="#">unintended side effects</a>.</p>
                 <div class="form-group">
                     <button class="clasic-config-button">Change Username</button>
                     <p class="label-description" style="margin-top: 10px;">You can only change your username once per month.</p>
                 </div>
         
-                <!-- Add / Remove Account -->
                 <h2 style="margin-top: 40px;">Manage Trading Accounts</h2>
                 <hr>
                 <p class="label-description-b">You can only use one trading account for trading; however, you can have multiple accounts to view assets. For more information, please check the <a href="#">accounts documentation</a>.</p>
                 <div class="trading-account">
-                    <!-- User selects current trading account -->
                     <div class="trad-acc-select">
                         <label for="select-trade-account">Main trading account</label>
                         <div class="select-link-container">
@@ -280,18 +262,15 @@
                         <button class="clasic-config-button" onclick="openCredentialsWindow()">Add account</button>
                     </div>
                 </div>
-                <!-- Delete Account -->
                 <h2 style="margin-top: 40px; color: #f85149;">Delete Account</h2>
                 <hr>
                 <p class="label-description">Once you delete your account, all data associated with it will be permanently deleted, and it cannot be recovered.</p>
                 
                 <button class="delete-account-button">Delete your account</button>
-                <!-- Warning Section -->
+                <p class="label-description-b">If you delete your account you will not be able <a href="#">recover it</a>.</p>
                 <div id="delete-confirmation" class="confirm-dialog-bg" style="display:none;">
                     <div class="confirm-dialog">
                         <h3>Really want to delete your account?</h3>
-                        
-                        <!-- Warning Section and delete warnings -->
                         <div class="warning-section">
                             <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
                             <span>Unexpected bad things will happen if you don’t read this!</span>
@@ -304,7 +283,7 @@
                             <li>Your username will be available for others to use after deletion.</li>
                         </ul>
                 
-                        <button class="confirm-delete-button">I undersand, delete my account</button>
+                        <button class="confirm-delete-button" onclick="delete_user_full_account(event)">I undersand, delete my account</button>
                         <button class="cancel-delete-button">Cancel</button>
                     </div>
                 </div>
@@ -327,55 +306,35 @@
 
         </div>
     </div>
+    <div id="overlay" class="overlay"></div>
     <script>
-        // Function to show the delete confirmation dialog
         function showDeleteConfirmation() {
             document.getElementById('delete-confirmation').style.display = 'flex';
-            // Add keydown listener when dialog is shown
             document.addEventListener('keydown', handleKeyDown);
         }
 
-        // Function to hide the delete confirmation dialog
         function hideDeleteConfirmation() {
             document.getElementById('delete-confirmation').style.display = 'none';
-            // Remove keydown listener when dialog is hidden
             document.removeEventListener('keydown', handleKeyDown);
         }
 
-        // Handle keydown events
         function handleKeyDown(event) {
-            if (event.key === 'Escape') { // Check if the pressed key is "Escape"
+            if (event.key === 'Escape') {
                 hideDeleteConfirmation();
             }
-            // Add more keys if needed, for example:
-            // else if (event.key === 'Enter') {
-            //     // Perform some action
-            // }
         }
 
-        // Show dialog when "Delete your account" button is clicked
         document.querySelector('.delete-account-button').addEventListener('click', showDeleteConfirmation);
-
-        // Hide dialog when "Cancel" button is clicked
         document.querySelector('.cancel-delete-button').addEventListener('click', hideDeleteConfirmation);
-
-        // Optional: Hide dialog when clicking outside the dialog content
         document.getElementById('delete-confirmation').addEventListener('click', (event) => {
             if (event.target === document.getElementById('delete-confirmation')) {
                 hideDeleteConfirmation();
             }
         });
 
-        // Add your logic for confirming deletion on ".confirm-delete-button" click
         document.querySelector('.confirm-delete-button').addEventListener('click', () => {
-            // Add your delete account logic here
-            // For example:
-            // deleteUserAccount();
-            hideDeleteConfirmation(); // Hide the dialog after deletion
+            hideDeleteConfirmation();
         });
-
-
     </script>
-    <script src="/scripts/user-settings/user-settings-profile.js" defer></script>
 </body>
 </html>

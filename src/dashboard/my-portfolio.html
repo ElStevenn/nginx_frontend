@@ -11,13 +11,21 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
+    <!-- Scripts -->
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
+    <script src="/scripts/main-scripts/set-profile.js"></script>
+    <script src="/scripts/user-dashboard/user-portfolio.js"></script>
+    <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
+    <script src="/scripts/dashboardDataHandler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
     <header class="header">
-        <div class="header-left">
-            <img src="images/leverage_cuck.png" alt="Logo">
+        <a href="/dashboard" class="header-left" id="header-left-side">
+            <img src="/images/leverage_cuck.png" alt="Logo">
             <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
-        </div>
+        </a>
          
         <div class="header-right">
             <!-- Search Bar with Icon -->
@@ -153,14 +161,6 @@
 
 
     <div id="overlay" class="overlay"></div>
-  <!-- Scripts -->
-
-    <script src="/scripts/main-scripts/globalProvider.js"></script>
-    <script src="/scripts/main-scripts/set-profile.js"></script>
-    <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
-    <script src="/scripts/dashboardDataHandler.js"></script>
-    <script src="/scripts/user-dashboard/dashboard-script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.querySelector('.toggle-button').addEventListener('click', function() {
             const main_layout = document.getElementById('main-layout');

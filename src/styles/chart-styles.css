@@ -1,14 +1,196 @@
-
-/*Funding rate chart styles*/
+/* Funding rate chart styles */
 .chart-container {
-    position: relative;
-    height: 60vh;
-    width: 100%;
-    margin-top: 20px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 300px;
 }
 
 canvas#fundingRateChart {
     background-color: #1e1e1e; 
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* TRADING VIEW CHART WITHIN CHART SECTION */
+#tradingview_chart_container {
+    width: 100%;
+    height: 700px;
+    margin-top: 20px; 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom header to change gradularity */
+.chart-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2e2e2e;
+    border-top: solid 1px #434242;
+    border-right: solid 1px #434242;
+    border-left: solid 1px #434242;
+    padding: 5px 10px;
+    margin-bottom: -20px;
+}
+
+/* Grouping Left Actions */
+.left-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px; /* Space between interval buttons and Indicators button */
+}
+
+/* Chart Intervals */
+.chart-intervals {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    align-items: center;
+}
+
+/* Vertical line divider after the intervals */
+.chart-intervals::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 30px;
+    background-color: #49484c;
+    margin-left: 15px;
+}
+
+/* New Vertical Divider between Left and Right Actions */
+.button-divider {
+    width: 1px;
+    height: 30px; /* Increased height for better visibility */
+    background-color: #49484c;
+    margin: 0px 1px; /* Adjust spacing as needed */
+    align-self: center; /* Ensure it aligns vertically with buttons */
+}
+
+/* Interval Buttons */
+.interval-button {
+    background-color: transparent;
+    color: #b7b6b6;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.interval-button.active {
+    background-color: #626262;
+    color: #ffffff;
+}
+
+.interval-button:hover {
+    background-color: #49484c;
+    color: #ffffff;
+}
+
+/* Chart Actions (Compare and Screenshot) */
+.chart-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for additional icon-based buttons */
+.chart-actions .extra-button,
+.left-actions .extra-button {
+    background-color: transparent;
+    color: #b7b6b6;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-actions .extra-button:hover,
+.left-actions .extra-button:hover {
+    background-color: #49484c;
+    color: #ffffff;
+}
+
+/* Specific Styles for Indicators Button */
+#indicators-button {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    /* Optional: Adjust padding or other styles if needed */
+}
+
+#indicators-button.active {
+    background-color: #ababab;
+    color: #ffffff;
+}
+
+/* Style for the icon within the extra buttons */
+.extra-button .button-icon {
+    width: 20px; 
+    height: 20px;
+    object-fit: contain;
+    filter: invert(100%)
+}
+
+/* Style for the text within the extra buttons */
+.extra-button .button-text {
+    color: inherit; 
+    font-size: 14px;
+    white-space: nowrap; 
+}
+
+/* Screenshot label (if still needed) */
+.screenshot-label {
+    color: #e0e0e0;
+    font-size: 14px;
+    cursor: default;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chart-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chart-intervals::after {
+        display: none; /* Hide the divider on smaller screens */
+    }
+
+    .button-divider {
+        display: none; /* Optionally hide the divider on smaller screens */
+    }
+
+    .chart-actions {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .chart-actions .extra-button .button-icon,
+    .left-actions .extra-button .button-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Hide text if needed for smaller screens */
+    /*
+    .extra-button .button-text {
+        display: none;
+    }
+    */
 }

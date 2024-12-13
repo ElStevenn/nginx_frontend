@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:latest AS myngnx
 
 # Copy custom nginx configuration
 COPY config/nginx.conf /etc/nginx/nginx.conf

@@ -26,25 +26,21 @@ a {
 
 #leftPane {
     background-color: #1e1e1e;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
     width: 250px;
     min-width: 200px;
     flex-shrink: 0;
-    border-left: 0.5px solid #6d6d6d;
-    border-top: 0.5px solid #6d6d6d;
-    border-bottom: 0.5px solid #6d6d6d;
 }
 
 #rightPane {
     position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
     background-color: #2e2e2e;
     padding: 20px;
     box-sizing: border-box;
-    border-right: 0.5px solid #6d6d6d;
-    border-top: 0.5px solid #6d6d6d;
-    border-bottom: 0.5px solid #6d6d6d;
     overflow-y: auto;
     overflow-x: hidden;
     flex-grow: 1;
@@ -152,8 +148,8 @@ a {
 .settings-menu li.active {
     background-color: #313131;
     color: #fff;
-    border-left: 4px solid #ff4081; /* Pink vertical rectangle */
-    padding-left: 16px; /* Adjust padding */
+    border-left: 4px solid #000aff; 
+    padding-left: 16px;
 }
 
 .settings-menu li:first-child {
@@ -237,19 +233,21 @@ input[type="file"] {
 
 button[type="submit"],
 button[type="button"] {
-    padding: 10px 20px;
-    background-color: #ff4081;
-    border: none;
+    padding: 8px 20px;
+    background-color: #1f6feb;
+    border: solid 0.3px #3b7ce1;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
     font-size: 14px;
+    text-align: center;
     margin-top: 10px;
 }
 
 button[type="submit"]:hover,
 button[type="button"]:hover {
-    background-color: #e91e63;
+    background-color: #3581f3;
+    transition: 0.3s;
 }
 
 /* Profile Picture Update Styles */
@@ -636,10 +634,11 @@ button.edit-profile-pic-button:hover {
 
 .settings-section h2 {
     font-family: 'Montserrat', sans-serif;
-    color: #ff4081;
+    color: #fff;
     margin-bottom: 5px;
     margin-top: 13px;
     font-size: 22px;
+    font-weight: 120;
 }
 
 .settings-section hr {

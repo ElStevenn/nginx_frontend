@@ -1,7 +1,6 @@
 let isCryptoStarred = false; 
 let cryptoData = {}; 
 
-
 function getValueAfterCryptoDetail() {
     const path = window.location.pathname; 
     const parts = path.split('/crypto-detail/');
@@ -18,7 +17,7 @@ function getValueAfterCryptoDetail() {
 function getCryptoData() {
     const searched_crypto = getValueAfterCryptoDetail();
     if (searched_crypto) {
-        const url = cryptocurrencyAPI + `/get_detail_event/${searched_crypto}`;
+        const url = cryptocurrencyAPI + `/crypto/detail/${searched_crypto}USDT`;
 
         fetch(url, {
             method: 'GET',
@@ -41,6 +40,26 @@ function getCryptoData() {
             get_main_panle_info();
             startFundingRateUpdates(searched_crypto);
             initializeWebSocket(searched_crypto); 
+            
+            // Update currentSymbol for the chart based on the searched crypto
+            // Since searched_crypto is BTC or ETH, we convert it to BINANCE:BTCUSDT
+            currentSymbol = 'BINANCE:' + searched_crypto + 'USDT';
+
+            // If the currently selected left pane is 'chart', re-initialize the chart with the correct symbol
+            const savedTab = localStorage.getItem('selectedLeftPane') || 'chart';
+            if (savedTab === 'chart') {
+                initializeTradingViewWidget({
+                    containerId: 'tradingview_chart_container',
+                    symbol: currentSymbol,
+                    interval: currentInterval,
+                    theme: 'dark',
+                    locale: 'en',
+                    allow_symbol_change: false,
+                    calendar: false,
+                    support_host: 'https://www.tradingview.com'
+                });
+            }
+
         })
         .catch(error => {
             console.error('Fetch Operation Error:', error);
@@ -56,34 +75,26 @@ function displayCryptoData(image, name, symbol, next_execution_time, description
     const mainContent = document.getElementById('main-content');
     if (mainContent) {
         mainContent.style.display = 'flex'; 
-    } else {
-        console.error("Element with ID 'main-content' not found.");
     }
 
-    // Hide the error message if it's visible
+    // Hide error if shown
     const errorElement = document.getElementById('error-message');
     if (errorElement) {
         errorElement.style.display = 'none';
-    } else {
-        console.error("Element with ID 'error-message' not found.");
     }
 
-    // Update the name and symbol
+    // Update name and symbol
     const cryptoNameElement = document.getElementById('crypto-name');
     if (cryptoNameElement) {
         cryptoNameElement.textContent = name;
-    } else {
-        console.error("Element with ID 'crypto-name' not found.");
     }
 
     const cryptoSymbolElement = document.getElementById('crypto-symbol2');
     if (cryptoSymbolElement) {
         cryptoSymbolElement.textContent = ` (${symbol})`;
-    } else {
-        console.error("Element with ID 'crypto-symbol2' not found.");
     }
 
-    // Update the image
+    // Update image
     const cryptoLogoElement = document.getElementById('crypto-logo');
     if (cryptoLogoElement) {
         if (image && image.startsWith('http')) {
@@ -92,37 +103,29 @@ function displayCryptoData(image, name, symbol, next_execution_time, description
             console.error('Invalid image URL:', image);
             cryptoLogoElement.src = '/images/default-crypto-logo.png'; 
         }
-    } else {
-        console.error("Element with ID 'crypto-logo' not found.");
     }
 
-    // Start the countdown if next_execution_time is provided
+    // Start countdown
     if (next_execution_time) {
         startCountdown(next_execution_time);
-    } else {
-        console.error("next_execution_time is not provided.");
     }
 
-    // Display crypto description
+    // Set up description
     document.getElementById("description-spinner").style.display = "inline";
     document.getElementById("description-content").style.display = "none";
     if (description) {
         setupDescription(description);
     } else {
-        console.error("Description of the crypto not available");
         const cryptoDescription = document.getElementById('crypto-description');
         if (cryptoDescription) {
-            // Hide the spinner
             document.getElementById("description-spinner").style.display = "none";
             cryptoDescription.textContent = "Description not available.";
         }
     }
 }
 
-// Max number of characters
 var truncateLength = 100;
 function setupDescription(fullDescription) {
-    // Hide the spinner and show the description content
     document.getElementById("description-spinner").style.display = "none";
     document.getElementById("description-content").style.display = "inline";
 
@@ -130,27 +133,22 @@ function setupDescription(fullDescription) {
     var descriptionFull = document.getElementById("description-full");
     var readMoreLink = document.getElementById("read-more");
 
-    // Process the full description to convert URLs into clickable links
     var processedDescription = linkify(fullDescription);
 
     if (fullDescription.length > truncateLength) {
-        // Set the truncated and full descriptions
         descriptionShort.innerHTML = processedDescription.substring(0, truncateLength) + "...";
         descriptionFull.innerHTML = processedDescription.substring(truncateLength);
-        descriptionFull.style.display = "none"; // Ensure it's hidden initially
+        descriptionFull.style.display = "none";
         readMoreLink.style.display = "inline";
         readMoreLink.textContent = " Read more";
     } else {
-        // If the description is short, display it all and hide the "Read more" link
         descriptionShort.innerHTML = processedDescription;
         descriptionFull.style.display = "none";
         readMoreLink.style.display = "none";
     }
 }
 
-
 function toggleDescription(event) {
-    // Function to toggle the description display
     event.preventDefault();
     var descriptionFull = document.getElementById("description-full");
     var readMoreLink = document.getElementById("read-more");
@@ -164,11 +162,9 @@ function toggleDescription(event) {
     }
 }
 
-
 function displayError(message) {
     console.log("Displaying Error:", message);
 
-    // Optionally hide the main content when an error occurs
     const mainContent = document.getElementById('main-content');
     if (mainContent) {
         mainContent.style.display = 'none';
@@ -178,24 +174,16 @@ function displayError(message) {
     if (errorContainer) {
         errorContainer.textContent = message;
         errorContainer.style.display = 'block';
-    } else {
-        console.error("Element with ID 'error-message' not found.");
     }
 }
 
-
-
 function startCountdown(nextExecutionTime) {
     const countdownElement = document.getElementById('fundingrate-countdown');
-    if (!countdownElement) {
-        console.error("Element with ID 'fundingrate-countdown' not found.");
-        return;
-    }
+    if (!countdownElement) return;
 
     function updateCountdown() {
         const now = new Date();
         const executionTime = new Date(nextExecutionTime);
-
         const timeDiff = executionTime - now; 
 
         if (timeDiff <= 0) {
@@ -216,7 +204,7 @@ function startCountdown(nextExecutionTime) {
         countdownElement.textContent = formattedTime;
     }
 
-    updateCountdown(); // Initial call
+    updateCountdown();
     const intervalId = setInterval(updateCountdown, 1000);
 }
 
@@ -229,12 +217,8 @@ function updatePriceOnScreen(price) {
             loadingImage.style.display = 'none'; 
         }
 
-        // Convert price to a number
         let priceNumber = parseFloat(price);
-        if (isNaN(priceNumber)) {
-            console.error("Invalid price received:", price);
-            return;
-        }
+        if (isNaN(priceNumber)) return;
 
         let decimals = Math.max(4, Math.ceil(-Math.log10(priceNumber)));
         let formattedPrice = priceNumber.toFixed(decimals);
@@ -244,59 +228,98 @@ function updatePriceOnScreen(price) {
 }
 
 let socket;
-
 function initializeWebSocket(symbol) {
-  // Remove any unwanted prefixes from the symbol
-  if (symbol.startsWith('UX')) {
-    symbol = symbol.substring(2);
-  }
-
-  const instId = symbol + '_UMCBL';
-  socket = new WebSocket('wss://ws.bitget.com/mix/v1/stream');
-
-  socket.onopen = function () {
-    console.log("WebSocket is open now.");
-    socket.send(JSON.stringify({
-      op: "subscribe",
-      args: [
-        {
-          instType: "USDT-FUTURES",
-          channel: "ticker",
-          instId: instId
-        }
-      ]
-    }));
-  };
-
-  socket.onmessage = function (event) {
-    const message = JSON.parse(event.data);
-    console.log("Received WebSocket message:", message);
-
-    if (message.data && message.data.length > 0) {
-      const price = message.data[0].last;
-      updatePriceOnScreen(price);
-    } else if (message.event === 'error') {
-      console.error(`WebSocket Error: ${message.msg} (Code: ${message.code})`);
+    if (symbol.startsWith('UX')) {
+        symbol = symbol.substring(2);
     }
-  };
 
-  socket.onclose = function () {
-    console.log("WebSocket is closed now.");
-  };
+    // Ensure we form the correct instrument ID for Bitget
+    const instId = symbol + 'USDT_UMCBL';
 
-  socket.onerror = function (error) {
-    console.error("WebSocket error:", error);
-  };
+    socket = new WebSocket('wss://ws.bitget.com/mix/v1/stream');
+
+    socket.onopen = function () {
+        console.log("WebSocket is open now.");
+        socket.send(JSON.stringify({
+            op: "subscribe",
+            args: [
+                {
+                    instType: "USDT-FUTURES",
+                    channel: "ticker",
+                    instId: instId
+                }
+            ]
+        }));
+    };
+
+    socket.onmessage = function (event) {
+        const message = JSON.parse(event.data);
+        console.log("Received WebSocket message:", message);
+
+        if (message.data && message.data.length > 0) {
+            const price = message.data[0].last;
+            updatePriceOnScreen(price);
+        } else if (message.event === 'error') {
+            console.error(`WebSocket Error: ${message.msg} (Code: ${message.code})`);
+        }
+    };
+
+    socket.onclose = function () {
+        console.log("WebSocket is closed now.");
+    };
+
+    socket.onerror = function (error) {
+        console.error("WebSocket error:", error);
+    };
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', function() {
     getCryptoData();
+
+    const savedTab = localStorage.getItem('selectedLeftPane') || 'chart';
+    switchLeftPane(savedTab);
+
+    // Initialize the resizer
+    const resizer = document.getElementById('dragMe');
+    const leftPane = document.getElementById('leftPane');
+    const rightPane = document.getElementById('rightPane');
+    let x = 0;
+    let leftWidth = 0;
+
+    resizer.addEventListener('mousedown', mousedownHandler);
+
+    function mousedownHandler(e) {
+        x = e.clientX;
+        leftWidth = leftPane.getBoundingClientRect().width;
+
+        document.body.classList.add('dragging');
+        document.addEventListener('mousemove', mousemoveHandler);
+        document.addEventListener('mouseup', mouseupHandler);
+    }
+
+    function mousemoveHandler(e) {
+        const dx = e.clientX - x;
+        let newLeftWidth = leftWidth + dx;
+
+        // Optional: set some min/max widths
+        const minWidth = 200;
+        const maxWidth = window.innerWidth - 200;
+        if (newLeftWidth < minWidth) newLeftWidth = minWidth;
+        if (newLeftWidth > maxWidth) newLeftWidth = maxWidth;
+
+        leftPane.style.flexBasis = newLeftWidth + 'px';
+    }
+
+    function mouseupHandler() {
+        document.body.classList.remove('dragging');
+        document.removeEventListener('mousemove', mousemoveHandler);
+        document.removeEventListener('mouseup', mouseupHandler);
+    }
 });
 
-// Fetch whether the crypto is starred or not
+
+// Retrieve panel info
 async function get_main_panle_info() {
     const searched_crypto = getValueAfterCryptoDetail();
 
@@ -306,7 +329,7 @@ async function get_main_panle_info() {
         return;
     }
     credentials = credentials.replace(/^"(.*)"$/, '$1');
-    const url = cryptocurrencyAPI + `/get_main_panle_crypto/${searched_crypto}`;
+    const url = globalAPI + `/user/symbol-detail/${searched_crypto}`;
     const headers = {
         'Accept': 'application/json',
         "Authorization": credentials
@@ -325,10 +348,8 @@ async function get_main_panle_info() {
         const data = await response.json();
         console.log("Panel info data:", data);
 
-        // Update the starred status
         isCryptoStarred = data.is_starred;
 
-        // Update the star icon based on whether the crypto is starred
         const starIcon = document.getElementById('starred_crypto');
         if (starIcon) {
             if (isCryptoStarred) {
@@ -343,7 +364,7 @@ async function get_main_panle_info() {
     }
 }
 
-// Toggle the starred status of the crypto
+// Toggle star status
 document.getElementById('starred_crypto').addEventListener('click', toggleHighlightCrypto);
 
 async function toggleHighlightCrypto() {
@@ -364,26 +385,20 @@ async function toggleHighlightCrypto() {
 
     try {
         if (isCryptoStarred) {
-            // If currently starred, remove it
-            const url = cryptocurrencyAPI + `/remove_starred_symbol/${searched_crypto}`;
+            const url = globalAPI + `/user/starred_symbol/${searched_crypto}`;
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: headers
             });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            // Update the UI
             isCryptoStarred = false;
             const starIcon = document.getElementById('starred_crypto');
             if (starIcon) {
                 starIcon.src = "/images/none-starred.png";
             }
         } else {
-            // If currently not starred, add it
-            const url = globalAPI + '/add_new_starred_symbo';
+            const url = globalAPI + '/user/starred_symbol';
             const body = JSON.stringify({
                 symbol: searched_crypto,
                 name: cryptoData.name,
@@ -395,12 +410,8 @@ async function toggleHighlightCrypto() {
                 headers: headers,
                 body: body
             });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            // Update the UI
             isCryptoStarred = true;
             const starIcon = document.getElementById('starred_crypto');
             if (starIcon) {
@@ -414,17 +425,15 @@ async function toggleHighlightCrypto() {
 }
 
 async function get_current_funding_rate(symbol) {
-    const exchange_url = bitgetAPI + `/api/v2/mix/market/current-fund-rate?symbol=${symbol}&productType=usdt-futures`; 
+    const exchange_url = bitgetAPI + `/api/v2/mix/market/current-fund-rate?symbol=${symbol}USDT&productType=usdt-futures`; 
 
     try {
         const api_response = await fetch(exchange_url);
-        
         if (!api_response.ok) {
             throw new Error(`Network response was not ok: ${api_response.statusText} (Status Code: ${api_response.status})`);
         }
         
         const data = await api_response.json();
-        
         if (data && data.data && data.data.length > 0) {
             return data.data[0].fundingRate * 100; 
         } else {
@@ -462,11 +471,9 @@ async function updateFundingRate(symbol) {
 let fundingRateIntervalId = null;
 function startFundingRateUpdates(symbol) {
     updateFundingRate(symbol); 
-
     if (fundingRateIntervalId) {
         clearInterval(fundingRateIntervalId);
     }
-
     fundingRateIntervalId = setInterval(() => {
         updateFundingRate(symbol);
     }, 10000);
@@ -479,7 +486,6 @@ window.addEventListener('beforeunload', function() {
 });
 
 function openTab(evt, tabName) {
-    
     var i, tabcontent, tabbuttons;
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -495,13 +501,136 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-    document.getElementsByClassName("tab-button")[0].click();
-});
+// ---------------------------------------------------------------------------------------
+// PERSISTING THE SELECTED LEFT PANE AND INITIALIZING THE CHART
+// ---------------------------------------------------------------------------------------
+let currentInterval = '60'; // Default interval, e.g., '60' for 1H
+let currentSymbol = 'BINANCE:BTCUSDT'; // Default symbol
 
+// Function to switch left pane (existing functionality)
+function switchLeftPane(selectedTab) {
+    const tabButtons = document.querySelectorAll('.left-tab-button');
+    const tabContents = document.querySelectorAll('.left-pane-content');
+
+    tabButtons.forEach(button => {
+        const isActive = button.getAttribute('onclick').includes(`'${selectedTab}'`);
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-selected', isActive);
+    });
+
+    tabContents.forEach(content => {
+        content.classList.toggle('active', content.id === selectedTab);
+    });
+
+    // Store the selected tab in localStorage
+    localStorage.setItem('selectedLeftPane', selectedTab);
+
+    // If the Chart tab is activated, initialize the TradingView widget with current interval
+    if (selectedTab === 'chart') {
+        initializeTradingViewWidget({
+            containerId: 'tradingview_chart_container',
+            symbol: currentSymbol, 
+            interval: currentInterval,
+            theme: 'dark',
+            locale: 'en',
+            allow_symbol_change: false,
+            calendar: false,
+            support_host: 'https://www.tradingview.com'
+        });
+    }
+}
+
+// Initialize TradingView widget (existing functionality)
+function initializeTradingViewWidget({containerId, symbol, interval, theme, locale, allow_symbol_change, calendar, support_host}) {
+    if (typeof TradingView === 'undefined') {
+        console.error("TradingView library not found. Make sure you included the TradingView script.");
+        return;
+    }
+
+    // Remove previously initialized widget if exists
+    const widgetContainer = document.getElementById(containerId);
+    if (widgetContainer) {
+        widgetContainer.innerHTML = ''; 
+    }
+
+    new TradingView.widget({
+        "width": "100%",   
+        "height": "700",   
+        "symbol": symbol,
+        "interval": interval,
+        "timezone": "Etc/UTC",
+        "theme": theme,
+        "style": "1",
+        "locale": locale,
+        "toolbar_bg": "#2e2e2e",
+        "enable_publishing": false,
+        "allow_symbol_change": allow_symbol_change,
+        "calendar": calendar,
+        "container_id": containerId,
+        "hide_side_toolbar": false,
+        "hide_top_toolbar": true,
+        "withdateranges": false,
+        "show_popup_button": true,
+        "details": false,
+        "hotlist": false,
+        "save_image": true,
+        "studies": [],
+        "support_host": support_host,
+
+        "overrides": {
+            "paneProperties.background": "#2e2e2e",
+            "paneProperties.vertGridProperties.color": "#363c4e",
+            "paneProperties.horzGridProperties.color": "#363c4e",
+            "scalesProperties.textColor": "#DADADA",
+            "scalesProperties.lineColor": "#555",
+            "symbolWatermarkProperties.transparency": 90
+        },
+        "studies_overrides": {}
+    });
+}
+
+// ---------------------------------------------------------------------------------------
+// HANDLING INTERVAL BUTTON CLICK EVENTS AND ACTIVE STATE
+// ---------------------------------------------------------------------------------------
 document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('interval-button')) {
+        const newInterval = event.target.getAttribute('data-interval');
+        currentInterval = newInterval;
+
+        // Persist the selected interval in localStorage
+        localStorage.setItem('selectedInterval', currentInterval);
+
+        // Update active state for interval buttons
+        updateActiveIntervalButton(newInterval);
+
+        // Re-initialize the widget with the new interval and current symbol
+        initializeTradingViewWidget({
+            containerId: 'tradingview_chart_container',
+            symbol: currentSymbol,
+            interval: currentInterval,
+            theme: 'dark',
+            locale: 'en',
+            allow_symbol_change: false,
+            calendar: false,
+            support_host: 'https://www.tradingview.com'
+        });
+    }
+
     closeMenus(event);
 });
 
+function updateActiveIntervalButton(selectedInterval) {
+    const intervalButtons = document.querySelectorAll('.interval-button');
+    intervalButtons.forEach(button => {
+        if (button.getAttribute('data-interval') === selectedInterval) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+}
 
-// v.2.3.4 - 
+// Placeholder for closeMenus function (If you have this defined elsewhere, keep it)
+function closeMenus(event) {
+    // Your existing implementation for closing menus
+}

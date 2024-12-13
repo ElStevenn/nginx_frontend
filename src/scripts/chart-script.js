@@ -37,7 +37,7 @@ function getPointColor(value) {
 
 async function fetch_chart_data(limit) {
     const symbol = getValueAfterCryptoDetail();
-    const url = cryptocurrencyAPI + `/historical_funding_rate/${symbol}?limit=${limit}`;
+    const url = cryptocurrencyAPI + `/funding-rate/history/${symbol}?limit=${limit}`;
 
     try {
         const response = await fetch(url, {
@@ -248,3 +248,107 @@ fetch_chart_data(100).then(data => {
         console.error("No data available for the chart.");
     }
 });
+
+
+
+// TRADING VIEW CHART
+
+(function() {
+    // Flag to ensure the TradingView script is loaded only once
+    let isTradingViewScriptLoaded = false;
+
+    /**
+     * Initializes the TradingView Advanced Chart Widget.
+     * @param {Object} options - Configuration options for the widget.
+     * @param {string} options.containerId - The ID of the container where the widget will be embedded.
+     * @param {string} options.symbol - The default trading symbol (e.g., "NASDAQ:AAPL").
+     * @param {string} [options.interval="D"] - The default time interval (e.g., "D" for daily).
+     * @param {string} [options.theme="dark"] - The theme of the widget ("dark" or "light").
+     * @param {string} [options.locale="en"] - The locale of the widget.
+     */
+    window.initializeTradingViewWidget = function(options) {
+        if (!options || !options.containerId) {
+            console.error("initializeTradingViewWidget: 'containerId' is required in options.");
+            return;
+        }
+
+        // Default configuration
+        const config = {
+            autosize: true,
+            symbol: options.symbol || "NASDAQ:AAPL",
+            interval: options.interval || "D",
+            timezone: options.timezone || "Etc/UTC",
+            theme: options.theme || "dark",
+            style: options.style || "1",
+            locale: options.locale || "en",
+            allow_symbol_change: options.allow_symbol_change !== undefined ? options.allow_symbol_change : true,
+            calendar: options.calendar !== undefined ? options.calendar : false,
+            support_host: options.support_host || "https://www.tradingview.com"
+        };
+
+        // Function to load the TradingView script
+        function loadTradingViewScript(callback) {
+            if (isTradingViewScriptLoaded) {
+                if (callback) callback();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+            script.async = true;
+            script.onload = function() {
+                isTradingViewScriptLoaded = true;
+                if (callback) callback();
+            };
+            script.onerror = function() {
+                console.error("Failed to load TradingView script.");
+            };
+            document.head.appendChild(script);
+        }
+
+        // Function to embed the widget
+        function embedWidget() {
+            const container = document.getElementById(options.containerId);
+            if (!container) {
+                console.error(`initializeTradingViewWidget: Container with ID '${options.containerId}' not found.`);
+                return;
+            }
+
+            // Clear any existing content
+            container.innerHTML = '';
+
+            // Create the widget container
+            const widgetContainer = document.createElement('div');
+            widgetContainer.className = 'tradingview-widget-container';
+            widgetContainer.style.height = '100%';
+            widgetContainer.style.width = '100%';
+
+            // Inner widget div
+            const widgetInner = document.createElement('div');
+            widgetInner.className = 'tradingview-widget-container__widget';
+            widgetInner.style.height = 'calc(100% - 32px)';
+            widgetInner.style.width = '100%';
+
+            // Copyright div
+            const copyright = document.createElement('div');
+            copyright.className = 'tradingview-widget-copyright';
+            copyright.innerHTML = '<a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a>';
+
+            // Append elements
+            widgetContainer.appendChild(widgetInner);
+            widgetContainer.appendChild(copyright);
+            container.appendChild(widgetContainer);
+
+            // Initialize the widget
+            new TradingView.widget({
+                ...config,
+                container_id: widgetInner.id || options.containerId + "_widget"
+            });
+        }
+
+        // Ensure the TradingView script is loaded before embedding
+        loadTradingViewScript(embedWidget);
+    };
+})();
+
