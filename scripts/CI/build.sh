@@ -24,7 +24,7 @@ docker container rm "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 # Modify config if needed (optional)
 if [ -f "$CONFIG" ]; then
-    jq '.api = false' "$CONFIG" > temp.json && mv temp.json "$CONFIG"
+    jq '.api = false' "$CONFIG" > temp.json && mv mv -f temp.json "$CONFIG"
 fi
 
 # Update packages and install Nginx, Certbot if not installed
@@ -100,7 +100,7 @@ if [ -f "$CONFIG" ]; then
     if [[ -s "$CONFIG" ]]; then
         API=$(jq -r '.api' "$CONFIG")
         if [[ "$API" == "false" ]]; then
-            jq '.api = true' "$CONFIG" > temp.json && mv temp.json "$CONFIG"
+            jq '.api = true' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
         fi
     fi
 fi
