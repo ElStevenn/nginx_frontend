@@ -4,7 +4,6 @@ set -e
 
 # Variables
 DOMAIN="fundy.pauservices.top"
-EMAIL="paumat17@gmail.com"
 APP_DIR="/home/ubuntu/nginx_frontend"
 CONFIG="/home/ubuntu/scripts/config.json"
 
@@ -27,9 +26,9 @@ if [ -f "$CONFIG" ]; then
     jq '.api = false' "$CONFIG" > temp.json && mv temp.json "$CONFIG"
 fi
 
-# Update packages and install Nginx, Certbot if not installed
+# Update packages and install Nginx if not installed
 sudo apt-get update -y
-sudo apt-get install -y nginx certbot python3-certbot-nginx
+sudo apt-get install -y nginx
 
 # Allow Nginx through firewall if using UFW
 sudo ufw allow 'Nginx Full' || true
@@ -39,14 +38,13 @@ cd "$APP_DIR" || exit 1
 docker build -t "$IMAGE_NAME" .
 
 # Run the container mapped to localhost:8080
-# Ensure that the container listens on port 80 internally and serves content
 docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:80 "$IMAGE_NAME"
 
-# Create a temporary HTTP server block to allow Certbot HTTP challenge
+# Configure Nginx to serve the application over HTTP
 sudo bash -c "cat > $NGINX_CONF" <<EOL
 server {
     listen 80;
-    server_name $DOMAIN www.$DOMAIN;
+    server_name $DOMAIN;
 
     location / {
         proxy_pass http://127.0.0.1:8080;
@@ -65,37 +63,7 @@ sudo rm -f /etc/nginx/sites-enabled/default || true
 sudo nginx -t
 sudo systemctl restart nginx
 
-# Obtain SSL certificate using HTTP-01 challenge
-if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
-    sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
-fi
-
-# Now that we have the certificate, reconfigure Nginx to serve over HTTPS only
-sudo bash -c "cat > $NGINX_CONF" <<EOL
-server {
-    listen 443 ssl;
-    server_name $DOMAIN www.$DOMAIN;
-
-    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-    }
-}
-EOL
-
-# Remove port 80 config since we now serve via HTTPS only
-sudo nginx -t
-sudo systemctl reload nginx
-
-# Update the API flag in config if needed (optional)
+# Update the API flag in config (optional)
 if [ -f "$CONFIG" ]; then
     if [[ -s "$CONFIG" ]]; then
         API=$(jq -r '.api' "$CONFIG")
@@ -105,4 +73,4 @@ if [ -f "$CONFIG" ]; then
     fi
 fi
 
-echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
+echo "Setup complete. Your application should now be accessible via http://$DOMAIN/"

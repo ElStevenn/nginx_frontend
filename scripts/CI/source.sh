@@ -27,7 +27,8 @@ if [ -f "$config" ]; then
 
             jq '.first_time = false' "$config" > temp.json && mv temp.json "$config"
 
-        else 
+        else
+            git config --global --add safe.directory /home/ubuntu/nginx_frontend
             git pull origin main
             cd nginx_frontend
         fi

@@ -23,6 +23,10 @@ if [ "$response" == "y" ]; then
     # Follow the logs
     docker logs --follow $container_name
 
+
+    # Restart container within the server
+    
+
 else
     echo "OK."
 fi
