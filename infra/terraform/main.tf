@@ -182,9 +182,9 @@ resource "null_resource" "update_container" {
 
     provisioner "remote-exec" {
     inline = [
-      "bash /home/ubuntu/scripts/CI/source.sh",
+      "git -C /home/ubuntu/nginx_frontend pull origin main",
       "chmod +x /home/ubuntu/scripts/*",
-      "bash /home/ubuntu/scripts/restart_server.sh",
+      "bash /home/ubuntu/scripts/CI/build.sh",
     ]
 
     connection {
