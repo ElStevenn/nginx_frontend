@@ -31,6 +31,8 @@ function getCookie(name) {
     return null;
 }
 
+console.log(getCookie("credentials"));
+
 
 function linkify(text) {
     // Regular expression to match URLs
