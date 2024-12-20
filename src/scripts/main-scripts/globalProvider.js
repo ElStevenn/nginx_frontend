@@ -31,8 +31,14 @@ function getCookie(name) {
     return null;
 }
 
-console.log(getCookie("credentials"));
+console.log(document.cookie);
+console.log(getCookie("credentials")); 
 
+fetch("https://fundy.pauservices.top/show-cookie", {
+    credentials: 'include'
+  })
+.then(r => r.json())
+.then(data => console.log(data));
 
 function linkify(text) {
     // Regular expression to match URLs
