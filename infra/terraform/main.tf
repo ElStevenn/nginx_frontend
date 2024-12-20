@@ -110,12 +110,6 @@ resource "aws_instance" "web_server" {
     }
   }
 
-  # Upload src directory
-  provisioner "file" {
-    source      = "src"
-    destination = "/home/ubuntu/src"
-  }
-
   # Run source.sh after scripts are copied and before build.sh
   provisioner "remote-exec" {
     inline = [
