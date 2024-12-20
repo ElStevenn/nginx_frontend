@@ -169,8 +169,8 @@ resource "null_resource" "update_container" {
   }
 
   provisioner "file" {
-    source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/scripts"
-    destination = "/home/ubuntu/scripts"
+    source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/scripts/CI"
+    destination = "/home/ubuntu/scripts/CI"
 
     connection {
       type        = "ssh"
