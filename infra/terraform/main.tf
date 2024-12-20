@@ -182,9 +182,11 @@ resource "null_resource" "update_container" {
 
     provisioner "remote-exec" {
     inline = [
-      "git -C /home/ubuntu/nginx_frontend pull origin main",
+
       "sudo chown -R ubuntu:ubuntu /home/ubuntu/nginx_frontend",
       "chmod +x /home/ubuntu/scripts/CI/*",
+      "git -C /home/ubuntu/nginx_frontend pull origin main",
+      "git -C /home/ubuntu/nginx_frontend config pull.rebase false",
       "bash /home/ubuntu/scripts/CI/build.sh",
     ]
 
