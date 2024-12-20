@@ -24,7 +24,7 @@ docker container rm "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 # Modify config if needed (optional)
 if [ -f "$CONFIG" ]; then
-    sudo jq '.api = false' "$CONFIG" > temp.json && mv mv -f temp.json "$CONFIG"
+    jq '.api = false' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
 fi
 
 # Update packages and install Nginx, Certbot if not installed
