@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const credentials = getCookie("credentials")?.replace(/^"(.*)"$/, '$1');
         if (!credentials) {
             console.error("No credentials found for WebSocket authentication.");
-            // window.location.href = '/login';
+            window.location.href = '/login';
             return;
         }
 

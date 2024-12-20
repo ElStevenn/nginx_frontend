@@ -47,7 +47,7 @@ function closeMenus() {
 
 function log_out() {
     document.cookie = "credentials=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // window.location.href = '/login';
+    window.location.href = '/login';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!credentials) {
                 console.error("No credentials found, now you should be redirected to the login page");
-                // window.location.href = '/login';
+                window.location.href = '/login';
                 throw new Error("No credentials found");
             }
 
@@ -81,13 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.status === 401 || response.status === 400) {
                     console.log("Redirecting to /login");
-                    // window.location.href = '/login';
+                    window.location.href = '/login';
                     throw new Error("Unauthorized or Bad Request");
                 }
 
                 if (response.status === 404) {
                     console.log("Credentials not found. Redirecting to /login.");
-                    // window.location.href = '/login';
+                    window.location.href = '/login';
                     throw new Error("Credentials not found");
                 }
 
