@@ -65,47 +65,47 @@ sudo rm -f /etc/nginx/sites-enabled/default || true
 sudo nginx -t
 sudo systemctl restart nginx
 
-# # Obtain SSL certificate using HTTP-01 challenge
-# if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
-#     sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
-# fi
+# Obtain SSL certificate using HTTP-01 challenge
+if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
+    sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
+fi
 
-# # Now that we have the certificate, reconfigure Nginx to serve over HTTPS only
-# sudo bash -c "cat > $NGINX_CONF" <<EOL
-# server {
-#     listen 443 ssl;
-#     server_name $DOMAIN www.$DOMAIN;
+# Now that we have the certificate, reconfigure Nginx to serve over HTTPS only
+sudo bash -c "cat > $NGINX_CONF" <<EOL
+server {
+    listen 443 ssl;
+    server_name $DOMAIN www.$DOMAIN;
 
-#     ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
-#     ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
-#     include /etc/letsencrypt/options-ssl-nginx.conf;
-#     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-#     location / {
-#         proxy_pass http://127.0.0.1:8080;
-#         proxy_set_header Host \$host;
-#         proxy_set_header X-Real-IP \$remote_addr;
-#         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-#         proxy_set_header X-Forwarded-Proto \$scheme;
-#     }
-# }
-# EOL
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+EOL
 
-# # Remove port 80 config since we now serve via HTTPS only
-# sudo nginx -t
-# sudo systemctl reload nginx
+# Remove port 80 config since we now serve via HTTPS only
+sudo nginx -t
+sudo systemctl reload nginx
 
-# # Update the API flag in config if needed (optional)
-# if [ -f "$CONFIG" ]; then
-#     if [[ -s "$CONFIG" ]]; then
-#         API=$(jq -r '.api' "$CONFIG")
-#         if [[ "$API" == "false" ]]; then
-#             jq '.api = true' "$CONFIG" > temp.json && mv temp.json "$CONFIG"
-#         fi
-#     fi
-# fi
+# Update the API flag in config if needed (optional)
+if [ -f "$CONFIG" ]; then
+    if [[ -s "$CONFIG" ]]; then
+        API=$(jq -r '.api' "$CONFIG")
+        if [[ "$API" == "false" ]]; then
+            jq '.api = true' "$CONFIG" > temp.json && mv temp.json "$CONFIG"
+        fi
+    fi
+fi
 
-# # Any additional steps like running tests
-# bash /home/ubuntu/scripts/CI/unit_testing.sh
+# Any additional steps like running tests
+bash /home/ubuntu/scripts/CI/unit_testing.sh
 
-# echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
+echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
