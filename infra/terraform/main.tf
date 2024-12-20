@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-south-2" 
+  region = "eu-south-2"
 }
 
 # Key Pair
@@ -8,8 +8,7 @@ resource "aws_key_pair" "instance_pub_key" {
   public_key = file("../../security/instance_key.pub")
 }
 
-
-# Needed role
+# IAM Role for SSM
 resource "aws_iam_role" "ssm_role" {
   name = "ssm_full_acces_"
 
@@ -17,11 +16,9 @@ resource "aws_iam_role" "ssm_role" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        },
-        Action = "sts:AssumeRole"
+        Effect    = "Allow",
+        Principal = { Service = "ec2.amazonaws.com" },
+        Action    = "sts:AssumeRole"
       }
     ]
   })
@@ -32,16 +29,13 @@ resource "aws_iam_role_policy_attachment" "ssm_full_access" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
 }
 
-
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
-
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
-
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
@@ -98,6 +92,7 @@ resource "aws_instance" "web_server" {
     EOT
   }
 
+  # Copy all scripts from local to remote
   provisioner "file" {
     source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/scripts"
     destination = "/home/ubuntu/scripts"
@@ -153,9 +148,8 @@ resource "null_resource" "post_eip_setup" {
 resource "null_resource" "update_container" {
   depends_on = [aws_instance.web_server]
 
-  # Trigger to force execution whenever needed
   triggers = {
-    manual_trigger = timestamp() 
+    manual_trigger = timestamp()
   }
 
   provisioner "local-exec" {
@@ -168,6 +162,7 @@ resource "null_resource" "update_container" {
     EOT
   }
 
+  # Re-upload the scripts/CI directory to ensure updated build.sh is present
   provisioner "file" {
     source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/scripts/CI"
     destination = "/home/ubuntu/scripts/CI"
@@ -180,15 +175,15 @@ resource "null_resource" "update_container" {
     }
   }
 
-    provisioner "remote-exec" {
-      inline = [
-        "sudo chown -R ubuntu:ubuntu /home/ubuntu/nginx_frontend",
-        "chmod +x /home/ubuntu/scripts/CI/*",
-        "git -C /home/ubuntu/nginx_frontend reset --hard", # Ensures no local changes
-        "git -C /home/ubuntu/nginx_frontend config pull.rebase false",
-        "git -C /home/ubuntu/nginx_frontend pull origin main",
-        "bash /home/ubuntu/scripts/CI/build.sh",
-      ]
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chown -R ubuntu:ubuntu /home/ubuntu/nginx_frontend",
+      "chmod +x /home/ubuntu/scripts/CI/*",
+      "git -C /home/ubuntu/nginx_frontend reset --hard",
+      "git -C /home/ubuntu/nginx_frontend config pull.rebase false",
+      "git -C /home/ubuntu/nginx_frontend pull origin main",
+      "bash /home/ubuntu/scripts/CI/build.sh",
+    ]
 
     connection {
       type        = "ssh"
@@ -199,11 +194,7 @@ resource "null_resource" "update_container" {
   }
 }
 
-
-# Output the Elastic IP
 output "elastic_ip" {
   value       = aws_eip.main_api_eip.public_ip
   description = "The Elastic IP address associated with the EC2 instance."
 }
-
-

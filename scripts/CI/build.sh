@@ -21,7 +21,7 @@ sudo mkdir -p $NGINX_CONF_DIR $NGINX_ENABLED_DIR
 docker container stop "$CONTAINER_NAME" >/dev/null 2>&1 || true
 docker container rm "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
-# Remove all references to config.json - no config modification here
+# No config.json modifications whatsoever
 
 # Update packages and install Nginx, Certbot if not installed
 sudo apt-get update -y
@@ -65,7 +65,7 @@ if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
     sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
 fi
 
-# Reconfigure Nginx to serve over HTTPS only
+# Now that we have the certificate, reconfigure Nginx to serve over HTTPS only
 sudo bash -c "cat > $NGINX_CONF" <<EOL
 server {
     listen 443 ssl;
@@ -86,10 +86,10 @@ server {
 }
 EOL
 
-# Remove HTTP configuration, now only HTTPS
+# Remove port 80 config since now we serve via HTTPS only
 sudo nginx -t
 sudo systemctl reload nginx
 
-# No config modifications or references here
+# No config or API flag updates
 
 echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
