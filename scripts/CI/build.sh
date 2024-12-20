@@ -6,7 +6,6 @@ set -e
 DOMAIN="fundy.pauservices.top"
 EMAIL="paumat17@gmail.com"
 APP_DIR="/home/ubuntu/nginx_frontend"
-CONFIG="/home/ubuntu/scripts/config.json"
 
 IMAGE_NAME="nginx-webserver"
 CONTAINER_NAME="fundy_frontend_v1"
@@ -22,11 +21,7 @@ sudo mkdir -p $NGINX_CONF_DIR $NGINX_ENABLED_DIR
 docker container stop "$CONTAINER_NAME" >/dev/null 2>&1 || true
 docker container rm "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
-# Modify config if needed (optional)
-# if [ -f "$CONFIG" ]; then
-#     jq '.api = false' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
-
-# fi
+# Remove all references to config.json - no config modification here
 
 # Update packages and install Nginx, Certbot if not installed
 sudo apt-get update -y
@@ -40,7 +35,6 @@ cd "$APP_DIR" || exit 1
 docker build -t "$IMAGE_NAME" .
 
 # Run the container mapped to localhost:8080
-# Ensure that the container listens on port 80 internally and serves content
 docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:80 "$IMAGE_NAME"
 
 # Create a temporary HTTP server block to allow Certbot HTTP challenge
@@ -71,7 +65,7 @@ if [ ! -d "/etc/letsencrypt/live/$DOMAIN" ]; then
     sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
 fi
 
-# Now that we have the certificate, reconfigure Nginx to serve over HTTPS only
+# Reconfigure Nginx to serve over HTTPS only
 sudo bash -c "cat > $NGINX_CONF" <<EOL
 server {
     listen 443 ssl;
@@ -92,18 +86,10 @@ server {
 }
 EOL
 
-# Remove port 80 config since we now serve via HTTPS only
+# Remove HTTP configuration, now only HTTPS
 sudo nginx -t
 sudo systemctl reload nginx
 
-# # Update the API flag in config if needed (optional)
-# if [ -f "$CONFIG" ]; then
-#     if [[ -s "$CONFIG" ]]; then
-#         API=$(jq -r '.api' "$CONFIG")
-#         if [[ "$API" == "false" ]]; then
-#             jq '.api = true' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
-#         fi
-#     fi
-# fi
+# No config modifications or references here
 
 echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
