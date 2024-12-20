@@ -20,28 +20,29 @@ a {
 }
 
 #leftPane {
-    background-color: transparent;
-    padding: 14px;
+    background-color: #1e1e1e;
+    padding: 5px 0px;
     border-radius: 20px;
     margin-left: 10px;
-    flex: 3 1 75%; /* Adjust flex properties for responsiveness */
+    flex: 3 1 75%; 
     min-width: 300px;
     display: flex;
-    flex-direction: column; /* Arrange children vertically */
-    overflow: hidden; /* Hide vertical overflow to remove scrollbar */
+    flex-direction: column; 
+    overflow: hidden; 
 }
+
 
 #rightPane {
     background-color: #1e1e1e;
     padding: 15px;
     border-radius: 20px;
     margin-right: 10px;
-    flex: 1 1 25%; /* Adjust flex properties for responsiveness */
+    flex: 1 1 23%; 
     min-width: 240px;
     font-family: 'Roboto Mono', monospace;
     display: flex;
-    flex-direction: column; /* Arrange children vertically */
-    overflow: hidden; /* Hide vertical overflow to remove scrollbar */
+    flex-direction: column; 
+    overflow: hidden; 
 }
 
 
@@ -119,7 +120,7 @@ align-items: center;
 
 .crypto-logo img {width: 70px;height: 70px;margin-right: 15px;border-radius: 50%;}
 
-.crypto-details h2 {font-family: 'Montserrat', sans-serif;color: #ff4081;margin: 0;font-size: 24px;}
+.crypto-details h2 {font-family: 'Montserrat', sans-serif;color: #00aaff; margin: 0;font-size: 24px;}
 
 .crypto-symbol {font-size: 21px;color: #e0e0e0;}
 
@@ -405,9 +406,10 @@ border-bottom: 1px dashed #b0b0b0;
 .left-tab-container {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     justify-content: flex-start;
     padding: 0;
+    margin-left: 15px;
 }
 
 
@@ -419,7 +421,7 @@ border-bottom: 1px dashed #b0b0b0;
     border-bottom: 2px solid transparent;
     cursor: pointer;
     color: #e0e0e0;
-    font-size: 17px;
+    font-size: 15px;
     transition: color 0.3s;
     white-space: nowrap;
     font-weight: 700;
@@ -430,7 +432,7 @@ border-bottom: 1px dashed #b0b0b0;
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 2px;
+    height: 1px;
     width: 0;
     background-color: #ffffff;
     transition: width 0.3s ease-in-out;

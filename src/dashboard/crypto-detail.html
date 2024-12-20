@@ -3,12 +3,13 @@
 <head>
     
     <meta charset="UTF-8">
-    <title id="title-name">Cryto Detail</title>
+    <title id="title-name">Market View</title>
+    <link rel="icon" href="/images/thumnails/original_logo.png" type="image/png">
     
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/user-header.css">
-    <link rel="stylesheet" href="/styles/chart-styles.css">
-    <link rel="stylesheet" href="/styles/crypto-detail.css">
+    <link rel="stylesheet" href="/styles/logged-user/chart-styles.css">
+    <link rel="stylesheet" href="/styles/logged-user/crypto-detail.css">
 
 
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
@@ -26,12 +27,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
 </head>
-<body onclick="closeMenus(event)">
+<body>
     <!-- Header -->
     <header class="header">
         <a href="/dashboard" class="header-left" id="header-left-side">
-            <img src="/images/leverage_cuck.png" alt="Logo">
-            <h1><span class="blue-text">Trade</span> <span class="orange-text">Visionary</span></h1>
+            <img src="/images/thumnails/logo.png" alt="Fundy Logo">
+            <h1>Fundy</h1>
         </a>
 
         <div class="header-right">
@@ -205,7 +206,7 @@
             </div>
         
             <!-- Chart Section -->
-            <div id="chart" class="left-pane-content">
+            <div id="chart" class="left-pane-content" style="position: relative; background-color: #131722;">
                 <!-- Custom toolbar for intervals and actions -->
                 <div class="chart-controls">
                     <!-- Left Actions: Interval Buttons and Indicators -->
@@ -217,32 +218,41 @@
                             <button class="interval-button" data-interval="240">4H</button>
                             <button class="interval-button" data-interval="D">1D</button>
                         </div>
-                        <!-- Icon and Text Indicators Button with Border -->
                         <button class="extra-button" id="indicators-button" title="Indicators">
                             <img src="/images/icons/formula.png" alt="Indicators Icon" class="button-icon">
                             <span class="button-text">Indicators</span>
                         </button>
-                        <!-- Vertical Divider -->
                         <div class="button-divider"></div>
-
                     </div>
-
 
                     <!-- Right Actions: Compare and Screenshot Buttons -->
                     <div class="chart-actions">
-                        <!-- Icon and Text Compare Button -->
+                        <button class="extra-button" id="fullscreen-button" title="Fullscreen">
+                            <img src="/images/icons/fullscreen.png" alt="Fullscreen Icon" class="button-icon">
+                        </button>
                         <button class="extra-button" id="compare-button" title="Compare">
                             <img src="/images/icons/settings.png" alt="Compare Icon" class="button-icon">
                         </button>
-
-                        <!-- Icon and Text Screenshot Button -->
                         <button class="extra-button" id="screenshot-button" title="Take Screenshot">
                             <img src="/images/icons/camera.png" alt="Screenshot Icon" class="button-icon">
                         </button>
                     </div>
                 </div>
-                <div id="tradingview_chart_container" style="height: 500px; width: 100%;"></div>
+
+                <div id="tradingview_chart_container" style="position: relative; height: 500px; width: 100%; margin-top: 20px; border-radius: 8px; background: #131722;">
+
+                    <!-- Loading Overlay (shows over the chart area only) -->
+                    <div id="chart-loading-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background:#131722; display:flex; align-items:center; justify-content:center; z-index:9999;">
+                        <div style="width:50%; background:#2e2e2e; border-radius:5px; overflow:hidden;">
+                            <!-- Loading Bar -->
+                            <div id="chart-loading-bar" style="width:0%; height:10px; background:#3b82f6; transition: width 0.5s;"></div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
+
+
 
         </div>
         

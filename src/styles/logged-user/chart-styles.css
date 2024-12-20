@@ -31,11 +31,11 @@ canvas#fundingRateChart {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #2e2e2e;
+    background-color: #131722;
     border-top: solid 1px #434242;
     border-right: solid 1px #434242;
     border-left: solid 1px #434242;
-    padding: 5px 10px;
+    padding: 4px 10px;
     margin-bottom: -20px;
 }
 
@@ -79,7 +79,7 @@ canvas#fundingRateChart {
     color: #b7b6b6;
     border: none;
     padding: 5px 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s, color 0.3s;
@@ -89,12 +89,12 @@ canvas#fundingRateChart {
 }
 
 .interval-button.active {
-    background-color: #626262;
+    background-color: #4d4472;
     color: #ffffff;
 }
 
 .interval-button:hover {
-    background-color: #49484c;
+    background-color: #383346;
     color: #ffffff;
 }
 

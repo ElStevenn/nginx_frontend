@@ -17,7 +17,7 @@ function getValueAfterCryptoDetail() {
 function getCryptoData() {
     const searched_crypto = getValueAfterCryptoDetail();
     if (searched_crypto) {
-        const url = cryptocurrencyAPI + `/crypto/detail/${searched_crypto}USDT`;
+        const url = cryptocurrencyAPI + `/crypto/detail/${searched_crypto}`;
 
         fetch(url, {
             method: 'GET',
@@ -316,6 +316,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.removeEventListener('mousemove', mousemoveHandler);
         document.removeEventListener('mouseup', mouseupHandler);
     }
+
+    const fullscreenButton = document.getElementById('fullscreen-button');
+    fullscreenButton.addEventListener('click', function() {
+        toggleFullscreen();
+    });
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            // Request fullscreen on the chart area
+            document.getElementById('chart').requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
 });
 
 
@@ -555,7 +571,7 @@ function initializeTradingViewWidget({containerId, symbol, interval, theme, loca
 
     new TradingView.widget({
         "width": "100%",   
-        "height": "700",   
+        "height": "95%",   
         "symbol": symbol,
         "interval": interval,
         "timezone": "Etc/UTC",
@@ -630,7 +646,16 @@ function updateActiveIntervalButton(selectedInterval) {
     });
 }
 
-// Placeholder for closeMenus function (If you have this defined elsewhere, keep it)
-function closeMenus(event) {
-    // Your existing implementation for closing menus
-}
+let progress = 0;
+const loadingBar = document.getElementById('chart-loading-bar');
+const loadingOverlay = document.getElementById('chart-loading-overlay');
+
+const loadingInterval = setInterval(() => {
+    progress += 20;
+    loadingBar.style.width = progress + '%';
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        // Hide the overlay once done
+        loadingOverlay.style.display = 'none';
+    }
+}, 500);

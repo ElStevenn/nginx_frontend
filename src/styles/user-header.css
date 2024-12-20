@@ -30,14 +30,17 @@
     width: 40px;
     height: 40px;
     margin-right: 10px;
+    margin-left: 20%;
 }
 
 .header-left h1 {
-    font-family: 'Montserrat', sans-serif;
     margin: 0;
-    font-size: 36px;
-    color: #ff4081;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e98630;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .header-right {
@@ -275,7 +278,7 @@ header hr {
     height: 30px;
     margin-left: 10px; 
     margin-right: 10px; 
-    filter: invert(100%);
+    filter: invert(0);
 }
 
 /* Search Input Styles */

@@ -11,6 +11,7 @@ function getValueAfterCryptoDetail() {
     }
 }
 
+
 function getPointColor(value) {
     if (value > 0) {
         // Green color
