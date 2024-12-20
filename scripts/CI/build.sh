@@ -95,14 +95,14 @@ EOL
 sudo nginx -t
 sudo systemctl reload nginx
 
-# Update the API flag in config if needed (optional)
-if [ -f "$CONFIG" ]; then
-    if [[ -s "$CONFIG" ]]; then
-        API=$(jq -r '.api' "$CONFIG")
-        if [[ "$API" == "false" ]]; then
-            jq '.api = true' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
-        fi
-    fi
-fi
+# # Update the API flag in config if needed (optional)
+# if [ -f "$CONFIG" ]; then
+#     if [[ -s "$CONFIG" ]]; then
+#         API=$(jq -r '.api' "$CONFIG")
+#         if [[ "$API" == "false" ]]; then
+#             jq '.api = true' "$CONFIG" > temp.json && mv -f temp.json "$CONFIG"
+#         fi
+#     fi
+# fi
 
 echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
