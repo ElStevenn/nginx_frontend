@@ -21,21 +21,16 @@ sudo mkdir -p $NGINX_CONF_DIR $NGINX_ENABLED_DIR
 docker container stop "$CONTAINER_NAME" >/dev/null 2>&1 || true
 docker container rm "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
-# No config.json modifications whatsoever
-
 # Update packages and install Nginx, Certbot if not installed
 sudo apt-get update -y
 sudo apt-get install -y nginx certbot python3-certbot-nginx
 
-# Allow Nginx through firewall if using UFW
 sudo ufw allow 'Nginx Full' || true
 
-# Build Docker image
-cd "$APP_DIR" || exit 1
+# Build and run the Docker container with corrected port mapping
+cd "$APP_DIR"
 docker build -t "$IMAGE_NAME" .
-
-# Run the container mapped to localhost:8080
-docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:80 "$IMAGE_NAME"
+docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:8000 "$IMAGE_NAME"
 
 # Create a temporary HTTP server block to allow Certbot HTTP challenge
 sudo bash -c "cat > $NGINX_CONF" <<EOL
@@ -84,12 +79,17 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
     }
 }
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    server_name $DOMAIN www.$DOMAIN;
+    return 301 https://\$host\$request_uri;
+}
 EOL
 
-# Remove port 80 config since now we serve via HTTPS only
+# Test Nginx configuration and reload
 sudo nginx -t
 sudo systemctl reload nginx
-
-# No config or API flag updates
 
 echo "Setup complete. Your application should now be accessible via https://$DOMAIN/"
