@@ -29,8 +29,14 @@ sudo ufw allow 'Nginx Full' || true
 
 # Build and run the Docker container with corrected port mapping
 cd "$APP_DIR"
-docker build -t "$IMAGE_NAME" .
-docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:8000 "$IMAGE_NAME"
+docker build --no-cache -t "$IMAGE_NAME" .
+docker run -d \
+    --name "$CONTAINER_NAME" \
+    --network "$NETWORK_NAME" \
+    --env-file "/home/ubuntu/nginx_frontend/.env/test.env" \
+    -p 127.0.0.1:8080:8000 \
+    "$IMAGE_NAME"
+
 
 # Create a temporary HTTP server block to allow Certbot HTTP challenge
 sudo bash -c "cat > $NGINX_CONF" <<EOL

@@ -1,0 +1,136 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    add_header Content-Security-Policy "
+        default-src 'self' https://s.tradingview.com/;
+        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://s3.tradingview.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+        connect-src 'self' ${GLOBAL_API} ${EXCHANGE_API} ${CRYPTOCURRENCY_API} ws://${CRYPTOCURRENCY_URL} https://api.bitget.com https://pauservices.top;
+        img-src 'self' data: https://lh3.googleusercontent.com https://s2.coinmarketcap.com;
+        frame-ancestors 'none';
+        object-src 'none';
+    " always;
+
+    # Static Files Optimization
+    location ~* \.(css|js|jpg|png|gif|ico|svg)$ {
+        expires 30d;
+        add_header Cache-Control "public, max-age=2592000";
+        log_not_found off;
+    }
+
+    # Root Landing Page
+    location = / {
+        proxy_set_header Host $host;
+        try_files $uri /landing/landing_page.html;
+    }
+
+    # Proxy API Requests with CORS
+    location /api/ {
+        proxy_pass http://localhost:8000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Add CORS headers
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+
+        # Handle preflight OPTIONS requests
+        if ($request_method = OPTIONS) {
+            return 204;
+        }
+    }
+
+    # Secure Routes with Authentication
+    location = /settings/set_credentials {
+        limit_req zone=one burst=5 nodelay;
+        if ($is_authenticated = 0) {
+            return 302 /login;
+        }
+        try_files /auth/user_set_credentials.html =404;
+    }
+
+    location ~ ^/settings/.*$ {
+        if ($is_authenticated = 0) {
+            return 302 /login;
+        }
+        try_files $uri /dashboard/user_settings_profile.html;
+    }
+
+    location /dashboard {
+        if ($is_authenticated = 0) {
+            return 302 /login;
+        }
+        try_files $uri /dashboard/dashboard.html =404;
+    }
+    
+    location /portfolio {
+        if ($is_authenticated = 0) {
+            return 302 /login;
+        }
+        try_files $uri /dashboard/my-portfolio.html =404;
+    }
+
+    location /login {
+        try_files $uri /auth/login.html =404;
+    }
+
+    location /register {
+        rewrite ^/register$ /login?action=register break;
+    }
+
+    location /contact {
+        try_files $uri /privacy/contact-support.html =404;
+    }
+
+    location /delete_account {
+        try_files $uri /landing/user_deleted_account.html =404;
+    }
+
+    # Error Pages
+    error_page 403 /403.html;
+    location = /403.html {
+        root /usr/share/nginx/html;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        root /usr/share/nginx/html;
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+
+    # Redirect Routes
+    location ~ ^/crypto-detail/?$ {
+        return 302 /dashboard/crypto-detail/BTCUSDT;
+    }
+
+    location /crypto-detail/ {
+        try_files $uri $uri/ /dashboard/crypto-detail.html =404;
+    }
+
+    location /terms {
+        try_files $uri /privacy-/terms.html =404;
+    }
+
+    location /privacy {
+        try_files $uri /privacy.html =404;
+    }
+
+    # Serve Default Files for Errors
+    location = /error_pages/403.html {
+        root /usr/share/nginx/html;
+    }
+
+    location = /error_pages/404.html {
+        root /usr/share/nginx/html;
+    }
+}

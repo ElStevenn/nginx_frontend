@@ -109,7 +109,8 @@ resource "aws_instance" "web_server" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/scripts/*",
-      "bash /home/ubuntu/scripts/CI/source.sh"
+      "bash /home/ubuntu/scripts/CI/source.sh",
+      "mkdir -p /home/ubuntu/scripts/.env"
     ]
 
     connection {
@@ -119,6 +120,19 @@ resource "aws_instance" "web_server" {
       host        = self.public_ip
     }
   }
+
+  provisioner "file" {
+    source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/.env/test.env"
+    destination = "/home/ubuntu/scripts/.env/test.env"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("../../security/instance_key")
+      host        = self.public_ip
+    }
+  }
+
 }
 
 # Associate the EIP after the instance is created
@@ -166,6 +180,19 @@ resource "null_resource" "update_container" {
   provisioner "file" {
     source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/scripts/CI"
     destination = "/home/ubuntu/scripts/CI"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("../../security/instance_key")
+      host        = aws_eip.main_api_eip.public_ip
+    }
+  }
+
+  # Update .env file if needed
+  provisioner "file" {
+    source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/.env/test.env"
+    destination = "/home/ubuntu/scripts/.env/test.env"
 
     connection {
       type        = "ssh"

@@ -1,0 +1,7 @@
+window.env = {
+    CRYPTOCURRENCY_API: "$CRYPTOCURRENCY_API",
+    CRYPTOCURRENCY_URL: "$CRYPTOCURRENCY_URL",
+    GLOBAL_API: "$GLOBAL_API",
+    EXCHANGE_API: "$EXCHANGE_API",
+    BITGET_API: "https://api.bitget.com"
+};

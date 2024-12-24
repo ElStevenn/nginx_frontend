@@ -7,13 +7,12 @@ of truth for reusable resources and configuration values.
 */
 
 // IPS of the diferents apis
-const cryptocurrencyAPI = "http://localhost:8080";
-const cryptocurrencyURL = "localhost:8080";
-const globalAPI = "https://pauservices.top";
-// const globalAPI = "http://localhost:8000";
-const exchangeAPI = "http://localhost:8001";
+const cryptocurrencyAPI = window.env.CRYPTOCURRENCY_API;
+const cryptocurrencyURL = window.env.CRYPTOCURRENCY_URL;
+const globalAPI = window.env.GLOBAL_API;
+const exchangeAPI = window.env.EXCHANGE_API;
 
-const bitgetAPI = "https://api.bitget.com";
+const bitgetAPI = window.env.BITGET_API;
 
 // Cookies handling
 function getCookie(name) {
@@ -33,12 +32,6 @@ function getCookie(name) {
 
 console.log(document.cookie);
 console.log(getCookie("credentials")); 
-
-fetch("https://fundy.pauservices.top/show-cookie", {
-    credentials: 'include'
-  })
-.then(r => r.json())
-.then(data => console.log(data));
 
 function linkify(text) {
     // Regular expression to match URLs
