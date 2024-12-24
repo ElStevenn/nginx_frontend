@@ -110,7 +110,7 @@ resource "aws_instance" "web_server" {
     inline = [
       "chmod +x /home/ubuntu/scripts/*",
       "bash /home/ubuntu/scripts/CI/source.sh",
-      "mkdir -p /home/ubuntu/scripts/.env"
+      "mkdir -p /home/ubuntu/nginx_frontend/.env"
     ]
 
     connection {
@@ -123,7 +123,7 @@ resource "aws_instance" "web_server" {
 
   provisioner "file" {
     source      = "/home/mrpau/Desktop/Secret_Project/other_layers/front_end/web-server/.env/test.env"
-    destination = "/home/ubuntu/scripts/.env/test.env"
+    destination = "/home/ubuntu/nginx_frontend/.env/test.env"
 
     connection {
       type        = "ssh"
