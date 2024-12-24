@@ -3,7 +3,8 @@ FROM nginx:latest
 
 # Install envsubst (part of the gettext package)
 RUN apt-get update && \
-    apt-get install -y gettext-base && \
+    apt-get install -y gettext-base nano && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the main NGINX configuration (static, no substitution)

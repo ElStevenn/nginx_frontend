@@ -35,10 +35,13 @@ sudo ufw allow 'Nginx Full' || true
 
 # Build Docker image
 cd "$APP_DIR" || exit 1
-docker build -t "$IMAGE_NAME" .
-
-# Run the container mapped to localhost:8080
-docker run -d --name "$CONTAINER_NAME" --network "$NETWORK_NAME" -p 127.0.0.1:8080:80 "$IMAGE_NAME"
+docker build --no-cache -t "$IMAGE_NAME" .
+docker run -d \
+    --name "$CONTAINER_NAME" \
+    --network "$NETWORK_NAME" \
+    --env-file "/home/ubuntu/nginx_frontend/.env/test.env" \
+    -p 127.0.0.1:8080:8000 \
+    "$IMAGE_NAME"
 
 # Configure Nginx to serve the application over HTTP
 sudo bash -c "cat > $NGINX_CONF" <<EOL
