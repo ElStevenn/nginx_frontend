@@ -62,6 +62,20 @@ server {
         try_files $uri /dashboard/user_settings_profile.html;
     }
 
+    location /config.js {
+        default_type "application/javascript";
+        add_header Cache-Control "no-cache";
+        return 200 '
+            window.env = {
+                CRYPTOCURRENCY_API: "${CRYPTOCURRENCY_API}",
+                CRYPTOCURRENCY_URL: "${CRYPTOCURRENCY_URL}",
+                GLOBAL_API: "${GLOBAL_API}",
+                EXCHANGE_API: "${EXCHANGE_API}",
+                BITGET_API: "https://api.bitget.com"
+            };
+        ';
+    }
+
     location /dashboard {
         if ($is_authenticated = 0) {
             return 302 /login;
