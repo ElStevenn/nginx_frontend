@@ -40,9 +40,9 @@ docker run -d \
     --name "$CONTAINER_NAME" \
     --network "$NETWORK_NAME" \
     --env-file "/home/ubuntu/nginx_frontend/.env/test.env" \
-    -p 127.0.0.1:8080:8000 \
+    -p 127.0.0.1:8080:80 \
     "$IMAGE_NAME"
-
+    
 # Configure Nginx to serve the application over HTTP
 sudo bash -c "cat > $NGINX_CONF" <<EOL
 server {
