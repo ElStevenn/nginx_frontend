@@ -137,20 +137,24 @@ nav .signup {
 }
 
 .mobile-login-container {
+    left: 0;
+    position: fixed;
     background-color: #2a2a2a;
-    display: flex;
+    display: grid;
     justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     gap: 20px;
     padding: 20px 50px;
     text-decoration: none;
+    top: calc(100vh - 65px);
 }
 
 .mobile-login-container .signup {
     color: #050505;
     background: #e98630;
     border-radius: 10px;
-    padding: 15px 100px;
+    padding: 15px 80px;
     font-weight: 800;
     text-decoration: none;
 }
@@ -160,7 +164,7 @@ nav .signup {
     border-radius: 10px;
     color: #ffffff;
     background: #565656;
-    padding: 15px 100px;
+    padding: 15px 80px;
     font-weight: 800;
     text-decoration: none;
 }
@@ -178,9 +182,14 @@ nav .signup {
 @media (max-width: 768px) {
     nav, .nav-menu {
         display: none;
+
     }
     .hamburger {
         display: flex;
+    }
+
+    header{
+        padding: 15px 30px;
     }
 }
 
