@@ -9,8 +9,11 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto&display=swap" rel="stylesheet">
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+          integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" 
+          crossorigin="anonymous" />
     <style>
+        /* RESET / GLOBAL */
         body {
             margin: 0;
             padding: 0;
@@ -20,9 +23,11 @@
             overflow-x: hidden;
         }
 
+        /* HEADER */
         header {
             position: fixed;
-            top: 0; left: 0;
+            top: 0; 
+            left: 0;
             width: 100%;
             background: rgba(15,15,15,0.95);
             backdrop-filter: blur(6px);
@@ -34,14 +39,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.7);
             gap: 50px;
         }
-
         .logo-container {
             display: flex;
             align-items: center;
             cursor: pointer;
         }
         .logo-container img {
-            width: 45px; height: 45px;
+            width: 45px; 
+            height: 45px;
             margin-right: 10px;
         }
         .logo-container h1 {
@@ -58,7 +63,6 @@
             display: flex;
             align-items: center;
         }
-
         nav a {
             color: #fff;
             text-decoration: none;
@@ -73,30 +77,26 @@
         nav a:hover {
             background-color: #565656;
         }
-
         nav .login {
             margin-left: 15px;
             color: #ffffff;
             background: #565656;
         }
-
         nav .login:hover {
             background-color: #444444;
         }
-
         nav .signup {
             color: #050505;
             background: #e98630;
             margin-left: 15px;
         }
 
-        /* Hamburger Menu Icon */
+        /* HAMBURGER MENU ICON */
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
         }
-
         .hamburger span {
             height: 3px;
             width: 25px;
@@ -105,34 +105,35 @@
             border-radius: 5px;
         }
 
-        /* Mobile Menu */
+        /* MOBILE NAVIGATION (OVERLAY) */
         .mobile-nav {
             position: fixed;
             top: 65px;
             left: 0;
             width: 100%;
-            /* Make it fill the rest of the screen below the header: */
-            height: calc(100vh - 65px);
+            height: calc(100vh - 65px); /* occupy full screen under header */
             background: #1f1f1f;
-            display: none; /* toggled to flex on active */
-            flex-direction: column;
-            padding: 20px;
+            display: none; /* toggled to display when active */
             z-index: 1000;
         }
-
         .mobile-nav.active {
-            display: flex;
+            display: block;
         }
 
-        /* Navigation Links Container */
+        /* LINKS CONTAINER (SCROLLABLE AREA) */
         .mobile-nav-links {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            right: 0;
+            bottom: 120px; /* leave space for login container */
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            overflow-y: auto; 
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-
         .mobile-nav-links a {
             display: block;
             text-decoration: none;
@@ -144,46 +145,46 @@
             border-radius: 10px;
             width: 100%;
         }
-
         .mobile-nav-links a:hover {
             background-color: #565656;
         }
 
-        /* Mobile Login Container */
+        /* PINNED LOGIN CONTAINER AT BOTTOM */
         .mobile-login-container {
-        margin-top: auto; 
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            padding: 20px 0 0; /* top/bottom padding to taste */
-            /* background: #1f1f1f; optional if you want a distinct bar color */
+            padding: 20px;
+            box-sizing: border-box;
+            /* If you want a distinct background bar: */
+            /* background: #1f1f1f; */
+            /* box-shadow: 0 -2px 6px rgba(0,0,0,0.6); */
         }
-
         .mobile-login-container a {
             border-radius: 10px;
             padding: 15px;
             font-weight: 800;
             text-decoration: none;
             text-align: center;
-            display: block;
         }
-
         .mobile-login-container .login {
             color: #ffffff;
             background: #565656;
         }
-
         .mobile-login-container .signup {
             color: #050505;
             background: #e98630;
         }
-
         .mobile-login-container .login:hover,
         .mobile-login-container .signup:hover {
             background-color: #444444;
         }
 
-        /* Responsive Rules */
+        /* RESPONSIVE RULES */
         @media (max-width: 768px) {
             nav, .nav-menu {
                 display: none;
@@ -191,17 +192,17 @@
             .hamburger {
                 display: flex;
             }
-
-            header{
+            header {
                 padding: 15px 30px;
             }
         }
 
-        /*CONTENT*/
+        /* HERO SECTION */
         .hero {
             width: 100%;
             height: 100vh;
-            background: url('https://images.unsplash.com/photo-1629189437013-4ce1f2df6ecc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center / cover;
+            background: url('https://images.unsplash.com/photo-1629189437013-4ce1f2df6ecc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') 
+                        no-repeat center center / cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -210,23 +211,22 @@
             box-sizing: border-box;
             position: relative;
         }
-
         .hero::after {
             content: "";
             position: absolute;
-            top:0; left:0;
-            width:100%; height:100%;
+            top:0; 
+            left:0;
+            width:100%; 
+            height:100%;
             background: linear-gradient(to bottom right, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
             z-index: 1;
         }
-
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 600px;
             animation: fadeInUp 1.5s ease both;
         }
-
         .hero h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 48px;
@@ -235,14 +235,12 @@
             line-height: 1.2;
             font-weight: 900;
         }
-
         .hero p {
             font-size: 18px;
             line-height: 1.6;
             color: #ddd;
             margin-bottom: 30px;
         }
-
         .hero .cta-button {
             display: inline-block;
             padding: 15px 40px;
@@ -260,7 +258,6 @@
         .hero .cta-button:hover {
             background: #336ed1;
         }
-
         .security-note {
             font-size: 14px;
             margin-top: 15px;
@@ -275,6 +272,7 @@
             text-decoration: underline;
         }
 
+        /* FEATURES */
         .features {
             background: #111;
             padding: 80px 20px;
@@ -297,14 +295,12 @@
             transform: translateX(-50%);
             bottom: -10px;
         }
-
         .features-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 40px;
             justify-content: center;
         }
-
         .feature-item {
             background: #1c1c1c;
             border-radius: 10px;
@@ -320,7 +316,8 @@
             transform: translateY(-10px);
         }
         .feature-item img {
-            width: 60px; height: 60px;
+            width: 60px; 
+            height: 60px;
             margin-bottom: 20px;
         }
         .feature-item h3 {
@@ -334,7 +331,6 @@
             color: #aaa;
             line-height: 1.6;
         }
-
         .feature-item::before {
             content: "";
             position: absolute;
@@ -351,6 +347,7 @@
             100% { transform: translateY(-33.333%); }
         }
 
+        /* HOW IT WORKS */
         .how-it-works {
             background: #0f0f0f;
             padding: 80px 20px;
@@ -399,6 +396,7 @@
             line-height: 1.6;
         }
 
+        /* TEAM */
         .team {
             background: #111;
             padding: 80px 20px;
@@ -436,7 +434,8 @@
             animation: fadeInUp 1s ease both;
         }
         .team-member img {
-            width: 80px; height: 80px;
+            width: 80px; 
+            height: 80px;
             border-radius: 50%;
             margin-bottom: 15px;
         }
@@ -451,6 +450,7 @@
             color: #aaa;
         }
 
+        /* TESTIMONIALS */
         .testimonials {
             background: #0f0f0f;
             padding: 80px 20px;
@@ -503,7 +503,8 @@
         .testimonial-item::before {
             content: "“";
             position: absolute;
-            top: 20px; left: 20px;
+            top: 20px; 
+            left: 20px;
             font-size: 40px;
             color: #3b82f6;
             font-weight: 900;
@@ -511,12 +512,14 @@
         .testimonial-item::after {
             content: "”";
             position: absolute;
-            bottom: 20px; right: 20px;
+            bottom: 20px; 
+            right: 20px;
             font-size: 40px;
             color: #3b82f6;
             font-weight: 900;
         }
 
+        /* CTA SECTION */
         .cta-section {
             background: #111;
             padding: 80px 20px;
@@ -563,6 +566,7 @@
             background: #336ed1;
         }
 
+        /* FOOTER */
         footer {
             background: #1f1f1f;
             padding: 30px 20px;
@@ -583,26 +587,43 @@
             color: #3b82f6;
         }
 
+        /* ANIMATIONS */
         @keyframes fadeInUp {
-            0% {opacity:0; transform: translateY(20px);}
-            100% {opacity:1; transform: translateY(0);}
+            0% { 
+                opacity:0; 
+                transform: translateY(20px);
+            }
+            100% { 
+                opacity:1; 
+                transform: translateY(0);
+            }
         }
-
         @keyframes fadeInDown {
-            0% {opacity:0; transform: translateY(-20px);}
-            100% {opacity:1; transform: translateY(0);}
+            0% { 
+                opacity:0; 
+                transform: translateY(-20px);
+            }
+            100% { 
+                opacity:1; 
+                transform: translateY(0);
+            }
         }
-
         @keyframes fadeIn {
-            0% {opacity:0;}
-            100% {opacity:1;}
+            0% { 
+                opacity:0;
+            }
+            100% { 
+                opacity:1;
+            }
         }
-
         @keyframes slideIn {
-            0% {transform:translateX(-100%);}
-            100% {transform:translateX(0);}
+            0% { 
+                transform:translateX(-100%);
+            }
+            100% { 
+                transform:translateX(0);
+            }
         }
-
     </style>
 </head>
 <body>
@@ -622,11 +643,14 @@
             <a href="/login" class="login">Log in</a>
             <a href="/login?action=register" class="signup">Sign up</a>
         </nav>
+        <!-- Hamburger icon -->
         <div class="hamburger" onclick="toggleMobileNav()">
             <span></span>
             <span></span>
             <span></span>
         </div>
+
+        <!-- Mobile Nav Overlay -->
         <div class="mobile-nav" id="mobileNav">
             <div class="mobile-nav-links">
                 <a href="#trading-bots">Trading Bots</a>
@@ -642,19 +666,29 @@
         </div>
     </header>
 
+    <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-content">
             <h2>Empower Your Crypto Journey<br> With Fundy</h2>
-            <p>Fundy is your trusted partner in navigating the complex world of cryptocurrency. From secure wallets to advanced analytics, we provide the tools you need to grow and protect your digital assets.</p>
-            <button class="cta-button" onclick="window.location.href='/login'">Get Started</button>
+            <p>
+                Fundy is your trusted partner in navigating the complex world of cryptocurrency. 
+                From secure wallets to advanced analytics, we provide the tools you need to 
+                grow and protect your digital assets.
+            </p>
+            <button class="cta-button" onclick="window.location.href='/login'">
+                Get Started
+            </button>
             <div class="security-note">
                 Always check the address of 
-                <a href="https://fundy.com" target="_blank" rel="noopener noreferrer">https://fundy.com</a>
+                <a href="https://fundy.com" target="_blank" rel="noopener noreferrer">
+                    https://fundy.com
+                </a>
                 to ensure this page is authentic.
             </div>
         </div>
     </section>
 
+    <!-- FEATURES SECTION -->
     <section class="features" id="features">
         <h2>Why Choose Fundy?</h2>
         <div class="features-grid">
@@ -681,6 +715,7 @@
         </div>
     </section>
 
+    <!-- HOW IT WORKS SECTION -->
     <section class="how-it-works" id="how-it-works">
         <h2>How It Works</h2>
         <div class="steps">
@@ -703,6 +738,7 @@
         </div>
     </section>
 
+    <!-- TEAM SECTION -->
     <section class="team" id="team">
         <h2>Our Visionaries</h2>
         <div class="team-grid">
@@ -729,6 +765,7 @@
         </div>
     </section>
 
+    <!-- TESTIMONIALS SECTION -->
     <section class="testimonials" id="testimonials">
         <h2>What Our Users Say</h2>
         <div class="testimonials-slider">
@@ -751,23 +788,34 @@
         </div>
     </section>
 
+    <!-- CTA SECTION -->
     <section class="cta-section">
         <h2>Ready to Begin Your Crypto Journey?</h2>
         <p>Join Fundy now and take control of your financial future with powerful tools and unwavering support.</p>
-        <button class="cta-button" onclick="window.location.href='/login?action=register'">Join Fundy Today</button>
+        <button class="cta-button" onclick="window.location.href='/login?action=register'">
+            Join Fundy Today
+        </button>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section class="how-it-works" id="contact">
         <h2>Contact Us</h2>
         <p>Have questions, feedback, or need assistance? Reach out to our dedicated team.</p>
         <form action="#" method="post" style="max-width:500px; margin:40px auto 0; text-align:left;">
-            <input type="text" name="name" placeholder="Your Name" required style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
-            <input type="email" name="email" placeholder="Your Email" required style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
-            <textarea name="message" rows="6" placeholder="Your Message" required style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;"></textarea>
-            <button type="submit" style="padding:12px 30px;background:#3b82f6;color:#fff;border:none;border-radius:5px;font-family:'Montserrat',sans-serif;font-weight:600;cursor:pointer;font-size:14px;">Send Message</button>
+            <input type="text" name="name" placeholder="Your Name" required 
+                   style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
+            <input type="email" name="email" placeholder="Your Email" required 
+                   style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
+            <textarea name="message" rows="6" placeholder="Your Message" required 
+                      style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;"></textarea>
+            <button type="submit" 
+                    style="padding:12px 30px;background:#3b82f6;color:#fff;border:none;border-radius:5px;font-family:'Montserrat',sans-serif;font-weight:600;cursor:pointer;font-size:14px;">
+                Send Message
+            </button>
         </form>
     </section>
 
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2024 Fundy. All Rights Reserved.</p>
         <div class="social-icons">
@@ -779,14 +827,14 @@
     </footer>
 
     <script>
-        function toggleMobileNav() {
-            var nav = document.getElementById('mobileNav');
-            if (nav.style.display === 'flex') {
-                nav.style.display = 'none';
-            } else {
-                nav.style.display = 'flex';
-            }
+      function toggleMobileNav() {
+        var nav = document.getElementById('mobileNav');
+        if (nav.style.display === 'block') {
+            nav.style.display = 'none';
+        } else {
+            nav.style.display = 'block';
         }
+      }
     </script>
 </body>
 </html>
