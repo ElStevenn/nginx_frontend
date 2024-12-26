@@ -109,10 +109,12 @@
         .mobile-nav {
             position: fixed;
             top: 65px;
-            right: 0;
-            background: #1f1f1f;
+            left: 0;
             width: 100%;
-            display: none; /* Will be set to flex when active */
+            /* Make it fill the rest of the screen below the header: */
+            height: calc(100vh - 65px);
+            background: #1f1f1f;
+            display: none; /* toggled to flex on active */
             flex-direction: column;
             padding: 20px;
             z-index: 1000;
@@ -127,7 +129,9 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            overflow-y: auto; 
         }
+
 
         .mobile-nav-links a {
             display: block;
@@ -147,10 +151,12 @@
 
         /* Mobile Login Container */
         .mobile-login-container {
+        margin-top: auto; 
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            padding: 20px 0;
+            padding: 20px 0 0; /* top/bottom padding to taste */
+            /* background: #1f1f1f; optional if you want a distinct bar color */
         }
 
         .mobile-login-container a {
@@ -159,6 +165,7 @@
             font-weight: 800;
             text-decoration: none;
             text-align: center;
+            display: block;
         }
 
         .mobile-login-container .login {
