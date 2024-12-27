@@ -20,42 +20,45 @@
 <body>
     <header>
         <div class="logo-container" onclick="window.location.href='/'">
-            <img src="/images/thumnails/logo.png" alt="Fundy Logo">
-            <h1>Fundy</h1>
+          <img src="/images/thumnails/logo.png" alt="Fundy Logo">
+          <h1>Fundy</h1>
         </div>
+        
+        <!-- Desktop Navigation (visible for larger screens) -->
         <nav class="nav-menu">
+          <a href="#trading-bots">Trading Bots</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#team">Team</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <nav class="nav-menu">
+          <a href="/login" class="login">Log in</a>
+          <a href="/login?action=register" class="signup">Sign up</a>
+        </nav>
+    
+        <!-- Hamburger Icon (visible for smaller screens) -->
+        <div class="hamburger" onclick="toggleMobileNav()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="mobile-nav" id="mobileNav">
+          <div class="mobile-nav-links">
             <a href="#trading-bots">Trading Bots</a>
             <a href="#how-it-works">How It Works</a>
             <a href="#team">Team</a>
             <a href="#features">Features</a>
             <a href="#contact">Contact</a>
-        </nav>
-        <nav class="nav-menu">
+          </div>
+          <div class="mobile-login-container">
             <a href="/login" class="login">Log in</a>
             <a href="/login?action=register" class="signup">Sign up</a>
-        </nav>
-        <!-- Hamburger icon -->
-        <div class="hamburger" onclick="toggleMobileNav()">
-            <span></span>
-            <span></span>
-            <span></span>
+          </div>
         </div>
-
-        <!-- Mobile Nav Overlay -->
-        <div class="mobile-nav" id="mobileNav">
-            <div class="mobile-nav-links">
-                <a href="#trading-bots">Trading Bots</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#team">Team</a>
-                <a href="#features">Features</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="mobile-login-container">
-                <a href="/login" class="login">Log in</a>
-                <a href="/login?action=register" class="signup">Sign up</a>
-            </div>
-        </div>
-    </header>
+      </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
@@ -218,14 +221,11 @@
     </footer>
 
     <script>
-      function toggleMobileNav() {
-        var nav = document.getElementById('mobileNav');
-        if (nav.style.display === 'block') {
-            nav.style.display = 'none';
-        } else {
-            nav.style.display = 'block';
-        }
-      }
+    function toggleMobileNav() {
+      var nav = document.getElementById('mobileNav');
+      // Instead of setting style.display, toggle the "active" class:
+      nav.classList.toggle('active');
+    }
     </script>
 </body>
 </html>
