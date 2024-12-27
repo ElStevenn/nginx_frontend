@@ -37,7 +37,7 @@ server {
 
         # Add CORS headers
         add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
         add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
 
         # Handle preflight OPTIONS requests
