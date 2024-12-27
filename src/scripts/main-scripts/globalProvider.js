@@ -30,8 +30,18 @@ function getCookie(name) {
     return null;
 }
 
-console.log(document.cookie);
-console.log(getCookie("accounts")); 
+const accountsCookie = getCookie("accounts");
+let accounts = [];
+
+if (accountsCookie) {
+    try {
+        // Decode and parse JSON safely
+        accounts = JSON.parse(accountsCookie.replace(/%2C/g, ',').replace(/%20/g, ' '));
+        console.log("Parsed Accounts:", accounts);
+    } catch (error) {
+        console.error("Error parsing accounts cookie:", error);
+    }
+}
 
 function linkify(text) {
     // Regular expression to match URLs
