@@ -93,25 +93,24 @@ nav .signup {
     position: fixed;
     top: 65px;
     left: 0;
-    width: 100%;
-    height: calc(100vh - 65px);
+    right: 0;
+    bottom: 0;
     background: #1f1f1f;
     display: none;
     z-index: 1000;
     transition: all 0.3s ease;
-    overflow-x: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .mobile-nav.active {
-    display: block;
+    display: flex;
 }
 
 .mobile-nav-links {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
+    flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -140,15 +139,12 @@ nav .signup {
 }
 
 .mobile-login-container {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    padding: 20px;
     width: 100%;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .mobile-login-container a {
