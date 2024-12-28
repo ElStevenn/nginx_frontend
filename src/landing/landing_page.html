@@ -14,8 +14,8 @@
           crossorigin="anonymous" />
 
     <!-- Make sure to link your updated CSS file here -->
-    <link rel="stylesheet" href="/styles/landing-page/header.css">
-    <link rel="stylesheet" href="/styles/landing-page/main-landing.css">
+    <link rel="stylesheet" href="../styles/landing-page/header.css">
+    <link rel="stylesheet" href="../styles/landing-page/main-landing.css">
 </head>
 <body>
     <header>
@@ -23,42 +23,148 @@
           <img src="/images/thumnails/logo.png" alt="Fundy Logo">
           <h1>Fundy</h1>
         </div>
-        
-        <!-- Desktop Navigation (visible for larger screens) -->
-        <nav class="nav-menu">
-          <a href="#trading-bots">Trading Bots</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#team">Team</a>
-          <a href="#features">Features</a>
-          <a href="#contact">Contact</a>
+      
+        <nav class="nav-menu desktop-nav">
+          <ul>
+            <li class="dropdown">
+              <!-- Toggles the 4×3 submenu -->
+              <a href="#" class="submenu-toggle">Trading Bots</a>
+                <div class="submenu">
+                <div class="submenu-content">
+                    <!-- Left Section: Explanation -->
+                    <div class="submenu-description">
+                        <h3>Explore Our Trading Bots</h3>
+                        <p>
+                            Our suite of trading bots is designed to cater to different trading strategies and investor needs. Whether you're a day trader or a long-term investor, find the perfect bot to enhance your trading experience.
+                        </p>
+                    </div>
+
+                    <!-- Right Section: Grid of Bots -->
+                    <div class="submenu-grid-container">
+                        <div class="submenu-grid">
+                            <!-- 1st Bot -->
+                            <div class="submenu-item space"> 
+                                <img src="/images/icons/arbitrage.png" alt="Arbitrage Bot"> 
+                                <div class="bot-info">
+                                    <h4>Arbitrage Bot</h4>
+                                    <p>Ideal for multi-exchange traders.</p>
+                                </div>
+                            </div>
+                            <!-- 2nd Bot -->
+                            <div class="submenu-item">
+                              <img src="/images/icons/antenna.png" alt="Bot 5">
+                              <div class="bot-info">
+                                  <h4>Bot 5</h4>
+                                  <p>Description for Bot 5</p>
+                              </div>
+                          </div>
+                            <!-- 3rd Bot -->
+                            <div class="submenu-item top-right space">
+                                <img src="/images/icons/bot2.png" alt="DCA Bot">
+                                <div class="bot-info">
+                                    <h4>DCA Bot</h4>
+                                    <p>Perfect for long-term investors.</p>
+                                </div>
+                            </div>
+
+                            <!-- 4th Bot -->
+                            <div class="submenu-item bottom-left">
+                                <img src="/images/icons/antenna.png" alt="Bot 4">
+                                <div class="bot-info">
+                                    <h4>Bot 4</h4>
+                                    <p>Description for Bot 4</p>
+                                </div>
+                            </div>
+                            <!-- 5th Bot -->
+                            <div class="submenu-item space">
+                              <img src="/images/icons/antena2.png" alt="Signal Bot">
+                              <div class="bot-info top-left">
+                                  <h4>Signal Bot</h4>
+                                  <p>Best for strategy-driven trading.</p>
+                              </div>
+                          </div>
+
+                            <!-- 6th Bot -->
+                            <div class="submenu-item bottom-right">
+                                <img src="/images/icons/antenna.png" alt="Bot 6">
+                                <div class="bot-info">
+                                    <h4>Bot 6</h4>
+                                    <p>Description for Bot 6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            </li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#team">Other element</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </nav>
+      
         <nav class="nav-menu">
           <a href="/login" class="login">Log in</a>
           <a href="/login?action=register" class="signup">Sign up</a>
         </nav>
-    
-        <!-- Hamburger Icon (visible for smaller screens) -->
+
         <div class="hamburger" onclick="toggleMobileNav()">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </div>
-    
-        <!-- Mobile Navigation (hidden by default) -->
+      
         <div class="mobile-nav" id="mobileNav">
           <div class="mobile-nav-links">
-            <a href="#trading-bots">Trading Bots</a>
+            <!-- Toggling the mobile sub-list for bots -->
+            <div class="mobile-bots-toggle" onclick="toggleMobileBots()">
+              <span>Trading Bots</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-bots-menu" id="mobileBotsMenu">
+              <!-- Each phone-only bot item can have icons, text, etc. -->
+              <div class="mobile-bot-item">
+                <img src="/path/to/signal-icon.png" alt="Signal Bot Icon">
+                <div class="mobile-bot-info">
+                  <strong>Signal Bot</strong>
+                  <p>Designed for TradingView users</p>
+                </div>
+              </div>
+              <div class="mobile-bot-item">
+                <img src="/path/to/dca-icon.png" alt="DCA Bot Icon">
+                <div class="mobile-bot-info">
+                  <strong>DCA Bot</strong>
+                  <p>Purchase at opportune moments</p>
+                </div>
+              </div>
+              <div class="mobile-bot-item">
+                <img src="/path/to/grid-icon.png" alt="Grid Bot Icon">
+                <div class="mobile-bot-info">
+                  <strong>Grid Bot</strong>
+                  <p>Trade in sideways markets</p>
+                </div>
+              </div>
+              <!-- Add as many phone-only items as you like... -->
+            </div>
+      
+            <!-- Main nav links on mobile -->
             <a href="#how-it-works">How It Works</a>
             <a href="#team">Team</a>
             <a href="#features">Features</a>
             <a href="#contact">Contact</a>
           </div>
+      
+          <!-- MOBILE LOG IN / SIGN UP -->
           <div class="mobile-login-container">
             <a href="/login" class="login">Log in</a>
             <a href="/login?action=register" class="signup">Sign up</a>
           </div>
         </div>
       </header>
+      
+      
 
     <!-- HERO SECTION -->
     <section class="hero">
@@ -221,11 +327,55 @@
     </footer>
 
     <script>
-    function toggleMobileNav() {
-      var nav = document.getElementById('mobileNav');
-      // Instead of setting style.display, toggle the "active" class:
-      nav.classList.toggle('active');
-    }
-    </script>
+        // Toggle the entire mobile nav
+        function toggleMobileNav() {
+          const nav = document.getElementById('mobileNav');
+          nav.classList.toggle('active');
+        }
+      
+        // Toggle the sub-list of bots in mobile
+        function toggleMobileBots() {
+          const botsMenu = document.getElementById('mobileBotsMenu');
+          botsMenu.classList.toggle('active');
+        }
+      
+        document.addEventListener('DOMContentLoaded', () => {
+          // Desktop submenu toggles
+          const toggles = document.querySelectorAll('.submenu-toggle');
+      
+          toggles.forEach(toggle => {
+            toggle.addEventListener('click', e => {
+              e.preventDefault();
+      
+              // Close any open submenus before opening a new one
+              document.querySelectorAll('.submenu.open').forEach(openMenu => {
+                if (openMenu !== toggle.nextElementSibling) {
+                  openMenu.classList.remove('open');
+                }
+              });
+      
+              // Toggle this one
+              const submenu = toggle.nextElementSibling;
+              submenu.classList.toggle('open');
+      
+              // Prevent it from closing immediately
+              e.stopPropagation();
+            });
+          });
+      
+          // Close submenu if user clicks outside
+          document.addEventListener('click', e => {
+            const clickedToggle = e.target.closest('.submenu-toggle');
+            const clickedSubmenu = e.target.closest('.submenu');
+            if (!clickedToggle && !clickedSubmenu) {
+              document.querySelectorAll('.submenu.open').forEach(menu => {
+                menu.classList.remove('open');
+              });
+            }
+          });
+        });
+      </script>
+      
+      
 </body>
 </html>

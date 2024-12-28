@@ -81,13 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.status === 401 || response.status === 400) {
                     console.log("Redirecting to /login");
-                    // window.location.href = '/login';
+                    window.location.href = '/login';
                     throw new Error("Unauthorized or Bad Request");
                 }
 
                 if (response.status === 404) {
                     console.log("Credentials not found. Redirecting to /login.");
-                    // window.location.href = '/login';
+                    window.location.href = '/login';
                     throw new Error("Credentials not found");
                 }
 

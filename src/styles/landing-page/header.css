@@ -1,4 +1,7 @@
-header {
+/****************************************************
+ *               HEADER (GLOBAL STYLES)
+ ****************************************************/
+ header {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +14,7 @@ header {
     padding: 15px 30px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    gap: 50px;
+    gap: 70px;
     transition: all 0.3s ease;
 }
 
@@ -20,13 +23,11 @@ header {
     align-items: center;
     cursor: pointer;
 }
-
 .logo-container img {
     width: 45px;
     height: 45px;
     margin-right: 10px;
 }
-
 .logo-container h1 {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -37,13 +38,18 @@ header {
     text-transform: uppercase;
 }
 
-/* Desktop Nav */
+/****************************************************
+ *               DESKTOP NAV
+ ****************************************************/
+/* The outer nav container */
 .nav-menu {
     display: flex;
     align-items: center;
 }
 
+/* Generic nav link styling */
 nav a {
+    display: inline-block; 
     color: #fff;
     text-decoration: none;
     font-size: 14px;
@@ -53,13 +59,15 @@ nav a {
     padding: 10px 15px;
     transition: 0.3s;
     margin-left: 5px;
+    vertical-align: middle; 
 }
 
 nav a:hover {
-    background-color: #565656;
+    background-color: #3b3b3b;
+    transition: 0.3s;
 }
 
-/* Desktop Log in / Sign up */
+/* Desktop Log in / Sign up buttons */
 nav .login {
     margin-left: 15px;
     color: #ffffff;
@@ -68,24 +76,23 @@ nav .login {
 nav .login:hover {
     background-color: #444444;
 }
-
 nav .signup {
     color: #050505;
     background: #e98630;
     margin-left: 15px;
 }
-/* Hover color for Sign Up */
 nav .signup:hover {
-    background-color: #d27528; /* adjust as you like */
+    background-color: #d27528;
 }
 
-/* Hamburger */
+/****************************************************
+ *               HAMBURGER (MOBILE TRIGGER)
+ ****************************************************/
 .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
 }
-
 .hamburger span {
     height: 3px;
     width: 25px;
@@ -95,7 +102,9 @@ nav .signup:hover {
     transition: all 0.2s ease;
 }
 
-/* Mobile Nav */
+/****************************************************
+ *               MOBILE NAV
+ ****************************************************/
 .mobile-nav {
     position: fixed;
     top: 65px;
@@ -107,12 +116,10 @@ nav .signup:hover {
     z-index: 1000;
     transition: all 0.3s ease;
 }
-
 .mobile-nav.active {
     display: block;
 }
 
-/* Mobile Nav Links */
 .mobile-nav-links {
     position: absolute;
     top: 0;
@@ -126,7 +133,6 @@ nav .signup:hover {
     padding: 20px;
     box-sizing: border-box;
 }
-
 .mobile-nav-links a {
     display: block;
     text-decoration: none;
@@ -139,7 +145,6 @@ nav .signup:hover {
     width: 100%;
     transition: background-color 0.3s ease;
 }
-
 .mobile-nav-links a:hover {
     background-color: #565656;
 }
@@ -163,7 +168,6 @@ nav .signup:hover {
 .mobile-nav.active .mobile-login-container {
     transform: translateY(0);
 }
-
 .mobile-login-container a {
     border-radius: 10px;
     padding: 15px;
@@ -172,7 +176,6 @@ nav .signup:hover {
     text-align: center;
     transition: background-color 0.3s ease;
 }
-
 .mobile-login-container .login {
     color: #ffffff;
     background: #565656;
@@ -181,8 +184,6 @@ nav .signup:hover {
     color: #050505;
     background: #e98630;
 }
-
-/* Hover for mobile log in / sign up */
 .mobile-login-container .login:hover {
     background-color: #444444;
 }
@@ -190,7 +191,9 @@ nav .signup:hover {
     background-color: #d27528; /* or any color you prefer */
 }
 
-/* Responsive: Show hamburger below 768px */
+/****************************************************
+ *    RESPONSIVE: SHOW HAMBURGER BELOW 768PX
+ ****************************************************/
 @media (max-width: 768px) {
     nav,
     .nav-menu {
@@ -202,4 +205,271 @@ nav .signup:hover {
     header {
         padding: 15px 30px;
     }
+}
+
+/****************************************************
+ *     DESKTOP NAV WITH SUBMENU (MEGA MENU)
+ ****************************************************/
+ .desktop-nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+/* Each top-level nav item */
+.desktop-nav ul li {
+    position: relative; /* needed for .submenu absolute positioning */
+    margin-left: 5px;
+}
+
+/* Submenu toggle link (e.g. "Trading Bots") */
+.desktop-nav ul li a.submenu-toggle {
+    /* same styling as your other nav links */
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    transition: 0.3s;
+    display: inline-block; 
+}
+
+
+/* Submenu container */
+.desktop-nav ul li .submenu {
+    position: absolute;
+    top: 130%;   
+    left: -205px; /* Shift submenu 60px to the left */
+    transform: translateX(-10px); /* Additional 10px shift to the left */
+    background: #242424;
+    min-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(61, 61, 61, 0.3);
+    display: none;
+    z-index: 999;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+/* Submenu content divided into two parts */
+.submenu-content {
+    display: flex;
+    width: 100%;
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box;
+}
+
+/* Left Section: Description */
+.submenu-description {
+    width: 30%;
+    border-right: solid 0.3px #3a3a3a;
+    padding-right: 20px;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.submenu-description h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.submenu-description p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Right Section: Grid of Bots */
+.submenu-grid-container {
+    width: 70%; /* 70% of the submenu */
+    box-sizing: border-box;
+}
+
+.submenu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns for 2x3 grid */
+    gap: 10px; 
+}
+
+/* Each item is one grid cell */
+.submenu-item {
+    display: flex;
+    align-items: flex-start; /* align items to the top */
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: background 0.3s;
+    border-radius: 5px; 
+    background: #242424; 
+}
+
+.submenu-item img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px; /* space between image and bot info */
+    object-fit: contain;
+    flex-shrink: 0; /* prevent image from shrinking */
+}
+
+.bot-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #ffffff; /* text is white by default */
+}
+
+.bot-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #c9c9c9; /* slightly lighter text */
+}
+
+/* ========== HOVER CHANGES ========== */
+.submenu-item:hover {
+    background: #616161; 
+    transition: background 0.3s;
+}
+
+
+/* The "open" class (toggled via JS) shows the submenu */
+.desktop-nav ul li .submenu.open {
+    display: block;
+}
+
+/* Fade and Slide-down effect on .submenu open/close */
+.desktop-nav ul li .submenu {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(-10px); /* Slightly move up when hidden */
+}
+.desktop-nav ul li .submenu.open {
+    opacity: 1;
+    pointer-events: auto;
+    display: block;
+    transform: translateY(0); /* Move to original position when shown */
+}
+
+/* Clear fix so the container encloses the grid properly */
+.desktop-nav ul li .submenu::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* Border-radius Classes for submenu-items */
+.submenu-item.top-left {
+   filter: invert(100%);
+}
+
+.submenu-item.space {
+    margin-left: 10px;
+}
+
+.submenu-item.bottom-left {
+    
+}
+
+.submenu-item.bottom-right {
+    
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .submenu-content {
+        flex-direction: column;
+    }
+
+    .submenu-description,
+    .submenu-grid-container {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .submenu-grid {
+        grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns on tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .submenu-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+
+    .submenu-description {
+        padding-bottom: 20px; /* Add spacing below description on mobile */
+    }
+}
+
+/****************************************************
+ *           MOBILE BOT MENU (phone only)
+ ****************************************************/
+.mobile-bots-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 50px;
+    font-weight: 800;
+    color: #fff;
+    background: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.mobile-bots-toggle:hover {
+    background-color: #565656;
+}
+.mobile-bots-toggle i {
+    margin-left: 10px;
+}
+
+/* Hidden by default; toggled by .active class in JS */
+.mobile-bots-menu {
+    display: none; 
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 40px;
+    border-radius: 8px;
+    margin-top: -10px; /* visually connect it to toggle */
+}
+.mobile-bot-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #1f1f1f;
+    padding: 10px;
+    border-radius: 8px;
+}
+.mobile-bot-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+.mobile-bot-info {
+    display: flex;
+    flex-direction: column;
+}
+.mobile-bot-info strong {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+.mobile-bot-info p {
+    font-size: 12px;
+    color: #aaa;
+    margin: 0;
+}
+.mobile-bots-menu.active {
+    display: flex;
+}
+
+/* Hide phone-only stuff above 768px */
+@media (min-width: 769px) {
+  .mobile-bots-toggle,
+  .mobile-bots-menu {
+    display: none !important;
+  }
 }
