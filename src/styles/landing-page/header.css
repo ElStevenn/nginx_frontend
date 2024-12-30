@@ -6,6 +6,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    letter-spacing: 0.8px;
     background: rgba(15,15,15,0.95);
     backdrop-filter: blur(6px);
     display: flex;
@@ -192,23 +193,7 @@ nav .signup:hover {
 }
 
 /****************************************************
- *    RESPONSIVE: SHOW HAMBURGER BELOW 768PX
- ****************************************************/
-@media (max-width: 768px) {
-    nav,
-    .nav-menu {
-        display: none;
-    }
-    .hamburger {
-        display: flex;
-    }
-    header {
-        padding: 15px 30px;
-    }
-}
-
-/****************************************************
- *     DESKTOP NAV WITH SUBMENU (MEGA MENU)
+ *           DESKTOP NAV WITH SUBMENU (MEGA MENU)
  ****************************************************/
  .desktop-nav ul {
     list-style: none;
@@ -232,82 +217,94 @@ nav .signup:hover {
     border-radius: 5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 10px 15px;
+    padding: 10px 9px;
     transition: 0.3s;
-    display: inline-block; 
+    display: inline-block;
 }
-
 
 /* Submenu container */
 .desktop-nav ul li .submenu {
     position: absolute;
     top: 130%;   
-    left: -205px; /* Shift submenu 60px to the left */
-    transform: translateX(-10px); /* Additional 10px shift to the left */
+    left: -170px; 
     background: #242424;
-    min-width: 800px;
+    min-width: 300px;
+    max-width: 650px;
+    width: auto;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(61, 61, 61, 0.3);
-    display: none;
+    display: none; /* Hidden by default */
     z-index: 999;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
 }
-/* Submenu content divided into two parts */
+
+.features-submenu ul li {
+    min-width: 500px;
+    max-width: 650px;
+}
+
+/* Show submenu on hover or when 'open' class is present */
+.dropdown.open .submenu,
+.submenu.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optional: Highlight the parent menu item when submenu is open */
+.dropdown.open > a.submenu-toggle {
+    background-color: #535353d8; 
+}
+
+/* Submenu content */
 .submenu-content {
-    display: flex;
     width: 100%;
-    padding: 20px; /* Adjust padding as needed */
+    padding: 0;
     box-sizing: border-box;
-}
-
-/* Left Section: Description */
-.submenu-description {
-    width: 30%;
-    border-right: solid 0.3px #3a3a3a;
-    padding-right: 20px;
-    box-sizing: border-box;
-    color: #ffffff;
-}
-
-.submenu-description h3 {
-    margin-top: 0;
-    font-size: 18px;
-}
-
-.submenu-description p {
-    font-size: 14px;
-    line-height: 1.5;
+    display: block; /* Ensure it behaves as a block element */
 }
 
 /* Right Section: Grid of Bots */
 .submenu-grid-container {
-    width: 70%; /* 70% of the submenu */
+    width: 100%; /* Full width */
     box-sizing: border-box;
+    padding: 5px; /* Adjusted padding */
+    border: solid 0.3px #383838;
 }
 
+/* Grid layout */
 .submenu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns for 2x3 grid */
-    gap: 10px; 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 5px;
+    padding: 0; 
 }
 
 /* Each item is one grid cell */
 .submenu-item {
     display: flex;
-    align-items: flex-start; /* align items to the top */
+    align-items: center;
     cursor: pointer;
-    padding: 10px 15px;
+    padding: 12px 8px;
+    width: 300px;
     transition: background 0.3s;
-    border-radius: 5px; 
-    background: #242424; 
+    border-radius: 5px;
+    background: #242424;
+    margin: 0;
 }
 
 .submenu-item img {
     width: 40px;
     height: 40px;
-    margin-right: 10px; /* space between image and bot info */
+    margin-right: 10px; 
     object-fit: contain;
-    flex-shrink: 0; /* prevent image from shrinking */
+    flex-shrink: 0; 
 }
 
 .bot-info {
@@ -317,40 +314,21 @@ nav .signup:hover {
 
 .bot-info h4 {
     margin: 0 0 5px 0;
-    font-size: 14px;
+    font-size: 15px;
     color: #ffffff; /* text is white by default */
 }
 
 .bot-info p {
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
     color: #c9c9c9; /* slightly lighter text */
+    margin-top: 2px;
 }
 
 /* ========== HOVER CHANGES ========== */
 .submenu-item:hover {
-    background: #616161; 
+    background: #363636; 
     transition: background 0.3s;
-}
-
-
-/* The "open" class (toggled via JS) shows the submenu */
-.desktop-nav ul li .submenu.open {
-    display: block;
-}
-
-/* Fade and Slide-down effect on .submenu open/close */
-.desktop-nav ul li .submenu {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
-    transform: translateY(-10px); /* Slightly move up when hidden */
-}
-.desktop-nav ul li .submenu.open {
-    opacity: 1;
-    pointer-events: auto;
-    display: block;
-    transform: translateY(0); /* Move to original position when shown */
 }
 
 /* Clear fix so the container encloses the grid properly */
@@ -358,24 +336,39 @@ nav .signup:hover {
     content: "";
     display: block;
     clear: both;
-}
+} 
 
 /* Border-radius Classes for submenu-items */
 .submenu-item.top-left {
    filter: invert(100%);
 }
 
-.submenu-item.space {
-    margin-left: 10px;
+.submenu-item.space,
+.submenu-item.space2 {
+    margin: 0; /* Remove margins */
 }
 
 .submenu-item.bottom-left {
-    
+    /* Your styles here */
 }
 
 .submenu-item.bottom-right {
-    
+    /* Your styles here */
 }
+
+.features-submenu .submenu-grid {
+    grid-template-columns: 1fr; /* 1 column */
+}
+
+.feature img{
+    width: 35px;
+    height: 35px;
+}
+
+.trad-bot{
+    width: 250px;
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
@@ -383,7 +376,6 @@ nav .signup:hover {
         flex-direction: column;
     }
 
-    .submenu-description,
     .submenu-grid-container {
         width: 100%;
         padding-right: 0;
@@ -398,11 +390,9 @@ nav .signup:hover {
     .submenu-grid {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
-
-    .submenu-description {
-        padding-bottom: 20px; /* Add spacing below description on mobile */
-    }
 }
+
+
 
 /****************************************************
  *           MOBILE BOT MENU (phone only)
