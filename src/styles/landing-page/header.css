@@ -218,21 +218,20 @@ nav .signup:hover {
     font-weight: 800;
     text-transform: uppercase;
     padding: 10px 9px;
-    transition: 0.3s;
+    transition: background-color 0.3s;
     display: inline-block;
 }
 
-/* Submenu container */
+/* General submenu styling */
 .desktop-nav ul li .submenu {
     position: absolute;
     top: 130%;   
-    left: -170px; 
     background: #242424;
     min-width: 300px;
     max-width: 650px;
     width: auto;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(61, 61, 61, 0.3);
+    box-shadow: 0 2px 8px rgb(16 16 16 / 30%);
     display: none; /* Hidden by default */
     z-index: 999;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -243,12 +242,23 @@ nav .signup:hover {
     transform: translateY(-10px);
 }
 
-.features-submenu ul li {
-    min-width: 500px;
-    max-width: 650px;
+/* Positioning for Trading Bots Submenu (towards left) */
+.trading-bots-submenu {
+    left: -210px; /* Adjust as needed for specific alignment */
 }
 
-/* Show submenu on hover or when 'open' class is present */
+/* Positioning for Features Submenu (towards right) */
+.features-submenu {
+    right: -120px; /* Adjust as needed for specific alignment */
+    left: auto; /* Reset left to avoid conflict */
+}
+
+/* Positioning for Trading Charts Submenu (towards left or right) */
+.trading-charts-submenu {
+    left: -70px;
+}
+
+/* Show submenu when 'open' class is present */
 .dropdown.open .submenu,
 .submenu.open {
     display: block;
@@ -269,12 +279,11 @@ nav .signup:hover {
     display: block; /* Ensure it behaves as a block element */
 }
 
-/* Right Section: Grid of Bots */
+/* Right Section: Grid of Bots or Charts */
 .submenu-grid-container {
     width: 100%; /* Full width */
-    box-sizing: border-box;
     padding: 5px; /* Adjusted padding */
-    border: solid 0.3px #383838;
+    /* border: solid 0.3px #383838; */
 }
 
 /* Grid layout */
@@ -356,16 +365,19 @@ nav .signup:hover {
     /* Your styles here */
 }
 
-.features-submenu .submenu-grid {
-    grid-template-columns: 1fr; /* 1 column */
+.features-submenu .submenu-grid,
+.trading-charts-submenu .submenu-grid {
+    grid-template-columns: 1fr; 
 }
 
-.feature img{
+.feature img,
+.chart img{
     width: 35px;
     height: 35px;
 }
 
-.trad-bot{
+.trad-bot,
+.chart{
     width: 250px;
 }
 
@@ -391,7 +403,6 @@ nav .signup:hover {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
 }
-
 
 
 /****************************************************
