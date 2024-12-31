@@ -20,8 +20,8 @@
 <body>
     <header>
         <div class="logo-container" onclick="window.location.href='/'">
-          <img src="/images/thumnails/logo.png" alt="Fundy Logo">
-          <h1>Fundy</h1>
+            <img src="/images/thumnails/logo.png" alt="Fundy Logo">
+            <h1>Fundy</h1>
         </div>
       
         <nav class="nav-menu desktop-nav">
@@ -182,67 +182,69 @@
                 <li><a href="#learn">Learn</a></li>
             </ul>
         </nav>
-        
-        
-      
       
         <nav class="nav-menu">
           <a href="/login" class="login">Log in</a>
           <a href="/login?action=register" class="signup">Sign up</a>
         </nav>
 
-        <div class="hamburger" onclick="toggleMobileNav()">
-          <span></span><span></span><span></span>
+        <!-- Hamburger Icon for Mobile -->
+        <div class="hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
       
+        <!-- Mobile Navigation Menu -->
         <div class="mobile-nav" id="mobileNav">
-          <div class="mobile-nav-links">
-            <!-- Toggling the mobile sub-list for bots -->
-            <div class="mobile-bots-toggle" onclick="toggleMobileBots()">
-              <span>Trading Bots</span>
-              <i class="fas fa-chevron-down"></i>
+            <div class="mobile-nav-links">
+                <!-- Toggling the mobile sub-list for bots -->
+                <div class="mobile-bots-toggle" onclick="toggleMobileBots()">
+                    <span>Trading Bots</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="mobile-bots-menu" id="mobileBotsMenu">
+                    <!-- Each phone-only bot item can have icons, text, etc. -->
+                    <div class="mobile-bot-item">
+                        <img src="/path/to/signal-icon.png" alt="Signal Bot Icon">
+                        <div class="mobile-bot-info">
+                            <strong>Signal Bot</strong>
+                            <p>Designed for TradingView users</p>
+                        </div>
+                    </div>
+                    <div class="mobile-bot-item">
+                        <img src="/path/to/dca-icon.png" alt="DCA Bot Icon">
+                        <div class="mobile-bot-info">
+                            <strong>DCA Bot</strong>
+                            <p>Purchase at opportune moments</p>
+                        </div>
+                    </div>
+                    <div class="mobile-bot-item">
+                        <img src="/path/to/grid-icon.png" alt="Grid Bot Icon">
+                        <div class="mobile-bot-info">
+                            <strong>Grid Bot</strong>
+                            <p>Trade in sideways markets</p>
+                        </div>
+                    </div>
+                    <!-- Add as many phone-only items as you like... -->
+                </div>
+        
+                <!-- Main nav links on mobile -->
+                <a href="#how-it-works">How It Works</a>
+                <a href="#team">Team</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
             </div>
-            <div class="mobile-bots-menu" id="mobileBotsMenu">
-              <!-- Each phone-only bot item can have icons, text, etc. -->
-              <div class="mobile-bot-item">
-                <img src="/path/to/signal-icon.png" alt="Signal Bot Icon">
-                <div class="mobile-bot-info">
-                  <strong>Signal Bot</strong>
-                  <p>Designed for TradingView users</p>
-                </div>
-              </div>
-              <div class="mobile-bot-item">
-                <img src="/path/to/dca-icon.png" alt="DCA Bot Icon">
-                <div class="mobile-bot-info">
-                  <strong>DCA Bot</strong>
-                  <p>Purchase at opportune moments</p>
-                </div>
-              </div>
-              <div class="mobile-bot-item">
-                <img src="/path/to/grid-icon.png" alt="Grid Bot Icon">
-                <div class="mobile-bot-info">
-                  <strong>Grid Bot</strong>
-                  <p>Trade in sideways markets</p>
-                </div>
-              </div>
-              <!-- Add as many phone-only items as you like... -->
+        
+            <!-- MOBILE LOG IN / SIGN UP -->
+            <div class="mobile-login-container">
+                <a href="/login" class="login">Log in</a>
+                <a href="/login?action=register" class="signup">Sign up</a>
             </div>
-      
-            <!-- Main nav links on mobile -->
-            <a href="#how-it-works">How It Works</a>
-            <a href="#team">Team</a>
-            <a href="#features">Features</a>
-            <a href="#contact">Contact</a>
-          </div>
-      
-          <!-- MOBILE LOG IN / SIGN UP -->
-          <div class="mobile-login-container">
-            <a href="/login" class="login">Log in</a>
-            <a href="/login?action=register" class="signup">Sign up</a>
-          </div>
         </div>
-      </header>
-      
+    </header>
+    
+
       
 
     <!-- HERO SECTION -->
@@ -479,10 +481,25 @@
             }
         });
 
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            const hamburger = document.querySelector('.hamburger');
 
+            // Toggle the 'active' class on the mobile navigation
+            mobileNav.classList.toggle('active');
+
+            // Toggle the 'active' class on the hamburger for animation
+            hamburger.classList.toggle('active');
+
+            // Update ARIA attributes for accessibility
+            const isActive = mobileNav.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+        }
+
+        function toggleMobileBots() {
+            const mobileBotsMenu = document.getElementById('mobileBotsMenu');
+            mobileBotsMenu.classList.toggle('active');
+        }
   </script>
-  
-      
-      
 </body>
 </html>

@@ -11,7 +11,7 @@
     backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Centered on desktop */
     padding: 15px 30px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.7);
@@ -90,9 +90,10 @@ nav .signup:hover {
  *               HAMBURGER (MOBILE TRIGGER)
  ****************************************************/
 .hamburger {
-    display: none;
+    display: none; /* Hidden by default */
     flex-direction: column;
     cursor: pointer;
+    z-index: 1001; /* Ensure it stays above the mobile-nav */
 }
 .hamburger span {
     height: 3px;
@@ -108,12 +109,12 @@ nav .signup:hover {
  ****************************************************/
 .mobile-nav {
     position: fixed;
-    top: 65px;
+    top: 65px; /* Adjust based on header height */
     left: 0;
     width: 100%;
     height: calc(100vh - 65px);
     background: #1f1f1f;
-    display: none;
+    display: none; /* Hidden by default */
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -122,18 +123,13 @@ nav .signup:hover {
 }
 
 .mobile-nav-links {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 20px;
     box-sizing: border-box;
 }
+
 .mobile-nav-links a {
     display: block;
     text-decoration: none;
@@ -152,16 +148,15 @@ nav .signup:hover {
 
 /* Mobile Log in / Sign up Container */
 .mobile-login-container {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
-    /* Off-screen by default */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     transform: translateY(100%);
     transition: transform 0.3s ease;
 }
@@ -195,7 +190,7 @@ nav .signup:hover {
 /****************************************************
  *           DESKTOP NAV WITH SUBMENU (MEGA MENU)
  ****************************************************/
- .desktop-nav ul {
+.desktop-nav ul {
     list-style: none;
     display: flex;
     margin: 0;
@@ -244,18 +239,18 @@ nav .signup:hover {
 
 /* Positioning for Trading Bots Submenu (towards left) */
 .trading-bots-submenu {
-    left: -210px; /* Adjust as needed for specific alignment */
+    left: -210px; 
 }
 
-/* Positioning for Features Submenu (towards right) */
+/* Positioning for Features Submenu */
 .features-submenu {
-    right: -120px; /* Adjust as needed for specific alignment */
-    left: auto; /* Reset left to avoid conflict */
+    right: -120px; 
+    left: auto; 
 }
 
-/* Positioning for Trading Charts Submenu (towards left or right) */
+/* Positioning for Trading Charts Submenu */
 .trading-charts-submenu {
-    left: -70px;
+    left: -80px; 
 }
 
 /* Show submenu when 'open' class is present */
@@ -402,8 +397,42 @@ nav .signup:hover {
     .submenu-grid {
         grid-template-columns: 1fr; /* Single column on mobile */
     }
-}
 
+    /* Display hamburger icon on mobile */
+    .hamburger {
+        display: flex;
+        /* Removed absolute positioning to maintain flex layout */
+        width: 30px; /* Increase width for better visibility */
+        height: 25px; /* Increase height to accommodate 3 spans */
+    }
+
+    /* Hide desktop navigation menu on mobile */
+    .nav-menu.desktop-nav,
+    .nav-menu:not(.desktop-nav) { /* Hide all nav-menus on mobile */
+        display: none;
+    }
+
+    /* Hide submenu-item images on mobile */
+    .submenu-item img {
+        display: none;
+    }
+
+    /* Adjust header layout to have logo on left and hamburger on right */
+    header {
+        justify-content: space-between;
+        gap: 20px; /* Reduced gap for mobile */
+    }
+
+    /* Optional: Adjust logo size for mobile */
+    .logo-container img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .logo-container h1 {
+        font-size: 18px;
+    }
+}
 
 /****************************************************
  *           MOBILE BOT MENU (phone only)
@@ -473,4 +502,19 @@ nav .signup:hover {
   .mobile-bots-menu {
     display: none !important;
   }
+}
+
+/* Optional: Animate hamburger to X when active */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.hamburger span {
+    transition: all 0.2s ease;
 }
