@@ -24,8 +24,8 @@ RUN chmod -R 755 /usr/share/nginx/html
 
 # Substitute environment variables in default.conf and config.js.template, then start NGINX
 CMD ["sh", "-c", \
-    "envsubst '$CRYPTOCURRENCY_API $CRYPTOCURRENCY_URL $GLOBAL_API $EXCHANGE_API $BITGET_API' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && \
-     envsubst '$CRYPTOCURRENCY_API $CRYPTOCURRENCY_URL $GLOBAL_API $EXCHANGE_API' < /usr/share/nginx/html/config.js.template > /usr/share/nginx/html/config.js && \
+    "envsubst '$CRYPTOCURRENCY_API $CRYPTOCURRENCY_URL $GLOBAL_API $EXCHANGE_API $BITGET_API $LOCAL_API' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && \
+     envsubst '$CRYPTOCURRENCY_API $CRYPTOCURRENCY_URL $GLOBAL_API $EXCHANGE_API $LOCAL_API' < /usr/share/nginx/html/config.js.template > /usr/share/nginx/html/config.js && \
      exec nginx -g 'daemon off;'" \
 ]
 
