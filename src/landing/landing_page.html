@@ -13,7 +13,7 @@
           integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" 
           crossorigin="anonymous" />
 
-    <!-- Make sure to link your updated CSS file here -->
+    <!-- Link to your CSS files -->
     <link rel="stylesheet" href="/styles/landing-page/header.css">
     <link rel="stylesheet" href="/styles/landing-page/main-landing.css">
 </head>
@@ -243,31 +243,36 @@
             </div>
         </div>
     </header>
-    
 
-      
 
     <!-- HERO SECTION -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
-            <h2>Empower Your Crypto Journey<br> With Fundy</h2>
-            <p>
-                Fundy is your trusted partner in navigating the complex world of cryptocurrency. 
-                From secure wallets to advanced analytics, we provide the tools you need to 
-                grow and protect your digital assets.
-            </p>
-            <button class="cta-button" onclick="window.location.href='/login'">
-                Get Started
-            </button>
-            <div class="security-note">
-                Always check the address of 
-                <a href="https://fundy.com" target="_blank" rel="noopener noreferrer">
-                    https://fundy.com
+            <!-- New Image Added -->
+            <img src="/images/thumnails/first_attempt-removebg-preview.png" alt="Fundy Hero Image" class="hero-image">
+            
+            <!-- Text Content Wrapped in a Container -->
+            <div class="hero-text">
+                <h2>Empower Your Crypto Journey<br>With Fundy</h2>
+                <p>
+                    Fundy is your trusted partner in navigating the complex world of cryptocurrency. 
+                    From secure wallets to advanced analytics, we provide the tools you need to 
+                    grow and protect your digital assets.
+                </p>
+                <a href="/login" class="cta-button">
+                    Get Started
                 </a>
-                to ensure this page is authentic.
+                <div class="security-note">
+                    Always check the address of 
+                    <a href="https://fundy.com" target="_blank" rel="noopener noreferrer">
+                        https://fundy.com
+                    </a>
+                    to ensure this page is authentic.
+                </div>
             </div>
         </div>
     </section>
+
 
     <!-- FEATURES SECTION -->
     <section class="features" id="features">
@@ -350,7 +355,8 @@
     <section class="testimonials" id="testimonials">
         <h2>What Our Users Say</h2>
         <div class="testimonials-slider">
-            <div class="testimonial-item">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="testimonial-item active">
                 <p>Fundy transformed how I manage my crypto. The analytics are top-notch, and I feel more confident in my decisions.</p>
                 <h4>- Alex D.</h4>
             </div>
@@ -366,6 +372,7 @@
                 <p>My portfolio has never been stronger. Fundy’s insights helped me spot trends I would have missed otherwise.</p>
                 <h4>- Jenna K.</h4>
             </div>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -373,39 +380,11 @@
     <section class="cta-section">
         <h2>Ready to Begin Your Crypto Journey?</h2>
         <p>Join Fundy now and take control of your financial future with powerful tools and unwavering support.</p>
-        <button class="cta-button" onclick="window.location.href='/login?action=register'">
+        <a href="/login?action=register" class="cta-button">
             Join Fundy Today
-        </button>
+        </a>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="how-it-works" id="contact">
-        <h2>Contact Us</h2>
-        <p>Have questions, feedback, or need assistance? Reach out to our dedicated team.</p>
-        <form action="#" method="post" style="max-width:500px; margin:40px auto 0; text-align:left;">
-            <input type="text" name="name" placeholder="Your Name" required 
-                   style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
-            <input type="email" name="email" placeholder="Your Email" required 
-                   style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;">
-            <textarea name="message" rows="6" placeholder="Your Message" required 
-                      style="margin-bottom:15px;width:100%;padding:12px;border:none;border-radius:5px;background:#2a2a2a;color:#eee;font-size:14px;"></textarea>
-            <button type="submit" 
-                    style="padding:12px 30px;background:#3b82f6;color:#fff;border:none;border-radius:5px;font-family:'Montserrat',sans-serif;font-weight:600;cursor:pointer;font-size:14px;">
-                Send Message
-            </button>
-        </form>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 Fundy. All Rights Reserved.</p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
