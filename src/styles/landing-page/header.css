@@ -163,6 +163,7 @@ nav .signup:hover {
 /* Slide up when mobile nav is active */
 .mobile-nav.active .mobile-login-container {
     transform: translateY(0);
+    background: #282828;
 }
 .mobile-login-container a {
     border-radius: 10px;
@@ -432,6 +433,19 @@ nav .signup:hover {
     .logo-container h1 {
         font-size: 18px;
     }
+
+    /* Scroll-Down Arrow Styling */
+    .scroll-down-arrow {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+        animation: bounce 2s infinite;
+        z-index: 2; /* Ensure it's above the hero background */
+    }
 }
 
 /****************************************************
@@ -517,4 +531,17 @@ nav .signup:hover {
 
 .hamburger span {
     transition: all 0.2s ease;
+}
+
+/* Scroll-Down Arrow Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { 
+        transform: translateX(-50%) translateY(0); 
+    }
+    40% { 
+        transform: translateX(-50%) translateY(-10px); 
+    }
+    60% { 
+        transform: translateX(-50%) translateY(-5px); 
+    }
 }
