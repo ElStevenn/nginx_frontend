@@ -46,6 +46,30 @@ server {
         }
     }
 
+    # Proxy Public IP with CORS to multiexchange
+    location /proxy/public-ip {
+        proxy_pass https://multiexchange.pauservices.top/docs;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Add CORS headers
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+
+        # Handle preflight OPTIONS requests explicitly
+        if ($request_method = OPTIONS) {
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+            add_header 'Content-Length' 0;
+            add_header 'Content-Type' text/plain;
+            return 204;
+        }
+    }
+
+
+
     # Secure Routes with Authentication
     location = /settings/set_credentials {
         limit_req zone=one burst=5 nodelay;
