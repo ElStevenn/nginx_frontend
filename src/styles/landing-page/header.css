@@ -42,7 +42,6 @@
 /****************************************************
  *               DESKTOP NAV
  ****************************************************/
-/* The outer nav container */
 .nav-menu {
     display: flex;
     align-items: center;
@@ -90,10 +89,10 @@ nav .signup:hover {
  *               HAMBURGER (MOBILE TRIGGER)
  ****************************************************/
 .hamburger {
-    display: none; /* Hidden by default */
+    display: none; /* Hidden on desktop */
     flex-direction: column;
     cursor: pointer;
-    z-index: 1001; /* Ensure it stays above the mobile-nav */
+    z-index: 1001; /* Ensure above the mobile-nav */
 }
 .hamburger span {
     height: 3px;
@@ -109,7 +108,7 @@ nav .signup:hover {
  ****************************************************/
 .mobile-nav {
     position: fixed;
-    top: 65px; /* Adjust based on header height */
+    top: 65px; /* Just below the header */
     left: 0;
     width: 100%;
     height: calc(100vh - 65px);
@@ -128,6 +127,7 @@ nav .signup:hover {
     gap: 10px;
     padding: 20px;
     box-sizing: border-box;
+    border-top: solid 0.3px #404040;
 }
 
 .mobile-nav-links a {
@@ -160,7 +160,6 @@ nav .signup:hover {
     transform: translateY(100%);
     transition: transform 0.3s ease;
 }
-/* Slide up when mobile nav is active */
 .mobile-nav.active .mobile-login-container {
     transform: translateY(0);
     background: #282828;
@@ -185,11 +184,11 @@ nav .signup:hover {
     background-color: #444444;
 }
 .mobile-login-container .signup:hover {
-    background-color: #d27528; /* or any color you prefer */
+    background-color: #d27528;
 }
 
 /****************************************************
- *           DESKTOP NAV WITH SUBMENU (MEGA MENU)
+ *           DESKTOP NAV WITH SUBMENU
  ****************************************************/
 .desktop-nav ul {
     list-style: none;
@@ -197,16 +196,12 @@ nav .signup:hover {
     margin: 0;
     padding: 0;
 }
-
-/* Each top-level nav item */
 .desktop-nav ul li {
-    position: relative; /* needed for .submenu absolute positioning */
+    position: relative;
     margin-left: 5px;
 }
-
-/* Submenu toggle link (e.g. "Trading Bots") */
+/* Submenu toggle link (top-level) */
 .desktop-nav ul li a.submenu-toggle {
-    /* same styling as your other nav links */
     color: #fff;
     text-decoration: none;
     font-size: 14px;
@@ -217,18 +212,16 @@ nav .signup:hover {
     transition: background-color 0.3s;
     display: inline-block;
 }
-
-/* General submenu styling */
+/* The hidden submenu */
 .desktop-nav ul li .submenu {
     position: absolute;
     top: 130%;   
     background: #242424;
     min-width: 300px;
     max-width: 650px;
-    width: auto;
     border-radius: 5px;
     box-shadow: 0 2px 8px rgb(16 16 16 / 30%);
-    display: none; /* Hidden by default */
+    display: none;
     z-index: 999;
     transition: transform 0.3s ease, opacity 0.3s ease;
     padding: 0;
@@ -237,52 +230,37 @@ nav .signup:hover {
     opacity: 0;
     transform: translateY(-10px);
 }
-
-/* Positioning for Trading Bots Submenu (towards left) */
 .trading-bots-submenu {
     left: -210px; 
 }
-
-/* Positioning for Features Submenu */
 .features-submenu {
     right: -120px; 
     left: auto; 
 }
-
-/* Positioning for Trading Charts Submenu */
 .trading-charts-submenu {
     left: -80px; 
 }
-
-/* Show submenu when 'open' class is present */
+/* Show the submenu when "open" */
 .dropdown.open .submenu,
 .submenu.open {
     display: block;
     opacity: 1;
     transform: translateY(0);
 }
-
-/* Optional: Highlight the parent menu item when submenu is open */
 .dropdown.open > a.submenu-toggle {
     background-color: #535353d8; 
 }
-
-/* Submenu content */
 .submenu-content {
     width: 100%;
     padding: 0;
     box-sizing: border-box;
-    display: block; /* Ensure it behaves as a block element */
+    display: block;
 }
-
-/* Right Section: Grid of Bots or Charts */
+/* Submenu layout */
 .submenu-grid-container {
-    width: 100%; /* Full width */
-    padding: 5px; /* Adjusted padding */
-    /* border: solid 0.3px #383838; */
+    width: 100%;
+    padding: 5px;
 }
-
-/* Grid layout */
 .submenu-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -290,8 +268,6 @@ nav .signup:hover {
     margin: 5px;
     padding: 0; 
 }
-
-/* Each item is one grid cell */
 .submenu-item {
     display: flex;
     align-items: center;
@@ -303,7 +279,6 @@ nav .signup:hover {
     background: #242424;
     margin: 0;
 }
-
 .submenu-item img {
     width: 40px;
     height: 40px;
@@ -311,147 +286,101 @@ nav .signup:hover {
     object-fit: contain;
     flex-shrink: 0; 
 }
-
 .bot-info {
     display: flex;
     flex-direction: column;
 }
-
 .bot-info h4 {
     margin: 0 0 5px 0;
     font-size: 15px;
-    color: #ffffff; /* text is white by default */
+    color: #ffffff;
 }
-
 .bot-info p {
     margin: 0;
     font-size: 13px;
-    color: #c9c9c9; /* slightly lighter text */
+    color: #c9c9c9;
     margin-top: 2px;
 }
-
-/* ========== HOVER CHANGES ========== */
 .submenu-item:hover {
     background: #363636; 
     transition: background 0.3s;
 }
-
-/* Clear fix so the container encloses the grid properly */
+/* Clear fix on the submenu container */
 .desktop-nav ul li .submenu::after {
     content: "";
     display: block;
     clear: both;
-} 
-
-/* Border-radius Classes for submenu-items */
-.submenu-item.top-left {
-   filter: invert(100%);
 }
-
-.submenu-item.space,
-.submenu-item.space2 {
-    margin: 0; /* Remove margins */
-}
-
-.submenu-item.bottom-left {
-    /* Your styles here */
-}
-
-.submenu-item.bottom-right {
-    /* Your styles here */
-}
-
+/* Single-col for certain submenus */
 .features-submenu .submenu-grid,
 .trading-charts-submenu .submenu-grid {
     grid-template-columns: 1fr; 
 }
-
 .feature img,
-.chart img{
+.chart img {
     width: 35px;
     height: 35px;
 }
-
 .trad-bot,
-.chart{
+.chart {
     width: 250px;
 }
 
-
-/* Responsive Adjustments */
+/****************************************************
+ *               RESPONSIVE ADJUSTMENTS
+ ****************************************************/
 @media (max-width: 1024px) {
     .submenu-content {
         flex-direction: column;
     }
-
     .submenu-grid-container {
         width: 100%;
         padding-right: 0;
     }
-
     .submenu-grid {
-        grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns on tablet */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .submenu-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
-    }
 
-    /* Display hamburger icon on mobile */
+    /* Hide the desktop navs; show hamburger */
     .hamburger {
         display: flex;
-        /* Removed absolute positioning to maintain flex layout */
-        width: 30px; /* Increase width for better visibility */
-        height: 25px; /* Increase height to accommodate 3 spans */
+        width: 30px;
+        height: 25px;
     }
-
-    /* Hide desktop navigation menu on mobile */
     .nav-menu.desktop-nav,
-    .nav-menu:not(.desktop-nav) { /* Hide all nav-menus on mobile */
+    .nav-menu:not(.desktop-nav) {
         display: none;
     }
 
-    /* Hide submenu-item images on mobile */
+    /* Hide images in the desktop submenus on mobile */
     .submenu-item img {
         display: none;
     }
 
-    /* Adjust header layout to have logo on left and hamburger on right */
+    /* Adjust header for mobile */
     header {
         justify-content: space-between;
-        gap: 20px; /* Reduced gap for mobile */
+        gap: 20px;
     }
-
-    /* Optional: Adjust logo size for mobile */
     .logo-container img {
         width: 35px;
         height: 35px;
     }
-
     .logo-container h1 {
         font-size: 18px;
-    }
-
-    /* Scroll-Down Arrow Styling */
-    .scroll-down-arrow {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 30px;
-        color: #fff;
-        cursor: pointer;
-        animation: bounce 2s infinite;
-        z-index: 2; /* Ensure it's above the hero background */
     }
 }
 
 /****************************************************
- *           MOBILE BOT MENU (phone only)
+ *           MOBILE COLLAPSIBLE MENUS
  ****************************************************/
-.mobile-bots-toggle {
+/* Common style for each toggle row (Bots, Features, Charts) */
+.mobile-bots-toggle,
+.mobile-features-toggle,
+.mobile-charts-toggle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -463,22 +392,42 @@ nav .signup:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-.mobile-bots-toggle:hover {
+.mobile-bots-toggle:hover,
+.mobile-features-toggle:hover,
+.mobile-charts-toggle:hover {
     background-color: #565656;
 }
-.mobile-bots-toggle i {
-    margin-left: 10px;
+
+/* The downward chevron on the right rotates to up when .active */
+.mobile-bots-toggle i,
+.mobile-features-toggle i,
+.mobile-charts-toggle i {
+    transition: transform 0.3s ease;
+}
+.mobile-bots-toggle.active i,
+.mobile-features-toggle.active i,
+.mobile-charts-toggle.active i {
+    transform: rotate(180deg);
 }
 
-/* Hidden by default; toggled by .active class in JS */
-.mobile-bots-menu {
+/* Hidden submenus, shown by .active */
+.mobile-bots-menu,
+.mobile-features-menu,
+.mobile-charts-menu {
     display: none; 
     flex-direction: column;
     gap: 10px;
     padding: 10px 40px;
     border-radius: 8px;
-    margin-top: -10px; /* visually connect it to toggle */
+    margin-top: -10px; /* visually connect it */
 }
+.mobile-bots-menu.active,
+.mobile-features-menu.active,
+.mobile-charts-menu.active {
+    display: flex;
+}
+
+/* Mobile item style (same as .mobile-bot-item) */
 .mobile-bot-item {
     display: flex;
     align-items: flex-start;
@@ -506,19 +455,22 @@ nav .signup:hover {
     color: #aaa;
     margin: 0;
 }
-.mobile-bots-menu.active {
-    display: flex;
-}
 
 /* Hide phone-only stuff above 768px */
 @media (min-width: 769px) {
   .mobile-bots-toggle,
-  .mobile-bots-menu {
+  .mobile-bots-menu,
+  .mobile-features-toggle,
+  .mobile-features-menu,
+  .mobile-charts-toggle,
+  .mobile-charts-menu {
     display: none !important;
   }
 }
 
-/* Optional: Animate hamburger to X when active */
+/****************************************************
+ *            HAMBURGER => X ANIMATION
+ ****************************************************/
 .hamburger.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -528,20 +480,6 @@ nav .signup:hover {
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
 }
-
 .hamburger span {
     transition: all 0.2s ease;
-}
-
-/* Scroll-Down Arrow Animation */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { 
-        transform: translateX(-50%) translateY(0); 
-    }
-    40% { 
-        transform: translateX(-50%) translateY(-10px); 
-    }
-    60% { 
-        transform: translateX(-50%) translateY(-5px); 
-    }
 }
