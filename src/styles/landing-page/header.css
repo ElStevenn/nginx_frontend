@@ -392,6 +392,24 @@ nav .signup:hover {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    position: relative; /* For better alignment */
+}
+
+/* Style for the toggle icons */
+.toggle-icon {
+    width: 19px; 
+    height: 23px;
+    margin-right: 15px; 
+    object-fit: contain;
+    filter: invert(100%);
+}
+
+/* Ensure the text and chevron are properly aligned */
+.mobile-bots-toggle span,
+.mobile-features-toggle span,
+.mobile-charts-toggle span {
+    flex: 1; 
+    margin-left: 10px; 
 }
 
 /* The downward chevron on the right rotates to up when .active */
@@ -399,6 +417,7 @@ nav .signup:hover {
 .mobile-features-toggle i,
 .mobile-charts-toggle i {
     transition: transform 0.3s ease;
+    margin-left: auto; /* Push chevron to the far right */
 }
 .mobile-bots-toggle.active i,
 .mobile-features-toggle.active i,
@@ -406,21 +425,27 @@ nav .signup:hover {
     transform: rotate(180deg);
 }
 
-/* Hidden submenus, shown by .active */
+/* Hidden submenus, shown by .active with smooth transition */
 .mobile-bots-menu,
 .mobile-features-menu,
 .mobile-charts-menu {
-    display: none; 
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; 
+    transition: max-height 0.3s ease, opacity 0.3s ease;
     flex-direction: column;
     gap: 10px;
-    padding: 10px 40px;
+    padding: 0 40px; /* Adjust padding for smooth transition */
     border-radius: 8px;
-    margin-top: -10px; /* visually connect it */
+    margin-top: 0px; /* Remove negative margin for smoother transition */
+    background: #1f1f1f; /* Background color for submenus */
 }
 .mobile-bots-menu.active,
 .mobile-features-menu.active,
 .mobile-charts-menu.active {
-    display: flex;
+    max-height: 500px; /* Adjust as needed, should exceed submenu content height */
+    opacity: 1;
+    margin-top: 10px; /* Add margin when active for spacing */
 }
 
 /* Mobile item style (same as .mobile-bot-item) */
@@ -452,17 +477,19 @@ nav .signup:hover {
     margin: 0;
 }
 
+
 /* Hide phone-only stuff above 768px */
 @media (min-width: 769px) {
-  .mobile-bots-toggle,
-  .mobile-bots-menu,
-  .mobile-features-toggle,
-  .mobile-features-menu,
-  .mobile-charts-toggle,
-  .mobile-charts-menu {
-    display: none !important;
-  }
+    .mobile-bots-toggle,
+    .mobile-bots-menu,
+    .mobile-features-toggle,
+    .mobile-features-menu,
+    .mobile-charts-toggle,
+    .mobile-charts-menu {
+        display: none !important;
+    }
 }
+
 
 /****************************************************
  *            HAMBURGER => X ANIMATION

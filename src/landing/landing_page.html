@@ -181,9 +181,11 @@
         
                 <!-- Trading Bots Toggle -->
                 <div class="mobile-bots-toggle" onclick="toggleMobileBots()" aria-haspopup="true" aria-expanded="false">
+                    
                     <span>Trading Bots</span>
                     <!-- The downward chevron rotates on .active -->
                     <i class="fas fa-chevron-down"></i>
+                    <img src="/images/icons/down-arrow.png" alt="Trading Bots Icon" class="toggle-icon">
                 </div>
                 <div class="mobile-bots-menu" id="mobileBotsMenu">
                     <div class="mobile-bot-item">
@@ -208,11 +210,12 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <!-- Features Toggle -->
                 <div class="mobile-features-toggle" onclick="toggleMobileFeatures()" aria-haspopup="true" aria-expanded="false">
                     <span>Features</span>
                     <i class="fas fa-chevron-down"></i>
+                    <img src="/images/icons/down-arrow.png" alt="Trading Bots Icon" class="toggle-icon">
                 </div>
                 <div class="mobile-features-menu" id="mobileFeaturesMenu">
                     <div class="mobile-bot-item">
@@ -244,11 +247,12 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <!-- Trading Charts Toggle -->
                 <div class="mobile-charts-toggle" onclick="toggleMobileCharts()" aria-haspopup="true" aria-expanded="false">
                     <span>Trading Charts</span>
                     <i class="fas fa-chevron-down"></i>
+                    <img src="/images/icons/down-arrow.png" alt="Trading Bots Icon" class="toggle-icon">
                 </div>
                 <div class="mobile-charts-menu" id="mobileChartsMenu">
                     <div class="mobile-bot-item">
@@ -273,6 +277,7 @@
                         </div>
                     </div>
                 </div>
+
         
                 <!-- Additional Links -->
                 <a href="#markets">Markets</a>
@@ -490,7 +495,7 @@
                 hamburger.setAttribute('aria-expanded', isActive);
             }
         
-            // Function to close all mobile submenus
+            // Function to close all mobile submenus except the one being opened
             function closeAllMobileSubmenus(exceptMenuId = null) {
                 const menuIds = ['mobileBotsMenu', 'mobileFeaturesMenu', 'mobileChartsMenu'];
                 menuIds.forEach(menuId => {
@@ -594,7 +599,5 @@
                 }
             });
         </script>
-        
-    
 </body>
 </html>
