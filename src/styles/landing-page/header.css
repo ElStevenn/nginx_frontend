@@ -7,7 +7,7 @@
     left: 0;
     width: 100%;
     letter-spacing: 0.8px;
-    background: rgba(15,15,15,0.95);
+    background: rgb(36 36 36 / 95%);
     backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
@@ -64,7 +64,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #3b3b3b;
+    background-color: #444444;
     transition: 0.3s;
 }
 
@@ -72,7 +72,7 @@ nav a:hover {
 nav .login {
     margin-left: 15px;
     color: #ffffff;
-    background: #565656;
+    background: #686868;
 }
 nav .login:hover {
     background-color: #444444;
