@@ -136,7 +136,7 @@ nav .signup:hover {
     text-decoration: none;
     color: #fff;
     background: none;
-    padding: 16px 50px;
+    padding: 15px 30px;
     text-align: left;
     font-weight: 800;
     border-radius: 10px;
@@ -385,14 +385,20 @@ nav .signup:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 50px;
+    padding: 16px 30px;
     font-weight: 800;
     color: #fff;
     background: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
     position: relative; /* For better alignment */
+}
+
+.mobile-bots-toggle.active .toggle-icon,
+.mobile-features-toggle.active .toggle-icon,
+.mobile-charts-toggle.active .toggle-icon {
+    transform: rotate(180deg);
 }
 
 /* Style for the toggle icons */
@@ -402,6 +408,8 @@ nav .signup:hover {
     margin-right: 15px; 
     object-fit: contain;
     filter: invert(100%);
+    transform: rotate(0deg);
+    transition: transform 0.5s ease;
 }
 
 /* Ensure the text and chevron are properly aligned */
@@ -409,7 +417,6 @@ nav .signup:hover {
 .mobile-features-toggle span,
 .mobile-charts-toggle span {
     flex: 1; 
-    margin-left: 10px; 
 }
 
 /* The downward chevron on the right rotates to up when .active */
@@ -443,9 +450,8 @@ nav .signup:hover {
 .mobile-bots-menu.active,
 .mobile-features-menu.active,
 .mobile-charts-menu.active {
-    max-height: 500px; /* Adjust as needed, should exceed submenu content height */
+    max-height: 500px; 
     opacity: 1;
-    margin-top: 10px; /* Add margin when active for spacing */
 }
 
 /* Mobile item style (same as .mobile-bot-item) */
@@ -456,11 +462,13 @@ nav .signup:hover {
     background: #1f1f1f;
     padding: 10px;
     border-radius: 8px;
+    align-items: center;
 }
 .mobile-bot-item img {
     width: 32px;
     height: 32px;
     object-fit: contain;
+    margin-bottom: 5px;
 }
 .mobile-bot-info {
     display: flex;
@@ -469,7 +477,6 @@ nav .signup:hover {
 .mobile-bot-info strong {
     font-size: 14px;
     color: #fff;
-    margin-bottom: 2px;
 }
 .mobile-bot-info p {
     font-size: 12px;
