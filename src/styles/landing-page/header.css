@@ -149,7 +149,7 @@ nav .signup:hover {
 
 /* Mobile Log in / Sign up Container */
 .mobile-login-container {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
@@ -166,6 +166,7 @@ nav .signup:hover {
     background: #282828;
 }
 .mobile-login-container a {
+
     border-radius: 10px;
     padding: 15px;
     font-weight: 800;
@@ -231,16 +232,28 @@ nav .signup:hover {
     opacity: 0;
     transform: translateY(-10px);
 }
-.trading-bots-submenu {
-    left: -210px; 
-}
+
+
 .features-submenu {
-    right: -120px; 
     left: auto; 
 }
-.trading-charts-submenu {
-    left: -80px; 
+
+.learn-submenu {
+    left: 10px;
+    /* Removed grid-template-columns from here */
 }
+
+.learn-submenu img{
+    filter: invert(100%);
+}
+
+/* Corrected Selector for Learn Submenu Grid */
+.features-submenu .submenu-grid,
+.trading-charts-submenu .submenu-grid,
+.learn-submenu .submenu-grid { /* Updated selector */
+    grid-template-columns: 1fr; 
+}
+
 /* Show the submenu when "open" */
 .dropdown.open .submenu,
 .submenu.open {
@@ -261,6 +274,7 @@ nav .signup:hover {
 .submenu-grid-container {
     width: 100%;
     padding: 5px;
+    border: solid 0.3px #363636;
 }
 .submenu-grid {
     display: grid;
@@ -314,7 +328,8 @@ nav .signup:hover {
 }
 /* Single-col for certain submenus */
 .features-submenu .submenu-grid,
-.trading-charts-submenu .submenu-grid {
+.trading-charts-submenu .submenu-grid,
+.learn-submenu .submenu-grid { /* Ensure all target grids have single column */
     grid-template-columns: 1fr; 
 }
 .feature img,
@@ -341,6 +356,37 @@ nav .signup:hover {
     .submenu-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .hamburger {
+        display: flex;
+        width: 30px;
+        height: 25px;
+        margin-top: 10px;
+    }
+
+    .nav-menu.desktop-nav,
+    .nav-menu:not(.desktop-nav) {
+        display: none;
+    }
+
+    /* Hide images in the desktop submenus on mobile */
+    .submenu-item img {
+        display: none;
+    }
+
+    /* Adjust header for mobile */
+    header {
+        justify-content: space-between;
+        gap: 20px;
+    }
+    .logo-container img {
+        width: 45px;
+        height: 45px;
+    }
+    .logo-container h1 {
+        font-size: 22px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -351,6 +397,10 @@ nav .signup:hover {
         width: 30px;
         height: 25px;
         margin-top: 10px;
+    }
+
+    .mobile-login-container{
+        display: grid;
     }
     .nav-menu.desktop-nav,
     .nav-menu:not(.desktop-nav) {
@@ -376,6 +426,7 @@ nav .signup:hover {
     }
 }
 
+
 /****************************************************
  *           MOBILE COLLAPSIBLE MENUS
  ****************************************************/
@@ -399,7 +450,7 @@ nav .signup:hover {
 .mobile-bots-toggle.active .toggle-icon,
 .mobile-features-toggle.active .toggle-icon,
 .mobile-charts-toggle.active .toggle-icon {
-    transform: rotate(180deg);
+    transform: rotate(180deg); /* Rotate by 180 degrees when active */
 }
 
 /* Style for the toggle icons */
@@ -513,4 +564,4 @@ nav .signup:hover {
 }
 .hamburger span {
     transition: all 0.2s ease;
-}
+} 
