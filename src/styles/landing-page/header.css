@@ -350,6 +350,7 @@ nav .signup:hover {
         display: flex;
         width: 30px;
         height: 25px;
+        margin-top: 10px;
     }
     .nav-menu.desktop-nav,
     .nav-menu:not(.desktop-nav) {
@@ -367,11 +368,11 @@ nav .signup:hover {
         gap: 20px;
     }
     .logo-container img {
-        width: 35px;
-        height: 35px;
+        width: 45px;
+        height: 45px;
     }
     .logo-container h1 {
-        font-size: 18px;
+        font-size: 22px;
     }
 }
 
