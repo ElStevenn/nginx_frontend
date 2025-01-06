@@ -1,0 +1,377 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    min-height: 100vh;
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 0.5px;
+    background-color: rgb(28, 28, 28);
+    color: rgb(204, 204, 204);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.login-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0%;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login-page-forms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.forms-inner-container {
+    width: 100%;
+    max-width: 420px;
+    animation: 0.8s ease 0s 1 normal none running fadeIn;
+}
+
+.auth-box {
+    backdrop-filter: blur(6px);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    min-height: 580px;
+    background-color: rgb(28, 28, 28);
+    border: 1px solid rgb(65, 65, 65);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.auth-box.show {
+    opacity: 1;
+}
+
+.auth-box.hide {
+    opacity: 0;
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.logo-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 0px;
+}
+
+.logo-name {
+    font-size: 24px;
+    color: rgb(233, 134, 48);
+    margin: 0px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    font-size: 14px;
+    color: rgb(187, 187, 187);
+    margin-bottom: 5px;
+    align-self: flex-start;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+
+.auth-form input {
+    line-height: 20px;
+    width: 92%;
+    border: 1px solid rgb(71, 77, 87);
+    background: transparent;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    color: rgb(238, 238, 238);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input::placeholder {
+    color: rgb(170, 170, 170);
+}
+
+.auth-form input:focus {
+    border-color: rgb(61, 73, 240);
+    box-shadow: rgba(61, 73, 240, 0.5) 0px 0px 5px;
+    outline: none;
+}
+
+.next-button {
+    background: rgb(59, 130, 246);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 5px;
+}
+
+.next-button:hover {
+    background: rgb(51, 112, 209);
+}
+
+.forgot-password {
+    font-size: 13px;
+    color: rgb(59, 130, 246);
+    text-decoration: none;
+    transition: color 0.3s;
+    letter-spacing: 0px;
+}
+
+.forgot-password:hover {
+    color: rgb(99, 167, 255);
+}
+
+.separator {
+    position: relative;
+    text-align: center;
+    margin: 20px 0px;
+    color: rgb(136, 136, 136);
+    font-size: 14px;
+}
+
+.separator::before, .separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: rgb(51, 51, 51);
+}
+
+.separator::before {
+    left: 0px;
+}
+
+.separator::after {
+    right: 0px;
+}
+
+.oauth-login-button {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, color 0.3s;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.oauth-login-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.oauth-login-button:hover {
+    background: rgb(255, 255, 255);
+}
+
+.google-login-button {
+    background-color: rgb(229, 229, 229);
+    color: rgb(0, 0, 0);
+}
+
+.telegram-login-button {
+    background-color: rgb(229, 229, 229);
+    color: rgb(0, 0, 0);
+}
+
+.toggle-link {
+    color: rgb(233, 134, 48);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.toggle-link:hover {
+    color: rgb(238, 152, 77);
+}
+
+#sign-in-link {
+    display: none;
+}
+
+.footer {
+    margin-top: 20px;
+    padding: 10px 0px;
+    text-align: center;
+    font-size: 14px;
+    color: rgb(204, 204, 204);
+    width: 100%;
+}
+
+.footer a {
+    margin: 0px 10px;
+    color: rgb(105, 105, 105);
+    text-decoration: none;
+    letter-spacing: 0px;
+}
+
+.footer a:hover {
+    color: rgb(99, 167, 255);
+    text-decoration: underline;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-message {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    margin-top: 20px;
+}
+
+.spinner {
+    border-width: 12px;
+    border-style: solid;
+    border-color: rgb(59, 130, 246) rgb(68, 68, 68) rgb(68, 68, 68);
+    border-image: initial;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    animation: 1s linear 0s infinite normal none running spin;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 960px) {
+    .login-page-wrapper {
+        margin-top: 80px;
+    }
+
+    .forms-inner-container {
+        max-width: 500px;
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .auth-box {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        border-radius: 0px;
+        padding: 20px;
+        min-height: unset;
+    }
+
+    .forms-inner-container {
+        padding: 10px;
+    }
+
+    .auth-form input {
+        font-size: 13px;
+    }
+
+    .next-button {
+        font-size: 14px;
+    }
+
+    .logo-section {
+        margin-bottom: 15px;
+    }
+
+    .logo-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 8px;
+    }
+
+    .logo-name {
+        font-size: 20px;
+    }
+
+    .form-label {
+        font-size: 13px;
+    }
+
+    .oauth-login-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+    }
+}

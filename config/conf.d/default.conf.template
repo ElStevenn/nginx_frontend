@@ -101,7 +101,7 @@ server {
     }
 
     location /login {
-        try_files $uri /auth/login.html =404;
+        try_files $uri /landing/login.html =404;
     }
 
     location /register {

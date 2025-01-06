@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In | Fundy</title>
+    <link rel="icon" href="/images/thumnails/logo.png" type="image/png">
+
+    <script src="/config.js"></script>
+    <script src="/scripts/main-scripts/globalProvider.js"></script>
+    <script src="/scripts/main-scripts/user-oauth.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-eN6IT4mG1Ug1XJH9q9YkO6Pz7h2hJyl68p3l+wB3eA2zHh8zU4NjE6Ns6gP9h0z6" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/styles/landing-page/loging.css">
+</head>
+<body>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="login-page-wrapper">
+        <!-- FORMS SECTION -->
+        <div class="login-page-forms">
+            <div class="forms-inner-container">
+              
+              <!-- LOGIN BOX -->
+              <div class="auth-box show" id="login-box">
+                <!-- Logo and Name -->
+                <div class="logo-section">
+                    <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo-image">
+                    <h1 class="logo-name">FUNDY</h1>
+                </div>
+                <!-- End of Logo and Name -->
+                
+                <h2>Log In</h2>
+                <form class="auth-form" id="login-form">
+                  <div class="form-group">
+                      <label for="login-email" class="form-label">Email/Phone Number</label>
+                      <input type="email" id="login-email" name="email" placeholder="Email/Phone" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="login-password" class="form-label">Password</label>
+                      <input type="password" id="login-password" name="password" placeholder="Password" required>
+                  </div>
+                  <button type="submit" class="next-button">Next</button>
+                </form>
+                <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                <div class="separator">OR</div>
+                
+                <!-- OAuth Buttons -->
+                <button class="oauth-login-button google-login-button" onclick="oauth_redirect1()">
+                  <img src="/images/companies/google.png" alt="Google Logo">
+                  Continue with Google
+                </button>
+                <button class="oauth-login-button telegram-login-button" onclick="oauth_redirect2()">
+                    <img src="/images/companies/telegram.png" alt="Telegram Logo">
+                    Continue with Telegram
+                  </button>
+              </div>
+              
+              <!-- REGISTER BOX -->
+              <div class="auth-box" id="register-box" style="display: none;">
+                <!-- Logo and Name -->
+                <div class="logo-section">
+                    <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo-image">
+                    <h1 class="logo-name">FUNDY</h1>
+                </div>
+                <!-- End of Logo and Name -->
+                
+                <h2>Sign Up</h2>
+                <form class="auth-form" id="register-form">
+                  <div class="form-group">
+                      <label for="register-name" class="form-label">First Name</label>
+                      <input type="text" id="register-name" name="name" placeholder="First Name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="register-surname" class="form-label">Last Name</label>
+                      <input type="text" id="register-surname" name="surname" placeholder="Last Name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="register-email" class="form-label">Email/Phone Number</label>
+                      <input type="email" id="register-email" name="email" placeholder="Email/Phone" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="register-username" class="form-label">Username</label>
+                      <input type="text" id="register-username" name="username" placeholder="Username" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="register-password" class="form-label">Password</label>
+                      <input type="password" id="register-password" name="password" placeholder="Password" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                      <input type="password" id="register-confirm-password" name="confirm_password" placeholder="Confirm Password" required>
+                  </div>
+                  <button type="submit" class="next-button">Next</button>
+                </form>
+                <div class="separator">OR</div>
+                
+                <!-- OAuth Buttons -->
+                <button class="oauth-login-button google-login-button" onclick="oauth_redirect1()">
+                  <img src="/images/companies/google.png" alt="Google Logo">
+                  Continue with Google
+                </button>
+                <button class="oauth-login-button telegram-login-button" onclick="oauth_redirect2()">
+                    <img src="/images/companies/telegram.png" alt="Telegram Logo">
+                    Continue with Telegram
+                  </button>
+              </div>
+              
+            </div>
+        </div>
+        
+        <!-- Links Outside the Forms Section -->
+        <div class="form-toggle-links">
+            <!-- Show "Create a Fundy Account" when Login form is active -->
+            <p id="create-account-link">
+                <span class="toggle-link" onclick="showRegister()">Create a Fundy Account</span>
+            </p>
+            <!-- Show "Sign in" when Register form is active -->
+            <p id="sign-in-link" style="display: none;">
+                <span class="toggle-link" onclick="showLogin()">Log In</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <a href="/cookies.html">Cookies</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+    </footer>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-message">Authenticating, please hold on...</div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        function showRegister() {
+            // Show Register Box with fade-in effect
+            const loginBox = document.getElementById('login-box');
+            const registerBox = document.getElementById('register-box');
+
+            loginBox.classList.remove('show');
+            loginBox.classList.add('hide');
+
+            setTimeout(() => {
+                loginBox.style.display = 'none';
+                registerBox.style.display = 'block';
+                registerBox.classList.remove('hide');
+                registerBox.classList.add('show');
+            }, 500); // Duration matches the CSS transition
+
+            // Toggle Links
+            document.getElementById('create-account-link').style.display = 'none';
+            document.getElementById('sign-in-link').style.display = 'block';
+        }
+
+        function showLogin() {
+            // Show Login Box with fade-in effect
+            const loginBox = document.getElementById('login-box');
+            const registerBox = document.getElementById('register-box');
+
+            registerBox.classList.remove('show');
+            registerBox.classList.add('hide');
+
+            setTimeout(() => {
+                registerBox.style.display = 'none';
+                loginBox.style.display = 'block';
+                loginBox.classList.remove('hide');
+                loginBox.classList.add('show');
+            }, 500); // Duration matches the CSS transition
+
+            // Toggle Links
+            document.getElementById('sign-in-link').style.display = 'none';
+            document.getElementById('create-account-link').style.display = 'block';
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            if (action === 'register') {
+                showRegister();
+            } else {
+                showLogin();
+            }
+        };
+
+        function oauth_redirect1() {
+            showLoading();
+            window.location.href = globalAPI + '/oauth/google/login';
+        }
+
+        function oauth_redirect2() {
+            showLoading();
+            window.location.href = globalAPI + '/oauth/telegram/login';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showLoading();
+            setTimeout(function(){
+                hideLoading();
+            },1500);
+        });
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showLoading();
+            setTimeout(function(){
+                hideLoading();
+            },1500);
+        });
+
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Additional scripts related to navigation (if any)
+        document.addEventListener('DOMContentLoaded', () => {
+            const desktopToggles = document.querySelectorAll('.submenu-toggle');
+            desktopToggles.forEach(toggle => {
+                toggle.addEventListener('click', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const parentLi = toggle.parentElement;
+                    const submenu = toggle.nextElementSibling;
+                    const isOpen = submenu.classList.contains('open');
+
+                    // Close all open desktop submenus first
+                    document.querySelectorAll('.desktop-nav .submenu.open').forEach(openMenu => {
+                        openMenu.classList.remove('open');
+                        openMenu.parentElement.classList.remove('open');
+                        const toggleLink = openMenu.parentElement.querySelector('.submenu-toggle');
+                        if (toggleLink) toggleLink.setAttribute('aria-expanded', 'false');
+                    });
+
+                    // Then open the clicked one if not already open
+                    if (!isOpen) {
+                        submenu.classList.add('open');
+                        parentLi.classList.add('open');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
+            // Close desktop submenus if user clicks anywhere outside the dropdown
+            document.addEventListener('click', e => {
+                const isClickInside = e.target.closest('.dropdown');
+                if (!isClickInside) {
+                    document.querySelectorAll('.desktop-nav .submenu.open').forEach(menu => {
+                        menu.classList.remove('open');
+                        menu.parentElement.classList.remove('open');
+                        const toggleLink = menu.parentElement.querySelector('.submenu-toggle');
+                        if (toggleLink) {
+                            toggleLink.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
+            });
+
+            // Close mobile submenus when clicking on any link inside mobile-nav
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeAllMobileSubmenus();
+                    closeMobileNav();
+                });
+            });
+        });
+
+        // Mobile nav hamburger toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            const hamburger = document.querySelector('.hamburger');
+            mobileNav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            const isActive = mobileNav.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+        }
+
+        // Function to close all mobile submenus except the one being opened
+        function closeAllMobileSubmenus(exceptMenuId = null) {
+            const menuIds = ['mobileBotsMenu', 'mobileFeaturesMenu', 'mobileChartsMenu'];
+            menuIds.forEach(menuId => {
+                if (menuId !== exceptMenuId) {
+                    const menu = document.getElementById(menuId);
+                    const toggleBtn = document.querySelector(`.mobile-${menuId.replace('Menu', '')}-toggle`);
+                    if (menu && menu.classList.contains('active')) {
+                        menu.classList.remove('active');
+                        if (toggleBtn) {
+                            toggleBtn.classList.remove('active');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to close the entire mobile navigation
+        function closeMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            const hamburger = document.querySelector('.hamburger');
+            mobileNav.classList.remove('active');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+
+            // Also remove "active" from each mobile submenu toggle and menu
+            document.querySelectorAll('.mobile-bots-toggle, .mobile-features-toggle, .mobile-charts-toggle').forEach(el => {
+                el.classList.remove('active');
+                el.setAttribute('aria-expanded', 'false');
+            });
+            document.querySelectorAll('.mobile-bots-menu, .mobile-features-menu, .mobile-charts-menu').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+
+        // Toggle the "Trading Bots" submenu in mobile
+        function toggleMobileBots() {
+            const mobileBotsMenu = document.getElementById('mobileBotsMenu');
+            const botsToggle = document.querySelector('.mobile-bots-toggle');
+
+            if (!mobileBotsMenu.classList.contains('active')) {
+                closeAllMobileSubmenus('mobileBotsMenu');
+            }
+
+            mobileBotsMenu.classList.toggle('active');
+            botsToggle.classList.toggle('active');
+
+            // Update aria-expanded
+            const isActive = mobileBotsMenu.classList.contains('active');
+            botsToggle.setAttribute('aria-expanded', isActive);
+        }
+
+        // Toggle the "Features" submenu in mobile
+        function toggleMobileFeatures() {
+            const mobileFeaturesMenu = document.getElementById('mobileFeaturesMenu');
+            const featuresToggle = document.querySelector('.mobile-features-toggle');
+
+            if (!mobileFeaturesMenu.classList.contains('active')) {
+                closeAllMobileSubmenus('mobileFeaturesMenu');
+            }
+
+            mobileFeaturesMenu.classList.toggle('active');
+            featuresToggle.classList.toggle('active');
+
+            // Update aria-expanded
+            const isActive = mobileFeaturesMenu.classList.contains('active');
+            featuresToggle.setAttribute('aria-expanded', isActive);
+        }
+
+        // Toggle the "Trading Charts" submenu in mobile
+        function toggleMobileCharts() {
+            const mobileChartsMenu = document.getElementById('mobileChartsMenu');
+            const chartsToggle = document.querySelector('.mobile-charts-toggle');
+
+            if (!mobileChartsMenu.classList.contains('active')) {
+                closeAllMobileSubmenus('mobileChartsMenu');
+            }
+
+            mobileChartsMenu.classList.toggle('active');
+            chartsToggle.classList.toggle('active');
+
+            // Update aria-expanded
+            const isActive = mobileChartsMenu.classList.contains('active');
+            chartsToggle.setAttribute('aria-expanded', isActive);
+        }
+
+        // Close mobile menu and submenus if resized above mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileNav();
+            }
+        });
+
+        // Optional: Close mobile nav when clicking outside of it
+        document.addEventListener('click', (e) => {
+            const mobileNav = document.getElementById('mobileNav');
+            const hamburger = document.querySelector('.hamburger');
+            if (!mobileNav.contains(e.target) && !hamburger.contains(e.target)) {
+                closeMobileNav();
+            }
+        });
+    </script>
+</body>
+</html>
