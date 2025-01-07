@@ -128,7 +128,6 @@ h2 {
 
 .auth-form input:focus {
     border-color: rgb(61, 73, 240);
-    box-shadow: rgba(61, 73, 240, 0.5) 0px 0px 5px;
     outline: none;
 }
 
