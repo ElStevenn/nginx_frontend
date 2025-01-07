@@ -132,12 +132,6 @@
     background-color: #3c44ff;
 }
 
-/* Main Layout */
-.main-layout {
-    margin-left: 16%;
-    padding: 20px;
-    transition: margin-left 0.3s;
-}
 
 .sidebar.collapsed + .main-layout {
     margin-left: 80px;

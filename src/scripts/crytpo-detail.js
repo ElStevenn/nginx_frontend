@@ -362,8 +362,6 @@ async function get_main_panle_info() {
         }
 
         const data = await response.json();
-        console.log("Panel info data:", data);
-
         isCryptoStarred = data.is_starred;
 
         const starIcon = document.getElementById('starred_crypto');

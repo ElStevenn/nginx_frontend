@@ -1,17 +1,14 @@
-
 /* HEADER STYLES */
 
 .header {
     position: fixed;
     width: 100%;
-    padding: 40px;
+    padding: 11px 20px;
     background-color: #000000;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 11px 20px;
     box-sizing: border-box;
-    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -20,7 +17,6 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     border-bottom: solid 0.3px #363636;
 }
-
 
 .header-left {
     display: flex;
@@ -52,6 +48,7 @@
     position: relative;
 }
 
+/* Existing header-right images */
 .header-right img {
     width: 40px;
     height: 40px;
@@ -60,208 +57,81 @@
     cursor: pointer;
 }
 
-.blue-text {
-    color: #42a5f5;
+/* Mobile Search Icon (Initially Hidden) */
+.mobile-search-icon {
+    display: none;
 }
 
-.orange-text {
-    color: #ffa726;
-}
-
-/* Search Bar Styles */
-.search-container {
-    position: relative;
-    border: 1px solid #424242;
-    display: flex;
-    align-items: center; 
-    background-color: #353535;
-    border-radius: 20px;
-    margin-left: 15px;
-    height: 40px;
-    width: 375px;
-    cursor: pointer;
-}
-
-@media (max-width: 900px) {
+/* Hide Search Container on Mobile */
+@media (max-width: 768px) {
     .search-container {
         display: none;
     }
 
-    /* Optional: Adjust header spacing when search bar is hidden */
-    .header-right > * {
+    /* Show mobile search icon */
+    .mobile-search-icon {
+        display: block;
+    }
+
+    /* Adjust spacing for other icons */
+    .header-right > img {
         margin-left: 10px;
+    }
+
+    /* Hide desktop search icon within search-container */
+    .search-container img#search-icon {
+        display: none;
     }
 }
 
-/* Profile and List Menu Styles */
-.profile-menu {
-    position: absolute;
-    top: 50px;
-    right: 3px;
-    background-color: #252525;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
-    padding: 0; /* Initial padding set to 0 */
-    z-index: 2000;
-    width: 220px;
-    color: #e0e0e0;
-    font-family: 'Roboto', sans-serif;
+/* Further Adjustments for Very Small Screens */
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 15px; /* Reduce padding */
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-    /* Animation styles */
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: scale(0.5);        /* Start at 50% size */
-    transform-origin: top right;  /* Adjust origin as needed */
-    transition: all 0.1s ease; /* Faster transition */
-    pointer-events: none;
+    .header-left img {
+        width: 35px;
+        height: 35px;
+        margin-left: 0%; /* Remove left margin to save space */
+    }
+
+    .header-left h1 {
+        font-size: 18px; /* Reduce font size for logo text */
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px; /* Add space between logo and icons */
+    }
+
+    .header-right img {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px; /* Further reduce margin */
+    }
+
+    /* Adjust mobile search modal */
+    .mobile-search-modal {
+        padding: 15px;
+    }
+
+    .mobile-header-search {
+        font-size: 14px;
+    }
+
+    .close-mobile-search {
+        width: 18px;
+        height: 18px;
+    }
 }
 
-.profile-menu.show {
-    max-height: 900px;
-    padding: 10px;
-    opacity: 1;
-    transform: scale(1);        
-    pointer-events: auto;
-}
-
-.list-menu {
-    position: absolute;
-    background-color: #2b2b2b;
-    border-radius: 10px 0px 0px 0px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
-    top: -15px;
-    z-index: 100;
-    width: 300px;
-    height: 1000px;
-    right: -320px;
-    font-family: 'Roboto', sans-serif;
-    padding: 10px;
-    padding-top: 5px;
-    transition: right 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-.list-menu.show {
-    right: -20px;
-    opacity: 1;
-}
-
-.mini-section {
-    margin-top: 5px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.mini-section:hover {
-    background-color: #424242;
-    border-radius: 5px;
-}
-
-.mini-section img {
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
-}
-
-.close-button {
-    position: absolute;
-    top: 20px;
-    right: 15px;
-    width: 12px;
-    height: 12px;
-    max-width: 12px;
-    max-height: 12px;
-    object-fit: contain;
-    cursor: pointer;
-    z-index: 10000;
-    transition: transform 0.2s;
-}
-
-.close-button:hover {
-    transform: scale(1.2);
-}
-
-
-.profile-container {
-    display: flex;
-    align-items: center;
-}
-
-.profile-picture {
-    margin-left: 7px;
-    padding: 5px;
-    width: 80px;
-    height: 80px;
-}
-
-.profile-text {
-    margin-left: 10px;
-    padding-top: 10px;
-}
-
-.profile-header {
-    padding: 10px 0;
-    text-align: left;
-}
-
-
-.profile-name {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.profile-email {
-    font-size: 14px;
-    color: #9e9e9e;
-}
-
-header hr {
-    border: none;
-    border-top: 1px solid #424242;
-    margin: 10px 0;
-}
-
-.menu-links {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.menu-links li {
-    padding: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-}
-
-.menu-links li:hover {
-    background-color: #494949;
-    border-radius: 5px;
-}
-
-.menu-links img {
-    width: 20px;
-    height: 20px;
-}
-
-.menu-links a{
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.menu-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    object-fit: contain;
-}
-/* Search Container Styles */
+/* Search Bar Styles */
 .search-container {
     position: relative;
     display: flex;
@@ -299,6 +169,71 @@ header hr {
 
 .header-search::placeholder {
     color: #9e9e9e;
+}
+
+/* Mobile Search Modal Styles */
+.mobile-search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: #1c1c1c;
+    z-index: 1000;
+    display: none;
+}
+
+.mobile-search-modal.active {
+    display: block;
+}
+
+.mobile-search-container {
+    display: flex;
+    align-items: center;
+    background-color: #353535;
+    border-radius: 20px;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.mobile-header-search {
+    background-color: transparent;
+    border: none;
+    color: #e0e0e0;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    padding-right: 10px; /* Padding for text */
+}
+
+.mobile-header-search::placeholder {
+    color: #9e9e9e;
+}
+
+.close-mobile-search {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    filter: invert(100%);
+}
+
+/* Overlay Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
 }
 
 /* Search Results Dropdown */
@@ -384,11 +319,66 @@ header hr {
     background-color: #2b2b2b;
 }
 
-.p-recent-searches {
-    color: #b0b0b0;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    text-align: center; 
-    font-size: 14px;
-    
+/* Mobile Search Icon Hidden Initially */
+.mobile-search-icon {
+    display: none;
+}
+
+/* Show Mobile Search Icon on Tablets and Phones */
+@media (max-width: 768px) {
+    .mobile-search-icon {
+        display: block;
+    }
+
+    /* Hide desktop search icon inside search-container */
+    .search-container img#search-icon {
+        display: none;
+    }
+}
+
+/* Further Adjustments for Mobile Phones */
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 15px; /* Reduce padding */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-left img {
+        width: 35px;
+        height: 35px;
+        margin-left: 0%; /* Remove left margin to save space */
+    }
+
+    .header-left h1 {
+        font-size: 18px; /* Reduce font size for logo text */
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px; /* Add space between logo and icons */
+    }
+
+    .header-right img {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px; /* Further reduce margin */
+    }
+
+    /* Adjust mobile search modal */
+    .mobile-search-modal {
+        padding: 15px;
+    }
+
+    .mobile-header-search {
+        font-size: 14px;
+    }
+
+    .close-mobile-search {
+        width: 18px;
+        height: 18px;
+    }
 }

@@ -4,7 +4,7 @@
 
     <meta charset="UTF-8">
     <title>Fundy</title>
-    <link rel="icon" href="/images/thumnails/original_logo.png" type="image/png">
+    <link rel="icon" href="/images/thumnails/logo.png" type="image/png">
 
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/logged-user/user-header.css">
@@ -159,55 +159,52 @@
             </button>
         </aside>
 
-        <!-- Main Content Area -->
+       <!-- Main Content Area -->
         <div class="main-layout" id="main-layout">
             <main class="main-content">
-            <!-- Dashboard Overview Section -->
-            <div class="dashboard-overview">
-                <!-- Portfolio Overview Box -->
-                <div class="overview-box portfolio-overview" onclick="togglePortfolioSubmenu(event)">
-                    <div class="switch-account">Switch Account</div>
-                    <div class="account-info">
-                        <img src="/images/icons/asset-allocation2.png" alt="Account Icon" class="account-icon">
-                        <span class="account-name">Global Account</span>
+                <!-- Dashboard Overview Section -->
+                <div class="dashboard-overview">
+                    <!-- Portfolio Overview Box -->
+                    <div class="overview-box portfolio-overview" aria-haspopup="true" aria-expanded="false">
+                        <div class="switch-account">Switch Account</div>
+                        <div class="account-info">
+                            <img src="/images/icons/asset-allocation2.png" alt="Account Icon" class="account-icon">
+                            <span class="account-name">Global Account</span>
+                            <img src="/images/icons/down-arrow.png" alt="Down Arrow">
+                        </div>
+                        <div class="account-balance">$0.00 <span class="account-balance-increased">(+0.000 %)</span></div>
+                        
+                        <!-- Submenu for Account Selection -->
+                        <div class="submenu" id="portfolio-submenu">
+                            <ul class="submenu-list" id="portfolio-submenu-list">
+                                <!-- Dynamically populated via JavaScript -->
+                                <li class="submenu-item" id="global-menu-item">Global</li>
+                                <li class="submenu-separator"></li>
+                                <li class="submenu-item" id="add-account-item">Add Account</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="account-balance">$0.00 <span class="account-balance-increased">(+0.000 %)</span></div>
-                    
-                    <!-- Submenu for Account Selection -->
-                    <div class="submenu hidden" id="portfolio-submenu">
-                        <ul class="submenu-list">
-                            <li class="submenu-item">Global Account</li>
-                            <li class="submenu-item">Savings Account</li>
-                            <li class="submenu-item">Investment Account</li>
-                            <!-- Add more accounts as needed -->
-                        </ul>
+
+                    <!-- Other Overview Boxes -->
+                    <div class="overview-box box-see-data">
+                        <div class="total-assets-title">Total Assets</div>
+                        <div class="total-assets-value">$0.00</div>
                     </div>
-                </div>
-            
-                <!-- Total Assets Overview Box -->
-                <div class="overview-box box-see-data">
-                    <div class="total-assets-title">Total Assets</div>
-                    <div class="total-assets-value">$0.00</div>
-                </div>
-            
-                <!-- 24H Change -->
-                <div class="overview-box box-see-data">
-                    <div class="total-assets-title">24H Change</div>
-                    <div class="total-assets-value">$0.00</div>
-                </div>
-
-                <!-- 24h % Change -->
-                <div class="overview-box box-see-data">
-                    <div class="total-assets-title">24H % Change</div>
-                    <div class="total-assets-value">+0.0000%</div>
-                </div>
-
                 
-                <div class="overview-box box-see-data">Extra</div>
-            </div>
-            
+                    <div class="overview-box box-see-data">
+                        <div class="total-assets-title">24H Change</div>
+                        <div class="total-assets-value">$0.00</div>
+                    </div>
 
+                    <div class="overview-box box-see-data">
+                        <div class="total-assets-title">24H % Change</div>
+                        <div class="total-assets-value">+0.0000%</div>
+                    </div>
                 
+                    <div class="overview-box extra-box">Extra (promo)</div>
+                </div>
+                
+                <!-- Other Sections -->
                 <div class="active-bots">
                     <h2>Active Bots</h2>
                     <p>No active bots at the moment.</p>
@@ -229,7 +226,6 @@
         </div>
 
 
-        
 
 
 

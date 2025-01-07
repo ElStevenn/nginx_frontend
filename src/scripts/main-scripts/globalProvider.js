@@ -6,12 +6,11 @@ use of API-related variables and avoids duplication of logic, serving as a singl
 of truth for reusable resources and configuration values.
 */
 
-// IPS of the diferents apis
+// IPS of the different APIs
 const cryptocurrencyAPI = window.env.CRYPTOCURRENCY_API;
 const cryptocurrencyURL = window.env.CRYPTOCURRENCY_URL;
 const globalAPI = window.env.GLOBAL_API;
 const exchangeAPI = window.env.EXCHANGE_API;
-
 const bitgetAPI = window.env.BITGET_API;
 
 // Cookies handling
@@ -29,6 +28,66 @@ function getCookie(name) {
     }
     return null;
 }
+
+/**
+ * Sets a cookie with the given name, value, and expiration in days.
+ * @param {string} name - Cookie name.
+ * @param {string} value - Cookie value.
+ * @param {number} days - Expiration time in days.
+ */
+function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    const expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+/**
+ * Fetches the balance overview for a given account.
+ * @param {string} account_id - The ID of the account ('all' for Global).
+ * @returns {Object|null} - The balance overview data or null on failure.
+ */
+async function get_balance_overview(account_id = 'all') {
+    let credentials = getCookie("credentials");
+    
+    if (!credentials) {
+        console.error("Credentials not found.");
+        return null;
+    }
+    
+    // Remove surrounding quotes if they exist
+    credentials = credentials.replace(/^"(.*)"$/, '$1');
+
+    // If account_id is 'global', set it to 'all'
+    if (account_id === 'global') {
+        account_id = 'all';
+    }
+
+    const url = `${exchangeAPI}/balance/overview/${account_id}`;
+    const headers = {
+        'Accept': 'application/json',
+        'Authorization': credentials
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error("Error fetching account data:", error);
+        return null;
+    }
+}
+
 
 
 function linkify(text) {
