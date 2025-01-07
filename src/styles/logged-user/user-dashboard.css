@@ -40,7 +40,7 @@ a {
 
 /* Main Content Area */
 .main-content {
-    padding: 20px;
+    padding: 20px 40px; /* Increased horizontal padding */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -50,8 +50,8 @@ a {
     background-color: #1c1c1c; /* Ensure dark background */
     transition: padding 0.5s; /* Slower transition */
 
-    /* Center the main content within main-layout */
-    max-width: 1200px; /* Adjust as needed */
+    /* Adjusted max-width for more side spacing */
+    max-width: 1100px; /* Reduced from 1200px to 1100px */
     margin: 0 auto;
 }
 
@@ -127,7 +127,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left;
+    align-items: flex-start; /* Changed from 'left' to 'flex-start' for proper alignment */
 }
 
 .total-assets-title {
@@ -139,7 +139,7 @@ a {
 .total-assets-value {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #fff;
+    color: #00aaff; /* Highlighted color for value */
 }
 
 /* Submenu Styles */
@@ -194,7 +194,8 @@ a {
     }
 
     .main-content {
-        padding: 15px; /* Reduced padding for smaller screens */
+        padding: 15px 30px; /* Adjusted horizontal padding for smaller screens */
+        max-width: 1000px; /* Further reduce max-width if needed */
     }
 
     .active-bots,
@@ -210,6 +211,11 @@ a {
         flex: 0 0 calc((100% - 80px) / 5); /* Maintain five boxes per row */
         padding: 10px;
         font-size: 12px; /* Further reduced font size */
+    }
+
+    .main-content {
+        padding: 10px 20px; /* Adjusted horizontal padding for very small screens */
+        max-width: 900px; /* Further reduce max-width if needed */
     }
 
     .active-bots,
