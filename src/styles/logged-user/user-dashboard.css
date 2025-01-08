@@ -428,7 +428,7 @@ a {
     align-items: center;    
     padding: 5px;          
     gap: 5px;     
-    transition: background 0.3s ease; 
+    transition: 0.3s ease; 
 }
 
 .add-account-item:hover {
