@@ -69,7 +69,7 @@ a {
 /* Generic Overview Box Styles */
 .overview-box {
     flex: 0 0 calc((100% - 80px) / 5); /* Ensure five boxes per row with gaps */
-    padding: 10px;
+    padding: 7px 10px 10px 10px;
     border-radius: 8px;
     text-align: center;
     color: #e0e0e0;
@@ -96,7 +96,8 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
+    margin-bottom: -3px;
+    gap: 5px;
 }
 
 .account-info img {
@@ -107,8 +108,8 @@ a {
 }
 
 .portfolio-overview .account-icon {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
     filter: invert(0);
 }
@@ -120,6 +121,7 @@ a {
 .portfolio-overview .account-balance {
     font-size: 0.9rem;
     color: #cdcdcd;
+    margin-left: 25px;
 }
 
 /* Color can vary */
@@ -141,6 +143,7 @@ a {
     margin-bottom: 10px;
     color: #cdcdcd; /* Optional: Add color for title */
     margin-left: 10px;
+    margin-top:  3px;
 }
 
 .total-assets-value {
@@ -154,13 +157,12 @@ a {
 .submenu {
     position: absolute;
     top: 100%; /* Position below the overview box */
-    left: 0; /* Align to the left */
-    width: 100%; /* Make the submenu the same width as the parent */
+    left:; /* Align to the left */
+    width: 90%; /* Make the submenu the same width as the parent */
     background-color: #2c2c2c;
-    border: 1px solid #444;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    margin-top: 5px; /* Slight gap between overview box and submenu */
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+    margin-top: 5px; 
     z-index: 200; /* Higher z-index than portfolio-overview */
     opacity: 0;
     visibility: hidden;
@@ -177,7 +179,7 @@ a {
 .submenu-list {
     list-style: none;
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 0 1px 0;
 }
 
 .submenu-item {
@@ -188,15 +190,26 @@ a {
 }
 
 .submenu-item:hover {
-    background-color: #00aaff;
+    background-color: #434343;
+    color: #ffffff
+    trans
+}
+
+.submenu-item.selected {
+    background-color: #585858;
+    color: #ffffff;
+}
+
+.submenu-item:focus .submenu-item-title,
+.submenu-item:focus .submenu-item-subtext {
     color: #ffffff;
 }
 
 /* Optional: Add a separator style */
 .submenu-separator {
-    height: 1px;
+    height: 2px;
     background: #444;
-    margin: 5px 0;
+    margin: 5px 10px;
 }
 
 /* Responsive Adjustments for Overview Boxes */
@@ -366,4 +379,66 @@ a {
 
 .account-detail p {
     margin: 5px 0;
+}
+
+.submenu-item-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.submenu-item-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Subtext styling */
+.submenu-item-subtext {
+    font-size: 12px;
+    color: #c1c1c1;
+    margin-top: 5px;
+}
+
+.submenu-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 12px;
+}
+
+.submenu-item-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    filter: none;
+}
+
+.add-acount-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(73%) sepia(78%) saturate(542%) hue-rotate(80deg) brightness(102%) contrast(97%);
+}
+
+.add-account-item {
+    border: solid 1px #71ef71;
+    border-radius: 5px;
+    display: flex;        
+    justify-content: center;
+    align-items: center;    
+    padding: 5px;          
+    gap: 5px;     
+    transition: background 0.3s ease; 
+}
+
+.add-account-item:hover {
+    background: #71ef71;
+}
+
+.add-account-item:hover .submenu-item-title {
+    color: black; 
+}
+
+.add-account-item:hover .add-acount-icon {
+    filter: brightness(0) saturate(100%); /* Icon turns black on hover */
 }

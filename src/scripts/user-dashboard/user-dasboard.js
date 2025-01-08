@@ -2,11 +2,11 @@
 async function get_accounts() {
     const accounts = getCookie("accounts");
     if (accounts) {
-        try {
-            return JSON.parse(accounts.replace(/\\054/g, ','));
-        } catch (parseError) {
-            console.error("Error parsing accounts from cookies:", parseError);
-            return null;
+        if (accounts.includes('\\054')) {
+            const fixedAccounts = accounts.replace(/\\054/g, ',');
+            return JSON.parse(fixedAccounts);
+        } else {
+            return JSON.parse(accounts);
         }
     }
 
@@ -17,26 +17,26 @@ async function get_accounts() {
     }
 
     credentials = credentials.replace(/^"(.*)"$/, '$1');
-    try {
-        const response = await fetch(`${exchangeAPI}/accounts`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': credentials
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("Accounts:", data);
-        return data;
-    } catch (error) {
-        console.error("Error fetching accounts:", error);
-        return null;
-    }
-}
 
+    const response = await fetch(`${exchangeAPI}/accounts`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': credentials
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Accounts:", data);
+
+    // Store fetched accounts in cookies for future use
+    setCookie("accounts", JSON.stringify(data), 7);
+
+    return data;
+   
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,114 +44,187 @@ document.addEventListener('DOMContentLoaded', () => {
     const submenu = document.getElementById('portfolio-submenu');
     const submenuList = document.getElementById('portfolio-submenu-list');
     const accountNameElement = document.querySelector('.account-name');
-    const accountBalanceElement = document.querySelector('.account-balance');
 
     let isSubmenuVisible = false;
 
     /**
-     * Mock function to simulate fetching accounts.
-     * Replace this with your actual API call.
-     */
-
-    /**
-     * Mock function to simulate fetching balance overview.
-     * Replace this with your actual API call.
-     */
-    const get_balance_overview = async (accountId) => {
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        // Return mock balance data
-        return {
-            balance: Math.random() * 10000,
-            change: (Math.random() * 10 - 5).toFixed(3) // Random change between -5 and +5%
-        };
-    };
-
-
-    /**
-     * Mock function to get a cookie.
-     * Replace or remove if using localStorage or another method.
-     */
-    const getCookie = (cname) => {
-        const name = cname + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    };
-
-    /**
      * Toggles the visibility of the submenu.
      */
-    const toggleSubmenu = async () => {
+    function toggleSubmenu() {
         if (isSubmenuVisible) {
-            submenu.classList.remove('show');
-            portfolioOverview.setAttribute('aria-expanded', 'false');
-            isSubmenuVisible = false;
+            hideSubmenu();
         } else {
-            // Show loading indicator
-            submenuList.innerHTML = `
-                <li class="submenu-item" id="loading-item">Loading...</li>
-                <li class="submenu-separator"></li>
-                <li class="submenu-item" id="add-account-item">Add Account</li>
-            `;
-            submenu.classList.add('show');
-            portfolioOverview.setAttribute('aria-expanded', 'true');
-            isSubmenuVisible = true;
+            showSubmenu();
+        }
+    }
 
-            // Fetch accounts and populate submenu
-            const accounts = await get_accounts();
-            if (accounts && Array.isArray(accounts) && accounts.length > 0) {
+    /**
+     * Shows the submenu and populates it with account data.
+     */
+    async function showSubmenu() {
+        isSubmenuVisible = true;
+        submenu.classList.add('show');
+        portfolioOverview.setAttribute('aria-expanded', 'true');
+
+        // Show loading indicator while fetching accounts
+        submenuList.innerHTML = `
+            <li class="submenu-item" id="loading-item">
+                <div class="submenu-item-content">
+                    <img src="path/to/icon_account.png" alt="Loading" class="submenu-item-image">
+                    <div class="submenu-item-text">
+                        <span class="submenu-item-title">Loading...</span>
+                        <span class="submenu-item-subtext">Please wait</span>
+                    </div>
+                </div>
+            </li>
+            <li class="submenu-separator"></li>
+            <li class="submenu-item" id="add-account-item">Add Account</li>
+        `;
+
+        try {
+            let accounts = await get_accounts(); // Ensure get_accounts() is defined and returns a Promise
+            console.log("Fetched accounts:", accounts);
+            
+            // Parse if necessary
+            if (typeof accounts === 'string') {
+                accounts = JSON.parse(accounts);
+            }
+
+            if (Array.isArray(accounts) && accounts.length > 0) {
                 populateSubmenu(accounts);
+            } else if (accounts === null) {
+                // Display an error message if fetching failed
+                showError(submenuList, "Failed to load accounts. Please try again.");
             } else {
                 // If no accounts, inform the user
                 submenuList.innerHTML = `
-                    <li class="submenu-item">No accounts available</li>
+                    <li class="submenu-item">
+                        <div class="submenu-item-content">
+                            <img src="path/to/no-account-icon.png" alt="No Accounts" class="submenu-item-image">
+                            <div class="submenu-item-text">
+                                <span class="submenu-item-title">No Accounts Available</span>
+                                <span class="submenu-item-subtext">Please add a new account</span>
+                            </div>
+                        </div>
+                    </li>
                     <li class="submenu-separator"></li>
                     <li class="submenu-item" id="add-account-item">Add Account</li>
                 `;
             }
+        } catch (error) {
+            console.error("Error in showSubmenu:", error);
+            showError(submenuList, "An unexpected error occurred. Please try again.");
         }
-    };
+    }
+
+    /**
+     * Hides the submenu.
+     */
+    function hideSubmenu() {
+        isSubmenuVisible = false;
+        submenu.classList.remove('show');
+        portfolioOverview.setAttribute('aria-expanded', 'false');
+    }
 
     /**
      * Populates the submenu with the list of accounts.
      * @param {Array} accounts - Array of account objects.
      */
-    const populateSubmenu = (accounts) => {
-        // Clear existing account items except the "Global" and "Add Account"
+    function populateSubmenu(accounts) {
+        const selectedAccountId = getCookie('selected_account') || 'all';
+
+        // Clear existing submenu items and add Global account first
         submenuList.innerHTML = `
-            <li class="submenu-item" id="global-menu-item">Global</li>
-            <li class="submenu-separator"></li>
+            <li class="submenu-item ${selectedAccountId === 'all' ? 'selected' : ''}" id="global-menu-item" role="menuitem" tabindex="0">
+                <div class="submenu-item-content">
+                    <img src="/images/icons/asset-allocation2.png" alt="Global Account" class="submenu-item-image">
+                    <div class="submenu-item-text">
+                        <span class="submenu-item-title">Global Account</span>
+                        <span class="submenu-item-subtext">$0.00 <span class="account-balance-increased">(+0.000 %)</span></span>
+                    </div>
+                </div>
+            </li>
         `;
 
+        // Add each account to the submenu
         accounts.forEach(account => {
+            const isSelected = account.account_id === selectedAccountId;
             const li = document.createElement('li');
             li.classList.add('submenu-item');
-            li.textContent = account.name || `Account ${account.id}`;
-            li.dataset.accountId = account.id;
+            if (isSelected) {
+                li.classList.add('selected');
+            }
+
+            // Create the content container
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('submenu-item-content');
+
+            // Create the image element
+            const img = document.createElement('img');
+            img.classList.add('submenu-item-image');
+            img.src = account.image_url || '/images/icons/icon_account.png';
+            img.alt = account.account_name || `Account ${account.account_id}`;
+
+            // Create the text container
+            const textDiv = document.createElement('div');
+            textDiv.classList.add('submenu-item-text');
+
+            // Create the main title
+            const titleSpan = document.createElement('span');
+            titleSpan.classList.add('submenu-item-title');
+            titleSpan.textContent = account.account_name || `Account ${account.account_id}`;
+
+            // Create the subtext
+            const subtextSpan = document.createElement('span');
+            subtextSpan.classList.add('submenu-item-subtext');
+            subtextSpan.innerHTML = '$0.00 <span class="account-balance-increased">(+0.000 %)</span>';
+
+            // Append elements
+            textDiv.appendChild(titleSpan);
+            textDiv.appendChild(subtextSpan);
+            contentDiv.appendChild(img);
+            contentDiv.appendChild(textDiv);
+            li.appendChild(contentDiv);
+            li.dataset.accountId = account.account_id;
+
             submenuList.appendChild(li);
         });
 
-        // Add the "Add Account" item at the end
+        // Add separator and "Add Account" at the end
+        const separator = document.createElement('li');
+        separator.classList.add('submenu-separator');
+        submenuList.appendChild(separator);
+
         const addAccountItem = document.createElement('li');
         addAccountItem.classList.add('submenu-item');
-        addAccountItem.textContent = 'Add Account';
+        addAccountItem.classList.add('add-account-item');
+        addAccountItem.setAttribute('role', 'menuitem');
+        addAccountItem.setAttribute('tabindex', '0');
         addAccountItem.id = 'add-account-item';
+
+        // **Updated: Add Account Content with Image on the Right**
+        addAccountItem.innerHTML = `
+            <div class="submenu-item-content add-account-item-content">
+                <span class="submenu-item-title">Add Account</span>
+                <img src="/images/icons/plus.png" alt="Add Account" class="submenu-item-image add-acount-icon">
+            </div>
+        `;
+
+        // Add click event
         addAccountItem.addEventListener('click', () => {
-            // Implement the "Add Account" functionality here
-            console.log('Add Account clicked');
-            // Example: Redirect to add account page
-            // window.location.href = '/add-account';
+            openAddAccountModal();
+            hideSubmenu();
         });
+
+        // Add keyboard accessibility
+        addAccountItem.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                console.log('Add Account clicked via keyboard');
+                openAddAccountModal();
+            }
+        });
+
         submenuList.appendChild(addAccountItem);
 
         // Add event listeners to account items
@@ -160,9 +233,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Skip the "Add Account" and "Global" items
             if (item.id === 'add-account-item' || item.id === 'global-menu-item') return;
 
+            // Click event
             item.addEventListener('click', () => {
-                const accountId = item.dataset.accountId || 'all'; // 'all' for Global
-                switchAccount(accountId, item.textContent);
+                const accountId = item.dataset.accountId;
+                const accountName = item.querySelector('.submenu-item-title').textContent;
+                switchAccount(accountId, accountName);
+            });
+
+            // Keyboard accessibility (Enter and Space)
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const accountId = item.dataset.accountId;
+                    const accountName = item.querySelector('.submenu-item-title').textContent;
+                    switchAccount(accountId, accountName);
+                }
             });
         });
 
@@ -172,57 +257,190 @@ document.addEventListener('DOMContentLoaded', () => {
             globalMenuItem.addEventListener('click', () => {
                 switchAccount('all', 'Global Account');
             });
+
+            // Keyboard accessibility for Global account
+            globalMenuItem.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    switchAccount('all', 'Global Account');
+                }
+            });
         }
-    };
+
+        // Highlight the selected account initially
+        highlightSelectedAccount(selectedAccountId);
+    }
 
     /**
-     * Switches the account by updating the UI and fetching new balance data.
+     * Highlights the selected account in the submenu.
+     * @param {string} accountId - The ID of the account to highlight.
+     */
+    function highlightSelectedAccount(accountId) {
+        // Remove 'selected' class from all submenu items
+        const allSubmenuItems = submenuList.querySelectorAll('.submenu-item');
+        allSubmenuItems.forEach(item => {
+            item.classList.remove('selected');
+        });
+
+        // Add 'selected' class to the chosen submenu item
+        if (accountId === 'all') {
+            const globalItem = document.getElementById('global-menu-item');
+            if (globalItem) {
+                globalItem.classList.add('selected');
+            }
+        } else {
+            const selectedItem = submenuList.querySelector(`.submenu-item[data-account-id="${accountId}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('selected');
+            }
+        }
+    }
+
+    /**
+     * Switches the account by updating the UI.
      * @param {string} accountId - The ID of the account to switch to.
      * @param {string} accountName - The name of the account.
      */
-    const switchAccount = async (accountId, accountName) => {
-        // Hide the submenu
-        submenu.classList.remove('show');
-        portfolioOverview.setAttribute('aria-expanded', 'false');
-        isSubmenuVisible = false;
-
+    function switchAccount(accountId, accountName) {
+        hideSubmenu();
+    
         // Update the account name in the UI
         accountNameElement.textContent = accountName;
-
-        // Optionally, fetch and update the balance overview
-        const balanceOverview = await get_balance_overview(accountId);
-        if (balanceOverview) {
-            // Update the balance display
-            accountBalanceElement.innerHTML = `$${balanceOverview.balance.toFixed(2)} <span class="account-balance-increased">(${balanceOverview.change}%)</span>`;
+    
+        // Update the account icon image
+        const accountIconElement = document.querySelector('.account-icon');
+        const selectedItem = submenuList.querySelector(`.submenu-item[data-account-id="${accountId}"]`);
+    
+        if (selectedItem) {
+            const selectedImage = selectedItem.querySelector('.submenu-item-image');
+            if (selectedImage && accountIconElement) {
+                accountIconElement.src = selectedImage.src;
+                accountIconElement.alt = accountName;
+            }
         } else {
-            accountBalanceElement.textContent = '$0.00 (+0.000%)';
+            // Fallback to default image if not found
+            accountIconElement.src = '/images/icons/asset-allocation2.png';
+            accountIconElement.alt = 'Global Account';
         }
+    
+        // Store the selected account in a cookie
+        setCookie('selected_account', accountId, 7);
+    
+        // Highlight the selected account in the submenu
+        highlightSelectedAccount(accountId);
+    }
 
-        // Optionally, store the selected account in a cookie or localStorage
-        setCookie('selected_account', accountId, 7); // Example: Store for 7 days
-    };
+    /**
+     * Opens the "Add Account" modal or redirects to the add account page.
+     * Implement this function based on your application's requirements.
+     */
+    function openAddAccountModal() {
+        // Example: Redirect to add account page
+        // window.location.href = '/add-account';
 
-    // Event listener for toggling submenu
+        // Example: Open a modal (assuming you have a modal implementation)
+        /*
+        const modal = document.getElementById('add-account-modal');
+        if (modal) {
+            modal.classList.add('open');
+        }
+        */
+        alert('Add Account functionality to be implemented.');
+    }
+
+    /**
+     * Shows an error message within a specified container.
+     * @param {HTMLElement} container - The DOM element to display the error message in.
+     * @param {string} message - The error message to display.
+     */
+    function showError(container, message) {
+        container.innerHTML = `
+            <li class="submenu-item error">
+                <div class="submenu-item-content">
+                    <img src="path/to/error-icon.png" alt="Error" class="submenu-item-image">
+                    <div class="submenu-item-text">
+                        <span class="submenu-item-title">Error</span>
+                        <span class="submenu-item-subtext">${message}</span>
+                    </div>
+                </div>
+            </li>
+        `;
+    }
+
+    /**
+     * Hides the submenu.
+     */
+    function hideSubmenu() {
+        isSubmenuVisible = false;
+        submenu.classList.remove('show');
+        portfolioOverview.setAttribute('aria-expanded', 'false');
+    }
+
+    /**
+     * Event listener for toggling submenu
+     */
     portfolioOverview.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent the event from bubbling up
         toggleSubmenu();
     });
 
-    // Event listener to close submenu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (isSubmenuVisible && !submenu.contains(e.target) && !portfolioOverview.contains(e.target)) {
-            submenu.classList.remove('show');
-            portfolioOverview.setAttribute('aria-expanded', 'false');
-            isSubmenuVisible = false;
+    /**
+     * Event listener for keyboard navigation (Enter and Space)
+     */
+    portfolioOverview.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { // Enter or Space key
+            e.preventDefault();
+            toggleSubmenu();
         }
     });
 
-    // Initial load: set to Global Account or selected account
-    const selectedAccountId = getCookie('selected_account');
+    /**
+     * Event listener to close submenu when clicking outside
+     */
+    document.addEventListener('click', (e) => {
+        if (isSubmenuVisible && !submenu.contains(e.target) && !portfolioOverview.contains(e.target)) {
+            hideSubmenu();
+        }
+    });
+
+    /**
+     * Event listener to close submenu with Escape key
+     */
+    document.addEventListener('keydown', (e) => {
+        if (isSubmenuVisible && e.key === 'Escape') {
+            hideSubmenu();
+        }
+    });
+
+    /**
+     * Initial load: set to Global Account or selected account
+     */
+    const selectedAccountId = getCookie('selected_account') || 'all';
     if (selectedAccountId) {
-        // Ideally, fetch the account name based on ID from the accounts list
-        // For demonstration, using a placeholder account name
-        switchAccount(selectedAccountId, `Account ${selectedAccountId}`);
+        // Fetch the accounts to get the actual account name
+        (async () => {
+            let accounts = await get_accounts(); // Ensure get_accounts() is defined and returns a Promise
+            console.log("accounts -> ", accounts);
+            
+            // Parse accounts if it's a string
+            if (typeof accounts === 'string') {
+                try {
+                    accounts = JSON.parse(accounts);
+                } catch (error) {
+                    console.error("Error parsing accounts JSON:", error);
+                    accounts = null;
+                }
+            }
+            
+            if (Array.isArray(accounts) && accounts.length > 0) {
+                const selectedAccount = accounts.find(acc => acc.account_id === selectedAccountId); // Use 'account_id'
+                const accountName = selectedAccount ? selectedAccount.account_name : `Account ${selectedAccountId}`; // Use 'account_name'
+                switchAccount(selectedAccountId, accountName);
+            } else {
+                console.warn("Selected account not found or accounts not an array. Falling back to Global Account.");
+                switchAccount('all', 'Global Account');
+            }
+        })();
     } else {
         switchAccount('all', 'Global Account');
     }

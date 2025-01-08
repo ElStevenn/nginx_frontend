@@ -29,17 +29,22 @@ function getCookie(name) {
     return null;
 }
 
-/**
- * Sets a cookie with the given name, value, and expiration in days.
- * @param {string} name - Cookie name.
- * @param {string} value - Cookie value.
- * @param {number} days - Expiration time in days.
- */
-function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    const expires = "expires="+ d.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+function setCookie(name, value, days = 7, path = '/') {
+    try {
+        let expires = '';
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = `; expires=${date.toUTCString()}`;
+        }
+        document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}${expires}; path=${path}`;
+    } catch (error) {
+        console.error("Error setting cookie:", error);
+    }
+}
+
+function deleteCookie(name) {
+    setCookie(name, "", -1);
 }
 
 /**

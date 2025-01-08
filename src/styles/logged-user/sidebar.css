@@ -160,34 +160,17 @@
 }
 
 /* Small Screens */
+/* Small Screens */
 @media (max-width: 768px) and (min-width: 577px) {
     .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        flex-direction: row;
-        overflow-x: auto;
-        border-right: none;
-        border-bottom: 1px solid #3a3a3a;
-        
-        /* Hide vertical scrollbar */
-        overflow-y: hidden;
+        /* Initially hide the sidebar */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
     }
 
-    .sidebar.collapsed {
-        width: 100%;
-        padding: 10px 5px 0 5px;
-    }
-
-    .nav-button {
-        flex: 0 0 auto;
-        margin: 0 0.3125rem;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
-
-    .sidebar h2 {
-        display: none;
+    /* When sidebar is active (visible) */
+    .sidebar.active {
+        transform: translateX(0);
     }
 
     .toggle-button {
@@ -203,35 +186,21 @@
 /* Extra Small Screens */
 @media (max-width: 576px) {
     .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        flex-direction: column;
-        border-right: none;
-        border-bottom: 1px solid #3a3a3a;
-        
-        /* Hide vertical scrollbar */
-        overflow-y: hidden;
+        /* Initially hide the sidebar */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
     }
 
-    .nav-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        margin: 0.5rem 0;
-    }
-
-    .sidebar h2 {
-        display: none;
+    /* When sidebar is active (visible) */
+    .sidebar.active {
+        transform: translateX(0);
     }
 
     .toggle-button {
         display: block;
     }
 
-    .nav-text {
-        display: none;
-    }
-
+    .nav-text,
     .beta-label,
     .new-label {
         display: none;
@@ -242,6 +211,7 @@
         margin-top: 70px;
     }
 }
+
 
 /* Accessibility Enhancements */
 .nav-button:focus,
