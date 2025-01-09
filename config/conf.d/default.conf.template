@@ -157,4 +157,25 @@ server {
     location = /error_pages/404.html {
         root /usr/share/nginx/html;
     }
+
+    location /balance/overview/all {
+        proxy_pass https://multiexchange.pauservices.top/balance/overview/all;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Add CORS headers
+        add_header 'Access-Control-Allow-Origin' 'https://fundy.pauservices.top' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+
+        # Handle preflight OPTIONS requests
+        if ($request_method = OPTIONS) {
+            add_header 'Access-Control-Allow-Origin' 'https://fundy.pauservices.top' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+            add_header 'Content-Length' 0;
+            add_header 'Content-Type' text/plain;
+            return 204;
+        }
+    }
 }
