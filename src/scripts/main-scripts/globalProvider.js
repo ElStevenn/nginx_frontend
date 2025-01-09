@@ -29,68 +29,9 @@ function getCookie(name) {
     return null;
 }
 
-function setCookie(name, value, days = 7, path = '/') {
-    try {
-        let expires = '';
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = `; expires=${date.toUTCString()}`;
-        }
-        document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}${expires}; path=${path}`;
-    } catch (error) {
-        console.error("Error setting cookie:", error);
-    }
-}
 
 function deleteCookie(name) {
     setCookie(name, "", -1);
-}
-
-/**
- * Fetches the balance overview for a given account.
- * @param {string} account_id - The ID of the account ('all' for Global).
- * @returns {Object|null} - The balance overview data or null on failure.
- */
-async function get_balance_overview(account_id = 'all') {
-    let credentials = getCookie("credentials");
-    
-    if (!credentials) {
-        console.error("Credentials not found.");
-        return null;
-    }
-    
-    // Remove surrounding quotes if they exist
-    credentials = credentials.replace(/^"(.*)"$/, '$1');
-
-    // If account_id is 'global', set it to 'all'
-    if (account_id === 'global') {
-        account_id = 'all';
-    }
-
-    const url = `${exchangeAPI}/balance/overview/${account_id}`;
-    const headers = {
-        'Accept': 'application/json',
-        'Authorization': credentials
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-
-    } catch (error) {
-        console.error("Error fetching account data:", error);
-        return null;
-    }
 }
 
 

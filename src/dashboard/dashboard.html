@@ -16,8 +16,9 @@
     <script src="/config.js"></script>
     <script src="/scripts/main-scripts/globalProvider.js" defer></script>
     <script src="/scripts/main-scripts/set-profile.js" defer></script>
-    <script src="/scripts/user-dashboard/crypto-searcher.js" defer></script>
     <script src="/scripts/user-dashboard/user-dasboard.js" defer></script>
+
+    <script src="/crypto-searcher.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 
 </head>
@@ -164,15 +165,15 @@
             <main class="main-content">
                 <!-- Dashboard Overview Section -->
                 <div class="dashboard-overview">
-                    <!-- Portfolio Overview Box -->
+
                     <div class="overview-box portfolio-overview" aria-haspopup="true" aria-expanded="false">
                         <div class="switch-account">Switch Account</div>
                         <div class="account-info">
-                            <img src="/images/icons/asset-allocation2.png" alt="Account Icon" class="account-icon">
+                            <img src="#" alt="Account Icon" class="account-icon">
                             <span class="account-name">Global Account</span>
                             <img src="/images/icons/down-arrow.png" alt="Down Arrow">
                         </div>
-                        <div class="account-balance">$0.00 <span class="account-balance-increased">(+0.000 %)</span></div>
+                        <div class="account-balance"></div>
                         
                         <!-- Submenu for Account Selection -->
                         <div class="submenu" id="portfolio-submenu">
@@ -185,18 +186,18 @@
 
                     <!-- Other Overview Boxes -->
                     <div class="overview-box box-see-data">
-                        <div class="total-assets-title" id="total-assets-title">Total Assets</div>
-                        <div class="total-assets-value">$0.00</div>
+                        <div class="total-assets-title" id="total-assets-title">Total Portfolio</div>
+                        <div class="total-assets-value" id="total-assets-value">$0.00</div>
                     </div>
                 
                     <div class="overview-box box-see-data">
                         <div class="total-assets-title">24H Change</div>
-                        <div class="total-assets-value">$0.00</div>
+                        <div class="total-assets-value" id="change24">$0.00</div>
                     </div>
 
                     <div class="overview-box box-see-data">
                         <div class="total-assets-title">24H % Change</div>
-                        <div class="total-assets-value">+0.0000%</div>
+                        <div class="total-assets-value" id="change24_percentage">+0.0000%</div>
                     </div>
                 
                     <div class="overview-box extra-box">Extra (promo)</div>

@@ -124,6 +124,13 @@ a {
     margin-left: 25px;
 }
 
+.account-balance p{
+    font-size: 0.9rem;
+    color: #cdcdcd;
+    /* margin-left: 25px; */
+    margin: 0px 0 0 5px;
+}
+
 /* Color can vary */
 .account-balance-increased {
     color: #71ef71;
@@ -366,15 +373,15 @@ a {
 }
 
 .detail-account-icon {
-    width: 20px; /* Adjust size as needed */
+    width: 20px;
     height: 20px;
     margin-right: 10px;
-    vertical-align: middle; /* Align with text */
+    vertical-align: middle; 
 }
 
 .detail-account-name {
     font-weight: bold;
-    vertical-align: middle; /* Align with icon */
+    vertical-align: middle;
 }
 
 .account-detail p {
@@ -414,7 +421,7 @@ a {
     filter: none;
 }
 
-.add-acount-icon {
+.add-account-icon {
     width: 20px;
     height: 20px;
     filter: brightness(0) saturate(100%) invert(73%) sepia(78%) saturate(542%) hue-rotate(80deg) brightness(102%) contrast(97%);
@@ -439,6 +446,6 @@ a {
     color: black; 
 }
 
-.add-account-item:hover .add-acount-icon {
+.add-account-item:hover .add-account-icon {
     filter: brightness(0) saturate(100%); /* Icon turns black on hover */
 }
