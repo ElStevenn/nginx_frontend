@@ -424,28 +424,25 @@ a {
 .add-account-icon {
     width: 20px;
     height: 20px;
-    filter: brightness(0) saturate(100%) invert(73%) sepia(78%) saturate(542%) hue-rotate(80deg) brightness(102%) contrast(97%);
+    filter: none; /* Default orange icon */
+    transition: filter 0.3s ease, background 0.3s ease; /* Smooth transition */
 }
 
 .add-account-item {
-    border: solid 1px #71ef71;
+    border: solid 1px #e98630;
     border-radius: 5px;
-    display: flex;        
+    display: flex;
     justify-content: center;
-    align-items: center;    
-    padding: 5px;          
-    gap: 5px;     
-    transition: 0.3s ease; 
-}
-
-.add-account-item:hover {
-    background: #71ef71;
-}
-
-.add-account-item:hover .submenu-item-title {
-    color: black; 
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+    transition: 0.3s ease;
 }
 
 .add-account-item:hover .add-account-icon {
-    filter: brightness(0) saturate(100%); /* Icon turns black on hover */
+    filter: brightness(0) saturate(100%) invert(100%); 
+}
+
+.add-account-item:hover {
+    background: #e98630; 
 }

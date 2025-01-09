@@ -148,11 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
             function updateChange24(change24Value, change24Percent, total_assets) {
                 // Update 24h change value and style
                 change24.textContent = '$ ' + change24Value.toFixed(2);
-                change24.style.color = change24Value < 0 ? "red" : "green";
+                change24.style.color = change24Value < 0 ? "red" : "#71ef71";
             
                 // Update 24h change percentage and style
                 change24_percentage.textContent = `${change24Percent.toFixed(2)}%`;
-                change24_percentage.style.color = change24Percent < 0 ? "red" : "green";
+                change24_percentage.style.color = change24Percent < 0 ? "red" : "#71ef71";
             
                 // Update account balance value dynamically
                 const total_assets_text = '$ ' + parseFloat(total_assets).toFixed(2);
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const span = document.createElement('span');
                 span.className = change24Percent < 0 ? "account-balance-decreased" : "account-balance-increased";
                 span.textContent = `(${change_24_percentage})`;
-                span.style.color = change24Percent < 0 ? "red" : "green";
+                span.style.color = change24Percent < 0 ? "red" : "#71ef71";
             
                 p.appendChild(totalText);
                 p.appendChild(span);
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // console.log("populate submenu -> ", account)
         // const change24Percent = parseFloat(user_balance["24h_change_percentage"]);
-        // const change24_color = change24Value < 0 ? "red" : "green";
+        // const change24_color = change24Value < 0 ? "red" : "#71ef71";
         // const change24_text = `${change24Percent.toFixed(2)} %`;
 
         submenuList.innerHTML = `
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li class="submenu-separator"></li>
             <div class="submenu-item-content add-account-item-content">
                 <span class="submenu-item-title">Add Account</span>
-                <img src="/images/icons/plus.png" alt="Add Account" class="submenu-item-image add-account-icon">
+                <img src="/images/icons/add.png" alt="Add Account" class="submenu-item-image add-account-icon">
             </div>
         `;
 

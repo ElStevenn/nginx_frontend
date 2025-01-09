@@ -160,7 +160,7 @@ server {
 
     # Proxy /balance/overview/all to FastAPI
     location /balance/overview/all {
-        proxy_pass http://localhost:8000/balance/overview/all;
+        proxy_pass ${EXCHANGE_API}/balance/overview/all;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

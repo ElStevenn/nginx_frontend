@@ -233,21 +233,88 @@
     <div id="overlay" class="overlay"></div>
 
     <script>
-        document.querySelector('.toggle-button').addEventListener('click', function() {
-            const main_layout = document.getElementById('main-layout');
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('collapsed');
-        
-            // Change the button text
-            if (sidebar.classList.contains('collapsed')) {
-                this.textContent = 'Show';
-                main_layout.style = "margin-left: 3%;"
+        // Select necessary elements
+        const toggleButton = document.querySelector('.toggle-button');
+        const mainLayout = document.getElementById('main-layout');
+        const sidebar = document.querySelector('.sidebar');
+    
+        // Function to check and set sidebar state based on window width
+        function checkSidebar() {
+            const width = window.innerWidth;
+    
+            if (width >= 1200) {
+                // Large screens: ensure sidebar is expanded
+                if (sidebar.classList.contains('collapsed')) {
+                    sidebar.classList.remove('collapsed');
+                    mainLayout.style.marginLeft = '16%';
+                    toggleButton.textContent = 'Hide';
+                }
+            } else if (width >= 950 && width < 1200) {
+                // Medium screens: ensure sidebar is collapsed
+                if (!sidebar.classList.contains('collapsed')) {
+                    sidebar.classList.add('collapsed');
+                    mainLayout.style.marginLeft = '80px';
+                    toggleButton.textContent = 'Show';
+                }
             } else {
-                this.textContent = 'Hide';
-                main_layout.style = "margin-left: 16%;"
+                // Small screens: hide sidebar completely
+                if (!sidebar.classList.contains('hidden')) {
+                    sidebar.classList.add('hidden');
+                    sidebar.style.display = 'none';
+                    mainLayout.style.marginLeft = '0';
+                    toggleButton.textContent = 'Show';
+                }
+            }
+    
+            // Hide or show toggle button based on screen width
+            if (width < 950) {
+                toggleButton.style.display = 'none';
+            } else {
+                toggleButton.style.display = 'block';
+            }
+        }
+    
+        // Initial check on page load
+        checkSidebar();
+    
+        // Add event listener for window resize
+        window.addEventListener('resize', checkSidebar);
+    
+        // Toggle Button Click Event
+        toggleButton.addEventListener('click', function() {
+            const width = window.innerWidth;
+    
+            if (width < 950) {
+                // Below 950px: Sidebar is hidden; do nothing
+                return;
+            } else if (width >= 950 && width < 1200) {
+                // Medium Screens: Toggle collapsed state
+                sidebar.classList.toggle('collapsed');
+    
+                if (sidebar.classList.contains('collapsed')) {
+                    this.textContent = 'Show';
+                    mainLayout.style.marginLeft = '80px';
+                } else {
+                    this.textContent = 'Hide';
+                    mainLayout.style.marginLeft = '16%';
+                }
+            } else {
+                // Large Screens: Toggle collapsed state
+                sidebar.classList.toggle('collapsed');
+    
+                if (sidebar.classList.contains('collapsed')) {
+                    this.textContent = 'Show';
+                    mainLayout.style.marginLeft = '80px';
+                } else {
+                    this.textContent = 'Hide';
+                    mainLayout.style.marginLeft = '16%';
+                }
             }
         });
     </script>
+    
+    
+    
     
     
 </body>
