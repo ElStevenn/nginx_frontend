@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #0f0f0f; /* Dark-blue background */
+    background: #0f0f0f; /* Dark background */
     color: #ccc;
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
@@ -29,10 +29,10 @@ body {
 .hero::after {
     content: "";
     position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(17, 54, 189, 0.6));
     z-index: 1;
 }
@@ -116,141 +116,6 @@ body {
 
 .security-note a:hover {
     text-decoration: underline;
-}
-
-/* FEATURES SECTION */
-.features {
-    background: #111;
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.features h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    color: #3b82f6;
-    margin-bottom: 40px;
-    position: relative;
-}
-
-.features h2::after {
-    content: "";
-    width: 60px;
-    height: 3px;
-    background: #3b82f6;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -10px;
-}
-
-.features-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-}
-
-.feature-item {
-    background: #1c1c1c;
-    border-radius: 10px;
-    width: 280px;
-    padding: 30px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: fadeInUp 1s ease both;
-}
-
-.feature-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
-}
-
-.feature-item img {
-    width: 60px; 
-    height: 60px;
-    margin-bottom: 20px;
-    transition: transform 0.3s;
-}
-
-.feature-item:hover img {
-    transform: scale(1.1);
-}
-
-.feature-item h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.feature-item p {
-    font-size: 14px;
-    color: #aaa;
-    line-height: 1.6;
-}
-
-/* HOW IT WORKS SECTION */
-.how-it-works {
-    background: #0f0f0f;
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.how-it-works h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    color: #3b82f6;
-    margin-bottom: 40px;
-    position: relative;
-}
-
-.how-it-works h2::after {
-    content: "";
-    width: 60px;
-    height: 3px;
-    background: #3b82f6;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -10px;
-}
-
-.steps {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-}
-
-.step-item {
-    background: #1c1c1c;
-    border-radius: 10px;
-    width: 250px;
-    padding: 30px;
-    text-align: center;
-    animation: fadeInUp 1s ease both;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.step-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
-}
-
-.step-item h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.step-item p {
-    font-size: 14px;
-    color: #aaa;
-    line-height: 1.6;
 }
 
 /* TEAM SECTION */
@@ -561,11 +426,9 @@ footer p {
 .testimonials-slider::-webkit-scrollbar {
     height: 8px;
 }
-
 .testimonials-slider::-webkit-scrollbar-track {
     background: #1c1c1c;
 }
-
 .testimonials-slider::-webkit-scrollbar-thumb {
     background-color: #3b82f6;
     border-radius: 4px;
@@ -575,17 +438,11 @@ footer p {
 
 /* Tablet Adjustments */
 @media (max-width: 1024px) {
-    .features-grid,
-    .team-grid,
-    .steps,
-    .key-points-grid {
+    .team-grid {
         gap: 30px;
     }
 
-    .feature-item,
-    .team-member,
-    .step-item,
-    .key-point {
+    .team-member {
         width: 100%;
         max-width: 300px;
     }
@@ -630,12 +487,10 @@ footer p {
         left: 50%;
         transform: translateX(-50%);
     }
-
     .testimonials-slider .prev-btn {
         left: 50%;
         top: auto;
     }
-
     .testimonials-slider .next-btn {
         right: 50%;
         top: auto;
@@ -651,7 +506,7 @@ footer p {
     }
 
     .hero-content {
-        flex-direction: column; /* Changed from column-reverse to column */
+        flex-direction: column;
         text-align: center;
     }
 
@@ -682,7 +537,6 @@ footer p {
         flex-wrap: nowrap;
         overflow-x: scroll;
     }
-
     .testimonial-item {
         min-width: 250px;
     }
@@ -690,46 +544,28 @@ footer p {
     /* Adjust Other Sections if Necessary */
     .cta-section h2,
     .contact h2,
-    .how-it-works h2,
-    .features h2,
     .team h2,
-    .testimonials h2,
-    .key-points h2,
-    .entry h2 {
+    .testimonials h2 {
         font-size: 28px;
     }
 
     .cta-section p,
     .contact p,
-    .how-it-works p,
-    .features p,
     .team p,
-    .testimonials p,
-    .key-points p,
-    .entry p {
+    .testimonials p {
         font-size: 16px;
     }
 
     .cta-section .cta-button,
     .contact form button,
-    .hero .cta-button,
-    .entry .entry-button {
+    .hero .cta-button {
         font-size: 14px;
         padding: 12px 30px;
     }
 
-    .hero h2,
-    .entry h2 {
+    .hero h2 {
         margin-top: 20px;
         font-size: 32px;
-    }
-
-    .team-member img,
-    .feature-item img,
-    .step-item img,
-    .key-point i {
-        width: 50px;
-        height: 50px;
     }
 
     .team-member img {
@@ -777,4 +613,134 @@ footer p {
     100% { 
         transform:translateX(0);
     }
+}
+
+/* =========================
+   REPLACEMENT FEATURE SECTION
+   ========================= */
+.feature-section {
+    background: #111;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.feature-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    color: #3b82f6;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.feature-section h2::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background: #3b82f6;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+}
+
+.feature-section-subtitle {
+    font-size: 18px;
+    color: #bbb;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+}
+
+.feature-section-grid {
+    /* We’ll rely on flex for larger screens, 
+       then switch to a 2x2 grid on mobile */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background: #686868;
+    border-radius: 10px;
+    padding: 50px 50px 50px 50px;
+    width: 45%; /* or whatever suits your layout */
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 1s ease both;
+    text-align: left; /* ensure text starts on the left */
+}
+
+
+
+.feature-item img {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+}
+
+/* This container wraps the title and paragraph */
+.feature-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #3b3b3b;;
+    margin-bottom: 8px;
+}
+
+.feature-text p {
+    font-size: 14px;
+    color: #222222;
+    line-height: 1.6;
+}
+
+.trading-bot{
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+}
+
+.extra-item{
+    background: linear-gradient(310deg, rgba(201,74,238,1) 0%, rgba(45,143,253,1) 83%);
+}
+
+.multi-exchange {
+    background: #fff;
+}
+
+.portfolio-tracking{
+    background: #252525;
+}
+
+.portfolio-tracking h3 {
+    color: #fff;
+}
+
+.portfolio-tracking p {
+    color: #e3e2e2;
+}
+
+
+.trading-bot h3{
+    color: #3b3b3b;
+}
+
+/* Make the layout 2x2 on mobile screens */
+@media (max-width: 768px) {
+    .feature-section-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        justify-items: center;
+    }
+
+    .feature-item {
+        width: 95%; /* so each item fits nicely in 2 columns */
+        text-align: left;
+    }
+
+    
+
 }

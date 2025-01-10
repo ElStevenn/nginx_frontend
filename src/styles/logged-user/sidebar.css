@@ -1,3 +1,5 @@
+/* sidebar.css */
+
 /* Base Sidebar Styles (Visible and Expanded on Screens >= 1200px) */
 .sidebar {
     position: fixed;
@@ -186,7 +188,7 @@
     }
 
     .toggle-button {
-        display: none; /* Hide toggle button as sidebar is hidden */
+        display: none; /* Hide toggle button as sidebar is hidden by default */
     }
 
     .main-layout {
@@ -195,14 +197,15 @@
     }
 }
 
-/* Extra Small Screens: Adjust as Needed Below 577px */
+/* Extra Small Screens: Additional Adjustments Below 577px */
 @media (max-width: 576px) {
     .sidebar {
-        /* If you have additional adjustments for extra small screens, add here */
+        display: none; /* Keep hidden for smaller phones */
     }
 
+    /* If you want a hamburger for smaller phones, show .toggle-button here */
     .toggle-button {
-        /* Adjust toggle button for extra small screens if necessary */
+        display: none; /* Set to block if you want the user to open a sliding menu */
     }
 
     .main-layout {

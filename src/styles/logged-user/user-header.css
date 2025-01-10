@@ -1,6 +1,6 @@
+/* user-header.css */
 
 /* HEADER STYLES */
-
 .header {
     width: 100%;
     height: 65px;
@@ -17,7 +17,6 @@
     color: #e0e0e0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
-
 
 .header-left {
     display: flex;
@@ -76,11 +75,11 @@
     cursor: pointer;
 }
 
+/* For very small screens or up to 900px: hide the search to save space */
 @media (max-width: 900px) {
     .search-container {
         display: none;
     }
-
     /* Optional: Adjust header spacing when search bar is hidden */
     .header-right > * {
         margin-left: 10px;
@@ -180,7 +179,6 @@
     transform: scale(1.2);
 }
 
-
 .profile-container {
     display: flex;
     align-items: center;
@@ -202,7 +200,6 @@
     padding: 10px 0;
     text-align: left;
 }
-
 
 .profile-name {
     font-size: 16px;
@@ -244,7 +241,7 @@ header hr {
     height: 20px;
 }
 
-.menu-links a{
+.menu-links a {
     text-decoration: none;
     color: #ffffff;
 }
@@ -255,6 +252,7 @@ header hr {
     margin-right: 8px;
     object-fit: contain;
 }
+
 /* Search Container Styles */
 .search-container {
     position: relative;
@@ -269,7 +267,6 @@ header hr {
     transition: all 0.3s ease;
 }
 
-/* Search Icon Styles */
 .search-container img {
     width: 30px;
     height: 30px;
@@ -335,14 +332,13 @@ header hr {
 
 /* Crypto Logo in Search Results */
 .search-result-item img {
-    width: 28px; /* Increased size for better visibility */
+    width: 28px; 
     height: 28px;
     margin-right: 12px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-/* Crypto Name and Symbol Styles */
 .search-result-item span {
     font-size: 16px;
     color: #e0e0e0;
@@ -364,25 +360,10 @@ header hr {
     color: #b0b0b0;
 }
 
-/* Scrollbar Styles (Optional) */
-.search-results::-webkit-scrollbar {
-    width: 6px;
-}
-
-.search-results::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 3px;
-}
-
-.search-results::-webkit-scrollbar-track {
-    background-color: #2b2b2b;
-}
-
 .p-recent-searches {
     color: #b0b0b0;
     margin-top: 4px;
     margin-bottom: 4px;
     text-align: center; 
     font-size: 14px;
-    
 }
