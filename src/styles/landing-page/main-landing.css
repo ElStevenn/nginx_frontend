@@ -58,10 +58,6 @@ body {
     transition: transform 0.3s;
 }
 
-.hero-image:hover {
-    transform: scale(1.05);
-}
-
 /* Text Content Styling */
 .hero-text {
     width: 50%;
@@ -716,6 +712,11 @@ footer p {
 .portfolio-tracking p {
     color: #e3e2e2;
 }
+
+.portfolio-tracking img{
+    filter: invert(1);
+}
+
 .trading-bot h3 {
     color: #3b3b3b;
 }
@@ -744,3 +745,5 @@ footer p {
         font-size: 20px;
     }
 }
+
+
