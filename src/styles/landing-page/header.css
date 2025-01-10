@@ -48,9 +48,10 @@
     align-items: center;
 }
 
-/* Generic nav link styling */
+/* Fix alignment for links */
 nav a {
-    display: inline-block; 
+    display: inline-flex; /* Ensures icon and text are in one horizontal line */
+    align-items: center; /* Vertically aligns the text and icon */
     color: #fff;
     text-decoration: none;
     font-size: 14px;
@@ -60,9 +61,9 @@ nav a {
     padding: 10px 15px;
     transition: 0.3s;
     margin-left: 5px;
-    vertical-align: middle; 
 }
 
+/* Hover styles */
 nav a:hover {
     background-color: #444444;
     transition: 0.3s;
@@ -81,10 +82,23 @@ nav .signup {
     color: #050505;
     background: #e98630;
     margin-left: 15px;
+    display: inline-flex;
+    align-items: center; 
 }
 nav .signup:hover {
     background-color: #d27528;
 }
+
+/* Styling for the icon */
+.icon-nav {
+    width: 20px; 
+    height: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-bottom: -3px;
+}
+
 
 /****************************************************
  *               HAMBURGER (MOBILE TRIGGER)
@@ -109,12 +123,12 @@ nav .signup:hover {
  ****************************************************/
 .mobile-nav {
     position: fixed;
-    top: 65px; /* Just below the header */
+    top: 65px; 
     left: 0;
     width: 100%;
     height: calc(100vh - 65px);
     background: #1f1f1f;
-    display: none; /* Hidden by default */
+    display: none; 
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -240,17 +254,15 @@ nav .signup:hover {
 
 .learn-submenu {
     left: 10px;
-    /* Removed grid-template-columns from here */
 }
 
 .learn-submenu img{
     filter: invert(100%);
 }
 
-/* Corrected Selector for Learn Submenu Grid */
 .features-submenu .submenu-grid,
 .trading-charts-submenu .submenu-grid,
-.learn-submenu .submenu-grid { /* Updated selector */
+.learn-submenu .submenu-grid { 
     grid-template-columns: 1fr; 
 }
 
