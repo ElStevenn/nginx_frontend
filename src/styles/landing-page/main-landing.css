@@ -618,7 +618,7 @@ footer p {
 /* =========================
    REPLACEMENT FEATURE SECTION
    ========================= */
-.feature-section {
+   .feature-section {
     background: #111;
     padding: 80px 20px;
     text-align: center;
@@ -652,11 +652,10 @@ footer p {
 }
 
 .feature-section-grid {
-    /* We’ll rely on flex for larger screens, 
-       then switch to a 2x2 grid on mobile */
+    /* Desktop/Tablet: Use flex */
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 20px;
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -666,16 +665,14 @@ footer p {
     background: #686868;
     border-radius: 10px;
     padding: 50px 50px 50px 50px;
-    width: 45%; /* or whatever suits your layout */
+    width: 45%;
     display: flex;
     align-items: flex-start;
     gap: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
     animation: fadeInUp 1s ease both;
-    text-align: left; /* ensure text starts on the left */
+    text-align: left;
 }
-
-
 
 .feature-item img {
     width: 60px;
@@ -684,11 +681,10 @@ footer p {
     transition: transform 0.3s;
 }
 
-/* This container wraps the title and paragraph */
 .feature-text h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 24px;
-    color: #3b3b3b;;
+    color: #3b3b3b;
     margin-bottom: 8px;
 }
 
@@ -698,11 +694,12 @@ footer p {
     line-height: 1.6;
 }
 
-.trading-bot{
+/* Color / Gradient Overwrites */
+.trading-bot {
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 }
 
-.extra-item{
+.extra-item {
     background: linear-gradient(310deg, rgba(201,74,238,1) 0%, rgba(45,143,253,1) 83%);
 }
 
@@ -710,37 +707,40 @@ footer p {
     background: #fff;
 }
 
-.portfolio-tracking{
+.portfolio-tracking {
     background: #252525;
 }
-
 .portfolio-tracking h3 {
     color: #fff;
 }
-
 .portfolio-tracking p {
     color: #e3e2e2;
 }
-
-
-.trading-bot h3{
+.trading-bot h3 {
     color: #3b3b3b;
 }
 
-/* Make the layout 2x2 on mobile screens */
+/* 
+    MOBILE ADJUSTMENTS
+    Now we want 4 x 1 (stacked in one column).
+    So let's override the flex or grid settings and
+    simply display each item at 100% width (or close). 
+*/
 @media (max-width: 768px) {
     .feature-section-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        /* Single column for all items */
+        grid-template-columns: 1fr;
         gap: 20px;
         justify-items: center;
     }
 
     .feature-item {
-        width: 95%; /* so each item fits nicely in 2 columns */
+        width: 90%;
         text-align: left;
     }
 
-    
-
+    .feature-text h3{
+        font-size: 20px;
+    }
 }
