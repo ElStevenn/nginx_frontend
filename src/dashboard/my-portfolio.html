@@ -119,45 +119,66 @@
         <!-- Right Sidebar (Fixed) -->
         <aside class="sidebar">
             <button class="toggle-button">Hide</button>
-            <button class="nav-button" onclick="window.location.href='/dashboard';">
-                <img src="images/icons/dashboard-interface.png" alt="Dashboard Icon" class="sidebar-icon">
-                <span class="nav-text">Dashboard</span>
-            </button>
-            <button class="nav-button sidebar-selected">
-                <img src="images/icons/portfolio.png" alt="Portfolio Icon" class="sidebar-icon">
-                <span class="nav-text">My Portfolio</span>
-            </button>
-            <h2><span class="nav-text">Trading</span></h2>
-            <button class="nav-button">
-                <img src="images/icons/robot.png" alt="Bot Icon" class="sidebar-icon">
-                <span class="nav-text">Arbitrage Bot</span> <span class="beta-label nav-text">BETA</span>
-            </button>
-            <button class="nav-button">
-                <img src="images/icons/antenna.png" alt="Bot Icon" class="sidebar-icon">
-                <span class="nav-text">Signal Bot</span> <span class="new-label nav-text">NEW</span>
-            </button>
-            <button class="nav-button">
-                <img src="images/icons/artificial-intelligence.png" alt="AI Strategy Bot Icon" class="sidebar-icon">
-                <span class="nav-text">AI Strategy Bot</span>
-            </button>
-            <button class="nav-button">
-                <img src="images/icons/statistics.png" alt="Grid Bot Icon" class="sidebar-icon">
-                <span class="nav-text">Grid Bot</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='/portfolio';">
-                <img src="images/icons/trading.png" alt="Smart Trade Icon" class="sidebar-icon">
-                <span class="nav-text">Smart Trade</span>
-            </button>
 
-            <button class="nav-button">
-                <img src="images/icons/shopping-cart.png" alt="Marketplace Icon" class="sidebar-icon">
-                <span class="nav-text">Marketplace</span>
-            </button>
+            <!-- Group 1: Dashboard & Portfolio -->
+            <div class="sidebar-group">
+                <button class="nav-button sidebar-selected">
+                    <img src="images/icons/dashboard-interface.png" alt="Dashboard Icon" class="sidebar-icon">
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-button" onclick="window.location.href='/portfolio';">
+                    <img src="images/icons/pie-chart.png" alt="Portfolio Icon" class="sidebar-icon">
+                    <span class="nav-text">My Portfolio</span>
+                </button>
+            </div>
+
+            <!-- Title for Trading -->
+            <h2><span class="nav-text">Trading</span></h2>
+
+            <!-- Group 2: Trading-related items -->
+            <div class="sidebar-group">
+                <button class="nav-button">
+                    <img src="images/icons/robot.png" alt="Bot Icon" class="sidebar-icon">
+                    <span class="nav-text">Arbitrage Bot</span> 
+                    <span class="beta-label nav-text">BETA</span>
+                </button>
+                <button class="nav-button">
+                    <img src="images/icons/antenna.png" alt="Bot Icon" class="sidebar-icon">
+                    <span class="nav-text">Signal Bot</span> 
+                    <span class="new-label nav-text">NEW</span>
+                </button>
+                <button class="nav-button">
+                    <img src="images/icons/artificial-intelligence.png" alt="AI Strategy Bot Icon" class="sidebar-icon">
+                    <span class="nav-text">AI Strategy Bot</span>
+                </button>
+                <button class="nav-button">
+                    <img src="images/icons/statistics.png" alt="Grid Bot Icon" class="sidebar-icon">
+                    <span class="nav-text">Grid Bot</span>
+                </button>
+                <button class="nav-button">
+                    <img src="images/icons/trading.png" alt="Smart Trade Icon" class="sidebar-icon">
+                    <span class="nav-text">Smart Trade</span>
+                </button>
+                <button class="nav-button">
+                    <img src="/images/icons/analytics.png" alt="Smart Trade Icon" class="sidebar-icon">
+                    <span class="nav-text">Markets</span>
+                </button>
+                <button class="nav-button">
+                    <img src="images/icons/shopping-cart.png" alt="Marketplace Icon" class="sidebar-icon">
+                    <span class="nav-text">Marketplace</span>
+                </button>
+            </div>
+
+            <!-- Title for Others -->
             <h2><span class="nav-text">Others</span></h2>
-            <button class="nav-button">
-                <img src="images/icons/group.png" alt="Invite Friends Icon" class="sidebar-icon">
-                <span class="nav-text">Invite Friends</span>
-            </button>
+
+            <!-- Group 3: Others -->
+            <div class="sidebar-group">
+                <button class="nav-button">
+                    <img src="images/icons/group.png" alt="Invite Friends Icon" class="sidebar-icon">
+                    <span class="nav-text">Invite Friends</span>
+                </button>
+            </div>
         </aside>
         
         <main class="main-content">
