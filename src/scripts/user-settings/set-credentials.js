@@ -81,7 +81,9 @@ async function get_proxy_ip() {
 // ---------------------
 // 4) Validate Credentials
 // ---------------------
-async function bitget_validate_credentials(
+// Despite the name "validate_credentials," 
+// we use it for all exchanges by simply passing 'exchange' parameter.
+async function validate_credentials(
     email_address, 
     exchange, 
     api_key, 
@@ -138,14 +140,18 @@ async function bitget_validate_credentials(
 // 5) Remove / Add 'required' attributes so hidden fields don't cause
 //    "invalid form control not focusable" errors
 // ----------------------------------------------------------------------
-
-// Remove 'required' from both Binance & Bitget fields on page load
 function removeAllRequiredAttributes() {
+    // Bitget
     const bitgetApiKey     = document.getElementById('bitget_api_key');
     const bitgetSecretKey  = document.getElementById('bitget_secret_key');
     const bitgetPassphrase = document.getElementById('bitget_passphrase');
+    // Binance
     const binanceApiKey    = document.getElementById('binance_api_key');
     const binanceSecretKey = document.getElementById('binance_secret_key');
+    // KuCoin
+    const kucoinApiKey     = document.getElementById('kucoin_api_key');
+    const kucoinSecretKey  = document.getElementById('kucoin_secret_key');
+    const kucoinPassphrase = document.getElementById('kucoin_passphrase');
 
     if (bitgetApiKey)     bitgetApiKey.removeAttribute('required');
     if (bitgetSecretKey)  bitgetSecretKey.removeAttribute('required');
@@ -153,9 +159,12 @@ function removeAllRequiredAttributes() {
 
     if (binanceApiKey)    binanceApiKey.removeAttribute('required');
     if (binanceSecretKey) binanceSecretKey.removeAttribute('required');
+
+    if (kucoinApiKey)     kucoinApiKey.removeAttribute('required');
+    if (kucoinSecretKey)  kucoinSecretKey.removeAttribute('required');
+    if (kucoinPassphrase) kucoinPassphrase.removeAttribute('required');
 }
 
-// Re-add 'required' only for Bitget fields
 function addBitgetRequiredAttributes() {
     const bitgetApiKey     = document.getElementById('bitget_api_key');
     const bitgetSecretKey  = document.getElementById('bitget_secret_key');
@@ -166,13 +175,22 @@ function addBitgetRequiredAttributes() {
     if (bitgetPassphrase) bitgetPassphrase.setAttribute('required', 'true');
 }
 
-// Re-add 'required' only for Binance fields
 function addBinanceRequiredAttributes() {
     const binanceApiKey    = document.getElementById('binance_api_key');
     const binanceSecretKey = document.getElementById('binance_secret_key');
 
     if (binanceApiKey)    binanceApiKey.setAttribute('required', 'true');
     if (binanceSecretKey) binanceSecretKey.setAttribute('required', 'true');
+}
+
+function addKucoinRequiredAttributes() {
+    const kucoinApiKey     = document.getElementById('kucoin_api_key');
+    const kucoinSecretKey  = document.getElementById('kucoin_secret_key');
+    const kucoinPassphrase = document.getElementById('kucoin_passphrase');
+
+    if (kucoinApiKey)     kucoinApiKey.setAttribute('required', 'true');
+    if (kucoinSecretKey)  kucoinSecretKey.setAttribute('required', 'true');
+    if (kucoinPassphrase) kucoinPassphrase.setAttribute('required', 'true');
 }
 
 // ---------------------
@@ -183,13 +201,14 @@ function initializeApp(ip) {
     const loadingBar       = document.getElementById('loading-bar');
     const successScreen    = document.getElementById('success-screen');
     const failureScreen    = document.getElementById('failure-screen');
-    const successOkButton  = document.getElementById('success-ok-button');
+    const successOkButton  = document.getElementById('success-ok-button'); // not in HTML, could remove
     const failureRetryBtn  = document.getElementById('failure-retry-button');
     const failureCancelBtn = document.getElementById('failure-cancel-button');
     const failureMessage   = document.getElementById('failure-message');
     const errorMessage     = document.getElementById('encourage-message'); 
     const ipAddressMain    = document.getElementById('bitget-ip-label');
-    
+    // You could also handle ipAddressMain for Binance / KuCoin if needed
+
     if (ipAddressMain) {
         ipAddressMain.textContent = ip || "Unable to fetch IP";
     }
@@ -199,11 +218,10 @@ function initializeApp(ip) {
             event.preventDefault(); 
             if (loadingBar) loadingBar.style.display = 'block';
             if (errorMessage) {
-                errorMessage.textContent = ''; // Clear previous messages
-                errorMessage.style.color = ''; // Reset color
+                errorMessage.textContent = ''; 
+                errorMessage.style.color = '';
             }
 
-            // Disable the submit button to prevent multiple submissions
             const submitButton = document.getElementById('submit-button');
             if (submitButton) submitButton.disabled = true;
 
@@ -222,10 +240,14 @@ function initializeApp(ip) {
             } else if (exchange_selection === "binance") {
                 api_key    = document.getElementById("binance_api_key").value.trim();
                 secret_key = document.getElementById("binance_secret_key").value.trim();
+            } else if (exchange_selection === "kucoin") {
+                api_key    = document.getElementById("kucoin_api_key").value.trim();
+                secret_key = document.getElementById("kucoin_secret_key").value.trim();
+                passphrase = document.getElementById("kucoin_passphrase").value.trim();
             }
 
             try {
-                const response = await bitget_validate_credentials(
+                const response = await validate_credentials(
                     email_address,
                     exchange_selection,
                     api_key,
@@ -236,24 +258,20 @@ function initializeApp(ip) {
                 );
                 
                 if (response) {
-                    // Show success screen
                     if (successScreen) successScreen.style.display = 'flex';
                 } else {
-                    // Show failure screen with a generic message
                     if (failureScreen) {
                         failureMessage.textContent = 'Failed to add account. Please check your credentials and try again.';
                         failureScreen.style.display = 'flex';
                     }
                 }
             } catch (error) {
-                // Show failure screen with specific error message
                 if (failureScreen) {
                     failureMessage.textContent = error.message || 'An unexpected error occurred.';
                     failureScreen.style.display = 'flex';
                 }
             } finally {
                 if (loadingBar) loadingBar.style.display = 'none';
-                // Re-enable the submit button
                 if (submitButton) submitButton.disabled = false;
             }
         });
@@ -262,20 +280,19 @@ function initializeApp(ip) {
     // ----------------
     // Success Screen
     // ----------------
+    // If you have a successOkButton in your HTML, you can handle it
     if (successOkButton) {
         successOkButton.addEventListener('click', function() {
             if (successScreen) successScreen.style.display = 'none';
-            // Optionally, reset the form or redirect the user
             if (form) form.reset();
-            // Hide exchange-specific fields
-            const bitgetFields  = document.getElementById('bitget-fields');
-            const binanceFields = document.getElementById('binance-fields');
-            if (bitgetFields)  bitgetFields.style.display  = 'none';
-            if (binanceFields) binanceFields.style.display = 'none';
-            // Show exchange selection container again
+            const bitgetFields   = document.getElementById('bitget-fields');
+            const binanceFields  = document.getElementById('binance-fields');
+            const kucoinFields   = document.getElementById('kucoin-fields');
+            if (bitgetFields)   bitgetFields.style.display   = 'none';
+            if (binanceFields)  binanceFields.style.display  = 'none';
+            if (kucoinFields)   kucoinFields.style.display   = 'none';
             const exchangeSelectionContainer = document.getElementById('exchange-selection-container');
             if (exchangeSelectionContainer) exchangeSelectionContainer.style.display = 'block';
-            // Hide form container
             const formContainer = document.getElementById('form-container');
             if (formContainer) formContainer.style.display = 'none';
         });
@@ -284,46 +301,40 @@ function initializeApp(ip) {
     // ----------------
     // Failure Screen
     // ----------------
-    // If user clicks "Retry"
     if (failureRetryBtn) {
         failureRetryBtn.addEventListener('click', function() {
             if (failureScreen) failureScreen.style.display = 'none';
-            // Optionally, focus on the first input field
             const firstInput = form ? form.querySelector('input') : null;
             if (firstInput) firstInput.focus();
         });
     }
 
-    // If user clicks "Cancel"
     if (failureCancelBtn) {
         failureCancelBtn.addEventListener('click', function() {
             if (failureScreen) failureScreen.style.display = 'none';
-            // Navigate back to exchange selection
             const formContainer = document.getElementById('form-container');
             const exchangeSelectionContainer = document.getElementById('exchange-selection-container');
             if (formContainer && exchangeSelectionContainer) {
                 formContainer.style.display = 'none';
                 exchangeSelectionContainer.style.display = 'block';
             }
-            // Reset form fields if necessary
             if (form) form.reset();
-            // Hide exchange-specific fields
             const bitgetFields  = document.getElementById('bitget-fields');
             const binanceFields = document.getElementById('binance-fields');
+            const kucoinFields  = document.getElementById('kucoin-fields');
             if (bitgetFields)  bitgetFields.style.display  = 'none';
             if (binanceFields) binanceFields.style.display = 'none';
-            // Reset exchange selection
+            if (kucoinFields)  kucoinFields.style.display  = 'none';
             const exchangeSelectionInput = document.getElementById('exchange_selection');
             if (exchangeSelectionInput) exchangeSelectionInput.value = '';
-            // Reset exchange heading text
             const exchangeHeadingText = document.getElementById('exchange-heading-text');
             if (exchangeHeadingText) exchangeHeadingText.textContent = "Connect Exchange";
-            // Hide exchange logos
             const bitgetImage  = document.getElementById('bitget-image');
             const binanceImage = document.getElementById('binance-image');
+            const kucoinImage  = document.getElementById('kucoin-image');
             if (bitgetImage)  bitgetImage.style.display  = 'none';
             if (binanceImage) binanceImage.style.display = 'none';
-            // Reset submit button text
+            if (kucoinImage)  kucoinImage.style.display  = 'none';
             const submitButton = document.getElementById('submit-button');
             if (submitButton) {
                 submitButton.innerHTML = 'Connect Exchange <img src="/images/lock.png" alt="Secure Submit" class="submit-lock-icon">';
@@ -331,17 +342,13 @@ function initializeApp(ip) {
         });
     }
 
-    // 1) Close #failure-screen if user clicks on the dark background outside the box
     if (failureScreen) {
         failureScreen.addEventListener('click', (e) => {
-            // If the click is specifically on the overlay (and not any child)
             if (e.target === failureScreen) {
                 failureScreen.style.display = 'none';
             }
         });
     }
-
-    // 2) Close #failure-screen if user clicks the "X" (assuming you have <span class="close-modal">×</span>)
     const closeModalX = document.querySelector('#failure-screen .close-modal');
     if (closeModalX && failureScreen) {
         closeModalX.addEventListener('click', () => {
@@ -351,10 +358,13 @@ function initializeApp(ip) {
 }
 
 /**
- * Show the Bitget fields, hide Binance fields, 
- * add `required` to Bitget fields, remove from Binance, etc.
+ * Show the Bitget fields, hide others, 
+ * add `required` to Bitget fields, remove from others, etc.
  */
 function connectBitget(proxy_ip) {
+    removeAllRequiredAttributes();
+    addBitgetRequiredAttributes();
+
     const exchangeSelectionInput     = document.getElementById('exchange_selection');
     const accountNameInput           = document.getElementById('account_name');
     const bitgetIpLabel              = document.getElementById('bitget-ip-label');
@@ -362,24 +372,22 @@ function connectBitget(proxy_ip) {
     const bitgetSetIp                = document.getElementById('bitget-set-ip');
     const bitgetFields               = document.getElementById('bitget-fields');
     const binanceFields              = document.getElementById('binance-fields');
+    const kucoinFields               = document.getElementById('kucoin-fields');
+    const kucoinSetIp                = document.getElementById('kucoin-set-ip');
     const exchangeSelectionContainer = document.getElementById('exchange-selection-container');
     const formContainer              = document.getElementById('form-container');
     const exchangeHeadingText        = document.getElementById('exchange-heading-text');
     const bitgetImage                = document.getElementById('bitget-image');
     const binanceImage               = document.getElementById('binance-image');
+    const kucoinImage                = document.getElementById('kucoin-image');
     const submitButton               = document.getElementById('submit-button');
-
-    // Remove all required attributes from both
-    removeAllRequiredAttributes();
-    // Now re-add to Bitget only
-    addBitgetRequiredAttributes();
 
     if (exchangeSelectionInput) exchangeSelectionInput.value = 'bitget';
     if (accountNameInput)       accountNameInput.value       = 'My Bitget Account';
     if (bitgetIpLabel)          bitgetIpLabel.textContent    = proxy_ip || "Unable to fetch IP";
 
     if (encourageMessage) {
-        encourageMessage.innerHTML = `Don't you have an account? Create a Bitget account 
+        encourageMessage.innerHTML = `Don't have an account? Create a Bitget account 
             <a href="https://www.bitget.com" target="_blank" rel="noopener noreferrer">
               here <svg width="12px" height="12px" class="svg-icon" viewBox="0 0 16 16" fill="none">
                 <path fill="currentColor" d="M5.3333 0a.8889.8889 0 110 1.7778H1.7778v12.4444h12.4444v-3.5555a.8889.8889 0 111.7778 0v4.4444a.8889.8889 0 01-.8889.8889H.8889A.8888.8888 0 010 15.1111V.8889A.8889.8889 0 01.8889 0h4.4444zm7.632 1.7778H9.7778a.8889.8889 0 010-1.7778H16v6.2222a.889.889 0 01-1.7778 0V3.0347L8.6284 8.6284a.8887.8887 0 11-1.2568-1.2568l5.5937-5.5938z"/>
@@ -389,6 +397,8 @@ function connectBitget(proxy_ip) {
 
     if (bitgetSetIp)     bitgetSetIp.style.display     = 'block';
     if (bitgetFields)    bitgetFields.style.display    = 'block';
+    if (kucoinSetIp)     kucoinSetIp.style.display     = 'none';
+    if (kucoinFields)    kucoinFields.style.display    = 'none';
     if (binanceFields)   binanceFields.style.display   = 'none';
 
     if (exchangeSelectionContainer && formContainer) {
@@ -399,8 +409,68 @@ function connectBitget(proxy_ip) {
     if (exchangeHeadingText) exchangeHeadingText.textContent = "Connect Bitget";
     if (bitgetImage)  bitgetImage.style.display   = 'inline-block';
     if (binanceImage) binanceImage.style.display  = 'none';
+    if (kucoinImage)  kucoinImage.style.display   = 'none';
     if (submitButton) {
         submitButton.innerHTML = 'Connect Bitget <img src="/images/lock.png" alt="Secure Submit" class="submit-lock-icon">';
+    }
+}
+
+/**
+ * Show the KuCoin fields, hide others,
+ * add `required` to KuCoin fields, remove from others, etc.
+ */
+function connectKucoin(proxy_ip) {
+    removeAllRequiredAttributes();
+    addKucoinRequiredAttributes();
+
+    const exchangeSelectionInput     = document.getElementById('exchange_selection');
+    const accountNameInput           = document.getElementById('account_name');
+    const kucoinIpLabel              = document.getElementById('kucoin-ip-label');
+    const encourageMessage           = document.getElementById('encourage-message');
+    const kucoinSetIp                = document.getElementById('kucoin-set-ip');
+    const bitgetSetIp                = document.getElementById('bitget-set-ip');
+    const bitgetFields               = document.getElementById('bitget-fields');
+    const binanceFields              = document.getElementById('binance-fields');
+    const kucoinFields               = document.getElementById('kucoin-fields');
+    const exchangeSelectionContainer = document.getElementById('exchange-selection-container');
+    const formContainer              = document.getElementById('form-container');
+    const exchangeHeadingText        = document.getElementById('exchange-heading-text');
+    const bitgetImage                = document.getElementById('bitget-image');
+    const binanceImage               = document.getElementById('binance-image');
+    const kucoinImage                = document.getElementById('kucoin-image');
+    const submitButton               = document.getElementById('submit-button');
+
+    if (exchangeSelectionInput) exchangeSelectionInput.value = 'kucoin';
+    if (accountNameInput)       accountNameInput.value       = 'My KuCoin Account';
+    if (kucoinIpLabel)          kucoinIpLabel.textContent    = proxy_ip || "Unable to fetch IP";
+
+    if (encourageMessage) {
+        encourageMessage.innerHTML = `Don't have an account? Create a KuCoin account 
+            <a href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer">
+              here <svg width="12px" height="12px" class="svg-icon" viewBox="0 0 16 16" fill="none">
+                <path fill="currentColor" d="M5.3333 0a.8889.8889 0 110 1.7778H1.7778v12.4444h12.4444v-3.5555a.8889.8889 0 111.7778 0v4.4444a.8889.8889 0 01-.8889.8889H.8889A.8888.8888 0 010 15.1111V.8889A.8889.8889 0 01.8889 0h4.4444zm7.632 1.7778H9.7778a.8889.8889 0 010-1.7778H16v6.2222a.889.889 0 01-1.7778 0V3.0347L8.6284 8.6284a.8887.8887 0 11-1.2568-1.2568l5.5937-5.5938z"/>
+              </svg>
+            </a>`;
+    }
+
+    if (kucoinSetIp)   kucoinSetIp.style.display   = 'block';
+    if (kucoinFields)  kucoinFields.style.display  = 'block';
+    if (bitgetSetIp)   bitgetSetIp.style.display   = 'none';
+    if (bitgetFields)  bitgetFields.style.display  = 'none';
+    if (binanceFields) binanceFields.style.display = 'none';
+
+    if (exchangeSelectionContainer && formContainer) {
+        exchangeSelectionContainer.style.display = 'none';
+        formContainer.style.display = 'block';
+    }
+
+    if (exchangeHeadingText) exchangeHeadingText.textContent = "Connect KuCoin";
+    if (kucoinImage)  kucoinImage.style.display   = 'inline-block';
+    if (bitgetImage)  bitgetImage.style.display   = 'none';
+    if (binanceImage) binanceImage.style.display  = 'none';
+
+    if (submitButton) {
+        submitButton.innerHTML = 'Connect KuCoin <img src="/images/lock.png" alt="Secure Submit" class="submit-lock-icon">';
     }
 }
 
@@ -410,14 +480,13 @@ function connectBitget(proxy_ip) {
 async function displayPage() {
     const actualProxyIp = await get_proxy_ip();
     initializeApp(actualProxyIp);
-    return actualProxyIp; // so we can use it in connectBitget()
+    return actualProxyIp;
 }
 
 // ---------------------
 // 8) On DOMContentLoaded
 // ---------------------
 document.addEventListener("DOMContentLoaded", async () => {
-    // Remove 'required' from hidden fields initially
     removeAllRequiredAttributes();
 
     let proxy_ip = null;
@@ -433,10 +502,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     // DOM elements
     const bitgetOption       = document.getElementById('bitget-option');
     const binanceOption      = document.getElementById('binance-option');
+    const kucoinOption       = document.getElementById('kucoin-option');
+
     const copyBitgetIpButton = document.getElementById('copy-bitget-ip');
     const bitgetIpLabel      = document.getElementById('bitget-ip-label');
 
-    // Copy IP button
+    const copyKucoinIpButton = document.getElementById('copy-kucoin-ip');
+    const kucoinIpLabel      = document.getElementById('kucoin-ip-label');
+
+    // Copy IP button for Bitget
     if (copyBitgetIpButton) {
         copyBitgetIpButton.addEventListener('click', () => {
             const ip = bitgetIpLabel ? bitgetIpLabel.textContent : "";
@@ -448,40 +522,52 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // When user clicks "Bitget", call connectBitget()
+    // Copy IP button for KuCoin
+    if (copyKucoinIpButton) {
+        copyKucoinIpButton.addEventListener('click', () => {
+            const ip = kucoinIpLabel ? kucoinIpLabel.textContent : "";
+            if (ip && ip !== "Loading..." && ip !== "Unable to fetch IP") {
+                copyToClipboard(ip);
+            } else {
+                alert('No IP available to copy.');
+            }
+        });
+    }
+
+    // When user clicks "Bitget"
     if (bitgetOption) {
         bitgetOption.addEventListener('click', function() {
             connectBitget(proxy_ip);
         });
     }
 
-    // The Binance logic is inline. If user picks "Binance", do the same approach:
+    // When user clicks "Binance"
     if (binanceOption) {
         binanceOption.addEventListener('click', function() {
-            // Remove all required from both
             removeAllRequiredAttributes();
-            // Then add required to binance only
             addBinanceRequiredAttributes();
 
-            // Existing code
             const exchangeSelectionInput      = document.getElementById('exchange_selection');
             const account_name                = document.getElementById("account_name");
             const encourageMessage            = document.getElementById('encourage-message');
             const bitgetSetIp                 = document.getElementById('bitget-set-ip');
+            const kucoinSetIp                 = document.getElementById('kucoin-set-ip');
             const bitgetFields                = document.getElementById('bitget-fields');
             const binanceFields               = document.getElementById('binance-fields');
+            const kucoinFields                = document.getElementById('kucoin-fields');
             const exchangeSelectionContainer  = document.getElementById('exchange-selection-container');
             const formContainer               = document.getElementById('form-container');
             const exchangeHeadingText         = document.getElementById('exchange-heading-text');
             const bitgetImage                 = document.getElementById('bitget-image');
             const binanceImage                = document.getElementById('binance-image');
+            const kucoinImage                 = document.getElementById('kucoin-image');
             const submitButton                = document.getElementById('submit-button');
 
             if (exchangeSelectionInput) exchangeSelectionInput.value = 'binance';
             if (account_name)           account_name.value           = 'My Binance Account';
 
             if (encourageMessage) {
-                encourageMessage.innerHTML = `Don't you have an account? Create a Binance account
+                encourageMessage.innerHTML = `Don't have an account? Create a Binance account
                     <a href="https://www.binance.com" style="color: #42a5f5;" target="_blank" rel="noopener noreferrer">
                       here <svg width="12px" height="12px" class="svg-icon" viewBox="0 0 16 16" fill="none">
                         <path fill="currentColor" d="M5.3333 0a.8889.8889 0 110 1.7778H1.7778v12.4444h12.4444v-3.5555a.8889.8889 0 111.7778 0v4.4444a.8889.8889 0 01-.8889.8889H.8889A.8888.8888 0 010 15.1111V.8889A.8889.8889 0 01.8889 0h4.4444zm7.632 1.7778H9.7778a.8889.8889 0 010-1.7778H16v6.2222a.889.889 0 01-1.7778 0V3.0347L8.6284 8.6284a.8887.8887 0 11-1.2568-1.2568l5.5937-5.5938z"/>
@@ -491,7 +577,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (binanceFields) binanceFields.style.display = 'block';
             if (bitgetFields)  bitgetFields.style.display  = 'none';
+            if (kucoinFields)  kucoinFields.style.display  = 'none';
             if (bitgetSetIp)   bitgetSetIp.style.display   = 'none';
+            if (kucoinSetIp)   kucoinSetIp.style.display   = 'none';
 
             if (exchangeSelectionContainer && formContainer) {
                 exchangeSelectionContainer.style.display = 'none';
@@ -501,8 +589,67 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (exchangeHeadingText) exchangeHeadingText.textContent = "Connect Binance";
             if (binanceImage) binanceImage.style.display = 'inline-block';
             if (bitgetImage)  bitgetImage.style.display  = 'none';
+            if (kucoinImage)  kucoinImage.style.display  = 'none';
+
             if (submitButton) {
                 submitButton.innerHTML = 'Connect Binance <img src="/images/lock.png" alt="Secure Submit" class="submit-lock-icon">';
+            }
+        });
+    }
+
+    // When user clicks "KuCoin"
+    if (kucoinOption) {
+        kucoinOption.addEventListener('click', function() {
+            connectKucoin(proxy_ip);
+        });
+    }
+
+    const backToExchangeLink = document.getElementById('back-to-exchange');
+    if (backToExchangeLink) {
+        backToExchangeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Hide form container
+            const formContainer = document.getElementById('form-container');
+            const exchangeSelectionContainer = document.getElementById('exchange-selection-container');
+            if (formContainer && exchangeSelectionContainer) {
+                formContainer.style.display = 'none';
+                exchangeSelectionContainer.style.display = 'block';
+            }
+
+            // Reset the form
+            const form = document.getElementById('account-form');
+            if (form) {
+                form.reset();
+            }
+
+            // Hide exchange-specific fields
+            const bitgetFields  = document.getElementById('bitget-fields');
+            const binanceFields = document.getElementById('binance-fields');
+            const kucoinFields  = document.getElementById('kucoin-fields');
+            if (bitgetFields)  bitgetFields.style.display  = 'none';
+            if (binanceFields) binanceFields.style.display = 'none';
+            if (kucoinFields)  kucoinFields.style.display  = 'none';
+
+            // Clear the exchange_selection <input>, heading text, and logos
+            const exchangeSelectionInput = document.getElementById('exchange_selection');
+            if (exchangeSelectionInput) exchangeSelectionInput.value = '';
+
+            const exchangeHeadingText = document.getElementById('exchange-heading-text');
+            if (exchangeHeadingText) exchangeHeadingText.textContent = 'Connect Exchange';
+
+            const bitgetImage  = document.getElementById('bitget-image');
+            const binanceImage = document.getElementById('binance-image');
+            const kucoinImage  = document.getElementById('kucoin-image');
+            if (bitgetImage)  bitgetImage.style.display  = 'none';
+            if (binanceImage) binanceImage.style.display = 'none';
+            if (kucoinImage)  kucoinImage.style.display  = 'none';
+
+            // Reset the submit button label
+            const submitButton = document.getElementById('submit-button');
+            if (submitButton) {
+                submitButton.innerHTML = 
+                    'Connect Exchange <img src="/images/lock.png" alt="Secure Submit" class="submit-lock-icon">';
             }
         });
     }
