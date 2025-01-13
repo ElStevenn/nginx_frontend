@@ -29,6 +29,17 @@ function getCookie(name) {
     return null;
 }
 
+function setCookie(name, value, days) {
+    try {
+      const d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = 'expires=' + d.toUTCString();
+      document.cookie = name + '=' + encodeURIComponent(value) + ';' + expires + ';path=/';
+    } catch (error) {
+      console.error("Error setting cookie:", error);
+    }
+}
+  
 
 function deleteCookie(name) {
     setCookie(name, "", -1);

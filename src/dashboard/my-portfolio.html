@@ -14,8 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="/scripts/main-scripts/globalProvider.js"></script>
-    <script src="/scripts/main-scripts/set-profile.js"></script>
+    <script src="/scripts/main-scripts/globalProvider.js" defer></script>
+    <script src="/scripts/main-scripts/set-profile.js" defer></script>
+    <script src="/scripts/user-dashboard/sidebar.js" defer></script>
     <script src="/scripts/user-dashboard/user-portfolio.js"></script>
     <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
     <script src="/scripts/dashboardDataHandler.js"></script>
@@ -116,70 +117,122 @@
     
         <!-- Main Layout Container -->
     <div class="main-layout">
-        <!-- Right Sidebar (Fixed) -->
         <aside class="sidebar">
-            <button class="toggle-button">Hide</button>
-
-            <!-- Group 1: Dashboard & Portfolio -->
-            <div class="sidebar-group">
+            <!-- Toggle Button with an ICON instead of text -->
+            <button class="toggle-button">
+              <img
+                src="/images/icons/next.png"
+                alt="Toggle Sidebar"
+              />
+            </button>
+        
+            <!-- Everything that needs to move down goes inside sidebar-content -->
+            <div class="sidebar-content">
+              <!-- Group 1: Dashboard & Portfolio -->
+              <div class="sidebar-group">
                 <button class="nav-button sidebar-selected">
-                    <img src="images/icons/dashboard-interface.png" alt="Dashboard Icon" class="sidebar-icon">
-                    <span class="nav-text">Dashboard</span>
+                  <img
+                    src="images/icons/dashboard-interface.png"
+                    alt="Dashboard Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Dashboard</span>
                 </button>
-                <button class="nav-button" onclick="window.location.href='/portfolio';">
-                    <img src="images/icons/pie-chart.png" alt="Portfolio Icon" class="sidebar-icon">
-                    <span class="nav-text">My Portfolio</span>
+                <button
+                  class="nav-button"
+                  onclick="window.location.href='/portfolio';"
+                >
+                  <img
+                    src="images/icons/pie-chart.png"
+                    alt="Portfolio Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">My Portfolio</span>
                 </button>
+              </div>
+        
+              <!-- Title for Trading -->
+              <h2><span class="nav-text">Trading</span></h2>
+        
+              <!-- Group 2: Trading-related items -->
+              <div class="sidebar-group">
+                <button class="nav-button">
+                  <img
+                    src="images/icons/robot.png"
+                    alt="Bot Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Arbitrage Bot</span>
+                  <span class="beta-label nav-text">BETA</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="images/icons/antenna.png"
+                    alt="Bot Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Signal Bot</span>
+                  <span class="new-label nav-text">NEW</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="images/icons/artificial-intelligence.png"
+                    alt="AI Strategy Bot Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">AI Strategy Bot</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="images/icons/statistics.png"
+                    alt="Grid Bot Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Grid Bot</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="images/icons/trading.png"
+                    alt="Smart Trade Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Smart Trade</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="/images/icons/analytics.png"
+                    alt="Smart Trade Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Markets</span>
+                </button>
+                <button class="nav-button">
+                  <img
+                    src="images/icons/shopping-cart.png"
+                    alt="Marketplace Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Marketplace</span>
+                </button>
+              </div>
+        
+              <!-- Title for Others -->
+              <h2><span class="nav-text">Others</span></h2>
+        
+              <!-- Group 3: Others -->
+              <div class="sidebar-group">
+                <button class="nav-button">
+                  <img
+                    src="images/icons/group.png"
+                    alt="Invite Friends Icon"
+                    class="sidebar-icon"
+                  />
+                  <span class="nav-text">Invite Friends</span>
+                </button>
+              </div>
             </div>
-
-            <!-- Title for Trading -->
-            <h2><span class="nav-text">Trading</span></h2>
-
-            <!-- Group 2: Trading-related items -->
-            <div class="sidebar-group">
-                <button class="nav-button">
-                    <img src="images/icons/robot.png" alt="Bot Icon" class="sidebar-icon">
-                    <span class="nav-text">Arbitrage Bot</span> 
-                    <span class="beta-label nav-text">BETA</span>
-                </button>
-                <button class="nav-button">
-                    <img src="images/icons/antenna.png" alt="Bot Icon" class="sidebar-icon">
-                    <span class="nav-text">Signal Bot</span> 
-                    <span class="new-label nav-text">NEW</span>
-                </button>
-                <button class="nav-button">
-                    <img src="images/icons/artificial-intelligence.png" alt="AI Strategy Bot Icon" class="sidebar-icon">
-                    <span class="nav-text">AI Strategy Bot</span>
-                </button>
-                <button class="nav-button">
-                    <img src="images/icons/statistics.png" alt="Grid Bot Icon" class="sidebar-icon">
-                    <span class="nav-text">Grid Bot</span>
-                </button>
-                <button class="nav-button">
-                    <img src="images/icons/trading.png" alt="Smart Trade Icon" class="sidebar-icon">
-                    <span class="nav-text">Smart Trade</span>
-                </button>
-                <button class="nav-button">
-                    <img src="/images/icons/analytics.png" alt="Smart Trade Icon" class="sidebar-icon">
-                    <span class="nav-text">Markets</span>
-                </button>
-                <button class="nav-button">
-                    <img src="images/icons/shopping-cart.png" alt="Marketplace Icon" class="sidebar-icon">
-                    <span class="nav-text">Marketplace</span>
-                </button>
-            </div>
-
-            <!-- Title for Others -->
-            <h2><span class="nav-text">Others</span></h2>
-
-            <!-- Group 3: Others -->
-            <div class="sidebar-group">
-                <button class="nav-button">
-                    <img src="images/icons/group.png" alt="Invite Friends Icon" class="sidebar-icon">
-                    <span class="nav-text">Invite Friends</span>
-                </button>
-            </div>
-        </aside>
+            <!-- /sidebar-content -->
+          </aside>
         
         <main class="main-content">
             <h1>My Portfolio</h1>
@@ -188,21 +241,5 @@
 
 
     <div id="overlay" class="overlay"></div>
-    <script>
-        document.querySelector('.toggle-button').addEventListener('click', function() {
-            const main_layout = document.getElementById('main-layout');
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('collapsed');
-        
-            // Change the button text
-            if (sidebar.classList.contains('collapsed')) {
-                this.textContent = 'Show';
-                main_layout.style = "margin-left: 3%;"
-            } else {
-                this.textContent = 'Hide';
-                main_layout.style = "margin-left: 16%;"
-            }
-        });
-    </script>
 </body>
 </html>

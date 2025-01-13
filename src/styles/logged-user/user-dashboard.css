@@ -18,42 +18,40 @@ a {
 
 /* Main Layout Container */
 .main-layout {
-    display: flex;
-    flex: 1;
-    background-color: #141414; /* Ensure dark background */
-    min-height: 100vh;
-    box-sizing: border-box;
-    transition: padding-left 0.5s, margin-top 0.5s; /* Slower transitions */
-    margin-top: 15px; /* DO NOT MODIFY THIS MOTHERFUCKER */
+  display: flex;
+  flex: 1;
+  background-color: #141414;
+  min-height: 100vh;
+  box-sizing: border-box;
+  
+  /* Remove the margin-top so it starts at the very top */
+  /* margin-top: 15px; */
 
-    /* Sidebar is fixed with width: 16%, handled by margin-left below */
-    margin-left: 16%;
-    padding: 20px; /* Padding around the main content */
-    transition: margin-left 0.3s;
+  padding: 20px;
+  transition: margin-left 0.3s;
 }
+
 
 /* Adjust main-layout when sidebar is collapsed */
 .main-layout.collapsed {
-    padding-left: 60px; /* Match collapsed sidebar width */
-    margin-left: 80px; /* Adjusted for collapsed sidebar */
-}
+    padding-left: 60px;
+    margin-left: 80px;
+  }
 
 /* Main Content Area */
 .main-content {
-    padding: 20px 40px; /* Increased horizontal padding */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow-y: auto; /* Allows vertical scrolling for main content */
-    flex: 1;
-    /* background-color: #1c1c1c; */ /* Ensure dark background */
-    transition: padding 0.5s; /* Slower transition */
-
-    /* Adjusted max-width for more side spacing */
-    max-width: 1100px; /* Reduced from 1200px to 1100px */
-    margin: 0 auto;
+  padding: 80px 40px 20px 40px; /* Top padding to offset the 65px header */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  flex: 1;
+  transition: padding 0.5s;
+  max-width: 1600px;
+  margin: 0 auto;
 }
+
 
 /* Dashboard Overview Section */
 .dashboard-overview {
@@ -424,8 +422,8 @@ a {
 .add-account-icon {
     width: 20px;
     height: 20px;
-    filter: none; /* Default orange icon */
-    transition: filter 0.3s ease, background 0.3s ease; /* Smooth transition */
+    filter: none; 
+    transition: filter 0.3s ease, background 0.3s ease;
 }
 
 .add-account-item {

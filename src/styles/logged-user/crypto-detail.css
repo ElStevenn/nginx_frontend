@@ -4,7 +4,7 @@ body {
     padding: 0;
     background-color: #121212;
     color: #e0e0e0;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     height: 100vh;
 }

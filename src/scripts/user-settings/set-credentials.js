@@ -112,6 +112,8 @@ async function validate_credentials(
         "ip": ip
     };
 
+    console.log("credentials being validated:", data);
+
     try {
         const response = await fetch(url, { 
             method: 'POST',
