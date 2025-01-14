@@ -48,7 +48,54 @@
       
       <!-- Gear Icon (Settings) -->
       <img src="/images/icons/setting.png" alt="Settings Icon" class="gear-icon" tabindex="0" role="button" aria-label="Settings" onclick="openSettings(event)" />
-  
+      <!-- Settings Menu -->
+      <div id="settings-menu" class="settings-menu">
+        <ul class="settings-links">
+          <!-- LANGUAGE -->
+          <li>
+            <span>Language</span>
+            <select class="menu-select" id="language-select">
+              <option value="en">English (EN)</option>
+              <option value="es">Español (ES)</option>
+              <option value="fr">Français (FR)</option>
+              <option value="de">Deutsch (DE)</option>
+              <option value="zh">中文 (ZH)</option>
+            </select>
+          </li>
+      
+          <!-- CURRENCY -->
+          <li>
+            <span>Currency</span>
+            <select class="menu-select" id="currency-select">
+              <option value="usd">USD</option>
+              <option value="btc">BTC</option>
+              <option value="eur">EUR</option>
+              <option value="mxn">MXN</option>
+              <option value="gbp">GBP</option>
+            </select>
+          </li>
+      
+          <!-- DARK MODE -->
+          <li>
+            <span>Dark Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="dark-mode-toggle" />
+              <span class="slider round"></span>
+            </label>
+          </li>
+      
+          <!-- NOTIFICATION ORDER -->
+          <li>
+            <span>Notifications</span>
+            <select class="menu-select" id="notification-order">
+              <option value="recent">Most Recent</option>
+              <option value="unread">Unread First</option>
+              <option value="priority">Priority</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      
       <!-- Notification Icon -->
       <img src="/images/icons/notification.png" alt="Notification Icon" class="notification-icon" tabindex="0" role="button" aria-label="Notifications" />
   
@@ -75,7 +122,7 @@
             Settings
           </li>
           <li onclick="log_out(event)">
-            <img src="/images/icons/exit.png" alt="Logout Icon" class="menu-icon" />
+            <img src="/images/icons/logout.png" alt="Logout Icon" class="menu-icon" />
             Sign Out
           </li>
           <hr />
