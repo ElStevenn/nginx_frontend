@@ -113,13 +113,13 @@ a {
 }
 
 /* Navigation menu styles */
-.settings-menu {
+.settings-menu-left-pane {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.settings-menu li {
+.settings-menu-left-pane li {
     padding: 10px 0 10px 20px;
     cursor: pointer;
     color: #e0e0e0;
@@ -130,34 +130,34 @@ a {
     margin-top: 3px;
 }
 
-.settings-menu li:not(:last-child) {
+.settings-menu-left-pane li:not(:last-child) {
     border-radius: 5px;
 }
 
-.settings-menu li img {
+.settings-menu-left-pane li img {
     margin-right: 10px;
     width: 18px;
     height: 18px;
     filter: invert(70%);
 }
 
-.settings-menu li:hover {
+.settings-menu-left-pane li:hover {
     background-color: #2e2e2e;
 }
 
-.settings-menu li.active {
+.settings-menu-left-pane li.active {
     background-color: #313131;
     color: #fff;
     border-left: 4px solid #000aff; 
     padding-left: 16px;
 }
 
-.settings-menu li:first-child {
+.settings-menu-left-pane li:first-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-.settings-menu li:last-child {
+.settings-menu-left-pane li:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -405,12 +405,6 @@ button.edit-profile-pic-button:hover {
     border-color: #42a5f5; 
 }
 
-.email-select-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%; /
-}
 
 .remove-email {
     margin-right: 70px;

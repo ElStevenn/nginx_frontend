@@ -2,7 +2,7 @@
 // Everything about user settings here, the screen user settings has to be here
 
 
-async function get_whole_profile() {
+async function get_whole_settings() {
     let credentials = getCookie("credentials");
     if (!credentials) {
         console.error("No credentials found");
@@ -11,7 +11,7 @@ async function get_whole_profile() {
     }
     credentials = credentials.replace(/^"(.*)"$/, '$1');
 
-    const url = globalAPI + "/user/detailed-profile"
+    const url = globalAPI + "/user/configuration"
     const headers = {
         "accept": "application/json",
         "Authorization": credentials
@@ -37,13 +37,19 @@ async function get_whole_profile() {
 
 
 async function set_user_profile() {
-    const user_data = await get_whole_profile();
+    const user_data = await get_whole_settings();
 
     // Fetch static values to HTML
     var user_picture1 = document.getElementById('current-profile-pic');
     var user_picture2 = document.getElementById('user-profile-picture');
     var user_username = document.getElementById('user-name-main');
     var user_fullname = document.getElementById('full-name-main');
+    var email_imput = document.getElementById('email-input');
+
+    // dark_mode
+    // language
+    // notifications
+    // currency
 
     function setImageWithFallback(imageElement, imageUrl, fallbackUrl) {
         const cacheBustedUrl = `${imageUrl}?t=${new Date().getTime()}`;
@@ -74,10 +80,13 @@ async function set_user_profile() {
         user_fullname.textContent = user_data['name'];
     }
 
+    if (user_email) {
+        user_email.textContent = user_data['email'];
+    }
+
     // Fetch inputs to HTML
     var input_first_name = document.getElementById('first-name');
     var input_surname = document.getElementById('surname');
-    var textarea_bio = document.getElementById('bio-input');
     var input_url = document.getElementById('url-input');
     var location = document.getElementById('location');
     var select_trading_experience = document.getElementById('trading-experience');
@@ -85,36 +94,9 @@ async function set_user_profile() {
     // Ensure elements exist before assigning values
     if (input_first_name) input_first_name.value = user_data['name'];
     if (input_surname) input_surname.value = user_data['surname'];
-    if (textarea_bio) textarea_bio.value = user_data['bio'] || '';
     if (input_url) input_url.value = user_data['webpage_url'] || '';
     if (location) location.value = user_data['location'] || '';
     if (select_trading_experience) select_trading_experience.value = user_data['trading_experience'] || 'none-selected';
-
-    // Set user public email and populate available emails
-    var email_select = document.getElementById('public-email');
-    var available_emails = user_data['avariable_emails'] || [];
-    var public_email = user_data['public_email'];
-
-    if (email_select) {
-        email_select.innerHTML = '<option value="non-selected-value">Select a verified email to display</option>';
-        
-        // Add available emails to the select
-        available_emails.forEach(email => {
-            const option = document.createElement('option');
-            option.value = email;
-            option.textContent = email;
-            if (email === public_email) {
-                option.selected = true;
-            }
-
-            email_select.appendChild(option);
-        });
-
-        // If no public email is selected, keep the default option (non-selected-value)
-        if (!public_email) {
-            email_select.value = "non-selected-value"; 
-        }
-    }
 }
 
 
@@ -130,11 +112,15 @@ async function update_user_profile(event) {
     // Collect form data
     var input_first_name = document.getElementById('first-name').value.trim() || '';
     var input_surname = document.getElementById('surname').value.trim() || '';
-    var textarea_bio = document.getElementById('bio-input').value.trim() || '';
     var input_url = document.getElementById('url-input').value.trim() || '';
     var location = document.getElementById('location').value.trim() || '';
     var select_trading_experience = document.getElementById('trading-experience').value || '';
     var selected_email = document.getElementById('public-email').value || '';
+
+    // dark_mode
+    // language
+    // notifications
+    // currency
 
     // If the selected value is 'non-selected-value', set selected_email to null
     if (selected_email === 'non-selected-value') {
@@ -143,13 +129,6 @@ async function update_user_profile(event) {
 
     const data = {
         "name": input_first_name,
-        "surname": input_surname,
-        "webpage_url": input_url || null,
-        "bio": textarea_bio || null,
-        "main_used_exchange": null,
-        "trading_experience": select_trading_experience || null,
-        "location": location || null,
-        "public_email": selected_email 
     };
 
     let credentials = getCookie("credentials");

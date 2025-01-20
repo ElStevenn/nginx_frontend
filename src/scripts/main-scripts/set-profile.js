@@ -1,8 +1,8 @@
- /****************************************************
-   *      HEADER MENU LOGIC (WITHOUT LIST MENU)
-   ****************************************************/
+/************************************
+ *      HEADER MENU 
+ ************************************/
 
- function toggleMenu1(event) {
+function toggleMenu1(event) {
   event.stopPropagation();
   var profileMenu = document.getElementById('profile-menu');
 
@@ -91,22 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      const user_username = document.getElementById('user-username');
-      const user_username2 = document.getElementById('user-username2');
+      // Fetch the elements in the UI
+      const user_name = document.getElementById('user-name');
+      const user_email = document.getElementById('user-email');
 
-      if (user_username && user_username2) {
-        user_username.textContent = `${user_data['username']}`;
-        user_username2.textContent = `@${user_data['username']}`;
+      // Assign username and email from the API response
+      if (user_name && user_email) {
+        user_name.textContent = user_data['username'];    // or user_data['name'] if desired
+        user_email.textContent = user_data['email'];
       }
 
-      const given_name = document.getElementById('given_name');
-      const given_name2 = document.getElementById('given_name2');
-
-      if (given_name && given_name2) {
-        given_name.textContent = user_data['name'];
-        given_name2.textContent = user_data['name'];
-      }
-
+      // Profile pictures (optional, if these elements exist on your page)
       const profile_picture1 = document.getElementById('profile-icon1');
       const profile_picture2 = document.getElementById('profile-icon2');
       const profile_picture3 = document.getElementById('profile-icon3');
@@ -117,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         profile_picture3.src = user_data['url_picture'];
       }
     } catch (error) {
-      // Already handled in get_user_data
+      console.error("Error fetching user data:", error.message);
     }
   }
 
@@ -134,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Close the menu when clicking outside of it
   document.addEventListener('click', function(event) {
     var profileMenu = document.getElementById('profile-menu');
+    if (!profileMenu) return;
+
     var clickInsideProfileMenu = profileMenu.contains(event.target);
     var isProfileMenuOpen = profileMenu.classList.contains('show');
 
@@ -156,31 +153,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Toggle the Settings Menu
 function openSettings(event) {
-event.stopPropagation(); // Prevent clicks on the icon from closing it immediately
-const settingsMenu = document.getElementById('settings-menu');
-settingsMenu.classList.toggle('show');
+  event.stopPropagation(); // Prevent clicks on the icon from closing it immediately
+  const settingsMenu = document.getElementById('settings-menu');
+  settingsMenu.classList.toggle('show');
 }
 
 // Close the menu when clicking outside or pressing ESC
 window.addEventListener('click', function(e) {
-const settingsMenu = document.getElementById('settings-menu');
-const gearIcon = document.querySelector('.gear-icon');
+  const settingsMenu = document.getElementById('settings-menu');
+  const gearIcon = document.querySelector('.gear-icon');
 
-// If menu is open and the click is outside both menu & gear icon
-if (
-  settingsMenu.classList.contains('show') &&
-  !settingsMenu.contains(e.target) &&
-  e.target !== gearIcon
-) {
-  settingsMenu.classList.remove('show');
-}
+  // If menu is open and the click is outside both menu & gear icon
+  if (
+    settingsMenu.classList.contains('show') &&
+    !settingsMenu.contains(e.target) &&
+    e.target !== gearIcon
+  ) {
+    settingsMenu.classList.remove('show');
+  }
 });
 
 document.addEventListener('keydown', function(e) {
-if (e.key === 'Escape' || e.key === 'Esc') {
-  const settingsMenu = document.getElementById('settings-menu');
-  if (settingsMenu.classList.contains('show')) {
-    settingsMenu.classList.remove('show');
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    const settingsMenu = document.getElementById('settings-menu');
+    if (settingsMenu.classList.contains('show')) {
+      settingsMenu.classList.remove('show');
+    }
   }
-}
 });

@@ -141,7 +141,7 @@ server {
         try_files $uri $uri/ /dashboard/crypto-detail.html =404;
     }
 
-    location /terms {
+    location /terms-policies {
         try_files $uri /privacy-/terms.html =404;
     }
 

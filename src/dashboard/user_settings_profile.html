@@ -29,95 +29,130 @@
 </head>
 <body>
     <header class="header">
+        <!-- Left Section: Logo and Brand Name -->
         <a href="/dashboard" class="header-left" id="header-left-side">
-            <img src="/images/thumnails/logo.png" alt="Fundy Logo">
-            <h1>Fundy</h1>
+            <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo">
+            <h1 class="logo-text">Fundy</h1>
         </a>
-
-        <div class="header-right">
+        
+        <!-- Center Section: Search Bar -->
+        <div class="header-center">
             <!-- Search Bar with Icon -->
             <div class="search-container">
-                <img src="/images/search.png" alt="Search Icon" id="search-icon" class="search-icon">
-                <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off">
-                <div id="search-results" class="search-results hidden"></div>
+            <img src="/images/search.png" alt="Search Icon" class="search-icon">
+            <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off"/>
+            <div id="search-results" class="search-results hidden"></div>
             </div>
+        </div>
+        
+        <!-- Right Section: Gear, Notification, and User Icons -->
+        <div class="header-right">
 
-            <img src="/images/bell.png" alt="Theme Toggle Icon">
-            <img src="/images/list.png" alt="Menu Icon" onclick="toggleMenu2(event)">
-
-            <!-- List Menu -->
-            <div id="list-menu" class="list-menu">
-                <img src="/images/close.png" alt="Close Button" class="close-button" onclick="closeMenus(event)">
-                <div class="profile-container">
-                    <img src="/images/account.png" alt="User Icon" class="profile-picture" id="profile-icon1" style="filter: none; border-radius: 50%;">
-                    <div class="profile-text">
-                        <span class="profile-username" style="margin-bottom: -10px;"><b id="user-username">@Username</b></span>
-                        <p class="profile-name-surname" id="given_name">Name Surname</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="mini-section">
-                    <img src="/images/icons/cryptocurrency.png" alt="Icon">
-                    <span class="profile-text">Markets</span>
-                </div>
-                <div class="mini-section">
-                    <img src="/images/butt.png" alt="Icon">
-                    <span class="profile-text">Become a trader</span>
-                    <img src="/images/free.png" alt="Icon" style="margin-top: 1px; margin-left: 30px;">
-                </div>
-                <div class="mini-section">
-                    <img src="/images/subscription-business-model.png" alt="Icon">
-                    <span class="profile-text">Choose Your Plan</span>
-                </div>
-                <div class="mini-section">
-                    <img src="/images/reading-book.png" alt="Icon">
-                    <span class="profile-text">Learn how it works</span>
-                </div>
-                <div class="mini-section">
-                    <img src="/images/approve.png" alt="Icon">
-                    <span class="profile-text">Documentation</span>
-                </div>
-                <hr>
-                <a href="/settings/profile">
-                    <div class="mini-section">
-                        <img src="/images/settings.png" alt="Icon">
-                        <span class="profile-text">Settings</span>
-                    </div>
-                </a> 
-                <div class="mini-section">
-                    <img src="/images/share.png" alt="Icon">
-                    <span class="profile-text">Try this</span>
-                </div>
-                <div class="mini-section">
-                    <img src="/images/analysis.png" alt="Icon">
-                    <span class="profile-text">See other services</span>
-                </div>
+            <button class="promotion-button">
+            <span>Upgrade Now</span>
+            <img src="/images/icons/rocket-lunch.png" alt="Promotion Icon"/>
+            </button>
+            
+            <!-- Gear Icon (Settings) -->
+            <img src="/images/icons/setting.png" alt="Settings Icon" class="gear-icon" tabindex="0" role="button" aria-label="Settings" onclick="openSettings(event)" />
+            <!-- Settings Menu -->
+            <div id="settings-menu" class="settings-menu">
+                <ul class="settings-links">
+                    <!-- LANGUAGE -->
+                    <li>
+                    <span>Language</span>
+                    <select class="menu-select" id="language-select">
+                        <option value="en">English (EN)</option>
+                        <option value="es">Español (ES)</option>
+                        <option value="fr">Français (FR)</option>
+                        <option value="de">Deutsch (DE)</option>
+                        <option value="zh">中文 (ZH)</option>
+                    </select>
+                    </li>
+                
+                    <!-- CURRENCY -->
+                    <li>
+                    <span>Currency</span>
+                    <select class="menu-select" id="currency-select">
+                        <option value="usd">USD</option>
+                        <option value="btc">BTC</option>
+                        <option value="eur">EUR</option>
+                        <option value="mxn">MXN</option>
+                        <option value="gbp">GBP</option>
+                    </select>
+                    </li>
+                
+                    <!-- DARK MODE -->
+                    <li>
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="dark-mode-toggle" />
+                        <span class="slider round"></span>
+                    </label>
+                    </li>
+                
+                    <!-- NOTIFICATION ORDER -->
+                    <li>
+                    <span>Notifications</span>
+                    <select class="menu-select" id="notification-order">
+                        <option value="recent">Most Recent</option>
+                        <option value="unread">Unread First</option>
+                        <option value="priority">Priority</option>
+                    </select>
+                    </li>
+                </ul>
             </div>
-
-            <img src="/images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
-
-            <!-- Mini menu for the user -->
+            
+            <!-- Notification Icon -->
+            <img src="/images/icons/notification.png" alt="Notification Icon" class="notification-icon" tabindex="0" role="button" aria-label="Notifications" />
+        
+            <!-- User Icon -->
+            <img src="/images/icons/user.png" alt="User Icon" class="user-icon" onclick="toggleMenu1(event)" id="profile-icon3" tabindex="0" role="button" aria-label="User Profile" />
+            
+           <!-- Submenu for the user -->
             <div id="profile-menu" class="profile-menu">
-                <div class="profile-header" style="display: flex; align-items: center;">
-                    <img src="/images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
-                    <div>
-                        <span class="profile-name" style="font-size: 16px; font-weight: bold;" id="user-username2">@Username</span>
-                        <p style="font-size: 14px; margin: 0;" id="given_name2">Name Surname</p>
-                    </div>
-                </div>                
-                <hr>
+                <div class="profile-header">
+                <img src="/images/icons/account.png" alt="User Icon" class="profile-picture"/>
+                <div class="profile-info">
+                    <p class="profile-name" id="user-name">Loading...</p>
+                    <span class="profile-email" id="user-email">Loading...</span>
+                </div>
+                </div>
+                <hr />
                 <ul class="menu-links">
-                    <li><img src="/images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
-                    <li><img src="/images/icons/transfer.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Transfer Assets</li>
-                    <li onclick="log_out(event)"><img src="/images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
-                    <hr>
-                    <li><a href="/terms"> <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
-                    <li><img src="/images/help.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Help </li>
+                <li onclick="window.location.href='/settings/profile';">
+                    <img src="/images/icons/user2.png" alt="Profile Icon" class="menu-icon" />
+                    User Profile
+                </li>
+                <li onclick="window.location.href='/settings/preferences';">
+                    <img src="/images/icons/preferences.png" alt="Settings Icon" class="menu-icon"/>
+                    Preferences
+                </li>
+                <li onclick="window.location.href='/settings/billing';">
+                    <img src="/images/icons/billing_plan.png" alt="Billing & Plans Icon" class="menu-icon"/>
+                    Billing & Plans
+                    <img src="/images/icons/free.png" alt="More Info Icon" class="menu-icon-right"/>
+                </li>
+                <li onclick="log_out(event)">
+                    <img src="/images/icons/logout.png" alt="Logout Icon" class="menu-icon" />
+                    Sign Out
+                </li>
+                <hr />
+                <li>
+                    <a href="/terms" class="menu-link">
+                    <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" />
+                    Terms &amp; Policies
+                    </a>
+                </li>
+                <li>
+                    <img src="/images/icons/help.png" alt="Help Icon" class="menu-icon" />
+                    Help
+                </li>
                 </ul>
             </div>
         </div>
     </header>
-    
+
     <div id="notification-bar" class="notification-bar">
         <p id="notification-message">Your profile has been updated successfully!</p>
         <span id="close-notification" class="close-notification">&times;</span>
@@ -129,7 +164,7 @@
         <div id="leftPane">
             <!-- User Summary -->
             <div class="profile-summary">
-                <img src="/images/account.png" alt="User Profile picture" id="user-profile-picture">
+                <img src="/images/icons/user2.png" alt="User Profile picture" id="user-profile-picture">
                 <div class="user-info">
                     <span class="username" id="user-name-main">@Username</span>
                     <span class="fullname" id="full-name-main">Name Surname</span>
@@ -138,12 +173,12 @@
             
             <hr class="left-pane-hr">
             <!-- Navigation Menu -->
-            <ul class="settings-menu">
-                <li data-section="profile" onclick="showSection('profile', event)"><img src="/images/user_profile.png" alt="Profile Icon">Profile</li>
-                <li data-section="account" onclick="showSection('account', event)"><img src="/images/account.png" alt="Account Icon">Account</li>
-                <li data-section="appearance" onclick="showSection('appearance', event)"><img src="/images/paint-brush.png" alt="Appearance Icon">Appearance</li>
-                <li data-section="billing" onclick="showSection('billing', event)"><img src="/images/billing_plan.png" alt="Billing Icon">Billing & Plans</li>
-                <li data-section="api" onclick="showSection('api', event)"><img src="/images/api.png" alt="API Icon">API Connections</li>
+            <ul class="settings-menu-left-pane">
+                <li data-section="profile" onclick="showSection('profile', event)"><img src="/images/icons/user2.png" alt="Profile Icon">Profile</li>
+                <li data-section="account" onclick="showSection('preferences', event)"><img src="/images/icons/preferences.png" alt="Preferences Icon">Preferences</li>
+                <li data-section="billing" onclick="showSection('billing', event)"><img src="/images/icons/billing_plan.png" alt="Billing Icon">Billing & Plans</li>
+                <li data-section="appearance" onclick="showSection('security', event)"><img src="/images/icons/verified.png" alt="Appearance Icon">Security(2FA)</li>
+                <li data-section="api" onclick="showSection('api', event)"><img src="/images/icons/api.png" alt="API Icon">API Connections</li>
             </ul>                     
         </div>
 
@@ -170,12 +205,13 @@
                     <div class="form-group">
                         <label for="first-name">Name</label>
                         <input type="text" id="first-name" name="first-name" placeholder="Enter your first name">
-                        <p class="label-description">Your name may apear in Trade Visionary  where you contribute or are mentioned. You can remove it at any time.</p>
+                        <p class="label-description">Your name appear in your public profile.</p>
                     </div>
+                   
                     <div class="form-group">
-                        <label for="surname">Surname</label>
-                        <input type="text" id="surname" name="surname" placeholder="Enter your surname">
-                        <p class="label-description">Your surname will stay here, even if you update your Google Account.</p>
+                        <label for="email">Email</label>
+                        <input type="email" id="email-input" name="email" readonly>
+                        <p class="label-description">This is the email registered in Fundy, cannot be changed.</p>
                     </div>
            
                     <div class="form-group">
@@ -187,15 +223,9 @@
                             <a href="#" class="remove-email">X Remove</a>  
                         </div>
                         <p>You can add new emails adding new trading accounts <a href="#" style="color: #42a5f5;">here</a>.</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea id="bio-input" name="bio" rows="3"></textarea>
-                        <p class="label-description">Write a short description about yourself, it'll apear in your profile</p>
-                    </div>                
+                    </div>           
 
-                    <h2>Profile settings</h2>
+                    <h2>Activity Logs</h2>
                     <hr>
 
                     <div class="form-group">
@@ -209,6 +239,8 @@
                         <select id="main-used-exchange" name="used-exchange">
                             <option value="Bitget">Bitget</option>
                             <option value="Binance">Binance</option>
+                            <option value="Kucoin">Kucoin</option>
+                            <option value="Okx">OKX</option>
                         </select>
                         <p>Select the exchange you use.</p>
                     </div>
@@ -233,11 +265,37 @@
                     </div>
         
                     <button type="submit" onclick="update_user_profile(event)">Update Profile</button>
+
+                    <h2 style="margin-top: 40px; color: #f85149;">Delete Account</h2>
+                <hr>
+                <p class="label-description">Once you delete your account, all data associated with it will be permanently deleted, and it cannot be recovered.</p>
+                
+                <button class="delete-account-button">Delete your account</button>
+                <p class="label-description-b">If you delete your account you will not be able <a href="#">recover it</a>.</p>
+                <div id="delete-confirmation" class="confirm-dialog-bg" style="display:none;">
+                    <div class="confirm-dialog">
+                        <h3>Really want to delete your account?</h3>
+                        <div class="warning-section">
+                            <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
+                            <span>Failed to authenticate with the given credentials</span>
+                        </div>
+                        <ul class="delete-warnings-list">
+                            <li>Your account data will be deleted within 30-90 days.</li>
+                            <li>All your personal information will be removed from our servers.</li>
+                            <li>You will lose access to all your trading bots.</li>
+                            <li>We will not set up redirects for your profile or your bots.</li>
+                            <li>Your username will be available for others to use after deletion.</li>
+                        </ul>
+                
+                        <button class="confirm-delete-button" onclick="delete_user_full_account(event)">I undersand, delete my account</button>
+                        <button class="cancel-delete-button">Cancel</button>
+                    </div>
+                </div>
                 </form>
             </div>
 
             <!-- Account Section -->
-            <div id="account" class="settings-section">
+            <div id="preferences" class="settings-section">
                 <h2>Change Username</h2>
                 <hr>
                 <p class="label-description-b">Changing your username can have <a href="#">unintended side effects</a>.</p>
@@ -265,40 +323,16 @@
                         <button class="clasic-config-button" onclick="openCredentialsWindow()">Add account</button>
                     </div>
                 </div>
-                <h2 style="margin-top: 40px; color: #f85149;">Delete Account</h2>
-                <hr>
-                <p class="label-description">Once you delete your account, all data associated with it will be permanently deleted, and it cannot be recovered.</p>
-                
-                <button class="delete-account-button">Delete your account</button>
-                <p class="label-description-b">If you delete your account you will not be able <a href="#">recover it</a>.</p>
-                <div id="delete-confirmation" class="confirm-dialog-bg" style="display:none;">
-                    <div class="confirm-dialog">
-                        <h3>Really want to delete your account?</h3>
-                        <div class="warning-section">
-                            <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
-                            <span>Failed to authenticate with the given credentials</span>
-                        </div>
-                        <ul class="delete-warnings-list">
-                            <li>Your account data will be deleted within 30-90 days.</li>
-                            <li>All your personal information will be removed from our servers.</li>
-                            <li>You will lose access to all your trading bots.</li>
-                            <li>We will not set up redirects for your profile or your bots.</li>
-                            <li>Your username will be available for others to use after deletion.</li>
-                        </ul>
-                
-                        <button class="confirm-delete-button" onclick="delete_user_full_account(event)">I undersand, delete my account</button>
-                        <button class="cancel-delete-button">Cancel</button>
-                    </div>
-                </div>
                 
             </div>    
-            <div id="appearance" class="settings-section">
-                <h2>Apperance Section (Not added yet)</h2>
-                <hr>
-            </div>
        
             <div id="billing" class="settings-section">
                 <h2>Billing & Plans Section (Not added yet)</h2>
+                <hr>
+            </div>
+
+            <div id="security" class="settings-section">
+                <h2>Security (2FA)Section (Not added yet)</h2>
                 <hr>
             </div>
 

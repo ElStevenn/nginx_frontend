@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         credentials = credentials.replace(/^"(.*)"$/, '$1');
-        const url = `${globalAPI}/search/cryptos`;
+        const url = `${globalAPI}/user/search/cryptos`;
         const headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",

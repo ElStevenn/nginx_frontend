@@ -167,11 +167,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // If the URL ends with 'settings' or is empty, default to 'profile'
     if (currentSection === 'settings' || currentSection === '') {
+        console.log("Current section is 'settings' or empty, defaulting to 'profile'");
         currentSection = 'profile';
     }
 
     // Query the corresponding menu item
     const currentMenuItem = document.querySelector(`.settings-menu li[data-section="${currentSection}"]`);
+    console.log("Current menu item:", currentMenuItem);
 
     // If it exists, add the 'active' class to highlight the correct section
     if (currentMenuItem) {
@@ -210,7 +212,3 @@ function showSection(sectionId, event) {
         selectedMenuItem.classList.add('active');
     }
 }
-
-/* ----------------------- */
-/* New code ends here      */
-/* ----------------------- */
