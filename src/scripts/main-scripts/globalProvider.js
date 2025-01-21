@@ -57,6 +57,15 @@ function linkify(text) {
     });
 }
 
+function setImageWithFallback(imageElement, imageUrl, fallbackUrl) {
+    const cacheBustedUrl = `${imageUrl}?t=${new Date().getTime()}`;
+    imageElement.src = cacheBustedUrl;
+    imageElement.onerror = () => {
+        console.warn("Image failed to load, using fallback.");
+        imageElement.src = fallbackUrl;
+    };
+}
+
 // Show errors
 function show403Error() {
     document.body.innerHTML = `

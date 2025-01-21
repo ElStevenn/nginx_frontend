@@ -51,23 +51,14 @@ async function set_user_profile() {
     // notifications
     // currency
 
-    function setImageWithFallback(imageElement, imageUrl, fallbackUrl) {
-        const cacheBustedUrl = `${imageUrl}?t=${new Date().getTime()}`;
-        imageElement.src = cacheBustedUrl;
-        imageElement.onerror = () => {
-            console.warn("Image failed to load, using fallback.");
-            imageElement.src = fallbackUrl;
-        };
-    }
-
     if (user_picture1 && user_data['url_picture']) {
-        setImageWithFallback(user_picture1, user_data['url_picture'], '/images/user_default.png');
+        setImageWithFallback(user_picture1, user_data['url_picture'], '/images//icons/user_default.png');
     } else {
         user_picture1.src = '/images/user_default.png';
     }
 
     if (user_picture2 && user_data['url_picture']) {
-        setImageWithFallback(user_picture2, user_data['url_picture'], '/images/user_default.png');
+        setImageWithFallback(user_picture2, user_data['url_picture'], '/images/icons/user_default.png');
     } else {
         user_picture2.src = '/images/user_default.png';
     }
