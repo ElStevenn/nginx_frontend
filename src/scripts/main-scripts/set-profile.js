@@ -161,8 +161,6 @@ async function function_fetc_data_header() {
       user_email.textContent = userData.email;
     }
 
-    console.log("user data", userData.url_picture)
-
   if (profile_picture) {  
     profile_picture.src = userData.url_picture;
     // setImageWithFallback(profile_picture, userData.url_picture, '/images/icons/user_default.png');
