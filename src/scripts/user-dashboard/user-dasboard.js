@@ -81,6 +81,7 @@ async function get_balance_overview(account_id = 'all') {
 
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
     // Grab main content and a loading overlay restricted to that area
     const mainContent = document.querySelector('.main-content');
@@ -595,7 +596,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * Opens the "Add Account" modal or page.
      */
     function openAddAccountModal() {
-        alert('Add Account functionality to be implemented.');
+        window.open(
+            `/settings/set_credentials`,
+            `tinyWindow_${Date.now()}`,
+            'width=700,height=700,top=100,left=200'
+        );
     }
 
     /**
