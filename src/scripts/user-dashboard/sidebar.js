@@ -87,6 +87,7 @@ function initSidebarState() {
   const isCollapsed = getCookie('sidebarCollapsed') === 'true';
   console.log(`Sidebar collapsed state from cookie: ${isCollapsed}`);
 
+  // I WANT TO REMOVE THIS, THIS IS WRONG, USE MARGIN IS WRONG!!! IT IS WRONG!! THE MARGIN MUST BE WITH THE SIDEBAR NOT WITH THE BORDER ORF THE SCREEN!!!
   if (isCollapsed) {
     sidebar.classList.add('collapsed');
     toggleIcon.classList.add('rotated');
@@ -96,17 +97,13 @@ function initSidebarState() {
   } else {
     sidebar.classList.remove('collapsed');
     toggleIcon.classList.remove('rotated');
-    mainLayout.style.marginLeft = '16%'; // Ensure this is intended
+    mainLayout.style.marginLeft = '250px'; // THIS IS WHAT YOU MUST MODIFY, THIS IS R
     toggleButton.style.padding = '6px 9px 4px 6px';
     console.log('Sidebar expanded. mainLayout margin-left set to 16%.');
   }
 }
 
-/**
- * onToggleSidebar()
- * - Called whenever user clicks the toggle button
- * - Toggles the collapsed state + writes new value to cookie
- */
+
 function onToggleSidebar() {
   const width = window.innerWidth;
   if (width < 950) {
@@ -129,7 +126,7 @@ function onToggleSidebar() {
     toggleIcon.classList.add('rotated');
     console.log('Sidebar collapsed. mainLayout margin-left set to 80px.');
   } else {
-    mainLayout.style.marginLeft = '16%';
+    mainLayout.style.marginLeft = '15%';
     toggleButton.style.padding = '6px 9px 4px 6px';
     toggleIcon.classList.remove('rotated');
     console.log('Sidebar expanded. mainLayout margin-left set to 16%.');

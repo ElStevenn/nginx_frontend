@@ -29,7 +29,6 @@ async function get_accounts() {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("Accounts:", data);
 
     // Store fetched accounts in cookies for future use
     setCookie("accounts", JSON.stringify(data), 7);
@@ -81,7 +80,6 @@ async function get_balance_overview(account_id = 'all') {
 
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
     // Grab main content and a loading overlay restricted to that area
     const mainContent = document.querySelector('.main-content');
@@ -109,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const change24_percentage = document.getElementById('change24_percentage');
     const child_account_balance = document.querySelector('.account-balance');
 
-    // We'll store the entire balance object here (including .accounts array) 
+    // We'll store the entire balance object here (including .accounts array)
     // so we can update UI when switching accounts
     let user_balance = null;
     let isSubmenuVisible = false;
@@ -133,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     async function initPage() {
         const selectedAccountId = getCookie('selected_account') || 'all';
-        console.log(`Initial selected account ID: ${selectedAccountId}`);
 
         // 1) Fetch the overall balance (which also includes user_balance.accounts)
         user_balance = await get_balance_overview();
@@ -162,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3) Fetch all accounts only once
         try {
             accountsGlobal = await get_accounts();
-            console.log("Fetched accounts -> ", accountsGlobal);
         } catch (error) {
             console.error("Error fetching accounts:", error);
             accountsGlobal = null; 
@@ -188,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Adjusts the UI for the selected account using accountsGlobal 
+     * Adjusts the UI for the selected account using accountsGlobal
      * (purely for setting the icon + name).
      */
     function handleSelectedAccountUI(selectedAccountId) {
@@ -511,10 +507,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Switches the account, updates the UI, and updates displayed balances.
+     * => This is where we forcibly close the submenu by calling hideSubmenu().
      */
     function switchAccount(accountId, accountName) {
+        // Force submenu closed
         hideSubmenu();
-        console.log(`Account switched to: ${accountName} (ID: ${accountId})`);
 
         // Update the UI
         accountNameElement.textContent = accountName;
@@ -629,7 +626,6 @@ document.addEventListener('DOMContentLoaded', () => {
         d.setTime(d.getTime() + (days*24*60*60*1000));
         const expires = "expires="+ d.toUTCString();
         document.cookie = `${name}=${value}; ${expires}; path=/`;
-        console.log(`Cookie set: ${name}=${value}`);
     }
 
     // Toggling/hiding submenu
@@ -648,14 +644,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         if (isSubmenuVisible && !submenu.contains(e.target) && !portfolioOverview.contains(e.target)) {
             hideSubmenu();
-            console.log('Submenu closed by clicking outside');
         }
     });
 
     document.addEventListener('keydown', (e) => {
         if (isSubmenuVisible && e.key === 'Escape') {
             hideSubmenu();
-            console.log('Submenu closed by Escape key');
         }
     });
 

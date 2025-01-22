@@ -56,12 +56,12 @@ a {
 /* Dashboard Overview Section */
 .dashboard-overview {
     display: flex;
-    flex-wrap: nowrap; /* Prevent items from wrapping */
-    justify-content: center; /* Center the overview boxes */
+    flex-wrap: nowrap; 
+    justify-content: center; 
     gap: 20px;
-    margin: 25px 30px;
-    overflow: visible; /* Allow overflow to show submenu */
-    position: relative; /* Ensure submenu is positioned relative to this container */
+    padding: 25px 30px;
+    overflow: visible;
+    position: relative;
 }
 
 /* Generic Overview Box Styles */
@@ -322,7 +322,7 @@ a {
     margin-left: 0 !important;
     padding-left: 0 !important;
     width: 100% !important;
-    display: block !important; 
+    display: flex !important; 
 }
 
 /* Center the .main-content Within Nested .main-layout */
