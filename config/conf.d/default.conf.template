@@ -83,7 +83,7 @@ server {
         if ($is_authenticated = 0) {
             return 302 /login;
         }
-        try_files $uri /dashboard/user_settings_profile.html;
+        try_files $uri /dashboard/user_settings.html;
     }
 
     location /dashboard {

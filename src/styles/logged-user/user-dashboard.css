@@ -40,7 +40,7 @@ a {
 
 /* Main Content Area */
 .main-content {
-  padding: 80px 40px 20px 40px; /* Top padding to offset the 65px header */
+  padding: 45px 40px 20px 40px; /* Top padding to offset the 65px header */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -443,4 +443,34 @@ a {
 
 .add-account-item:hover {
     background: #e98630; 
+}
+
+
+/*Loading bar*/
+.loading-overlay {
+    position: absolute; /* now absolute within .main-content */
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* over everything in main-content */
+}
+
+.loading-bar {
+    width: 60%;
+    height: 12px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 40%; /* or animate this for fancy effect */
+    background-color: #4287f5;
 }

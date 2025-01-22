@@ -40,7 +40,6 @@
     
       <!-- Right Section: Gear, Notification, and User Icons -->
       <div class="header-right">
-
         <button class="promotion-button">
           <span>Upgrade Now</span>
           <img src="/images/icons/rocket-lunch.png" alt="Promotion Icon"/>
@@ -105,7 +104,7 @@
         <!-- SUbmenu for the user -->
         <div id="profile-menu" class="profile-menu">
           <div class="profile-header">
-            <img src="/images/icons/account.png" alt="User Icon" class="profile-picture", id="profile-picture"/>
+            <img src="/images/icons/account.png" alt="User Icon" class="profile-picture" id="profile-picture"/>
             <div class="profile-info">
               <p class="profile-name" id="user-name">Loading...</p>
               <span class="profile-email" id="user-email">Loading...</span>
@@ -146,9 +145,7 @@
           </ul>
         </div>
       </div>
-  </header>
-
-
+    </header>
 
     <div class="main-layout" id="main-layout">
       <!-- Sidebar -->
@@ -290,7 +287,7 @@
             <div class="switch-account">Switch Account</div>
             <div class="account-info">
               <img src="#" alt="Account Icon" class="account-icon" />
-              <span class="account-name">Global Account</span>
+              <span class="account-name">Loading...</span>
               <img src="/images/icons/down-arrow.png" alt="Down Arrow" />
             </div>
             <div class="account-balance"></div>
@@ -345,11 +342,18 @@
           <h2>Welcome</h2>
           <p>WELCOME!</p>
         </div>
+
+        <!-- Loading Overlay restricted to main content -->
+        <div id="loading-overlay" class="loading-overlay">
+          <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+          </div>
+          <p>Loading, please wait...</p>
+        </div>
       </main>
     </div>
     
-  
-  <div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay"></div>
   
 </body>
 </html>
