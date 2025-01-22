@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Grab main content and a loading overlay restricted to that area
     const mainContent = document.querySelector('.main-content');
     const loadingOverlay = document.getElementById('loading-overlay');
-    
+
     // Hide the main content initially
     if (mainContent) {
         mainContent.style.display = 'none';
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // We'll store the entire balance object here (including .accounts array) 
     // so we can update UI when switching accounts
-    let user_balance;
+    let user_balance = null;
     let isSubmenuVisible = false;
 
     // We'll store the accounts from the API in this variable (fetched only once).
@@ -131,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Main initialization function: fetch data once, then update UI.
      */
     async function initPage() {
-        // Get selected account from cookie
         const selectedAccountId = getCookie('selected_account') || 'all';
         console.log(`Initial selected account ID: ${selectedAccountId}`);
 
@@ -140,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2) Update UI for the selected account's balance
         if (selectedAccountId && user_balance) {
-            // If 'all', show the global total
             if (selectedAccountId === 'all') {
                 const change24Value = parseFloat(user_balance["24h_change"]);
                 const change24Percent = parseFloat(user_balance["24h_change_percentage"]);
@@ -148,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateChange24(change24Value, change24Percent, user_balance.total);
             } else {
                 // find the account
-                const selectedAccount = user_balance.accounts.find(acc => acc.id == selectedAccountId);
+                const selectedAccount = user_balance.accounts?.find(acc => acc.id == selectedAccountId);
                 if (selectedAccount) {
                     const change24Value = parseFloat(selectedAccount["24h_change"]);
                     const change24Percent = parseFloat(selectedAccount["24h_change_percentage"]);
@@ -245,15 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Updates the 24h change/percentage text and styles in the UI.
      */
     function updateChange24(change24Value, change24Percent, total_assets_param) {
-        // 24h change
         change24.textContent = '$ ' + change24Value.toFixed(2);
         change24.style.color = change24Value < 0 ? "red" : "#71ef71";
 
-        // 24h change %
         change24_percentage.textContent = `${change24Percent.toFixed(2)}%`;
         change24_percentage.style.color = change24Percent < 0 ? "red" : "#71ef71";
 
-        // Update account balance dynamically
         const total_assets_text = '$ ' + parseFloat(total_assets_param).toFixed(2);
         const change_24_percentage = `${change24Percent.toFixed(2)}%`;
 
@@ -262,9 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalText = document.createTextNode(total_assets_text + ' ');
 
         const span = document.createElement('span');
-        span.className = change24Percent < 0 ? "account-balance-decreased" : "account-balance-increased";
+        span.className = (change24Percent < 0) ? "account-balance-decreased" : "account-balance-increased";
         span.textContent = `(${change_24_percentage})`;
-        span.style.color = change24Percent < 0 ? "red" : "#71ef71";
+        span.style.color = (change24Percent < 0) ? "red" : "#71ef71";
 
         p.appendChild(totalText);
         p.appendChild(span);
@@ -328,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Hides the submenu (if visible).
+     * Hides the submenu.
      */
     function hideSubmenu() {
         isSubmenuVisible = false;
@@ -337,12 +332,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Populates the submenu with the full list of accounts.
+     * Populates the submenu with the full list of accounts, using actual balances
+     * from user_balance (for both "Global" and each account).
      */
     function populateSubmenu(accounts) {
         const selectedAccountId = getCookie('selected_account') || 'all';
 
-        // Clear existing items and add the Global account first
+        // 1) Build the Global account item with real data from user_balance if available
+        let globalBalance = 0.0;
+        let globalChange = 0.0;
+        let globalChangePct = 0.0;
+        if (user_balance) {
+            globalBalance   = parseFloat(user_balance.total || 0);
+            globalChange    = parseFloat(user_balance["24h_change"] || 0);
+            globalChangePct = parseFloat(user_balance["24h_change_percentage"] || 0);
+        }
+
+        // color
+        const globalChangeColor = (globalChange < 0) ? 'red' : '#71ef71';
+        // build subtext for global
+        const globalSubtext = `$${globalBalance.toFixed(2)} <span style="color:${globalChangeColor}" class="${
+          globalChange < 0 ? 'account-balance-decreased' : 'account-balance-increased'
+        }">(${globalChangePct.toFixed(2)}%)</span>`;
+
+        // Start from scratch
         submenuList.innerHTML = `
             <li class="submenu-item ${selectedAccountId === 'all' ? 'selected' : ''}" 
                 id="global-menu-item" role="menuitem" tabindex="0">
@@ -350,20 +363,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="/images/icons/asset-allocation2.png" alt="Global Account" class="submenu-item-image">
                     <div class="submenu-item-text">
                         <span class="submenu-item-title">Global Account</span>
-                        <span class="submenu-item-subtext">$0.00 <span class="account-balance-increased">(+ 0.000%)</span></span>
+                        <span class="submenu-item-subtext">${globalSubtext}</span>
                     </div>
                 </div>
             </li>
         `;
 
-        // Add each real account
+        // 2) For each real account, show actual total and 24h%
         accounts.forEach(account => {
-            const isSelected = account.account_id === selectedAccountId;
+            const isSelected = (account.account_id === selectedAccountId);
+
+            // If we have user_balance, find the matching account data in user_balance.accounts
+            let thisAccountData = null;
+            if (user_balance && Array.isArray(user_balance.accounts)) {
+                thisAccountData = user_balance.accounts.find(acc => acc.id == account.account_id);
+            }
+
+            let accountBalance = 0.0;
+            let accountChange  = 0.0;
+            let accountChangePct = 0.0;
+
+            if (thisAccountData) {
+                accountBalance   = parseFloat(thisAccountData.total || 0);
+                accountChange    = parseFloat(thisAccountData["24h_change"] || 0);
+                accountChangePct = parseFloat(thisAccountData["24h_change_percentage"] || 0);
+            }
+
+            const changeColor = (accountChange < 0) ? 'red' : '#71ef71';
+            const subtextHTML = `$${accountBalance.toFixed(2)} <span style="color:${changeColor}" class="${
+              accountChange < 0 ? 'account-balance-decreased' : 'account-balance-increased'
+            }">(${accountChangePct.toFixed(2)}%)</span>`;
+
+            // Build the list item
             const li = document.createElement('li');
             li.classList.add('submenu-item');
             if (isSelected) {
                 li.classList.add('selected');
             }
+            li.dataset.accountId = account.account_id;
 
             const contentDiv = document.createElement('div');
             contentDiv.classList.add('submenu-item-content');
@@ -380,10 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
             titleSpan.classList.add('submenu-item-title');
             titleSpan.textContent = account.account_name || `Account ${account.account_id}`;
 
-            // For demo, subtext is static. Could be real data from the account
             const subtextSpan = document.createElement('span');
             subtextSpan.classList.add('submenu-item-subtext');
-            subtextSpan.innerHTML = '$0.00 <span class="account-balance-increased">(+0.000%)</span>';
+            subtextSpan.innerHTML = subtextHTML;
 
             textDiv.appendChild(titleSpan);
             textDiv.appendChild(subtextSpan);
@@ -391,12 +427,10 @@ document.addEventListener('DOMContentLoaded', () => {
             contentDiv.appendChild(textDiv);
             li.appendChild(contentDiv);
 
-            // Store account ID in data-attribute
-            li.dataset.accountId = account.account_id;
             submenuList.appendChild(li);
         });
 
-        // Separator, then Add Account
+        // 3) Add a separator, then "Add Account"
         const separator = document.createElement('li');
         separator.classList.add('submenu-separator');
         submenuList.appendChild(separator);
@@ -437,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         submenuList.appendChild(addAccountItem);
 
-        // Attach clicks to each real account item
+        // Now attach the click/keydown to each real account item
         const accountItems = submenuList.querySelectorAll('.submenu-item');
         accountItems.forEach(item => {
             // Skip "Add Account" and "Global"
@@ -593,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Cookie set: ${name}=${value}`);
     }
 
-    // Event listeners for toggling/hiding submenu
+    // Toggling/hiding submenu
     portfolioOverview.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleSubmenu();
@@ -620,6 +654,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize the page (calls get_accounts once)
+    // Initialize page (calls get_accounts once)
     initPage();
 });
