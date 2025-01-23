@@ -432,6 +432,12 @@ footer p {
 
 /* RESPONSIVE DESIGN */
 
+@media (max-width: 1199px) {
+    .main-content {
+      padding: 45px 15px 20px 10px; 
+    }
+  }
+
 /* Tablet Adjustments */
 @media (max-width: 1024px) {
     .team-grid {

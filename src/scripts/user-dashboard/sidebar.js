@@ -31,6 +31,8 @@ function getCookie(name) {
 const toggleButton = document.querySelector('.toggle-button');
 const mainLayout = document.getElementById('main-layout');
 const sidebar = document.querySelector('.sidebar');
+const complete_register1 = document.getElementById('complete-register');
+const main_content = document.getElementById('main-content');
 let toggleIcon = null;
 
 if (toggleButton) {
@@ -40,9 +42,9 @@ if (toggleButton) {
 /**
  * checkSidebar()
  * - Runs on load & on window resize.
- * - Decides how the sidebar should look based on screen width
- *   (small => hidden, medium => collapsed, large => expanded).
- * - Then calls initSidebarState() to override with cookie.
+ * - If < 750px => Hide the sidebar entirely.
+ * - If 750px <= width < 1200px => Collapse the sidebar.
+ * - If >= 1200px => Show sidebar & apply cookie-based collapsed state.
  */
 function checkSidebar() {
   if (!sidebar || !mainLayout || !toggleButton) {
@@ -51,21 +53,35 @@ function checkSidebar() {
   }
 
   const width = window.innerWidth;
-  console.log(`Window width: ${width}px`);
 
-  if (width < 950) {
-    // Hide the sidebar and toggle button
+  if (width < 750) {
+    // Hide the sidebar completely
     sidebar.classList.add('hidden');
+    sidebar.classList.remove('collapsed');
     toggleButton.classList.add('hidden');
-
-    // Reset main layout margin
-    mainLayout.classList.remove('sidebar-collapsed', 'sidebar-expanded');
+    sidebar.style.display = 'none';
+    complete_register1.style.display = 'none';
     mainLayout.style.marginLeft = '0';
-    console.log('Sidebar hidden. mainLayout margin-left set to 0.');
+    mainLayout.style.padding = '10px';
+
+  } else if (width < 1200) {
+    // Collapse the sidebar
+    sidebar.style.display = 'flex';
+    sidebar.classList.remove('hidden'); 
+    sidebar.classList.add('collapsed');
+    toggleButton.classList.remove('hidden');
+    complete_register1.style.display = 'block';
+    mainLayout.style.marginLeft = '80px';
+    mainLayout.style.padding = '20px';
+
   } else {
-    // Show the sidebar and toggle button
+    // Width >= 1200
+    sidebar.style.display = 'flex';
     sidebar.classList.remove('hidden');
     toggleButton.classList.remove('hidden');
+    complete_register1.style.display = 'block';
+    mainLayout.style.marginLeft = '240px';
+    mainLayout.style.padding = '20px';
 
     // Apply cookie-based collapse state
     initSidebarState();
@@ -76,60 +92,48 @@ function checkSidebar() {
  * initSidebarState()
  * - Reads 'sidebarCollapsed' cookie
  * - If 'true', sets the sidebar to collapsed
- * - Otherwise, ensures it is expanded
+ * - Otherwise, sets it to expanded
  */
 function initSidebarState() {
-  if (!sidebar || !toggleIcon || !mainLayout) {
-    console.warn("Sidebar, toggleIcon, or mainLayout elements are missing.");
+  if (!sidebar || !toggleIcon) {
+    console.warn("Sidebar or toggleIcon missing.");
     return;
   }
 
   const isCollapsed = getCookie('sidebarCollapsed') === 'true';
-  console.log(`Sidebar collapsed state from cookie: ${isCollapsed}`);
 
-  // I WANT TO REMOVE THIS, THIS IS WRONG, USE MARGIN IS WRONG!!! IT IS WRONG!! THE MARGIN MUST BE WITH THE SIDEBAR NOT WITH THE BORDER ORF THE SCREEN!!!
   if (isCollapsed) {
     sidebar.classList.add('collapsed');
     toggleIcon.classList.add('rotated');
-    mainLayout.style.marginLeft = '80px'; // Consistent unit
-    toggleButton.style.padding = '6px 7px 4px 8px';
-    console.log('Sidebar collapsed. mainLayout margin-left set to 80px.');
   } else {
     sidebar.classList.remove('collapsed');
     toggleIcon.classList.remove('rotated');
-    mainLayout.style.marginLeft = '250px'; // THIS IS WHAT YOU MUST MODIFY, THIS IS R
-    toggleButton.style.padding = '6px 9px 4px 6px';
-    console.log('Sidebar expanded. mainLayout margin-left set to 16%.');
   }
 }
 
-
+/**
+ * onToggleSidebar()
+ * - Toggles the collapsed class only if width >= 1200.
+ * - Stores collapsed state in cookie.
+ */
 function onToggleSidebar() {
   const width = window.innerWidth;
-  if (width < 950) {
-    console.log('Toggle ignored: window width less than 950px.');
-    return; // Not used for small screens
+  if (width < 1200) {
+    return; 
   }
 
   // Toggle collapsed state
   sidebar.classList.toggle('collapsed');
   const isCollapsed = sidebar.classList.contains('collapsed');
-  console.log(`Sidebar toggled to ${isCollapsed ? 'collapsed' : 'expanded'}.`);
 
   // Save state to cookie (expires in 7 days)
   setCookie('sidebarCollapsed', isCollapsed, 7);
 
-  // Update visuals based on new state
+  // Update toggle icon rotation
   if (isCollapsed) {
-    mainLayout.style.marginLeft = '80px';
-    toggleButton.style.padding = '6px 7px 4px 8px';
     toggleIcon.classList.add('rotated');
-    console.log('Sidebar collapsed. mainLayout margin-left set to 80px.');
   } else {
-    mainLayout.style.marginLeft = '15%';
-    toggleButton.style.padding = '6px 9px 4px 6px';
     toggleIcon.classList.remove('rotated');
-    console.log('Sidebar expanded. mainLayout margin-left set to 16%.');
   }
 }
 
@@ -146,9 +150,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle toggle click
     toggleButton.addEventListener('click', onToggleSidebar);
-
-    console.log('Sidebar initialized successfully.');
-  } else {
-    console.warn("Sidebar or toggle button elements not found in the DOM.");
   }
 });
