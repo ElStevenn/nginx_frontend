@@ -78,6 +78,42 @@ async function get_balance_overview(account_id = 'all') {
     }
 }
 
+async function get_started() {
+    // Get started references
+    const complete_register_box = document.getElementById('complete-register');
+    const complete_register1 = document.getElementById('cmplt-reg-box-1');
+    const complete_register2 = document.getElementById('cmplt-reg-box-2');
+    const complete_register3 = document.getElementById('cmplt-reg-box-3');
+
+    const progres_stage1 = document.getElementById('progress-stage-1');
+    const progres_stage2 = document.getElementById('progress-stage-2');
+    const progres_stage3 = document.getElementById('progress-stage-3');
+
+    // Ensure userDataPromise is resolved
+    if (!userDataPromise) {
+        userDataPromise = get_header_data();
+    }
+
+    const userData = await userDataPromise;
+
+
+    // Set different states for each register step
+    if (userData.register_status === 'complete') {
+        complete_register_box.style.display = 'none';
+    } else if (userData.register_status === '1') {
+        complete_register_box.style.display = 'block';
+        complete_register1.classList.add('highlight'); 
+        progres_stage1.classList.add('active');
+    } else if (userData.register_status === '2') {
+        complete_register_box.style.display = 'block';
+        complete_register2.classList.add('highlight'); 
+        progres_stage2.classList.add('active'); 
+    } else if (userData.register_status === '3') {
+        complete_register_box.style.display = 'block';
+        complete_register3.classList.add('highlight'); 
+        progres_stage3.classList.add('active'); 
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingOverlay.style.display = 'flex';
     }
 
+    console.log("user data -> ",userDataPromise)
+
     // DOM references
     const portfolioOverview = document.querySelector('.portfolio-overview');
     const submenu = document.getElementById('portfolio-submenu');
@@ -101,14 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountNameElement = document.querySelector('.account-name');
     const pictureElement = document.querySelector('.account-icon');
     const assetTitle = document.getElementById('total-assets-title');
-
     const total_assets = document.getElementById('total-assets-value');
     const change24 = document.getElementById('change24');
     const change24_percentage = document.getElementById('change24_percentage');
     const child_account_balance = document.querySelector('.account-balance');
 
-    // We'll store the entire balance object here (including .accounts array)
-    // so we can update UI when switching accounts
     let user_balance = null;
     let isSubmenuVisible = false;
 
@@ -181,6 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mainContent) {
             mainContent.style.display = 'block';
         }
+
+        // Check if user is registered
+        await get_started();
     }
 
     /**
@@ -618,6 +656,10 @@ document.addEventListener('DOMContentLoaded', () => {
         addAddAccountItem(); 
     }
 
+
+
+
+
     /**
      * Sets a cookie.
      */
@@ -653,6 +695,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    
+
     // Initialize page (calls get_accounts once)
     initPage();
 });
+
+
+
