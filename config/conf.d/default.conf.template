@@ -88,17 +88,32 @@ server {
 
     location /dashboard {
         if ($is_authenticated = 0) {
-            return 302 /login;
+            return 302 /;
         }
         try_files $uri /dashboard/dashboard.html =404;
     }
     
     location /portfolio {
         if ($is_authenticated = 0) {
-            return 302 /login;
+            return 302 /;
         }
         try_files $uri /dashboard/my-portfolio.html =404;
     }
+
+    location /arbitrage-bot {
+        if ($is_authenticated = 0) {
+            return 302 /;
+        }
+        try_files $uri /dashboard/arbitrage-bot.html =404;
+    }
+
+    location /arbitrage-bot/get-started {
+        if ($is_authenticated = 0) {
+            return 302 /;
+        }
+        try_files $uri /dashboard/arbitrage-bot.GetStarted.html =404;
+    }
+
 
     location /login {
         try_files $uri /landing/login.html =404;

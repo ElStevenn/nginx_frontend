@@ -183,7 +183,7 @@
           <h2><span class="nav-text">Trading</span></h2>
   
           <!-- Group 2: Trading-related items -->
-          <div class="sidebar-group">
+          <div class="sidebar-group" onclick="window.location.href='/arbitrage-bot';">
             <button class="nav-button">
               <img
                 src="images/icons/robot.png"
@@ -368,7 +368,7 @@
         </div>
         
         <!-- Welcome Section -->
-        <div class="welcome-register">
+        <div class="welcome-register" id="welcome-register">
           <h2>Welcome to Fundy</h2>
           <div class="box">
             <h2>Box1</h2>
@@ -391,9 +391,23 @@
         </div>
   
         <div class="linked-accounts">
-          <h2>Linked Accounts</h2>
-          <p>No linked accounts.</p>
+          <div class="linked-accounts-header">
+              <h2>Linked Accounts</h2>
+              <p>No linked accounts.</p>
+          </div>
+          
+          <!-- Linked accounts will be dynamically inserted here by JS -->
+          <div class="linked-account-content">
+              <div class="linked-account">
+                  <h2>Linked Account Example</h2>
+              </div>
+              <div class="linked-account">
+                  <h2>Linked Account Example</h2>
+              </div>
+              <!-- Add more .linked-account divs as needed -->
+          </div>
         </div>
+      
         
   
         <!-- Loading Overlay restricted to main content -->

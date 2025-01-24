@@ -290,9 +290,10 @@ a {
 .linked-accounts h2,
 .complete-register h2,
 .welcome-register h2 {
-    margin-top: 0;
-    color: #00aaff; /* Neutral blue */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #ffffff;
 }
 
 .active-bots p,
@@ -302,12 +303,6 @@ a {
     margin: 10px 0 0 0;
     color: #ffffff;
     font-size: 16px;
-}
-
-.active-bots:hover,
-.linked-accounts:hover {
-    background-color: #00aaff; 
-    color: #ffffff;
 }
 
 
@@ -354,6 +349,7 @@ a {
     margin: 0;
     font-size: 0.80rem;
     color: #ffffff;
+    width: auto;
 }
 
 .complete-header p {
@@ -362,6 +358,25 @@ a {
     color: #c1c1c1;
     margin-left: 10px;
 }
+
+/* Each stage is a small circle */
+.progress-stage {
+    width: 12px;
+    height: 12px;
+    background-color: #5e5e5e; 
+    border-radius: 50%;
+  }
+  
+
+  .progress-stage.active {
+    background-color: #21cd0c; 
+  } 
+  
+
+  .progress-bar-container {
+    display: flex;
+    gap: 5px; 
+  }
 
 /* Box container (row 2) */
 .complete-register-content {
@@ -552,6 +567,27 @@ a {
     background-color: #4287f5;
 }
 
+
+/* Each stage is a small circle */
+.progress-stage {
+    width: 12px;
+    height: 12px;
+    background-color: #5e5e5e; 
+    border-radius: 50%;
+  }
+  
+
+  .progress-stage.active {
+    background-color: #21cd0c; 
+  } 
+  
+
+  .progress-bar-container {
+    display: flex;
+    gap: 5px; 
+  }
+
+
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /*  NEW PROGRESS BAR STYLES                                */
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -592,3 +628,108 @@ a {
     font-size: 1rem;
   }
   
+
+.linked-accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    width: auto;
+}
+
+.linked-accounts-header h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin: 0;
+    width: auto;
+}
+
+.linked-accounts-header p {
+    font-size: 1rem;
+    color: #c1c1c1;
+    margin: 0;
+}
+
+.linked-account-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+.linked-account-content::-webkit-scrollbar {
+    height: 8px;
+}
+
+.linked-account-content::-webkit-scrollbar-thumb {
+    background-color: var(--border-box-hilight-color);
+    border-radius: 4px;
+}
+
+.linked-account-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.linked-account {
+    flex: 0 0 auto;
+    width: 250px;
+    background-color: var(--box-hilight-color);
+    border: 1px solid var(--border-box-hilight-color);
+    border-radius: 6px;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    padding: 50PX; /*remove this in the future*/
+}
+
+.linked-account h2 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .linked-account {
+        width: 200px;
+        padding: 12px;
+    }
+
+    .linked-accounts-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .linked-accounts-header p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .linked-account {
+        width: 150px;
+        padding: 10px;
+    }
+
+    .linked-accounts-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .linked-accounts-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .linked-accounts-header p {
+        font-size: 0.8rem;
+    }
+
+    .linked-account-content {
+        gap: 10px;
+    }
+}

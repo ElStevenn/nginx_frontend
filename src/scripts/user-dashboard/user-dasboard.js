@@ -81,6 +81,7 @@ async function get_balance_overview(account_id = 'all') {
 async function get_started() {
     // Get started references
     const complete_register_box = document.getElementById('complete-register');
+    const welcome_register = document.getElementById('welcome-register');
     const complete_register1 = document.getElementById('cmplt-reg-box-1');
     const complete_register2 = document.getElementById('cmplt-reg-box-2');
     const complete_register3 = document.getElementById('cmplt-reg-box-3');
@@ -100,19 +101,32 @@ async function get_started() {
     // Set different states for each register step
     if (userData.register_status === 'complete') {
         complete_register_box.style.display = 'none';
+        welcome_register.style.display = 'none';
     } else if (userData.register_status === '1') {
         complete_register_box.style.display = 'block';
         complete_register1.classList.add('highlight'); 
         progres_stage1.classList.add('active');
+        welcome_register.style.display = 'flex';
     } else if (userData.register_status === '2') {
         complete_register_box.style.display = 'block';
         complete_register2.classList.add('highlight'); 
-        progres_stage2.classList.add('active'); 
+        progres_stage2.classList.add('active');
+        welcome_register.style.display = 'flex';
     } else if (userData.register_status === '3') {
         complete_register_box.style.display = 'block';
         complete_register3.classList.add('highlight'); 
-        progres_stage3.classList.add('active'); 
+        progres_stage3.classList.add('active');
+        welcome_register.style.display = 'flex';
     }
+}
+
+async function fetch_active_bots() {
+
+}
+
+async function fetch_linked_accounts() {
+
+
 }
 
 
