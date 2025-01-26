@@ -542,10 +542,6 @@
 }
 
 @media (max-width: 950px) {
-  html, body {
-    background-color: pink !important;
-  }
-
   .search-container {
     display: none !important;
   }
@@ -553,11 +549,6 @@
   /* Shrink or hide the big search bar */
   .header-center,
   .search-container {
-    display: none !important;
-  }
-
-  /* Hide the big "Upgrade Now" button so it doesn't push icons off */
-  .promotion-button {
     display: none !important;
   }
 
@@ -573,5 +564,26 @@
   /* Slightly reduce the gap on the right icons */
   .header-right {
     gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .promotion-button {
+    margin-right: 5px;
+  }
+
+  .promotion-button span {
+    font-size: 14px;
+  }
+
+  .promotion-button img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .promotion-button span {
+    display: none;
   }
 }

@@ -32,6 +32,7 @@ const toggleButton = document.querySelector('.toggle-button');
 const mainContent = document.getElementById('main-content');
 const sidebar = document.querySelector('.sidebar');
 const complete_register1 = document.getElementById('complete-register');
+const sidebar_iccon = document.getElementById('sidebar-icon');
 let toggleIcon = null;
 
 if (toggleButton) {
@@ -57,7 +58,7 @@ function checkSidebar() {
     // Hide the sidebar completely
     sidebar.classList.add('hidden');
     sidebar.classList.remove('collapsed');
-    mainContent.classList.remove('collapsed');  // remove any leftover class
+    mainContent.classList.remove('collapsed');  
     toggleButton.classList.add('hidden');
 
     sidebar.style.display = 'none';
@@ -66,27 +67,36 @@ function checkSidebar() {
     complete_register1.style.display = 'none';
 
     // Adjust the main content
-    mainContent.style.marginLeft = '0';  // or let .main-content { margin-left:0 } in CSS
-    mainContent.style.padding = '10px';
+    mainContent.style.marginLeft = '0';  
+    mainContent.style.padding = '60px 0px 5px 0px';
 
   } else if (width < 1200) {
     // Force the sidebar to collapsed state
     sidebar.style.display = 'flex';
     sidebar.classList.remove('hidden');
+    sidebar.classList.remove('hidden');
     sidebar.classList.add('collapsed');
-    mainContent.classList.add('collapsed');  // apply collapsed margin for main
+    mainContent.classList.add('collapsed'); 
     toggleButton.classList.remove('hidden');
 
     complete_register1.style.display = 'block';
 
+    sidebar.style.width = '65px';
     mainContent.style.marginLeft = '80px';
-    mainContent.style.padding = '20px';
+    mainContent.style.padding = '60px 20px 20px 20px';
 
   } else {
     // Width >= 1200 => Show sidebar fully or collapsed depending on cookie
     sidebar.style.display = 'flex';
     sidebar.classList.remove('hidden');
     toggleButton.classList.remove('hidden');
+    mainContent.style.padding = '60px 20px';
+
+    if (sidebar.classList.contains('collapsed')) {
+      sidebar.style.width = '80px';
+    }else{
+      mainContent.style.marginLeft = '270px';
+    }
 
     // Show "complete-register" again
     complete_register1.style.display = 'block';

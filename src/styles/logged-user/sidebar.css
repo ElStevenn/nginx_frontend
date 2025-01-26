@@ -56,6 +56,7 @@
     transition: opacity 0.3s, margin 0.3s;
     white-space: nowrap;
     overflow: hidden;
+    margin-left: 10px;
 }
 
 .sidebar h2 {
@@ -98,7 +99,6 @@
 .sidebar-icon {
     width: 1.25rem;
     height: 1.25rem;
-    margin-right: 0.625rem;
     filter: invert(100%);
 }
 
@@ -198,6 +198,10 @@
         width: 265px;
         padding: 40px 17px 0 19px;
     }
+
+    .main-content{
+        padding: 20px 20px;
+    }
 }
 
 @media (max-width: 1199px) and (min-width: 950px) {
@@ -205,10 +209,15 @@
         width: 80px;
         padding: 10px 5px 0 5px;
     }
+    .sidebar.collapsed {
+        width: 65px;
+    }
+
     .nav-button {
         margin: 0;
         padding: 0.625rem 0.3125rem;
         font-size: 0.875rem;
+        justify-content: center;
     }
     .sidebar h2 {
         font-size: 1.25rem;
