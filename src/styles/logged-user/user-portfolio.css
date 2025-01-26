@@ -1,0 +1,326 @@
+:root {
+    --bg-gradient-start: #1a1a1a;
+    --bg-gradient-end: #2d2d2d;
+  
+    --background-color: #141414;
+    --box-main-color: #2a2a2a;
+    --box-hilight-color: #3a3a3a;
+    --border-box-hilight-color: #555;
+    
+    /* Headlines changed to a subdued gold-like tone */
+    --headline-color: #dcb178; 
+    --accent-color: #ff4081;
+    --positive-color: #4caf50;
+    --negative-color: #f44336;
+    --text-color: #dcdcdc;
+  
+    --card-shadow: rgba(0, 0, 0, 0.5);
+    --border-radius: 10px;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body is handled by your global styles, but here's a gradient overlay: */
+  body {
+    background: linear-gradient(120deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-color);
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+  }
+  
+  /* MAIN CONTENT */
+  .main-content {
+    padding: 40px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    flex: 1;
+  }
+  
+  /* Hero section at the top */
+  .portfolio-hero {
+    text-align: center;
+    background: radial-gradient(circle at top, #323232, transparent 70%);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.3s;
+  }
+  .portfolio-hero:hover {
+    transform: translateY(-4px);
+  }
+  .portfolio-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: var(--headline-color);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: #ccc;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+  
+  /* ====== HEADINGS - removing bright colors ====== */
+  section h2 {
+    font-size: 1.7rem;
+    color: var(--headline-color);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* 1) Portfolio Overview */
+  .portfolio-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: var(--box-main-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  
+  .overview-card {
+    background: #333;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .overview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  .overview-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--headline-color);
+  }
+  .overview-card p {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  .card-subtext {
+    display: block;
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: 5px;
+  }
+  
+  /* Distribution area */
+  .distribution-block {
+    margin-top: 20px;
+    background: #222;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+  }
+  .distribution-block:hover {
+    transform: translateY(-3px);
+  }
+  .distribution-block h3 {
+    color: var(--headline-color);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  /* 2) Exchanges Section */
+  .exchanges-section {
+    background: #303030;
+    border-radius: var(--border-radius);
+    padding: 20px 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .connect-btn {
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    color: #fff;
+    font-size: 0.95rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .connect-btn:hover {
+    background: #f50057;
+    transform: translateY(-2px);
+  }
+  
+  .exchanges-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  .exchange-card {
+    background: #3b3b3b;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  .exchange-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  }
+  .exchange-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--headline-color);
+  }
+  .exchange-info p {
+    font-size: 0.85rem;
+    color: #ccc;
+  }
+  .remove-exchange-btn {
+    background-color: transparent;
+    border: 2px solid var(--negative-color);
+    color: var(--negative-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .remove-exchange-btn:hover {
+    background-color: var(--negative-color);
+    color: #fff;
+  }
+  
+  /* 3) Assets Table */
+  .assets-section {
+    background: #282828;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  }
+  .table-responsive {
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+  .assets-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  .assets-table thead {
+    background-color: #2f2f2f;
+  }
+  .assets-table th {
+    color: var(--headline-color);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #444;
+    user-select: none;
+  }
+  .assets-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #444;
+    vertical-align: middle;
+    color: #e6e6e6;
+  }
+  .assets-table tbody tr {
+    background-color: #3f3f3f;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  .assets-table tbody tr:hover {
+    background-color: #505050;
+    transform: translateY(-2px);
+  }
+  /* "positive" / "negative" classes */
+  .positive {
+    color: var(--positive-color);
+    font-weight: 500;
+  }
+  .negative {
+    color: var(--negative-color);
+    font-weight: 500;
+  }
+  /* Details Button */
+  .details-btn {
+    background-color: var(--accent-color);
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .details-btn:hover {
+    background-color: #f50057;
+  }
+  .asset-details {
+    display: none;
+    background-color: #262626;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #cfcfcf;
+  }
+  
+  /* 4) Profit / Loss Section */
+  .profit-loss-section {
+    background: #313131;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  }
+  .chart-wrapper {
+    background: #3a3a3a;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: transform 0.3s;
+  }
+  .chart-wrapper:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Responsive Breakpoints */
+  @media (max-width: 992px) {
+    .overview-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .overview-grid {
+      grid-template-columns: 1fr;
+    }
+    .assets-table {
+      min-width: 550px;
+    }
+  }
+  

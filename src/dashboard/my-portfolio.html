@@ -3,243 +3,373 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>Fundy</title>
+    <title>Portfolio</title>
     <link rel="icon" href="/images/thumnails/logo.png" type="image/png">
     
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/logged-user/user-header.css">
     <link rel="stylesheet" href="/styles/logged-user/sidebar.css">
-    <link rel="stylesheet" href="/styles/logged-user/user-dashboard.css">
+    <link rel="stylesheet" href="/styles/logged-user/user-portfolio.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="/config.js"></script>
     <script src="/scripts/main-scripts/globalProvider.js" defer></script>
     <script src="/scripts/main-scripts/set-profile.js" defer></script>
     <script src="/scripts/user-dashboard/sidebar.js" defer></script>
     <script src="/scripts/user-dashboard/user-portfolio.js"></script>
     <script src="/scripts/user-dashboard/crypto-searcher.js"></script>
-    <script src="/scripts/dashboardDataHandler.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <body>
-    <header class="header">
-        <a href="/dashboard" class="header-left" id="header-left-side">
-            <img src="/images/thumnails/logo.png" alt="Fundy Logo">
-            <h1>Fundy</h1>
-        </a>
-         
-        <div class="header-right">
-            <!-- Search Bar with Icon -->
-            <div class="search-container">
-                <img src="/images/search.png" alt="Search Icon" id="search-icon" style="filter: invert(100%);">
-                <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off">
-                <div id="search-results" class="search-results hidden"></div>
-            </div>
-
-            <img src="/images/bell.png" alt="Notification icon" style="margin-left: 40px;">
-            <img src="images/list.png" alt="Icon 1" onclick="toggleMenu2(event)">
-
-        <!-- List Menu -->
-        <div id="list-menu" class="list-menu">
-            <img src="images/close.png" alt="Close Button" class="close-button" onclick="closeMenus(event)">
-            <div class="profile-container ">
-                <img src="images/account.png" alt="User Icon" class="profile-picture" id="profile-icon1" style="filter: none; border-radius: 50%;">
-                <div class="profile-text">
-                    <span class="profile-username" style="margin-bottom: -10px;"><b id="user-username">@Username</b></span>
-                    <p class="profile-name-surname" id="given_name">Name Surname</p>
-                </div>
-            </div>
-            <hr>
-            <div class="mini-section">
-                <img src="/images/icons/cryptocurrency.png" alt="Icon">
-                <span class="profile-text">Markets</span>
-            </div>
-            <div class="mini-section">
-                <img src="images/butt.png" alt="Icon">
-                <span class="profile-text">Become a trader</span>
-                <img src="images/free.png" alt="Icon" style="margin-top: 1px; margin-left: 30px;">
-            </div>
-            <div class="mini-section">
-                <img src="images/subscription-business-model.png" alt="Icon">
-                <span class="profile-text">Choose Your Plan</span>
-            </div>
-            <div class="mini-section">
-                <img src="images/reading-book.png" alt="Icon">
-                <span class="profile-text">Learn how it works</span>
-            </div>
-            <div class="mini-section">
-                <img src="images/approve.png" alt="Icon">
-                <span class="profile-text">Documentation</span>
-            </div>
-            <hr>
-            <a href="/settings/profile">
-                <div class="mini-section">
-                    <img src="/images/settings.png" alt="Icon">
-                    <span class="profile-text">Settings</span>
-                </div>
-            </a>            
-            <div class="mini-section">
-                <img src="images/share.png" alt="Icon">
-                <span class="profile-text">Try this</span>
-            </div>
-            <div class="mini-section">
-                <img src="images/analysis.png" alt="Icon">
-                <span class="profile-text">See other services</span>
-            </div>
+  <header class="header">
+    <!-- Left Section: Logo and Brand Name -->
+    <a href="/dashboard" class="header-left" id="header-left-side">
+      <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo">
+      <h1 class="logo-text">Fundy</h1>
+    </a>
+  
+    <!-- Center Section: Search Bar -->
+    <div class="header-center">
+      <!-- Search Bar with Icon -->
+      <div class="search-container">
+        <img src="/images/search.png" alt="Search Icon" class="search-icon">
+        <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off"/>
+        <div id="search-results" class="search-results hidden"></div>
+      </div>
+    </div>
+  
+    <!-- Right Section: Gear, Notification, and User Icons -->
+    <div class="header-right">
+      <button class="promotion-button">
+        <span>Upgrade Now</span>
+        <img src="/images/icons/rocket-lunch.png" alt="Promotion Icon"/>
+      </button>
+      
+      <!-- Gear Icon (Settings) -->
+      <img src="/images/icons/setting.png" alt="Settings Icon" class="gear-icon" tabindex="0" role="button" aria-label="Settings" onclick="openSettings(event)" />
+      <!-- Settings Menu -->
+      <div id="settings-menu" class="settings-menu">
+        <ul class="settings-links">
+          <!-- LANGUAGE -->
+          <li>
+            <span>Language</span>
+            <select class="menu-select" id="language-select">
+              <option value="en">English (EN)</option>
+              <option value="es">Español (ES)</option>
+              <option value="fr">Français (FR)</option>
+              <option value="de">Deutsch (DE)</option>
+              <option value="zh">中文 (ZH)</option>
+            </select>
+          </li>
+      
+          <!-- CURRENCY -->
+          <li>
+            <span>Currency</span>
+            <select class="menu-select" id="currency-select">
+              <option value="usd">USD</option>
+              <option value="btc">BTC</option>
+              <option value="eur">EUR</option>
+              <option value="mxn">MXN</option>
+              <option value="gbp">GBP</option>
+            </select>
+          </li>
+      
+          <!-- DARK MODE -->
+          <li>
+            <span>Dark Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="dark-mode-toggle" />
+              <span class="slider round"></span>
+            </label>
+          </li>
+      
+          <!-- NOTIFICATION ORDER -->
+          <li>
+            <span>Notifications</span>
+            <select class="menu-select" id="notification-order">
+              <option value="recent">Most Recent</option>
+              <option value="unread">Unread First</option>
+              <option value="priority">Priority</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Notification Icon -->
+      <img src="/images/icons/notification.png" alt="Notification Icon" class="notification-icon" tabindex="0" role="button" aria-label="Notifications" />
+  
+      <!-- User Icon -->
+      <img src="/images/icons/user.png" alt="User Icon" class="user-icon" onclick="toggleMenu1(event)" id="profile-icon3" tabindex="0" role="button" aria-label="User Profile" />
+      
+      <!-- SUbmenu for the user -->
+      <div id="profile-menu" class="profile-menu">
+        <div class="profile-header">
+          <img src="/images/icons/account.png" alt="User Icon" class="profile-picture" id="profile-picture"/>
+          <div class="profile-info">
+            <p class="profile-name" id="user-name">Loading...</p>
+            <span class="profile-email" id="user-email">Loading...</span>
+          </div>
         </div>
-
-                
-            <img src="images/account.png" alt="User Icon" onclick="toggleMenu1(event)" id="profile-icon3" style="filter: none; border-radius: 50%;">
-            
-            <!-- Mini menu for the user -->
-            <div id="profile-menu" class="profile-menu">
-                <div class="profile-header" style="display: flex; align-items: center;">
-                    <img src="images/account.png" alt="User Icon" id="profile-icon2" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; cursor: pointer; filter: none">
-                    <div>
-                        <span class="profile-name" style="font-size: 16px; font-weight: bold;" id="user-username2">@Username</span>
-                        <p style="font-size: 14px; margin: 0;" id="given_name2">Name Surname</p>
-                    </div>
-                </div>                
-                <hr>
-                <ul class="menu-links">
-                    <li><img src="images/user_profile.png" alt="Profile Icon" class="menu-icon" style="margin-left: 5px;"> Your Profile</li>
-                    <li><img src="images/icons/transfer.png" alt="A random image" class="menu-icon" style="margin-left: 5px;">Transfer Assets</li>
-                    <li onclick="log_out(event)"> <img src="images/exit.png" alt="Logout Icon" class="menu-icon" style="margin-left: 5px;"> Sing Out </li>
-                    <hr>
-                    <li><a href="/terms"> <img src="images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" style="margin-left: 5px;"> Terms & Policies </a></li>
-                    <li><img src="images/help.png" alt="Settings Icon" class="menu-icon" style="margin-left: 5px;"> Help </li>
-                </ul>
-            </div>
-        </div>
-    </header>
+        <hr />
+        <ul class="menu-links">
+          <li onclick="window.location.href='/settings/profile';">
+            <img src="/images/icons/user2.png" alt="Profile Icon" class="menu-icon" />
+            User Profile
+          </li>
+          <li onclick="window.location.href='/settings/preferences';">
+            <img src="/images/icons/preferences.png" alt="Settings Icon" class="menu-icon"/>
+            Preferences
+          </li>
+          <li onclick="window.location.href='/settings/billing';" style="padding: 7px 15px;">
+            <img src="/images/icons/billing_plan.png" alt="Billing & Planss Icon" class="menu-icon"/>
+            Billing & Plans
+            <img src="/images/icons/free.png" alt="More Info Icon" class="menu-icon-right"/>
+          </li>
+          <li onclick="window.location.href='/settings/billing';">
+            <img src="/images/icons/shield2.png" alt="Billing & Planss Icon" class="menu-icon"/>
+            Security(2FA)
+          </li>
+          <li onclick="log_out(event)">
+            <img src="/images/icons/logout.png" alt="Logout Icon" class="menu-icon" />
+            Sign Out
+          </li>
+          <hr />
+          <li onclick="window.location.href='/terms-policies';">
+              <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" />
+              Terms &amp; Policies
+          </li>
+          <li>
+            <img src="/images/icons/help.png" alt="Help Icon" class="menu-icon" />
+            Help
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
     
-        <!-- Main Layout Container -->
-    <div class="main-layout">
-        <aside class="sidebar">
-            <!-- Toggle Button with an ICON instead of text -->
-            <button class="toggle-button">
-              <img
-                src="/images/icons/next.png"
-                alt="Toggle Sidebar"
-              />
-            </button>
-        
-            <!-- Everything that needs to move down goes inside sidebar-content -->
-            <div class="sidebar-content">
-              <!-- Group 1: Dashboard & Portfolio -->
-              <div class="sidebar-group">
-                <button class="nav-button sidebar-selected">
-                  <img
-                    src="images/icons/dashboard-interface.png"
-                    alt="Dashboard Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Dashboard</span>
-                </button>
-                <button
-                  class="nav-button"
-                  onclick="window.location.href='/portfolio';"
-                >
-                  <img
-                    src="images/icons/pie-chart.png"
-                    alt="Portfolio Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">My Portfolio</span>
-                </button>
-              </div>
-        
-              <!-- Title for Trading -->
-              <h2><span class="nav-text">Trading</span></h2>
-        
-              <!-- Group 2: Trading-related items -->
-              <div class="sidebar-group">
-                <button class="nav-button">
-                  <img
-                    src="images/icons/robot.png"
-                    alt="Bot Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Arbitrage Bot</span>
-                  <span class="beta-label nav-text">BETA</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="images/icons/antenna.png"
-                    alt="Bot Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Signal Bot</span>
-                  <span class="new-label nav-text">NEW</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="images/icons/artificial-intelligence.png"
-                    alt="AI Strategy Bot Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">AI Strategy Bot</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="images/icons/statistics.png"
-                    alt="Grid Bot Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Grid Bot</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="images/icons/trading.png"
-                    alt="Smart Trade Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Smart Trade</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="/images/icons/analytics.png"
-                    alt="Smart Trade Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Markets</span>
-                </button>
-                <button class="nav-button">
-                  <img
-                    src="images/icons/shopping-cart.png"
-                    alt="Marketplace Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Marketplace</span>
-                </button>
-              </div>
-        
-              <!-- Title for Others -->
-              <h2><span class="nav-text">Others</span></h2>
-        
-              <!-- Group 3: Others -->
-              <div class="sidebar-group">
-                <button class="nav-button">
-                  <img
-                    src="images/icons/group.png"
-                    alt="Invite Friends Icon"
-                    class="sidebar-icon"
-                  />
-                  <span class="nav-text">Invite Friends</span>
-                </button>
-              </div>
-            </div>
-            <!-- /sidebar-content -->
-          </aside>
-        
-        <main class="main-content">
-            <h1>My Portfolio</h1>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <!-- Toggle Button with an ICON instead of text -->
+    <button class="toggle-button" id="toggle-button">
+      <img src="/images/icons/next.png" alt="Toggle Sidebar" />
+    </button>
 
-        </main>
+    <!-- Everything that needs to move down goes inside sidebar-content -->
+    <div class="sidebar-content">
+      <!-- Group 1: Dashboard & Portfolio -->
+      <div class="sidebar-group">
+        <button class="nav-button"  onclick="window.location.href='/dashboard';">
+          <img
+            src="images/icons/dashboard-interface.png"
+            alt="Dashboard Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Dashboard</span>
+        </button>
+        <button class="nav-button sidebar-selected">
+          <img
+            src="images/icons/pie-chart.png"
+            alt="Portfolio Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">My Portfolio</span>
+        </button>
+      </div>
 
+      <!-- Title for Trading -->
+      <h2><span class="nav-text">Trading</span></h2>
 
-    <div id="overlay" class="overlay"></div>
+      <!-- Group 2: Trading-related items -->
+      <div class="sidebar-group" onclick="window.location.href='/arbitrage-bot';">
+        <button class="nav-button">
+          <img
+            src="images/icons/robot.png"
+            alt="Bot Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Arbitrage Bot</span>
+          <span class="beta-label nav-text">BETA</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="images/icons/antenna.png"
+            alt="Bot Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Signal Bot</span>
+          <span class="new-label nav-text">NEW</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="images/icons/artificial-intelligence.png"
+            alt="AI Strategy Bot Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">AI Strategy Bot</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="images/icons/statistics.png"
+            alt="Grid Bot Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Grid Bot</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="images/icons/trading.png"
+            alt="Smart Trade Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Smart Trade</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="/images/icons/analytics.png"
+            alt="Smart Trade Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Markets</span>
+        </button>
+        <button class="nav-button">
+          <img
+            src="images/icons/shopping-cart.png"
+            alt="Marketplace Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Marketplace</span>
+        </button>
+      </div>
+
+      <!-- Title for Others -->
+      <h2><span class="nav-text">Others</span></h2>
+
+      <!-- Group 3: Others -->
+      <div class="sidebar-group">
+        <button class="nav-button">
+          <img
+            src="images/icons/group.png"
+            alt="Invite Friends Icon"
+            class="sidebar-icon"
+          />
+          <span class="nav-text">Invite Friends</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Social Icons Row -->
+    <div class="sidebar-socials">
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <img src="/images/companies/instagram.png" alt="Instagram" />
+      </a>
+      <a href="https://x.com/paumateu341" target="_blank" aria-label="X (Twitter)">
+        <img src="/images/companies/twitter.png" alt="X (Twitter)"/>
+      </a>
+      <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+        <img src="/images/companies/youtube.png" alt="YouTube" />
+      </a>
+      <a href="https://telegram.org" target="_blank" aria-label="Telegram">
+        <img src="/images/companies/telegram2.png" alt="Telegram" />
+      </a>
+    </div>
+  </aside>
+    <!-- Dashboard design example: https://denovers.com/blog/top-dashboard-design-examples-and-practices/ --> 
+    <!-- https://dribbble.com/shots/23053900-Sales-Marketing-Dashboard -->
+    <main class="main-content" id="main-content">
+      <!-- Page Title / Hero Section -->
+      <div class="portfolio-hero">
+        <h1>My Ultimate Crypto Portfolio</h1>
+        <p class="hero-subtitle">
+          Track all your digital assets, monitor performance, and connect new exchanges in seconds.
+        </p>
+      </div>
+    
+      <!-- 1) Portfolio Overview & Distribution -->
+      <section class="portfolio-overview">
+        <div class="overview-grid">
+          <!-- Card: Total Value -->
+          <div class="overview-card">
+            <h2>Total Value</h2>
+            <p id="totalValue">$ --</p>
+            <span class="card-subtext">Across All Exchanges</span>
+          </div>
+          <!-- Card: 24h % Change -->
+          <div class="overview-card">
+            <h2>24h % Change</h2>
+            <p id="percentChange">-- %</p>
+            <span class="card-subtext" id="bestPerformer"></span>
+          </div>
+          <!-- Card: Active Exchanges -->
+          <div class="overview-card">
+            <h2>Active Exchanges</h2>
+            <p id="activeExchanges">--</p>
+            <span class="card-subtext">Linked Accounts</span>
+          </div>
+          <!-- Card: Top Holding -->
+          <div class="overview-card">
+            <h2>Top Holding</h2>
+            <p id="topHolding">--</p>
+            <span class="card-subtext" id="topHoldingValue"></span>
+          </div>
+        </div>
+    
+        <!-- Distribution Chart -->
+        <div class="distribution-block">
+          <h3>Portfolio Distribution</h3>
+          <canvas id="distributionChart"></canvas>
+        </div>
+      </section>
+    
+      <!-- 2) Exchanges Section (with a big Connect button) -->
+      <section class="exchanges-section">
+        <div class="section-header">
+          <h2>Connected Exchanges</h2>
+          <button class="connect-btn" id="connectExchangeBtn">
+            <i class="fas fa-link"></i> Connect Exchange
+          </button>
+        </div>
+    
+        <div class="exchanges-list" id="exchangesList">
+          <!-- Filled dynamically by JS -->
+        </div>
+      </section>
+    
+      <!-- 3) Assets Table -->
+      <section class="assets-section">
+        <h2>All Assets (Consolidated)</h2>
+        <div class="table-responsive">
+          <table class="assets-table" id="assetsTable">
+            <thead>
+              <tr>
+                <th data-sort="asset">Asset</th>
+                <th data-sort="amount">Amount</th>
+                <th data-sort="valueUsd">Value (USD)</th>
+                <th data-sort="exchange">Exchange</th>
+                <th data-sort="percentChange24h">24h %</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="assetsTableBody">
+              <!-- Filled dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    
+      <!-- 4) Profit & Loss Chart -->
+      <section class="profit-loss-section">
+        <h2>Profit / Loss Timeline</h2>
+        <div class="chart-wrapper">
+          <canvas id="profitLossChart"></canvas>
+        </div>
+      </section>
+    </main>
+    
+  
+  <div id="overlay" class="overlay"></div>
+
 </body>
 </html>

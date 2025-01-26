@@ -19,6 +19,7 @@
     <script src="/scripts/user-dashboard/user-dasboard.js" defer></script>
     <script src="/scripts/user-dashboard/crypto-searcher.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -149,227 +150,229 @@
       </div>
     </header>
 
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Toggle Button with an ICON instead of text -->
+      <button class="toggle-button" id="toggle-button">
+        <img src="/images/icons/next.png" alt="Toggle Sidebar" />
+      </button>
 
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <!-- Toggle Button with an ICON instead of text -->
-        <button class="toggle-button" id="toggle-button">
-          <img src="/images/icons/next.png" alt="Toggle Sidebar" />
-        </button>
-  
-        <!-- Everything that needs to move down goes inside sidebar-content -->
-        <div class="sidebar-content">
-          <!-- Group 1: Dashboard & Portfolio -->
-          <div class="sidebar-group">
-            <button class="nav-button sidebar-selected">
-              <img
-                src="images/icons/dashboard-interface.png"
-                alt="Dashboard Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Dashboard</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='/portfolio';">
-              <img
-                src="images/icons/pie-chart.png"
-                alt="Portfolio Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">My Portfolio</span>
-            </button>
+      <!-- Everything that needs to move down goes inside sidebar-content -->
+      <div class="sidebar-content">
+        <!-- Group 1: Dashboard & Portfolio -->
+        <div class="sidebar-group">
+          <button class="nav-button sidebar-selected">
+            <img
+              src="images/icons/dashboard-interface.png"
+              alt="Dashboard Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Dashboard</span>
+          </button>
+          <button class="nav-button" onclick="window.location.href='/portfolio';">
+            <img
+              src="images/icons/pie-chart.png"
+              alt="Portfolio Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">My Portfolio</span>
+          </button>
+        </div>
+
+        <!-- Title for Trading -->
+        <h2><span class="nav-text">Trading</span></h2>
+
+        <!-- Group 2: Trading-related items -->
+        <div class="sidebar-group" onclick="window.location.href='/arbitrage-bot ';">
+          <button class="nav-button">
+            <img
+              src="images/icons/robot.png"
+              alt="Bot Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Arbitrage Bot</span>
+            <span class="beta-label nav-text">BETA</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="images/icons/antenna.png"
+              alt="Bot Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Signal Bot</span>
+            <span class="new-label nav-text">NEW</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="images/icons/artificial-intelligence.png"
+              alt="AI Strategy Bot Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">AI Strategy Bot</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="images/icons/statistics.png"
+              alt="Grid Bot Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Grid Bot</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="images/icons/trading.png"
+              alt="Smart Trade Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Smart Trade</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="/images/icons/analytics.png"
+              alt="Smart Trade Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Markets</span>
+          </button>
+          <button class="nav-button">
+            <img
+              src="images/icons/shopping-cart.png"
+              alt="Marketplace Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Marketplace</span>
+          </button>
+        </div>
+
+        <!-- Title for Others -->
+        <h2><span class="nav-text">Others</span></h2>
+
+        <!-- Group 3: Others -->
+        <div class="sidebar-group">
+          <button class="nav-button">
+            <img
+              src="images/icons/group.png"
+              alt="Invite Friends Icon"
+              class="sidebar-icon"
+            />
+            <span class="nav-text">Invite Friends</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Icons Row -->
+      <div class="sidebar-socials">
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <img src="/images/companies/instagram.png" alt="Instagram" />
+        </a>
+        <a href="https://x.com/paumateu341" target="_blank" aria-label="X (Twitter)">
+          <img src="/images/companies/twitter.png" alt="X (Twitter)"/>
+        </a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+          <img src="/images/companies/youtube.png" alt="YouTube" />
+        </a>
+        <a href="https://telegram.org" target="_blank" aria-label="Telegram">
+          <img src="/images/companies/telegram2.png" alt="Telegram" />
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content (Removed the .main-layout wrapper; now directly main-content) -->
+    <main class="main-content" id="main-content">
+      <!-- Dashboard Overview Section -->
+      <div class="dashboard-overview">
+        <div
+          class="overview-box portfolio-overview"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <div class="switch-account">Switch Account</div>
+          <div class="account-info">
+            <img src="#" alt="Account Icon" class="account-icon" />
+            <span class="account-name">Loading...</span>
+            <img src="/images/icons/down-arrow.png" alt="Down Arrow" />
           </div>
-  
-          <!-- Title for Trading -->
-          <h2><span class="nav-text">Trading</span></h2>
-  
-          <!-- Group 2: Trading-related items -->
-          <div class="sidebar-group" onclick="window.location.href='/arbitrage-bot';">
-            <button class="nav-button">
-              <img
-                src="images/icons/robot.png"
-                alt="Bot Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Arbitrage Bot</span>
-              <span class="beta-label nav-text">BETA</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="images/icons/antenna.png"
-                alt="Bot Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Signal Bot</span>
-              <span class="new-label nav-text">NEW</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="images/icons/artificial-intelligence.png"
-                alt="AI Strategy Bot Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">AI Strategy Bot</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="images/icons/statistics.png"
-                alt="Grid Bot Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Grid Bot</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="images/icons/trading.png"
-                alt="Smart Trade Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Smart Trade</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="/images/icons/analytics.png"
-                alt="Smart Trade Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Markets</span>
-            </button>
-            <button class="nav-button">
-              <img
-                src="images/icons/shopping-cart.png"
-                alt="Marketplace Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Marketplace</span>
-            </button>
-          </div>
-  
-          <!-- Title for Others -->
-          <h2><span class="nav-text">Others</span></h2>
-  
-          <!-- Group 3: Others -->
-          <div class="sidebar-group">
-            <button class="nav-button">
-              <img
-                src="images/icons/group.png"
-                alt="Invite Friends Icon"
-                class="sidebar-icon"
-              />
-              <span class="nav-text">Invite Friends</span>
-            </button>
+          <div class="account-balance"></div>
+
+          <!-- Submenu for Account Selection -->
+          <div class="submenu" id="portfolio-submenu">
+            <ul class="submenu-list" id="portfolio-submenu-list">
+              <!-- Filled via JS -->
+            </ul>
           </div>
         </div>
-  
-        <!-- Social Icons Row -->
-        <div class="sidebar-socials">
-          <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-            <img src="/images/companies/instagram.png" alt="Instagram" />
-          </a>
-          <a href="https://x.com/paumateu341" target="_blank" aria-label="X (Twitter)">
-            <img src="/images/companies/twitter.png" alt="X (Twitter)"/>
-          </a>
-          <a href="https://youtube.com" target="_blank" aria-label="YouTube">
-            <img src="/images/companies/youtube.png" alt="YouTube" />
-          </a>
-          <a href="https://telegram.org" target="_blank" aria-label="Telegram">
-            <img src="/images/companies/telegram2.png" alt="Telegram" />
-          </a>
+
+        <!-- Other Overview Boxes -->
+        <div class="overview-box box-see-data">
+          <div class="total-assets-title" id="total-assets-title">
+            Total Portfolio
+          </div>
+          <div class="total-assets-value" id="total-assets-value">
+            $0.00
+          </div>
         </div>
-      </aside>
-      <div class="main-layout" id="main-layout">
-      <!-- Main Content Area -->
-      <main class="main-content">
-        <!-- Dashboard Overview Section -->
-        <div class="dashboard-overview">
-          <div
-            class="overview-box portfolio-overview"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <div class="switch-account">Switch Account</div>
-            <div class="account-info">
-              <img src="#" alt="Account Icon" class="account-icon" />
-              <span class="account-name">Loading...</span>
-              <img src="/images/icons/down-arrow.png" alt="Down Arrow" />
-            </div>
-            <div class="account-balance"></div>
-  
-            <!-- Submenu for Account Selection -->
-            <div class="submenu" id="portfolio-submenu">
-              <ul class="submenu-list" id="portfolio-submenu-list">
-                <!-- Filled via JS -->
-              </ul>
-            </div>
-          </div>
-  
-          <!-- Other Overview Boxes -->
-          <div class="overview-box box-see-data">
-            <div class="total-assets-title" id="total-assets-title">
-              Total Portfolio
-            </div>
-            <div class="total-assets-value" id="total-assets-value">
-              $0.00
-            </div>
-          </div>
-          <div class="overview-box box-see-data">
-            <div class="total-assets-title">24H Change</div>
-            <div class="total-assets-value" id="change24">$0.00</div>
-          </div>
-          <div class="overview-box box-see-data">
-            <div class="total-assets-title">24H % Change</div>
-            <div class="total-assets-value" id="change24_percentage">
-              +0.0000%
-            </div>
-          </div>
-          <div class="overview-box extra-box">Extra (promo)</div>
+        <div class="overview-box box-see-data">
+          <div class="total-assets-title">24H Change</div>
+          <div class="total-assets-value" id="change24">$0.00</div>
         </div>
-  
-        <!-- Example: The complete-register block within your page -->
-        <div class="complete-register" id="complete-register">
-          <div class="complete-header">
-            <h2>Get started in Fundy</h2>
-            <div class="progress-bar-container">
-              <div class="progress-stage" id="progress-stage-1"></div>
-              <div class="progress-stage" id="progress-stage-2"></div>
-              <div class="progress-stage" id="progress-stage-3"></div>
-              <p>Complete register</p>
+        <div class="overview-box box-see-data">
+          <div class="total-assets-title">24H % Change</div>
+          <div class="total-assets-value" id="change24_percentage">
+            +0.0000%
+          </div>
+        </div>
+        <div class="overview-box extra-box">Extra (promo)</div>
+      </div>
+
+      <!-- Example: The complete-register block within your page -->
+      <div class="complete-register" id="complete-register">
+        <div class="complete-header">
+          <h2>Get started in Fundy</h2>
+          <div class="progress-bar-container">
+            <div class="progress-stage" id="progress-stage-1"></div>
+            <div class="progress-stage" id="progress-stage-2"></div>
+            <div class="progress-stage" id="progress-stage-3"></div>
+            <p>Complete register</p>
+          </div>
+        </div>
+    
+        <div class="complete-register-content">
+          <!-- BOX 1 -->
+          <div class="box" id="cmplt-reg-box-1">
+            <img src="/images/icons/connections.png" alt="Conection Icon" />
+            <div class="box-text">
+              <h2>Link your first exchange</h2>
+              <p>Get started with Fundy and unlock smarter trading</p>
             </div>
           </div>
+          
+          <!-- BOX 2 -->
+          <div class="box" id="cmplt-reg-box-2">
+            <img src="images/icons/robot.png" alt="Example Icon" />
+            <div class="box-text">
+              <h2>Create your first trading bot</h2>
+              <p>Quick and easy setup for automated trading</p>
+            </div>
+          </div>
+
+          <!-- BOX 3 -->
+          <div class="box" id="cmplt-reg-box-3">
+            <img src="/images/icons/rocket-lunch.png" alt="Example Icon" />
+            <div class="box-text">
+              <h2>Define Your Winning Strategy</h2>
+              <p>Stay ahead with tailored insights and analytics</p>
+            </div>
+          </div>
+        </div>
+      </div>
       
-          <div class="complete-register-content">
-            <!-- BOX 1 -->
-            <div class="box" id="cmplt-reg-box-1">
-              <img src="/images/icons/connections.png" alt="Conection Icon" />
-              <!-- Sub-container for heading + paragraph -->
-              <div class="box-text">
-                <h2>Link your first exchange</h2>
-                <p>Get started with Fundy and unlock smarter trading</p>
-              </div>
-            </div>
-            
-            <!-- BOX 2 -->
-            <div class="box" id="cmplt-reg-box-2">
-              <img src="images/icons/robot.png" alt="Example Icon" />
-              <div class="box-text">
-                <h2>Create your first trading bot</h2>
-                <p>Quick and easy setup for automated trading</p>
-              </div>
-            </div>
-
-            <!-- BOX 3 -->
-            <div class="box" id="cmplt-reg-box-3">
-              <img src="/images/icons/rocket-lunch.png" alt="Example Icon" />
-              <div class="box-text">
-                <h2>Define Your Winning Strategy</h2>
-                <p>Stay ahead with tailored insights and analytics</p>
-              </div>
-            </div>
-          </div>
+      <!-- Welcome Section -->
+      <div class="welcome-register" id="welcome-register">
+        <div class="welcome-register-header">
+          <h2>Welcome to Fundy!</h2>
+          <p>Take control of your trading in just a few steps!</p>
         </div>
-        
-        <!-- Welcome Section -->
-        <div class="welcome-register" id="welcome-register">
-          <h2>Welcome to Fundy</h2>
+        <div class="boxes-container">
           <div class="box">
             <h2>Box1</h2>
           </div>
@@ -383,44 +386,150 @@
             <h2>Box4</h2>
           </div>
         </div>
+        <button class="get-started-btn">GET STARTED<img src="/images/icons/upper-right-arrow.png" alt="Right Arrow"></button>
+      </div>
 
-        <!-- Other Sections -->
-        <div class="active-bots">
-          <h2>Active Bots</h2>
-          <p>No active bots at the moment.</p>
+      <!-- Active Bots Section -->
+      <div class="active-bots">
+        <h2>Active Bots</h2>
+        <p>No active bots at the moment.</p>
+      </div>
+
+      <!-- Linked Accounts Section -->
+      <div class="linked-accounts">
+        <div class="linked-accounts-header">
+          <h2>Linked Accounts</h2>
+          <button class="add-account-btn"><i class="fas fa-plus"></i> Add Account</button>
         </div>
-  
-        <div class="linked-accounts">
-          <div class="linked-accounts-header">
-              <h2>Linked Accounts</h2>
-              <p>No linked accounts.</p>
+        
+        <div class="linked-account-content">
+          <!-- Binance Account -->
+          <div class="linked-account">
+            <div class="linked-account-header">
+              <div class="account-info">
+                <i class="fab fa-binance"></i>
+                <div class="account-info-text">
+                  <h3>Binance Account</h3>
+                  <p>Binance Exchange</p>
+                </div>
+              </div>
+              <button class="manage-btn"><i class="fas fa-cog"></i> Manage</button>
+            </div>
+            <div class="linked-account-body">
+              <div class="linked-account-chart">
+                <canvas id="binanceChart"></canvas>
+              </div>
+              <div class="linked-account-data">
+                <p><strong>Total Balance:</strong> $50,000</p>
+                <p><strong>Last Updated:</strong> 2025-01-24</p>
+                <p><strong>24h Change:</strong> <span class="positive">+2.5%</span></p>
+              </div>
+            </div>
           </div>
           
-          <!-- Linked accounts will be dynamically inserted here by JS -->
-          <div class="linked-account-content">
-              <div class="linked-account">
-                  <h2>Linked Account Example</h2>
+          <!-- Coinbase Account -->
+          <div class="linked-account">
+            <div class="linked-account-header">
+              <div class="account-info">
+                <i class="fab fa-coinbase"></i>
+                <div class="account-info-text">
+                  <h3>Coinbase Account</h3>
+                  <p>Coinbase Exchange</p>
+                </div>
               </div>
-              <div class="linked-account">
-                  <h2>Linked Account Example</h2>
+              <button class="manage-btn"><i class="fas fa-cog"></i> Manage</button>
+            </div>
+            <div class="linked-account-body">
+              <div class="linked-account-chart">
+                <canvas id="coinbaseChart"></canvas>
               </div>
-              <!-- Add more .linked-account divs as needed -->
+              <div class="linked-account-data">
+                <p><strong>Total Balance:</strong> $30,000</p>
+                <p><strong>Last Updated:</strong> 2025-01-24</p>
+                <p><strong>24h Change:</strong> <span class="negative">-1.2%</span></p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
       
-        
-  
-        <!-- Loading Overlay restricted to main content -->
-        <div id="loading-overlay" class="loading-overlay">
-          <div class="loading-bar">
-            <div class="loading-bar-fill"></div>
-          </div>
-          <p>Loading, please wait...</p>
+
+
+      <!-- Loading Overlay restricted to main content -->
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-bar">
+          <div class="loading-bar-fill"></div>
         </div>
-      </main>
-    </div>
-    
+        <p>Loading, please wait...</p>
+      </div>
+    </main>
+
     <div id="overlay" class="overlay"></div>
-  
+    
+    <script>
+      // ================================
+      // BINANCE CHART - NO LEGEND TEXT
+      // ================================
+      const ctxBinance = document.getElementById('binanceChart').getContext('2d');
+      const binanceChart = new Chart(ctxBinance, {
+        type: 'doughnut',
+        data: {
+          // Empty labels array => no text to show in a legend
+          labels: [],
+          datasets: [{
+            // The actual data
+            data: [70, 20, 10],
+            backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
+            borderColor: '#141414',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              // Turn off the legend completely
+              display: false
+            },
+            tooltip: {
+              // Also turn off tooltips if you want ZERO text anywhere
+              enabled: false 
+            }
+          }
+        }
+      });
+    
+      // ================================
+      // COINBASE CHART - NO LEGEND TEXT
+      // ================================
+      const ctxCoinbase = document.getElementById('coinbaseChart').getContext('2d');
+      const coinbaseChart = new Chart(ctxCoinbase, {
+        type: 'doughnut',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [60, 25, 15],
+            backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
+            borderColor: '#141414',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          }
+        }
+      });
+    </script>
+    
+
 </body>
 </html>

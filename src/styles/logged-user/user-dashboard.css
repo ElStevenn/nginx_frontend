@@ -1,63 +1,56 @@
 :root {
+    --background-color: #141414;
     --box-main-color: #222222;
     --box-hilight-color: #2e2e2e;
     --border-box-hilight-color: #5e5e5e;
+    --submenu-background-color: #2c2c2c;
 }
 
-
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Base Styles */
 body {
     margin: 0;
     padding: 0;
-    background-color: #141414;
+    background-color: var(--background-color);
     color: #e0e0e0; 
     font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
 }
 
 /* Link Styles */
 a {
     text-decoration: none;
-    color: inherit; /* Links inherit text color */
+    color: inherit; 
 }
 
-/* Main Layout Container */
-.main-layout {
-  display: flex;
-  flex: 1;
-  background-color: #141414;
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding: 10px;
-  transition: margin-left 0.3s;
-}
-
-/* Adjust main-layout when sidebar is collapsed */
-.main-layout.collapsed {
-  padding-left: 60px;
-  margin-left: 80px;
-}
-
-/* Main Content Area */
+/* Main Content (replaces .main-layout usage) */
 .main-content {
-  padding: 45px 40px 20px 40px; /* Top padding to offset the 65px header */
+  /* This margin-left ensures the main content doesn't appear under the sidebar. */
+  margin-left: 270px; 
+  padding: 60px 40px 20px 40px; 
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
   flex: 1;
-  transition: padding 0.5s;
+  transition: margin-left 0.3s, padding 0.5s;
   max-width: 1600px;
-  margin: 0 auto;
+  margin-right: auto;
+  margin-left: 240px; /* default expanded width of sidebar */
+  /* Ensure full height if needed */
+  min-height: 100vh;
+}
+
+/* If we want to reduce left margin when sidebar is collapsed, 
+   we can toggle a .collapsed class on .main-content */
+.main-content.collapsed {
+  margin-left: 80px; /* narrower sidebar */
 }
 
 /* Dashboard Overview Section */
@@ -71,9 +64,8 @@ a {
     position: relative;
 }
 
-/* Generic Overview Box Styles */
 .overview-box {
-    flex: 0 0 calc((100% - 80px) / 5); /* Ensure five boxes per row with gaps */
+    flex: 0 0 calc((100% - 80px) / 5); 
     padding: 7px 10px 10px 10px;
     border-radius: 8px;
     text-align: center;
@@ -82,7 +74,6 @@ a {
     box-sizing: border-box;
 }
 
-/* Portfolio Overview Specific Styles */
 .portfolio-overview {
     position: relative;
     cursor: pointer;
@@ -124,7 +115,6 @@ a {
     font-size: 16px;
 }
 
-
 .portfolio-overview .account-balance {
     font-size: 0.9rem;
     color: #cdcdcd;
@@ -137,12 +127,10 @@ a {
     margin: 0px 0 0 5px;
 }
 
-/* Color can vary */
 .account-balance-increased {
     color: #71ef71;
 }
 
-/* Total Assets Specific Styles */
 .box-see-data {
     display: flex;
     flex-direction: column;
@@ -165,12 +153,12 @@ a {
     margin-left: 10px;
 }
 
-/* Submenu Styles */
+/* Submenu */
 .submenu {
     position: absolute;
     top: 100%;
     width: 90%;
-    background-color: #2c2c2c;
+    background-color: var(--submenu-background-color);
     border-radius: 8px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
     margin-top: 5px;
@@ -215,7 +203,6 @@ a {
     color: #ffffff;
 }
 
-/* Optional: Add a separator style */
 .submenu-separator {
     height: 2px;
     background: #444;
@@ -233,7 +220,6 @@ a {
     }
 }
 
-
 @media (max-width: 768px) {
     .overview-box {
         flex: 0 0 calc((100% - 80px) / 5);
@@ -250,7 +236,7 @@ a {
     .linked-accounts,
     .complete-register,
     .welcome-register {
-        padding: 15px;
+        padding: 15px 15px;
     }
 }
 
@@ -274,12 +260,12 @@ a {
     }
 }
 
-/* Active Bots, Linked Accounts, Complete Register, and Welcome Register Sections */
+/* Sections inside the main content */
 .active-bots,
 .linked-accounts,
 .complete-register,
 .welcome-register {
-    padding: 20px;
+    padding: 20px 20px;
     background-color: var(--box-main-color);
     border-radius: 8px;
     margin-bottom: 20px;
@@ -290,7 +276,7 @@ a {
 .linked-accounts h2,
 .complete-register h2,
 .welcome-register h2 {
-    width: 100%;
+    width: auto;
     margin: 0;
     font-size: 1.5rem;
     color: #ffffff;
@@ -302,30 +288,7 @@ a {
 .welcome-register p {
     margin: 10px 0 0 0;
     color: #ffffff;
-    font-size: 16px;
-}
-
-
-.active-bots:hover p,
-.linked-accounts:hover p,
-.complete-register:hover p,
-.welcome-register:hover p {
-    color: #e0e0e0;
-}
-
-/* Override Styles for Nested .main-layout */
-.main-layout .main-layout {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-}
-
-.main-layout .main-layout .main-content {
-    max-width: 1450px;
-    width: 95%;
-    margin: 0 auto !important;
-    padding: 0 !important;
+    font-size: 15px;
 }
 
 /* Complete Register Layout */
@@ -336,7 +299,6 @@ a {
     margin-bottom: 20px;
 }
 
-/* Header styling (row 1) */
 .complete-header {
     display: flex;
     justify-content: space-between;
@@ -359,33 +321,28 @@ a {
     margin-left: 10px;
 }
 
-/* Each stage is a small circle */
 .progress-stage {
     width: 12px;
     height: 12px;
     background-color: #5e5e5e; 
     border-radius: 50%;
-  }
-  
+}
 
-  .progress-stage.active {
+.progress-stage.active {
     background-color: #21cd0c; 
-  } 
-  
+}
 
-  .progress-bar-container {
+.progress-bar-container {
     display: flex;
     gap: 5px; 
-  }
+}
 
-/* Box container (row 2) */
 .complete-register-content {
     display: flex;
     justify-content: space-between;
     gap: 25px;
 }
 
-/* Each box: image + text side by side */
 .complete-register-content .box {
     flex: 1 1 0;
     border-radius: 8px;
@@ -405,22 +362,19 @@ a {
     border: 2px solid #e98630 !important;
 }
 
-/* Image style in each box */
 .complete-register-content .box img {
-    width: 30px;   
+    width: 30px;
     height: auto;
-    flex-shrink: 0;  
+    flex-shrink: 0;
     filter: invert(50%);
 }
 
-/* Container for the heading & paragraph (vertical column) */
 .complete-register-content .box-text {
     display: flex;
-    flex-direction: column;   /* stack h2 above p */
+    flex-direction: column;
     justify-content: flex-start;
 }
 
-/* Box text styling */
 .complete-register-content .box-text h2 {
     margin: 0 0 5px 0;
     font-size: 0.85rem;
@@ -430,7 +384,324 @@ a {
 .complete-register-content .box-text p {
     margin: 0;
     font-size: 0.75rem;
-    color: #a9a9a9;;
+    color: #a9a9a9;
+}
+
+/* Welcome Section: 2x2 boxes in .welcome-register */
+.welcome-register {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .welcome-register-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .welcome-register-header h2,
+  .welcome-register-header p {
+    margin: 0;
+    color: #ffffff;
+  }
+  
+  /* Optional: set font-size or additional styling for your paragraph if desired */
+  /* .welcome-register-header p {
+    font-size: 1rem;
+  } */
+  
+.welcome-register .boxes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+
+.welcome-register .box {
+    width: calc(50% - 12.5px);
+    border-radius: 8px;
+    padding: 90px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-box-hilight-color);
+    background-color: var(--box-main-color);
+}
+
+.welcome-register .box h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.welcome-register .get-started-btn {
+    margin: 0 auto;
+    padding: 5px 8px;
+    background-color: #e98630;
+    color: #141313;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.welcome-register .get-started-btn:hover {
+    background-color: #f09547;
+    transition: 0.3s;
+}
+
+.get-started-btn img {
+    width: 23px;
+    height: 23px;
+    filter: invert(5%);
+    margin-top: 0px;
+}
+
+/* ---------------------------------- */
+/*  - - LINKED ACCOUNTS SECTION - -  */
+/* ---------------------------------- */
+.linked-accounts {
+    background-color: var(--box-main-color);
+    padding: 20px 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 40px;
+}
+
+.linked-accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.linked-accounts-header h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.add-account-btn {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-account-btn:hover {
+    background-color: #1c86ee;
+    transform: translateY(-2px);
+}
+
+.linked-account-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+.linked-account-content::-webkit-scrollbar {
+    height: 8px;
+}
+
+.linked-account-content::-webkit-scrollbar-thumb {
+    background-color: var(--border-box-hilight-color);
+    border-radius: 4px;
+}
+
+.linked-account-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.linked-account {
+    flex: 0 0 auto;
+    width: 532px;
+    border: 1px solid var(--border-box-hilight-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    border-radius: 8px;
+}
+
+.linked-account:hover {
+    background-color: var(--box-main-color);
+    box-shadow: 0 6px 15px var(--card-shadow);
+}
+
+.linked-account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.account-info i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.account-info-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.account-info-text h3,
+.account-info-text p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.account-info h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.account-info p {
+    font-size: 0.9rem;
+    color: #c1c1c1;
+    margin-top: 3px;
+}
+
+.manage-btn {
+    background-color: var(--accent-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.manage-btn:hover {
+    background-color: #e91e63;
+    transform: translateY(-2px);
+}
+
+.linked-account-body {
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+}
+
+/* Increase chart height here */
+.linked-account-chart {
+    flex: 1;
+    position: relative;
+    height: 250px; /* Was 150px; adjust as needed */
+}
+
+.linked-account-data {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.linked-account-data p {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+}
+
+.linked-account-data p span {
+    font-weight: bold;
+}
+
+.positive {
+    color: var(--positive-color);
+}
+
+.negative {
+    color: var(--negative-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .linked-account-content {
+        gap: 20px;
+    }
+    .linked-account {
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .linked-account {
+        width: 250px;
+        padding: 18px;
+    }
+    .linked-accounts-header h2 {
+        font-size: 1.6rem;
+    }
+    .linked-accounts-header .add-account-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    .linked-account-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .linked-account-chart, .linked-account-data {
+        width: 100%;
+    }
+    .linked-account-data {
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .linked-account-content {
+        gap: 15px;
+    }
+    .linked-account {
+        width: 220px;
+        padding: 15px;
+    }
+    .account-info i {
+        font-size: 1.8rem;
+    }
+    .account-info h3 {
+        font-size: 1rem;
+    }
+    .manage-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    .linked-account-data p {
+        font-size: 0.85rem;
+    }
 }
 
 /* Account Details Div Styles */
@@ -538,7 +809,7 @@ a {
     background: #e98630;
 }
 
-/* Loading bar */
+/* Loading overlay */
 .loading-overlay {
     position: absolute;
     top: 0;
@@ -565,171 +836,4 @@ a {
     height: 100%;
     width: 40%;
     background-color: #4287f5;
-}
-
-
-/* Each stage is a small circle */
-.progress-stage {
-    width: 12px;
-    height: 12px;
-    background-color: #5e5e5e; 
-    border-radius: 50%;
-  }
-  
-
-  .progress-stage.active {
-    background-color: #21cd0c; 
-  } 
-  
-
-  .progress-bar-container {
-    display: flex;
-    gap: 5px; 
-  }
-
-
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-/*  NEW PROGRESS BAR STYLES                                */
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-/* Ensure .welcome-register holds a 2x2 grid */
-.welcome-register {
-    /* Keep the background, border-radius from your existing style */
-    /* Already has .welcome-register { padding:20px; background-color... } */
-    display: flex;        /* Use flexbox */
-    flex-wrap: wrap;      /* Let items wrap to next row */
-    gap: 20px;            /* Spacing between items */
-  }
-  
-  /* Let the "Welcome to Fundy" heading span full width above the 2x2 boxes */
-  .welcome-register > h2 {
-    width: 100%;
-    margin: 0;
-    font-size: 1.5rem;
-    color: #ffffff;
-  }
-  
-  /* Make each .box half the container width so 2 boxes fit per row */
-  .welcome-register .box {
-    width: calc(50% - 12.5px); 
-    border-radius: 8px;
-    padding: 80px;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-box-hilight-color);
-    background-color: var(--box-main-color);
-  }
-  
-  /* Optional: tweak the box heading text */
-  .welcome-register .box h2 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1rem;
-  }
-  
-
-.linked-accounts-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    width: auto;
-}
-
-.linked-accounts-header h2 {
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin: 0;
-    width: auto;
-}
-
-.linked-accounts-header p {
-    font-size: 1rem;
-    color: #c1c1c1;
-    margin: 0;
-}
-
-.linked-account-content {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 10px;
-    white-space: nowrap;
-}
-
-.linked-account-content::-webkit-scrollbar {
-    height: 8px;
-}
-
-.linked-account-content::-webkit-scrollbar-thumb {
-    background-color: var(--border-box-hilight-color);
-    border-radius: 4px;
-}
-
-.linked-account-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.linked-account {
-    flex: 0 0 auto;
-    width: 250px;
-    background-color: var(--box-hilight-color);
-    border: 1px solid var(--border-box-hilight-color);
-    border-radius: 6px;
-    padding: 15px;
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    padding: 50PX; /*remove this in the future*/
-}
-
-.linked-account h2 {
-    font-size: 1rem;
-    margin: 0;
-}
-
-@media (max-width: 768px) {
-    .linked-account {
-        width: 200px;
-        padding: 12px;
-    }
-
-    .linked-accounts-header h2 {
-        font-size: 1.25rem;
-    }
-
-    .linked-accounts-header p {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .linked-account {
-        width: 150px;
-        padding: 10px;
-    }
-
-    .linked-accounts-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-
-    .linked-accounts-header h2 {
-        font-size: 1.1rem;
-    }
-
-    .linked-accounts-header p {
-        font-size: 0.8rem;
-    }
-
-    .linked-account-content {
-        gap: 10px;
-    }
 }

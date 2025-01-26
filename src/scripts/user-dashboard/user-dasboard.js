@@ -78,6 +78,44 @@ async function get_balance_overview(account_id = 'all') {
     }
 }
 
+
+async function get_linked_accounts() {
+
+    try {
+        let credentials = getCookie("credentials");
+        if (!credentials) {
+            console.error("Credentials not found.");
+            return null;
+        }
+    
+        credentials = credentials.replace(/^"(.*)"$/, '$1');
+        const url = `${exchangeAPI}/accounts//overview`
+        const headers = {
+            'Accept': 'application/json',
+            'Authorization': credentials
+        };
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: headers
+        });
+
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+
+
+    }catch(error){
+        console.error("Error fetching linked accounts:",error);
+        return null;
+    }
+}
+
+
 async function get_started() {
     // Get started references
     const complete_register_box = document.getElementById('complete-register');
@@ -120,14 +158,18 @@ async function get_started() {
     }
 }
 
+async function  fetch_linked_accounts(params) {
+    const linkedAccounts = await get_linked_accounts();
+
+
+    
+}
+
+
 async function fetch_active_bots() {
 
 }
 
-async function fetch_linked_accounts() {
-
-
-}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -500,8 +542,8 @@ document.addEventListener('DOMContentLoaded', () => {
         addAccountItem.innerHTML = `
             <li class="submenu-separator"></li>
             <div class="submenu-item-content add-account-item-content">
-                <span class="submenu-item-title">Add Account</span>
-                <img src="/images/icons/add.png" alt="Add Account" class="submenu-item-image add-account-icon">
+                <span class="submenu-item-title">Connect an Exchanget</span>
+                <img src="/images/icons/add.png" alt="Connect an Exchange" class="submenu-item-image add-account-icon">
             </div>
         `;
 
@@ -523,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Now attach the click/keydown to each real account item
         const accountItems = submenuList.querySelectorAll('.submenu-item');
         accountItems.forEach(item => {
-            // Skip "Add Account" and "Global"
+            // Skip "Connect an Exchange" and "Global"
             if (item.id === 'add-account-item' || item.id === 'global-menu-item') return;
 
             item.addEventListener('click', () => {

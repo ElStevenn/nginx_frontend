@@ -9,8 +9,6 @@
     height: calc(100vh - 70px);
     background-color: #141414;
     box-sizing: border-box;
-
-    /* Let the toggle button poke out horizontally */
     overflow: visible;
     border-right: 1px solid #3a3a3a;
     transition: width 0.3s, padding 0.3s;
@@ -18,8 +16,6 @@
     flex-direction: column;
     scrollbar-width: none;
     -ms-overflow-style: none;
-
-    /* Adjust sidebar padding as you like. */
     padding: 10px 17px 0 19px;
 }
 
@@ -28,16 +24,14 @@
     display: none;
 }
 
-/* Grouping items with a .sidebar-group for spacing */
+/* Grouping items with .sidebar-group for spacing */
 .sidebar-group {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-/* ---------------------
-   Collapsed State
----------------------- */
+/* Collapsed State */
 .sidebar.collapsed {
     width: 80px;
     padding: 40px 9px 0 9px;
@@ -48,75 +42,16 @@
     display: none;
 }
 
-.sidebar + .main-layout {
+/* IMPORTANT: Instead of .main-layout, target .main-content */
+.sidebar + .main-content {
     margin-left: 240px; 
+    transition: margin-left 0.3s;
 }
 
-.sidebar.collapsed + .main-layout {
+.sidebar.collapsed + .main-content {
     margin-left: 80px;
 }
 
-.sidebar.collapsed + .main-layout {
-    margin-left: 80px;
-}
-
-.sidebar.collapsed .nav-button {
-    justify-content: center;
-}
-
-.sidebar.collapsed .sidebar-icon {
-    margin-right: 0;
-}
-
-/* 
-   ---------------
-   Toggle Button
-   ---------------
-   Hidden by default; only visible on sidebar:hover.
-*/
-.toggle-button {
-    display: none; 
-    position: absolute;
-    top: 104px;
-    right: -17px;
-    z-index: 9999;
-    background-color: #141414;
-    border: 1px solid #3a3a3a;
-    color: #e0e0e0;
-    cursor: pointer;
-    font-size: 18px;
-    border-radius: 20px;
-    padding: 6px 9px 4px 6px;
-    transition: 0.3s;
-}
-
-/* Icon default is rotated 180deg */
-.toggle-button img {
-    width: 15px;
-    height: 15px;
-    filter: invert(100%);
-    transform: rotate(180deg);
-    transition: 0.3s;
-}
-
-/* When we add .rotated (i.e. collapsed), go to 0deg */
-.toggle-button img.rotated {
-    transform: rotate(0deg);
-}
-
-/* Show the toggle button only when hovering over .sidebar */
-.sidebar:hover .toggle-button {
-    display: block; 
-}
-
-/* Hover effect on the toggle button itself */
-.toggle-button:hover {
-    background: #3c3c3c;
-}
-
-/* ---------------------
-   Text & Nav Buttons
----------------------- */
 .nav-text {
     transition: opacity 0.3s, margin 0.3s;
     white-space: nowrap;
@@ -130,13 +65,6 @@
     color: #e0e0e0;
 }
 
-/* When collapsed, hide text. */
-.sidebar.collapsed .nav-text {
-    opacity: 0;
-    margin: 0;
-    padding: 0;
-}
-
 .sidebar.collapsed .nav-text,
 .sidebar.collapsed h2,
 .sidebar.collapsed .beta-label,
@@ -144,7 +72,6 @@
   display: none;
 }
 
-/* nav-button (spaced by gap, no margin-bottom) */
 .nav-button {
     display: flex;
     align-items: center;
@@ -168,7 +95,6 @@
     border: 0.3px solid #3a3a3a;
 }
 
-/* Icons */
 .sidebar-icon {
     width: 1.25rem;
     height: 1.25rem;
@@ -180,7 +106,6 @@
     padding: 2px;
 }
 
-/* Subtle hover border on entire sidebar */
 .sidebar:hover {
     border-right: 0.5px solid #3a3a3a;
 }
@@ -203,14 +128,71 @@
     background-color: #3c44ff;
 }
 
-/* If sidebar is collapsed + main layout behind it */
-.sidebar.collapsed + .main-layout {
-    margin-left: 80px;
+/* Toggle Button */
+.toggle-button {
+    display: none; 
+    position: absolute;
+    top: 104px;
+    right: -17px;
+    z-index: 9999;
+    background-color: #141414;
+    border: 1px solid #3a3a3a;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 6px 9px 4px 6px;
+    transition: 0.3s;
 }
 
-/* ---------------
-   Media Queries
-----------------*/
+.toggle-button img {
+    width: 15px;
+    height: 15px;
+    filter: invert(100%);
+    transform: rotate(180deg);
+    transition: 0.3s;
+}
+
+.toggle-button img.rotated {
+    transform: rotate(0deg);
+}
+
+.sidebar:hover .toggle-button {
+    display: block; 
+}
+
+.toggle-button:hover {
+    background: #3c3c3c;
+}
+
+/* Social Icons Row */
+.sidebar-socials {
+    margin-top: auto;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 0;
+    margin-top: 20px;
+}
+
+.sidebar.collapsed .sidebar-socials {
+    display: none;
+}
+
+.sidebar-socials img {
+    width: 1rem;
+    height: 1rem;
+    filter: invert(100%);
+    transition: opacity 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.sidebar-socials img:hover {
+    opacity: 0.7;
+}
+
+/* Media Queries */
 @media (min-width: 1200px) {
     .sidebar {
         width: 265px;
@@ -251,7 +233,6 @@
     }
 }
 
-/* Accessibility Enhancements */
 .nav-button:focus,
 .nav-button:hover {
     background-color: #3a3a3a;
@@ -261,31 +242,4 @@
 .toggle-button:focus,
 .toggle-button:hover {
     color: #ffffff;
-}
-
-/* Social Icons Row */
-.sidebar-socials {
-    margin-top: auto;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    padding: 0.75rem 0;
-    margin-top: 20px;
-}
-
-.sidebar.collapsed .sidebar-socials {
-    display: none;
-}
-
-.sidebar-socials img {
-    width: 1rem;
-    height: 1rem;
-    filter: invert(100%);
-    transition: opacity 0.3s, transform 0.3s;
-    cursor: pointer;
-}
-
-.sidebar-socials img:hover {
-    opacity: 0.7;
 }
