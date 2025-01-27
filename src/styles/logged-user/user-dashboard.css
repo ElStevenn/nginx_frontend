@@ -282,13 +282,14 @@ a {
     margin: 0;
     font-size: 1.5rem;
     color: #ffffff;
+    margin-bottom: 5px;
 }
 
 .active-bots p,
 .linked-accounts p,
 .complete-register p,
 .welcome-register p {
-    margin: 10px 0 0 0;
+    /* margin: 3px 0 0 0; */
     color: #ffffff;
     font-size: 15px;
 }
@@ -480,31 +481,13 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: 10px;
 }
 
 .linked-accounts-header h2 {
     font-size: 1.5rem;
     color: var(--primary-color);
-}
-
-.add-account-btn {
-    background-color: var(--primary-color);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.add-account-btn:hover {
-    background-color: #1c86ee;
-    transform: translateY(-2px);
 }
 
 .linked-account-content {
@@ -551,9 +534,9 @@ a {
     box-shadow: 0 6px 15px var(--card-shadow);
 }
 
+/* Make header items align left (account info) & right (buttons) */
 .linked-account-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -561,6 +544,7 @@ a {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-right: auto; /* pushes the buttons to the far right */
 }
 
 .account-info i {
@@ -591,8 +575,10 @@ a {
     margin-top: 3px;
 }
 
-.manage-btn {
-    background-color: var(--accent-color);
+/* Manage & Disconnect buttons */
+.manage-btn,
+.disconnect-btn,
+.transfer-btn {
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -600,45 +586,167 @@ a {
     cursor: pointer;
     font-size: 0.9rem;
     display: flex;
-    align-items: center;
-    gap: 5px;
+    align-items: center; 
+    justify-content: center; 
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.manage-btn:hover {
-    background-color: #e91e63;
-    transform: translateY(-2px);
+.manage-btn {
+    background-color: #007ec0;
+    margin-right: 10px;
 }
 
+.manage-btn {
+    background-color:#007ec0;
+    margin-right: 10px;
+}
+
+.manage-btn:hover {
+    background-color: #1290d4;
+    transition: 0.3s;
+}
+
+.disconnect-btn {
+    background-color: #F44336;
+}
+
+.transfer-btn{
+    margin-right: 10px;
+    background-color: #e2e2e2;
+}
+
+.transfer-btn:hover {
+    background-color: #c3c3c3;
+    transition: 0.3s;
+}
+
+.disconnect-btn:hover {
+    background-color: #f56055;
+    transition: 0.3s;
+}
+
+/* Icons inside the buttons */
+.manage-btn i,
+.transfer-btn i,
+.disconnect-btn i {
+    margin-right: 0;
+}
+
+.manage-btn img,
+.transfer-btn img,
+.disconnect-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(100%);
+    margin: 0; 
+}
+
+.transfer-btn img {
+    filter: invert(0);
+}
+
+/* 
+   Make the chart & data share space side-by-side.
+   Each gets ~50% of the row, and we center them vertically 
+   so the text lines up with the chart.
+*/
 .linked-account-body {
     display: flex;
     flex-direction: row;
-    gap: 9px;
+    align-items: center;
+    gap: 30px; 
 }
 
-/* Increase chart height here */
 .linked-account-chart {
-    flex: 1;
+    flex: 0 0 50%;
     position: relative;
-    height: 250px; /* Was 150px; adjust as needed */
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure the canvas doesn’t overflow */
+.linked-account-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
 }
 
 .linked-account-data {
-    flex: 1;
+    flex: 0 0 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; 
+    color: #e0e0e0;
+    min-height: 250px; /* matches the chart’s height so they're aligned */
+}
+
+/* -- NEW for multiple headings and lists -- */
+.linked-account-data h3 {
+    margin: 8px 0 8px; 
+    font-size: 1.1rem; 
+    color: #ffffff;
+}
+
+.linked-account-data ul {
+    margin: 0;
+    padding-left: 20px; /* indent the list a bit */
+    list-style: disc;   /* you can switch to none if you want no bullets */
+}
+
+.linked-account-data li {
+    margin-bottom: 5px;
 }
 
 .linked-account-data p {
     font-size: 0.95rem;
-    color: #e0e0e0;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .linked-account-data p span {
     font-weight: bold;
 }
+
+/* 
+   The "Connect Account" card inherits .linked-account 
+   but we override the layout so the button is centered
+*/
+.connect-account-card {
+    min-height: 316px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: auto;
+    border: none; /* remove border if you want a "non-card" look */
+}
+
+/* Big call-to-action button for the "Connect" card */
+.connect-exchange-btn {
+    background-color: #426c93; 
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.connect-exchange-btn i {
+    font-size: 1.2rem;
+}
+
+.connect-exchange-btn:hover {
+    background-color: #537ca2;
+    transition: 0.3s;
+}
+
 
 .positive {
     color: var(--positive-color);
@@ -666,7 +774,7 @@ a {
     .linked-accounts-header h2 {
         font-size: 1.6rem;
     }
-    .linked-accounts-header .add-account-btn {
+    .linked-accounts-header {
         padding: 8px 16px;
         font-size: 0.9rem;
     }

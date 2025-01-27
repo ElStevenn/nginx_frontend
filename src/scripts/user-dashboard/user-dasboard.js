@@ -158,12 +158,126 @@ async function get_started() {
     }
 }
 
-async function  fetch_linked_accounts(params) {
-    const linkedAccounts = await get_linked_accounts();
+async function fetch_linked_accounts(accounts) {
+    const linked_account_main_div = document.getElementById('linked-account-content');
+    linked_account_main_div.innerHTML = '';
 
+    accounts.forEach(account => {
+        const linked_account = document.createElement('div');
+        linked_account.classList.add('linked-account');
 
-    
+        // Generate the dynamic list items for account types
+        const accountTypes = ['spot', 'margin', 'futures'];
+        let accountsListHTML = '';
+
+        accountTypes.forEach(type => {
+            if (account.accounts[type] !== undefined && account.accounts[type] !== 0) {
+                const formattedValue = Number(account.accounts[type]).toFixed(2);
+                accountsListHTML += `<li><strong>${capitalizeFirstLetter(type)}</strong>: $${formattedValue}</li>`;
+            }
+        });
+
+        // Populate the inner HTML of the linked account
+        linked_account.innerHTML = `
+            <div class="linked-account-header">
+                <div class="account-info">
+                    <i class="fab"></i>
+                    <div class="account-info-text">
+                        <h3>${account.account_name}</h3>
+                        <p>${capitalizeFirstLetter(account.exchange)}</p>
+                    </div>
+                </div>
+                <button class="transfer-btn">
+                    <i class="fas fa-cog"></i>
+                    <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
+                </button>
+                <button class="manage-btn">
+                    <i class="fas fa-cog"></i>
+                    <img src="/images/icons/gear2.png" alt="Gear Icon">
+                </button>
+                <button class="disconnect-btn">
+                    <i class="fas fa-unlink"></i>
+                    <img src="/images/icons/trash-can.png" alt="Trash Icon">
+                </button>
+            </div>
+            
+            <div class="linked-account-body">
+                <div class="linked-account-chart">
+                    <canvas id="coinbaseChart-${account.id}"></canvas>
+                </div>
+                <div class="linked-account-data">
+                    <h3>Overview</h3>
+                    <ul>
+                        <li><strong>Total Balance</strong>: $${Number(account.total).toFixed(2)}</li>
+                        <li><strong>24h Change</strong>: ${Number(account['24h_change_percentage']).toFixed(2)}%</li>
+                    </ul> 
+                    <h3>Accounts</h3>
+                    <ul>
+                        ${accountsListHTML}
+                    </ul>
+                </div>
+            </div>
+        `;
+
+        linked_account_main_div.appendChild(linked_account);
+
+        // Build the data array for the chart
+        // (Spot, Margin, and Futures in that order)
+        const dataValues = [
+            account.accounts.spot || 0,
+            account.accounts.margin || 0,
+            account.accounts.futures || 0
+        ];
+
+        // Initialize the Chart.js doughnut chart for each account
+        createDoughnutChart(`coinbaseChart-${account.id}`, dataValues);
+    });
+
+    // After listing all accounts, append the "Connect Exchange" card
+    const connectAccountCard = document.createElement('div');
+    connectAccountCard.classList.add('linked-account', 'connect-account-card');
+    connectAccountCard.innerHTML = `
+        <button class="connect-exchange-btn">
+            <i class="fas fa-plus"></i> Connect an Exchange Now!
+        </button>
+    `;
+    linked_account_main_div.appendChild(connectAccountCard);
 }
+
+// Helper function to capitalize the first letter
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Create a reusable doughnut chart
+function createDoughnutChart(canvasId, dataValues) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [], // We keep labels empty to hide them
+            datasets: [{
+                data: dataValues,
+                backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
+                borderColor: '#141414',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: false
+                }
+            }
+        }
+    });
+}
+
 
 
 async function fetch_active_bots() {
@@ -245,6 +359,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.warn("Account not found for ID:", selectedAccountId);
                 }
             }
+
+            // Update the linked accounts
+            await fetch_linked_accounts(user_balance.accounts);
         }
 
         // 3) Fetch all accounts only once

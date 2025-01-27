@@ -400,60 +400,14 @@
       <div class="linked-accounts">
         <div class="linked-accounts-header">
           <h2>Linked Accounts</h2>
-          <button class="add-account-btn"><i class="fas fa-plus"></i> Add Account</button>
+          <p>Text added here</p>
         </div>
-        
-        <div class="linked-account-content">
-          <!-- Binance Account -->
-          <div class="linked-account">
-            <div class="linked-account-header">
-              <div class="account-info">
-                <i class="fab fa-binance"></i>
-                <div class="account-info-text">
-                  <h3>Binance Account</h3>
-                  <p>Binance Exchange</p>
-                </div>
-              </div>
-              <button class="manage-btn"><i class="fas fa-cog"></i> Manage</button>
-            </div>
-            <div class="linked-account-body">
-              <div class="linked-account-chart">
-                <canvas id="binanceChart"></canvas>
-              </div>
-              <div class="linked-account-data">
-                <p><strong>Total Balance:</strong> $50,000</p>
-                <p><strong>Last Updated:</strong> 2025-01-24</p>
-                <p><strong>24h Change:</strong> <span class="positive">+2.5%</span></p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Coinbase Account -->
-          <div class="linked-account">
-            <div class="linked-account-header">
-              <div class="account-info">
-                <i class="fab fa-coinbase"></i>
-                <div class="account-info-text">
-                  <h3>Coinbase Account</h3>
-                  <p>Coinbase Exchange</p>
-                </div>
-              </div>
-              <button class="manage-btn"><i class="fas fa-cog"></i> Manage</button>
-            </div>
-            <div class="linked-account-body">
-              <div class="linked-account-chart">
-                <canvas id="coinbaseChart"></canvas>
-              </div>
-              <div class="linked-account-data">
-                <p><strong>Total Balance:</strong> $30,000</p>
-                <p><strong>Last Updated:</strong> 2025-01-24</p>
-                <p><strong>24h Change:</strong> <span class="negative">-1.2%</span></p>
-              </div>
-            </div>
-          </div>
+
+        <div class="linked-account-content" id="linked-account-content">
+          <!-- JS handles this-->
         </div>
       </div>
-      
+
 
 
       <!-- Loading Overlay restricted to main content -->
@@ -465,72 +419,7 @@
       </div>
     </main>
 
-    <div id="overlay" class="overlay"></div>
-    
-    <script>
-      // ================================
-      // BINANCE CHART - NO LEGEND TEXT
-      // ================================
-      const ctxBinance = document.getElementById('binanceChart').getContext('2d');
-      const binanceChart = new Chart(ctxBinance, {
-        type: 'doughnut',
-        data: {
-          // Empty labels array => no text to show in a legend
-          labels: [],
-          datasets: [{
-            // The actual data
-            data: [70, 20, 10],
-            backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
-            borderColor: '#141414',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              // Turn off the legend completely
-              display: false
-            },
-            tooltip: {
-              // Also turn off tooltips if you want ZERO text anywhere
-              enabled: false 
-            }
-          }
-        }
-      });
-    
-      // ================================
-      // COINBASE CHART - NO LEGEND TEXT
-      // ================================
-      const ctxCoinbase = document.getElementById('coinbaseChart').getContext('2d');
-      const coinbaseChart = new Chart(ctxCoinbase, {
-        type: 'doughnut',
-        data: {
-          labels: [],
-          datasets: [{
-            data: [60, 25, 15],
-            backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
-            borderColor: '#141414',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              enabled: false
-            }
-          }
-        }
-      });
-    </script>
-    
+    <div id="overlay" class="overlay"></div>  
 
 </body>
 </html>

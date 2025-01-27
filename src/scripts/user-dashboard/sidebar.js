@@ -133,14 +133,14 @@ function initSidebarState() {
 
     // Update styles if you prefer inline:
     mainContent.style.marginLeft = '80px';
-    mainContent.style.maxWidth = '1820px';
+    mainContent.style.maxWidth = '1600px';
   } else {
     // Expanded state
     sidebar.classList.remove('collapsed');
     mainContent.classList.remove('collapsed');
     toggleIcon.classList.remove('rotated');
 
-    mainContent.style.maxWidth = '1600px';
+    mainContent.style.maxWidth = '1820px';
     mainContent.style.marginLeft = '270px';
   }
 }
