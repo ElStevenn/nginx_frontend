@@ -408,8 +408,6 @@
         </div>
       </div>
 
-
-
       <!-- Loading Overlay restricted to main content -->
       <div id="loading-overlay" class="loading-overlay">
         <div class="loading-bar">
@@ -420,6 +418,28 @@
     </main>
 
     <div id="overlay" class="overlay"></div>  
+
+  <!-- The modal overlay for confirming deletion -->
+  <div id="delete-account">
+    <div class="modal-content">
+      <h2>Really want to delete your trading account?</h2>
+      <div class="warning-section">
+        <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
+        <span>Unexpected things can happen if you don't read this!</span>
+      </div>
+      <ul class="delete-warnings-list">
+        <li>Your trading account will  be inmediately deleted.</li>
+        <li>All your asociated bots will be deleted.</li>
+        <li>Your historical data such as orders, trades, and positions will be deleted.</li>
+        <li>You will not be able to recover the data of this asociated account.</li>
+      </ul>
+
+      <p id="delete-account-message"></p>
+
+      <button id="confirm-delete-btn" class="confirm-deletion-acc">I undersand, delete trading account</button>
+      <button id="cancel-delete-btn" class="cancel-deletion-acc">Cancel</button>
+    </div>
+  </div>
 
 </body>
 </html>

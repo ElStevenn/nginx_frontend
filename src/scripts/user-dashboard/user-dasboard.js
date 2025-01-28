@@ -79,41 +79,6 @@ async function get_balance_overview(account_id = 'all') {
 }
 
 
-async function get_linked_accounts() {
-
-    try {
-        let credentials = getCookie("credentials");
-        if (!credentials) {
-            console.error("Credentials not found.");
-            return null;
-        }
-    
-        credentials = credentials.replace(/^"(.*)"$/, '$1');
-        const url = `${exchangeAPI}/accounts//overview`
-        const headers = {
-            'Accept': 'application/json',
-            'Authorization': credentials
-        };
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers
-        });
-
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-
-
-    }catch(error){
-        console.error("Error fetching linked accounts:",error);
-        return null;
-    }
-}
 
 
 async function get_started() {
@@ -158,90 +123,109 @@ async function get_started() {
     }
 }
 
+function showToast(message, type = 'info') {
+    console.log(`[${type.toUpperCase()}] ${message}`);
+}
+
 async function fetch_linked_accounts(accounts) {
     const linked_account_main_div = document.getElementById('linked-account-content');
     linked_account_main_div.innerHTML = '';
 
+    if (!accounts || !Array.isArray(accounts)) {
+        // If no accounts or invalid data, show "no accounts"
+        linked_account_main_div.innerHTML = '<p>No accounts found.</p>';
+        return;
+    }
+
     accounts.forEach(account => {
+        // If account.accounts is missing, we can skip or handle differently
+        if (!account.accounts) {
+            console.warn("Skipping account because 'accounts' is undefined:", account);
+            return;
+        }
+
         const linked_account = document.createElement('div');
         linked_account.classList.add('linked-account');
 
-        // Generate the dynamic list items for account types
+        // Build sub-list for Spot / Margin / Futures (null-safely)
         const accountTypes = ['spot', 'margin', 'futures'];
         let accountsListHTML = '';
-
         accountTypes.forEach(type => {
-            if (account.accounts[type] !== undefined && account.accounts[type] !== 0) {
-                const formattedValue = Number(account.accounts[type]).toFixed(2);
-                accountsListHTML += `<li><strong>${capitalizeFirstLetter(type)}</strong>: $${formattedValue}</li>`;
+            const rawVal = account.accounts[type];
+            if (rawVal !== undefined && rawVal !== 0) {
+                const val = Number(rawVal).toFixed(2);
+                accountsListHTML += `<li><strong>${capitalizeFirstLetter(type)}</strong>: $${val}</li>`;
             }
         });
 
-        // Populate the inner HTML of the linked account
         linked_account.innerHTML = `
-            <div class="linked-account-header">
-                <div class="account-info">
-                    <i class="fab"></i>
-                    <div class="account-info-text">
-                        <h3>${account.account_name}</h3>
-                        <p>${capitalizeFirstLetter(account.exchange)}</p>
-                    </div>
-                </div>
-                <button class="transfer-btn">
-                    <i class="fas fa-cog"></i>
-                    <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
-                </button>
-                <button class="manage-btn">
-                    <i class="fas fa-cog"></i>
-                    <img src="/images/icons/gear2.png" alt="Gear Icon">
-                </button>
-                <button class="disconnect-btn">
-                    <i class="fas fa-unlink"></i>
-                    <img src="/images/icons/trash-can.png" alt="Trash Icon">
-                </button>
+          <div class="linked-account-header">
+            <div class="account-info">
+              <div class="account-info-text">
+                <h3>${account.account_name || 'N/A'}</h3>
+                <p>${capitalizeFirstLetter(account.exchange || '')}</p>
+              </div>
             </div>
-            
-            <div class="linked-account-body">
-                <div class="linked-account-chart">
-                    <canvas id="coinbaseChart-${account.id}"></canvas>
-                </div>
-                <div class="linked-account-data">
-                    <h3>Overview</h3>
-                    <ul>
-                        <li><strong>Total Balance</strong>: $${Number(account.total).toFixed(2)}</li>
-                        <li><strong>24h Change</strong>: ${Number(account['24h_change_percentage']).toFixed(2)}%</li>
-                    </ul> 
-                    <h3>Accounts</h3>
-                    <ul>
-                        ${accountsListHTML}
-                    </ul>
-                </div>
+            <button class="transfer-btn">
+                <i class="fas fa-cog"></i>
+                <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
+            </button>
+            <button class="manage-btn">
+                <i class="fas fa-cog"></i>
+                <img src="/images/icons/gear2.png" alt="Gear Icon">
+            </button>
+            <button class="disconnect-btn"
+                    onclick="delete_account(event, '${account.id}', 
+                     '${(account.account_name||'').replace(/'/g, '\\\'').replace(/"/g, '&quot;')}')">
+              <img src="/images/icons/trash-can.png" alt="Trash Icon">
+            </button>
+          </div>
+          
+          <div class="linked-account-body">
+            <div class="linked-account-chart">
+              <canvas id="accountChart-${account.id}"></canvas>
             </div>
+            <div class="linked-account-data">
+              <h3>Overview</h3>
+              <ul>
+                <li><strong>Total Balance</strong>: $${Number(account.total || 0).toFixed(2)}</li>
+                <li><strong>24h Change</strong>: ${Number(account['24h_change_percentage'] || 0).toFixed(2)}%</li>
+              </ul>
+              <h3>Accounts</h3>
+              <ul>${accountsListHTML}</ul>
+            </div>
+          </div>
         `;
-
         linked_account_main_div.appendChild(linked_account);
 
-        // Build the data array for the chart
-        // (Spot, Margin, and Futures in that order)
-        const dataValues = [
-            account.accounts.spot || 0,
-            account.accounts.margin || 0,
-            account.accounts.futures || 0
-        ];
+        // Safely extract or fallback to 0
+        const spotVal    = account.accounts.spot    || 0;
+        const marginVal  = account.accounts.margin  || 0;
+        const futuresVal = account.accounts.futures || 0;
 
-        // Initialize the Chart.js doughnut chart for each account
-        createDoughnutChart(`coinbaseChart-${account.id}`, dataValues);
+        createDoughnutChart(`accountChart-${account.id}`, [
+            spotVal, marginVal, futuresVal
+        ]);
     });
 
-    // After listing all accounts, append the "Connect Exchange" card
+    // "Connect Exchange" card
     const connectAccountCard = document.createElement('div');
     connectAccountCard.classList.add('linked-account', 'connect-account-card');
     connectAccountCard.innerHTML = `
-        <button class="connect-exchange-btn">
-            <i class="fas fa-plus"></i> Connect an Exchange Now!
+        <button class="connect-exchange-btn" onclick="openAddAccountModal()">
+            <i class="fas fa-plus"></i> Connect an Exchange
+            <img src="/images/icons/plus.png" alt="Plus Icon">
         </button>
     `;
     linked_account_main_div.appendChild(connectAccountCard);
+}
+
+function openAddAccountModal() {
+    window.open(
+        `/settings/set_credentials`,
+        `tinyWindow_${Date.now()}`,
+        'width=700,height=700,top=100,left=200'
+    );
 }
 
 // Helper function to capitalize the first letter
@@ -284,6 +268,79 @@ async function fetch_active_bots() {
 
 }
 
+async function delete_account(event, account_id, account_name) {
+    event.preventDefault(); 
+    const deleteAccountDiv = document.getElementById('delete-account');
+    const messageElement = document.getElementById('delete-account-message');
+    const confirmBtn = document.getElementById('confirm-delete-btn');
+    const cancelBtn = document.getElementById('cancel-delete-btn');
+
+    messageElement.innerHTML = `Are you sure you want to delete the account <strong>${account_name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</strong>?`;
+    deleteAccountDiv.style.display = 'block';
+
+    confirmBtn.onclick = async () => {
+        try {
+            await API_delete_account(account_id);
+            // Optionally clear any old cached data
+            deleteCookie("accounts");
+
+            const updatedAccounts = await get_accounts();
+
+            // Re-draw the accounts
+            fetch_linked_accounts(updatedAccounts || []);
+
+            showToast('Account deleted successfully', 'success');
+        } catch (error) {
+            console.error('Error deleting account:', error);
+            showToast('Failed to delete account', 'error');
+        } finally {
+            deleteAccountDiv.style.display = 'none';
+        }
+    };
+
+    cancelBtn.onclick = () => {
+        deleteAccountDiv.style.display = 'none';
+    };
+}
+
+
+// Add global listeners to close modal on outside click / Esc
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteAccountDiv = document.getElementById('delete-account');
+
+    deleteAccountDiv.addEventListener('click', (e) => {
+        if (e.target === deleteAccountDiv) {
+            deleteAccountDiv.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            deleteAccountDiv.style.display = 'none';
+        }
+    });
+});
+
+async function API_delete_account(account_id) {
+    let credentials = getCookie("credentials");
+    if (!credentials) throw new Error("Credentials not found.");
+    credentials = credentials.replace(/^"(.*)"$/, '$1');
+
+    const url = globalAPI + `/accounts/${account_id}`;
+    const result = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': credentials
+        }
+    });
+
+    if (result.status === 404 || result.status === 401) {
+        throw new Error('Not Found or Unauthorized');
+    } else if (result.status === 500) {
+        throw new Error('Internal Server Error');
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -800,9 +857,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Opens the "Add Account" modal or page.
-     */
     function openAddAccountModal() {
         window.open(
             `/settings/set_credentials`,
@@ -811,9 +865,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    /**
-     * Shows an error message in the submenu list container.
-     */
+
     function showError(container, message) {
         container.innerHTML = `
             <li class="submenu-item error">

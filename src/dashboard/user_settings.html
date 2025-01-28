@@ -177,7 +177,7 @@
             <hr class="left-pane-hr">
             <!-- Navigation Menu -->
             <ul class="settings-menu-left-pane">
-                <li data-section="profile" onclick="showSection('profile', event)"><img src="/images/icons/user2.png" alt="Profile Icon">Profile</li>
+                <li data-section="profile" onclick="showSection('profile', event)"> <img src="/images/icons/user2.png" alt="Profile Icon">Profile</li>
                 <li data-section="account" onclick="showSection('preferences', event)"><img src="/images/icons/preferences.png" alt="Preferences Icon">Preferences</li>
                 <li data-section="billing" onclick="showSection('billing', event)"><img src="/images/icons/billing_plan.png" alt="Billing Icon">Billing & Plans</li>
                 <li data-section="appearance" onclick="showSection('security', event)"><img src="/images/icons/verified.png" alt="Appearance Icon">Security(2FA)</li>
@@ -280,7 +280,7 @@
                         <h3>Really want to delete your account?</h3>
                         <div class="warning-section">
                             <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
-                            <span>Failed to authenticate with the given credentials</span>
+                            <span>Unexpected things can happen if you don't read this!</span>
                         </div>
                         <ul class="delete-warnings-list">
                             <li>Your account data will be deleted within 30-90 days.</li>
@@ -370,10 +370,6 @@
             if (event.target === document.getElementById('delete-confirmation')) {
                 hideDeleteConfirmation();
             }
-        });
-
-        document.querySelector('.confirm-delete-button').addEventListener('click', () => {
-            hideDeleteConfirmation();
         });
     </script>
 </body>

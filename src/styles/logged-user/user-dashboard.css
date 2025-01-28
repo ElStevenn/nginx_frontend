@@ -522,7 +522,6 @@ a {
     padding: 20px;
     box-sizing: border-box;
     transition: background-color 0.3s, box-shadow 0.3s;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -666,7 +665,7 @@ a {
     justify-content: center;
 }
 
-/* Ensure the canvas doesn’t overflow */
+/* Ensure the canvas doesnÃ¢â‚¬â„¢t overflow */
 .linked-account-chart canvas {
     width: 100% !important;
     height: 100% !important;
@@ -679,7 +678,7 @@ a {
     flex-direction: column;
     justify-content: center; 
     color: #e0e0e0;
-    min-height: 250px; /* matches the chart’s height so they're aligned */
+    min-height: 250px; /* matches the chartÃ¢â‚¬â„¢s height so they're aligned */
 }
 
 /* -- NEW for multiple headings and lists -- */
@@ -724,12 +723,12 @@ a {
 
 /* Big call-to-action button for the "Connect" card */
 .connect-exchange-btn {
-    background-color: #426c93; 
+    background-color: #426c93;
     border: none;
     padding: 15px 20px;
     border-radius: 5px;
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
     font-weight: bold;
     display: flex;
@@ -740,6 +739,12 @@ a {
 
 .connect-exchange-btn i {
     font-size: 1.2rem;
+}
+
+.connect-exchange-btn img{
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
 }
 
 .connect-exchange-btn:hover {
@@ -971,4 +976,93 @@ a {
     height: 100%;
     width: 40%;
     background-color: #4287f5;
+}
+
+
+/* DELETE ACCOUNT MODAL */
+/* The overlay that covers the entire viewport */
+#delete-account {
+    display: none;                  
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);  
+    z-index: 9999;                    
+  }
+  
+/* The modal box that appears in the center of the screen */
+#delete-account .modal-content {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2c2c2c;
+    border: solid 1px var(--border-box-hilight-color);
+    padding: 15px;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90vw;
+    text-align: center;
+}
+  
+/* Basic button styling inside the modal */
+#delete-account .modal-content button {
+    margin-left: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #e0e0e0;
+    background: #434343;
+    border: 0.5px solid #6d6d6d;
+    border-radius: 6px;
+}
+
+#delete-account .modal-content p{
+    margin-bottom: 12px;
+}
+
+#delete-account .modal-content button:hover{
+    background-color: #555555;
+    transition: background-color 0.3s ease;
+} 
+
+#delete-account .modal-content h2 {
+    font-size: 1.3rem;
+    margin: 3px 0 10px 0;
+}
+.warning-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #5a2e2e;
+    border: solid 0.3px #8f0000;
+    padding: 13px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.warning-section span {
+    color: #fff; 
+    font-size: 14px;
+}
+
+.warning-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    filter: invert(35%) sepia(100%) saturate(750%) hue-rotate(-50deg);
+}
+
+.delete-warnings-list {
+    text-align: left;
+    color: #e0e0e0;
+    font-size: 13px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.delete-warnings-list li {
+    margin-bottom: 6px;
 }

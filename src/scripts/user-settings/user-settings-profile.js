@@ -71,8 +71,9 @@ async function set_user_profile() {
         user_fullname.textContent = user_data['name'];
     }
 
-    if (user_email) {
-        user_email.textContent = user_data['email'];
+    const userEmailElement = document.getElementById('user-email');
+    if (userEmailElement) {
+        userEmailElement.textContent = user_data['email'];
     }
 
     // Fetch inputs to HTML
@@ -200,6 +201,9 @@ function showSection(sectionId, event) {
         menuItem.classList.add('active');
     } else {
         console.error(`Menu item with data-section="${sectionId}" not found.`);
+        // Fallback
+        showSection('profile');
+        return;
     }
 
     // Show the selected section
@@ -215,6 +219,7 @@ function showSection(sectionId, event) {
         showSection('profile');
     }
 }
+
 
 
 async function delete_user_full_account(event) {
@@ -243,7 +248,8 @@ async function delete_user_full_account(event) {
 
         if (response.ok) {
             const data = await response.json();
-            window.location.href = data.redirect_url; // Use redirect URL from backend
+            hideDeleteConfirmation(); 
+            window.location.href = data.redirect_url;
         } else {
             const errorDetails = await response.json();
             console.error("API Error:", errorDetails);
