@@ -288,7 +288,7 @@
         >
           <div class="switch-account">Switch Account</div>
           <div class="account-info">
-            <img src="#" alt="Account Icon" class="account-icon" />
+            <img src="#" alt="Account Icon" class="account-icon"/>
             <span class="account-name">Loading...</span>
             <img src="/images/icons/down-arrow.png" alt="Down Arrow" />
           </div>
@@ -404,9 +404,19 @@
         </div>
 
         <div class="linked-account-content" id="linked-account-content">
-          <!-- JS handles this-->
+          <!-- JS appends .linked-account items here -->
+          
+          <!-- The Connect Exchange card also goes here -->
+          <div class="linked-account connect-account-card">
+            <button class="connect-exchange-btn" onclick="openAddAccountModal()">
+              <i class="fas fa-plus"></i> Connect an Exchange
+              <img src="/images/icons/plus.png" alt="Plus Icon">
+            </button>
+          </div>
         </div>
       </div>
+
+
 
       <!-- Loading Overlay restricted to main content -->
       <div id="loading-overlay" class="loading-overlay">
@@ -422,7 +432,7 @@
   <!-- The modal overlay for confirming deletion -->
   <div id="delete-account">
     <div class="modal-content">
-      <h2>Really want to delete your trading account?</h2>
+      <h2>Delete Trading Account</h2>
       <div class="warning-section">
         <img src="/images/icons/warning.png" alt="Warning Icon" class="warning-icon">
         <span>Unexpected things can happen if you don't read this!</span>

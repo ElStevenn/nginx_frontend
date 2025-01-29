@@ -127,27 +127,199 @@ function showToast(message, type = 'info') {
     console.log(`[${type.toUpperCase()}] ${message}`);
 }
 
-async function fetch_linked_accounts(accounts) {
+function loadPositionsFromCookie() {
+    const cookieVal = getCookie("account_positions");
+    if (!cookieVal) return {};
+    try {
+        return JSON.parse(cookieVal);
+    } catch(e) {
+        console.warn("Could not parse account_positions cookie:", e);
+        return {};
+    }
+}
+
+function savePositionsToCookie(positions) {
+    setCookie("account_positions", JSON.stringify(positions), 7);
+}
+
+
+function saveWidgetOrder() {
+    const container = document.getElementById('linked-account-content');
+    const items = container.querySelectorAll('.linked-account[data-account-id]');
+    const idsInOrder = [];
+    items.forEach(item => {
+      idsInOrder.push(item.getAttribute('data-account-id'));
+    });
+    setCookie('widgetOrder', JSON.stringify(idsInOrder), 7);
+}
+
+function applyWidgetOrder() {
+    const container = document.getElementById('linked-account-content');
+    const storedOrder = getCookie('widgetOrder');
+    if (!storedOrder) return;
+    let ids = [];
+    try {
+        ids = JSON.parse(storedOrder);
+    } catch(e) {
+        console.warn("Could not parse stored widget order:", e);
+        return;
+    }
+    ids.forEach(id => {
+        const item = container.querySelector(`.linked-account[data-account-id="${id}"]`);
+        if (item) container.appendChild(item);
+    });
+}
+
+// DRAG & DROP LOGIC
+let dragSrcEl = null;      
+let placeholderEl = null;   
+let dragSrcId = null;     
+
+
+function handleDragStart(e) {
+    dragSrcEl = this;
+    dragSrcId = this.getAttribute('data-account-id');
+    this.classList.add('dragging');
+    
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', dragSrcId); 
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+
+    const container = document.getElementById('linked-account-content');
+    const target = e.target.closest('.linked-account[data-account-id]');
+
+    if (
+      target &&
+      target.parentNode === container &&
+      target !== dragSrcEl &&
+      target !== placeholderEl
+    ) {
+        container.insertBefore(placeholderEl, target);
+    } else if (!target && container.lastElementChild !== placeholderEl) {
+        container.appendChild(placeholderEl);
+    }
+}
+
+function handleDragEnter(e) {
+    e.preventDefault();
+}
+
+function handleDragLeave(e) {
+    // not used
+}
+
+
+function handleDrop(e) {
+    e.preventDefault();
+    const container = document.getElementById('linked-account-content');
+    if (placeholderEl && dragSrcEl) {
+        container.insertBefore(dragSrcEl, placeholderEl);
+    }
+}
+
+function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    if (placeholderEl) {
+      placeholderEl.remove();
+      placeholderEl = null;
+    }
+    saveWidgetOrder();
+}
+
+function initDragAndDrop() {
+    const container = document.getElementById('linked-account-content');
+    const items = container.querySelectorAll('.linked-account[data-account-id]');
+
+    items.forEach(item => {
+        item.setAttribute('draggable', 'true');
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
+    });
+
+    placeholderEl = document.createElement('div');
+    placeholderEl.classList.add('placeholder');
+
+    container.addEventListener('dragover', handleDragOver);
+    container.addEventListener('dragenter', handleDragEnter);
+    container.addEventListener('dragleave', handleDragLeave);
+    container.addEventListener('drop', handleDrop);
+}
+
+
+/* 
+   Attach drag events to a single .linked-account container.
+   - The user must click on the .account-icon to begin dragging.
+   - Once dragging, we do position:absolute on the .linked-account,
+     and let the user move it anywhere in the viewport.
+   - On mouse up, we store the final position into the cookie
+     so it persists across refresh.
+*/
+function enableWidgetDragging(widget, accountId) {
+    const accountIcon = widget.querySelector('.account-icon');
+    if (!accountIcon) return;
+  
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+    let positions = loadPositionsFromCookie();
+  
+    if (positions[accountId]) {
+      widget.style.position = 'absolute';
+      widget.style.top = positions[accountId].top;
+      widget.style.left = positions[accountId].left;
+    }
+  
+    accountIcon.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      isDragging = true;
+      widget.style.position = 'absolute';
+      offsetX = e.clientX - widget.offsetLeft;
+      offsetY = e.clientY - widget.offsetTop;
+    });
+  
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const newLeft = e.clientX - offsetX;
+      const newTop  = e.clientY - offsetY;
+      widget.style.left = newLeft + 'px';
+      widget.style.top  = newTop  + 'px';
+    });
+  
+    document.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      positions[accountId] = {
+        top: widget.style.top,
+        left: widget.style.left
+      };
+      savePositionsToCookie(positions);
+    });
+  }
+
+  async function fetch_linked_accounts(accounts) {
     const linked_account_main_div = document.getElementById('linked-account-content');
     linked_account_main_div.innerHTML = '';
-
+  
     if (!accounts || !Array.isArray(accounts)) {
-        // If no accounts or invalid data, show "no accounts"
         linked_account_main_div.innerHTML = '<p>No accounts found.</p>';
         return;
     }
-
+  
     accounts.forEach(account => {
-        // If account.accounts is missing, we can skip or handle differently
         if (!account.accounts) {
             console.warn("Skipping account because 'accounts' is undefined:", account);
             return;
         }
-
+  
         const linked_account = document.createElement('div');
         linked_account.classList.add('linked-account');
-
-        // Build sub-list for Spot / Margin / Futures (null-safely)
+        linked_account.setAttribute('data-account-id', account.id);
+  
         const accountTypes = ['spot', 'margin', 'futures'];
         let accountsListHTML = '';
         accountTypes.forEach(type => {
@@ -157,25 +329,23 @@ async function fetch_linked_accounts(accounts) {
                 accountsListHTML += `<li><strong>${capitalizeFirstLetter(type)}</strong>: $${val}</li>`;
             }
         });
-
+  
         linked_account.innerHTML = `
           <div class="linked-account-header">
             <div class="account-info">
-             <img src="/images/icons/carousel-navigation-control.png" class="account-icon" alt="Navigation">
+              <img src="/images/icons/carousel-navigation-control.png" class="account-icon" alt="Navigation">
               <div class="account-info-text">
                 <h3>${account.account_name || 'N/A'}</h3>
                 <p>${capitalizeFirstLetter(account.exchange || '')}</p>
               </div>
             </div>
-            <button class="transfer-btn">
-                <i class="fas fa-cog"></i>
-                <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
+            <button title="Transfer assets across ${account.account_name || 'N/A'} account" class="transfer-btn">
+              <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
             </button>
-            <button class="details-btn">
-                <i class="fas fa-cog"></i>
-                <img src="/images/icons/eye.png" alt="Eye Icon">
+            <button title="See the details of your account" class="details-btn">
+              <img src="/images/icons/eye.png" alt="Eye Icon">
             </button>
-            <button class="disconnect-btn"
+            <button  title="Delete your linked account" class="disconnect-btn"
                     onclick="delete_account(event, '${account.id}', 
                      '${(account.account_name||'').replace(/'/g, '\\\'').replace(/"/g, '&quot;')}')">
               <img src="/images/icons/trash-can.png" alt="Trash Icon">
@@ -197,36 +367,28 @@ async function fetch_linked_accounts(accounts) {
             </div>
           </div>
         `;
+  
         linked_account_main_div.appendChild(linked_account);
-
-        // Safely extract or fallback to 0
+  
         const spotVal    = account.accounts.spot    || 0;
         const marginVal  = account.accounts.margin  || 0;
         const futuresVal = account.accounts.futures || 0;
-
-        createDoughnutChart(`accountChart-${account.id}`, [
-            spotVal, marginVal, futuresVal
-        ]);
+        createDoughnutChart(`accountChart-${account.id}`, [spotVal, marginVal, futuresVal]);
     });
-
-    // "Connect Exchange" card
+  
+    // The "Connect Exchange" card
     const connectAccountCard = document.createElement('div');
     connectAccountCard.classList.add('linked-account', 'connect-account-card');
     connectAccountCard.innerHTML = `
-        <button class="connect-exchange-btn" onclick="openAddAccountModal()">
-            <i class="fas fa-plus"></i> Connect an Exchange
-            <img src="/images/icons/plus.png" alt="Plus Icon">
-        </button>
+      <button class="connect-exchange-btn" onclick="openAddAccountModal()">
+          <i class="fas fa-plus"></i> Connect an Exchange
+          <img src="/images/icons/plus.png" alt="Plus Icon">
+      </button>
     `;
     linked_account_main_div.appendChild(connectAccountCard);
-}
 
-function openAddAccountModal() {
-    window.open(
-        `/settings/set_credentials`,
-        `tinyWindow_${Date.now()}`,
-        'width=700,height=700,top=100,left=200'
-    );
+    applyWidgetOrder();
+    initDragAndDrop();
 }
 
 // Helper function to capitalize the first letter
@@ -234,13 +396,13 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Create a reusable doughnut chart
+
 function createDoughnutChart(canvasId, dataValues) {
     const ctx = document.getElementById(canvasId).getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: [], // We keep labels empty to hide them
+            labels: [],
             datasets: [{
                 data: dataValues,
                 backgroundColor: ['#f2a900', '#3c3c3d', '#00ffcc'],
@@ -252,12 +414,8 @@ function createDoughnutChart(canvasId, dataValues) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    enabled: false
-                }
+                legend: { display: false },
+                tooltip: { enabled: false }
             }
         }
     });
@@ -269,26 +427,53 @@ async function fetch_active_bots() {
 
 }
 
+/**
+ * Opens the delete modal and, on confirmation, sends a DELETE request.
+ * After successful deletion, apply a fade-out class to the account card,
+ * then remove it from DOM after 0.5s, and finally re-fetch all accounts.
+ */
 async function delete_account(event, account_id, account_name) {
     event.preventDefault(); 
     const deleteAccountDiv = document.getElementById('delete-account');
-    const messageElement = document.getElementById('delete-account-message');
-    const confirmBtn = document.getElementById('confirm-delete-btn');
-    const cancelBtn = document.getElementById('cancel-delete-btn');
+    const messageElement    = document.getElementById('delete-account-message');
+    const confirmBtn        = document.getElementById('confirm-delete-btn');
+    const cancelBtn         = document.getElementById('cancel-delete-btn');
 
-    messageElement.innerHTML = `Are you sure you want to delete the account <strong>${account_name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</strong>?`;
+    messageElement.innerHTML = `
+      Are you sure you want to delete the account
+      <strong>${account_name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</strong>?
+    `;
     deleteAccountDiv.style.display = 'block';
 
     confirmBtn.onclick = async () => {
         try {
+            // 1) Delete account on the server
             await API_delete_account(account_id);
-            // Optionally clear any old cached data
-            deleteCookie("accounts");
-
+            
+            // 2) Re-fetch from server to get the new updated list
             const updatedAccounts = await get_accounts();
+            
+            // 3) Store the updated list in the cookie so future loads remain correct
+            setCookie("accounts", JSON.stringify(updatedAccounts), 7);
 
-            // Re-draw the accounts
-            fetch_linked_accounts(updatedAccounts || []);
+            // 4) Fade out only the card for the deleted account
+            const card = document.querySelector(`.linked-account[data-account-id="${account_id}"]`);
+            if (card) {
+                card.classList.add('removing'); // triggers 0.5s fade-out
+                card.addEventListener('transitionend', function onTransitionEnd(e) {
+                    if (e.target === card) {
+                        card.removeEventListener('transitionend', onTransitionEnd);
+                        card.remove(); // physically remove from the DOM
+
+                        // 5) Finally, re-draw accounts if you want a full refresh
+                        //    so the UI always matches what's on the server
+                        fetch_linked_accounts(updatedAccounts || []);
+                    }
+                });
+            } else {
+                // Edge case: if there's no matching card, just refresh everything
+                fetch_linked_accounts(updatedAccounts || []);
+            }
 
             showToast('Account deleted successfully', 'success');
         } catch (error) {

@@ -520,15 +520,16 @@ a {
     color: var(--primary-color);
 }
 
+/* Flex wrap to allow smooth rearrange animations */
 .linked-account-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 25px;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 10px;
-    white-space: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .linked-account-content::-webkit-scrollbar {
@@ -551,7 +552,8 @@ a {
     border-radius: var(--border-radius);
     padding: 20px;
     box-sizing: border-box;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    /* Existing transitions for hover, etc. */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -563,10 +565,28 @@ a {
     box-shadow: 0 6px 15px var(--card-shadow);
 }
 
-/* Make header items align left (account info) & right (buttons) */
+/* The widget "dragging" style (optional visual) */
+.linked-account.dragging {
+    opacity: 0.5;          
+    transform: scale(0.95);
+}
+
+/* Placeholder element that shows the "blue shadow" drop area */
+.placeholder {
+    flex: 0 0 auto;
+    width: 532px;
+    height: auto; 
+    border: 2px dashed #00f;
+    background-color: rgba(0, 0, 255, 0.05);
+    transition: all 0.3s;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+}
+
 .linked-account-header {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .account-info {
@@ -576,9 +596,15 @@ a {
     margin-right: auto;
 }
 
-.account-info i {
-    font-size: 2rem;
-    color: var(--primary-color);
+.account-info img.account-icon,
+.linked-account-header .account-icon {
+    position: absolute;
+    top: -10px;
+    left: -7px;
+    cursor: move;
+    width: 13px;
+    height: 13px;
+    margin-right: 0;
 }
 
 .account-info-text {
@@ -596,6 +622,7 @@ a {
 .account-info h3 {
     font-size: 1.2rem;
     color: #ffffff;
+    margin-left: 15px;
 }
 
 .account-info p {
@@ -624,38 +651,27 @@ a {
     background-color: #007ec0;
     margin-right: 10px;
 }
-
 .details-btn:hover {
     background-color: #1290d4;
     transition: 0.3s;
 }
-
 .disconnect-btn {
     background-color: #F44336;
 }
-
-.transfer-btn{
+.disconnect-btn:hover {
+    background-color: #f56055;
+    transition: 0.3s;
+}
+.transfer-btn {
     margin-right: 10px;
     background-color: #e2e2e2;
 }
-
 .transfer-btn:hover {
     background-color: #c3c3c3;
     transition: 0.3s;
 }
 
-.disconnect-btn:hover {
-    background-color: #f56055;
-    transition: 0.3s;
-}
-
 /* Icons inside the buttons */
-.details-btn i,
-.transfer-btn i,
-.disconnect-btn i {
-    margin-right: 0;
-}
-
 .details-btn img,
 .transfer-btn img,
 .disconnect-btn img {
@@ -664,21 +680,15 @@ a {
     filter: invert(100%);
     margin: 0; 
 }
-
 .transfer-btn img {
     filter: invert(0);
 }
 
-/* 
-   Make the chart & data share space side-by-side.
-   Each gets ~50% of the row, and we center them vertically 
-   so the text lines up with the chart.
-*/
 .linked-account-body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 30px; 
+    gap: 30px;
 }
 
 .linked-account-chart {
@@ -690,7 +700,6 @@ a {
     justify-content: center;
 }
 
-/* Ensure the canvas doesnÃ¢â‚¬â„¢t overflow */
 .linked-account-chart canvas {
     width: 100% !important;
     height: 100% !important;
@@ -703,10 +712,9 @@ a {
     flex-direction: column;
     justify-content: center; 
     color: #e0e0e0;
-    min-height: 250px; /* matches the chartÃ¢â‚¬â„¢s height so they're aligned */
+    min-height: 250px;
 }
 
-/* -- NEW for multiple headings and lists -- */
 .linked-account-data h3 {
     margin: 8px 0 8px; 
     font-size: 1.1rem; 
@@ -715,8 +723,8 @@ a {
 
 .linked-account-data ul {
     margin: 0;
-    padding-left: 20px; /* indent the list a bit */
-    list-style: disc;   /* you can switch to none if you want no bullets */
+    padding-left: 20px;
+    list-style: disc;
 }
 
 .linked-account-data li {
@@ -728,25 +736,23 @@ a {
     margin-bottom: 10px;
 }
 
-.linked-account-data p span {
+.linked-account {
     font-weight: bold;
-}
+} 
 
-/* 
-   The "Connect Account" card inherits .linked-account 
-   but we override the layout so the button is centered
-*/
+/* "Connect Account" card */
 .connect-account-card {
+    order: 9999;
+    flex: 0 0 auto;
     min-height: 316px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     width: auto;
-    border: none; /* remove border if you want a "non-card" look */
+    border: none;
 }
 
-/* Big call-to-action button for the "Connect" card */
 .connect-exchange-btn {
     background-color: #426c93;
     border: none;
@@ -762,11 +768,7 @@ a {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.connect-exchange-btn i {
-    font-size: 1.2rem;
-}
-
-.connect-exchange-btn img{
+.connect-exchange-btn img {
     width: 25px;
     height: 25px;
     filter: invert(1);
@@ -777,19 +779,11 @@ a {
     transition: 0.3s;
 }
 
-.account-info img.account-icon {
-    width: 17px;
-    height: 17px;
-    /* Adjust size as needed */
-    margin-right: 0px; /* Adds space between icon and text */
-}
 
-/* Ensure existing .account-info styles remain */
-.account-info {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* This already adds space between elements */
-    margin-right: auto;
+.linked-account.removing {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease; /* 0.5s fade-out */
 }
 
 
@@ -1001,7 +995,7 @@ a {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);  
     z-index: 9999;                    
-  }
+}
   
 /* The modal box that appears in the center of the screen */
 #delete-account .modal-content {
@@ -1029,11 +1023,11 @@ a {
     border-radius: 6px;
 }
 
-#delete-account .modal-content p{
+#delete-account .modal-content p {
     margin-bottom: 12px;
 }
 
-#delete-account .modal-content button:hover{
+#delete-account .modal-content button:hover {
     background-color: #555555;
     transition: background-color 0.3s ease;
 } 
@@ -1042,6 +1036,7 @@ a {
     font-size: 1.3rem;
     margin: 3px 0 10px 0;
 }
+
 .warning-section {
     display: flex;
     align-items: center;
