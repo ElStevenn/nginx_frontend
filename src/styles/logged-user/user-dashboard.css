@@ -41,7 +41,7 @@ a {
   transition: margin-left 0.3s, padding 0.5s;
   max-width: 1600px;
   margin-right: auto;
-  margin-left: 240px;
+  margin-left: 265px;
   min-height: 100vh;
 }
 
@@ -96,9 +96,9 @@ a {
 
 .account-info img {
     width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    filter: invert(1);
+    height: 20px; 
+    margin-left: 0px;
+    filter: invert(70%);
 }
 
 .portfolio-overview .account-icon {
@@ -467,6 +467,36 @@ a {
     margin-top: 0px;
 }
 
+/* Loading overlay */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-bar {
+    width: 60%;
+    height: 12px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 40%;
+    background-color: #4287f5;
+}
+
+
 /* ---------------------------------- */
 /*  - - LINKED ACCOUNTS SECTION - -  */
 /* ---------------------------------- */
@@ -543,7 +573,7 @@ a {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-right: auto; /* pushes the buttons to the far right */
+    margin-right: auto;
 }
 
 .account-info i {
@@ -575,7 +605,7 @@ a {
 }
 
 /* Manage & Disconnect buttons */
-.manage-btn,
+.details-btn,
 .disconnect-btn,
 .transfer-btn {
     border: none;
@@ -590,17 +620,12 @@ a {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.manage-btn {
+.details-btn {
     background-color: #007ec0;
     margin-right: 10px;
 }
 
-.manage-btn {
-    background-color:#007ec0;
-    margin-right: 10px;
-}
-
-.manage-btn:hover {
+.details-btn:hover {
     background-color: #1290d4;
     transition: 0.3s;
 }
@@ -625,13 +650,13 @@ a {
 }
 
 /* Icons inside the buttons */
-.manage-btn i,
+.details-btn i,
 .transfer-btn i,
 .disconnect-btn i {
     margin-right: 0;
 }
 
-.manage-btn img,
+.details-btn img,
 .transfer-btn img,
 .disconnect-btn img {
     width: 16px;
@@ -752,6 +777,21 @@ a {
     transition: 0.3s;
 }
 
+.account-info img.account-icon {
+    width: 17px;
+    height: 17px;
+    /* Adjust size as needed */
+    margin-right: 0px; /* Adds space between icon and text */
+}
+
+/* Ensure existing .account-info styles remain */
+.account-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* This already adds space between elements */
+    margin-right: auto;
+}
+
 
 .positive {
     color: var(--positive-color);
@@ -832,7 +872,7 @@ a {
     .account-info h3 {
         font-size: 1rem;
     }
-    .manage-btn {
+    .details-btn {
         padding: 6px 12px;
         font-size: 0.8rem;
     }
@@ -947,35 +987,6 @@ a {
 
 .add-account-item:hover {
     background: #e98630;
-}
-
-/* Loading overlay */
-.loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-.loading-bar {
-    width: 60%;
-    height: 12px;
-    background-color: #ccc;
-    margin-bottom: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.loading-bar-fill {
-    height: 100%;
-    width: 40%;
-    background-color: #4287f5;
 }
 
 

@@ -5,6 +5,8 @@
     position: fixed;
     top: 64px;
     left: 0;
+    /* Base width (240px) is overridden at ≥1200px to 265px,
+       see media query below. */
     width: 240px;
     height: calc(100vh - 70px);
     background-color: #141414;
@@ -42,9 +44,10 @@
     display: none;
 }
 
-/* IMPORTANT: Instead of .main-layout, target .main-content */
+/* When the sidebar is placed before .main-content, we can do: */
 .sidebar + .main-content {
-    margin-left: 240px; 
+    /* Matches expanded state of 265px in JS */
+    margin-left: 265px;
     transition: margin-left 0.3s;
 }
 
@@ -195,11 +198,12 @@
 /* Media Queries */
 @media (min-width: 1200px) {
     .sidebar {
+        /* Overridden to 265px at >=1200px */
         width: 265px;
         padding: 40px 17px 0 19px;
     }
 
-    .main-content{
+    .main-content {
         padding: 20px 20px;
     }
 }

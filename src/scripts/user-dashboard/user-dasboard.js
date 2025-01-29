@@ -161,6 +161,7 @@ async function fetch_linked_accounts(accounts) {
         linked_account.innerHTML = `
           <div class="linked-account-header">
             <div class="account-info">
+             <img src="/images/icons/carousel-navigation-control.png" class="account-icon" alt="Navigation">
               <div class="account-info-text">
                 <h3>${account.account_name || 'N/A'}</h3>
                 <p>${capitalizeFirstLetter(account.exchange || '')}</p>
@@ -170,9 +171,9 @@ async function fetch_linked_accounts(accounts) {
                 <i class="fas fa-cog"></i>
                 <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
             </button>
-            <button class="manage-btn">
+            <button class="details-btn">
                 <i class="fas fa-cog"></i>
-                <img src="/images/icons/gear2.png" alt="Gear Icon">
+                <img src="/images/icons/eye.png" alt="Eye Icon">
             </button>
             <button class="disconnect-btn"
                     onclick="delete_account(event, '${account.id}', 
