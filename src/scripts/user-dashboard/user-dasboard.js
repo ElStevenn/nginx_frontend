@@ -342,7 +342,8 @@ function enableWidgetDragging(widget, accountId) {
                 <p>${capitalizeFirstLetter(account.exchange || '')}</p>
               </div>
             </div>
-            <button title="Transfer assets across ${account.account_name || 'N/A'} account" class="transfer-btn">
+            <button title="Transfer assets across ${account.account_name || 'N/A'} account"  class="transfer-btn open-modal-btn" onclick="transferAssets(event, '${account.id}', 
+                     '${(account.account_name||'').replace(/'/g, '\\\'').replace(/"/g, '&quot;')}')">
               <img src="/images/icons/arrow-each-other.png" alt="Arrows icon">
             </button>
             <button title="See the details of your account" class="details-btn">
@@ -442,7 +443,17 @@ function deleteAccountId(data, accountId){
      };
 }
 
+function transferAssets(event, account_id, account_name) {
+    event.preventDefault();
+    const transferAssetsDiv = document.getElementById('transfer-assets-modal');
+
+    transferAssetsDiv.style.display = 'block';
+    
+}
+
+
 async function fetch_active_bots() {
+  
 
 }
 
@@ -511,9 +522,10 @@ async function delete_account(event, account_id, account_name) {
 }
 
 
-// Add global listeners to close modal on outside click / Esc
+// Add global listeners to close modal on outside click 
 document.addEventListener('DOMContentLoaded', () => {
     const deleteAccountDiv = document.getElementById('delete-account');
+    const transferAssetsDiv = document.getElementById('transfer-assets-modal');
 
     deleteAccountDiv.addEventListener('click', (e) => {
         if (e.target === deleteAccountDiv) {
@@ -521,9 +533,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    transferAssetsDiv.addEventListener('click', (e) => {
+        if (e.target === transferAssetsDiv) {
+            transferAssetsDiv.style.display = 'none';
+        }
+    });
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             deleteAccountDiv.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            transferAssetsDiv.style.display = 'none';
         }
     });
 });
@@ -1121,6 +1145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isSubmenuVisible && !submenu.contains(e.target) && !portfolioOverview.contains(e.target)) {
             hideSubmenu();
         }
+
     });
 
     document.addEventListener('keydown', (e) => {

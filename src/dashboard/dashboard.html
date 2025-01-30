@@ -416,6 +416,11 @@
         </div>
       </div>
 
+      <!-- Markets Section -->
+      <div class="active-bots">
+        <h2>Markets</h2>
+        <p>No markets avariable at this moment</p>
+      </div>
 
 
       <!-- Loading Overlay restricted to main content -->
@@ -450,6 +455,86 @@
       <button id="cancel-delete-btn" class="cancel-deletion-acc">Cancel</button>
     </div>
   </div>
+
+<!-- Trigger Button -->
+<button id="open-transfer-modal-btn">Transfer Assets</button>
+
+<!-- Modal for transferring assets -->
+<div id="transfer-assets-modal">
+  <div class="modal-content">
+    <span class="close-btn" id="close-modal">&times;</span>
+    <h2>Transfer Assets</h2>
+
+    <form id="transfer-form">
+      <div class="transfer-background">
+        <div class="transfer-box">
+            <div class="transfer-box-line-decorator"></div>
+    
+            <div class="transfer-box-flexDiv flexdiv1">
+                <div class="label-container labl-cont-1">
+                    <span class="label">From</span>
+                    <div class="account-selector">
+                        <span class="account-text">Spot</span>
+                        <span class="account-icon">▼</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="transfer-box-flexDiv flexdiv2">
+                <div class="label-container">
+                    <span class="label">To</span>
+                    <div class="account-selector">
+                        <span class="account-text">USDT-M Futures</span>
+                        <span class="account-icon">▼</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="invert-button">
+            <span>⇆</span>
+        </div>
+    </div>
+    
+    <div class="coin-container">
+        <div class="coin-label">Coin</div>
+        <div class="coin-selection">
+            <div class="coin-icon">
+                <img src="/images/other_images/usdt-icon.png" alt="USDT">
+            </div>
+            <div class="coin-text">USDT</div>
+            <div class="coin-dropdown-icon">▼</div>
+        </div>
+    </div>
+  
+    <div class="transfer-amount-container">
+        <div class="transfer-amount-label">Transfer amount</div>
+        <div class="transfer-amount-input">
+            <input type="text" id="transfer-amount" placeholder="0.00" oninput="validateNumberInput(this)">
+            <div class="transfer-amount-info">
+                <span class="currency">USDT</span>
+                <span class="all-btn">All</span>
+            </div>
+        </div>
+    </div>
+    <div class="available-balance">Available USDT: 00.0000</div>
+
+  
+
+    <div class="confirm-button-container">
+      <button type="submit" id="confirm-btn">Confirm</button>
+    </div>
+ 
+    </form>
+  </div>
+</div>
+
+  <script>
+    function validateNumberInput(input) {
+      input.value = input.value.replace(/[^0-9.]/g, ''); // Allows only numbers and decimal points
+  }
+
+  </script>
 
 </body>
 </html>
