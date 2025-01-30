@@ -1014,13 +1014,15 @@ a {
   
 /* Basic button styling inside the modal */
 #delete-account .modal-content button {
-    margin-left: 5px;
-    padding: 8px 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    color: #e0e0e0;
-    background: #434343;
-    border: 0.5px solid #6d6d6d;
-    border-radius: 6px;
+    margin: 0 10px;
+    font-size: 14px;
+    background: #373737;
+    border: solid 0.3px #646464;
+    color: #fff;
 }
 
 #delete-account .modal-content p {

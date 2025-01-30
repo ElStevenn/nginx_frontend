@@ -1,3 +1,4 @@
+let user_balance = null;
 
 async function get_accounts() {
     const accounts = getCookie("accounts");
@@ -310,8 +311,10 @@ function enableWidgetDragging(widget, accountId) {
         return;
     }
   
+    console.log("feching linked accouts -> ", accounts)
+    
     accounts.forEach(account => {
-        if (!account.accounts) {
+        if (!accounts) {
             console.warn("Skipping account because 'accounts' is undefined:", account);
             return;
         }
@@ -421,7 +424,23 @@ function createDoughnutChart(canvasId, dataValues) {
     });
 }
 
+function deleteAccountId(data, accountId){
+     // Filter out the account to be deleted
+     const updatedAccounts = data.accounts.filter(account => account.id !== accountId);
 
+     // Recalculate total, 24h_change, and 24h_change_percentage
+     const newTotal = updatedAccounts.reduce((sum, acc) => sum + acc.total, 0);
+     const new24hChange = updatedAccounts.reduce((sum, acc) => sum + acc["24h_change"], 0);
+     const new24hChangePercentage = newTotal === 0 ? 0 : (new24hChange / (newTotal - new24hChange)) * 100;
+ 
+     // Return the updated data
+     return {
+         total: newTotal,
+         "24h_change": new24hChange,
+         "24h_change_percentage": new24hChangePercentage,
+         accounts: updatedAccounts
+     };
+}
 
 async function fetch_active_bots() {
 
@@ -447,16 +466,15 @@ async function delete_account(event, account_id, account_name) {
 
     confirmBtn.onclick = async () => {
         try {
-            // 1) Delete account on the server
+            // Delete account on the server and retrive the updated accounts
             await API_delete_account(account_id);
             
-            // 2) Re-fetch from server to get the new updated list
-            const updatedAccounts = await get_accounts();
-            
-            // 3) Store the updated list in the cookie so future loads remain correct
-            setCookie("accounts", JSON.stringify(updatedAccounts), 7);
+            const updatedAccounts = deleteAccountId(user_balance ,account_id);
+            console.log("Updated accounts -> ", updatedAccounts);
 
-            // 4) Fade out only the card for the deleted account
+            // setCookie("accounts", JSON.stringify(updatedAccounts), 7);
+
+            // Fade out only the card for the deleted account
             const card = document.querySelector(`.linked-account[data-account-id="${account_id}"]`);
             if (card) {
                 card.classList.add('removing'); // triggers 0.5s fade-out
@@ -465,17 +483,20 @@ async function delete_account(event, account_id, account_name) {
                         card.removeEventListener('transitionend', onTransitionEnd);
                         card.remove(); // physically remove from the DOM
 
-                        // 5) Finally, re-draw accounts if you want a full refresh
-                        //    so the UI always matches what's on the server
-                        fetch_linked_accounts(updatedAccounts || []);
+                        // Finally, re-draw accounts if you want a full refresh
+                        //  so the UI always matches what's on the server
+
+                        
+
+                        fetch_linked_accounts(updatedAccounts.accounts || []);
                     }
                 });
             } else {
-                // Edge case: if there's no matching card, just refresh everything
-                fetch_linked_accounts(updatedAccounts || []);
+                // Edge case: if there's no matching 
+                fetch_linked_accounts(updatedAccounts.accounts || []);
             }
 
-            showToast('Account deleted successfully', 'success');
+            // showToast('Account deleted successfully', 'success');
         } catch (error) {
             console.error('Error deleting account:', error);
             showToast('Failed to delete account', 'error');
@@ -525,6 +546,9 @@ async function API_delete_account(account_id) {
         throw new Error('Not Found or Unauthorized');
     } else if (result.status === 500) {
         throw new Error('Internal Server Error');
+    }else {
+        const accounts =await result.json();
+        return accounts;    
     }
 }
 
@@ -557,7 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const change24_percentage = document.getElementById('change24_percentage');
     const child_account_balance = document.querySelector('.account-balance');
 
-    let user_balance = null;
     let isSubmenuVisible = false;
 
     // We'll store the accounts from the API in this variable (fetched only once).
