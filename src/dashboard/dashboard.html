@@ -24,131 +24,134 @@
 
 </head>
 <body>
-    <header class="header">
-      <!-- Left Section: Logo and Brand Name -->
-      <a href="/dashboard" class="header-left" id="header-left-side">
-        <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo">
-        <h1 class="logo-text">Fundy</h1>
-      </a>
-    
-      <!-- Center Section: Search Bar -->
-      <div class="header-center">
-        <!-- Search Bar with Icon -->
-        <div class="search-container">
-          <img src="/images/search.png" alt="Search Icon" class="search-icon">
-          <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off"/>
-          <div id="search-results" class="search-results hidden"></div>
-        </div>
+  <header class="header">
+    <!-- Left Section: Logo and Brand Name -->
+    <a href="/dashboard" class="header-left" id="header-left-side">
+      <img src="/images/thumnails/logo.png" alt="Fundy Logo" class="logo">
+      <h1 class="logo-text">Fundy</h1>
+    </a>
+  
+    <!-- Center Section: Search Bar -->
+    <div class="header-center">
+      <!-- Search Bar with Icon -->
+      <div class="search-container">
+        <img src="/images/search.png" alt="Search Icon" class="search-icon">
+        <input type="text" class="header-search" placeholder="Type / Search a crypto" id="crypto-search-input" autocomplete="off"/>
+        <div id="search-results" class="search-results hidden"></div>
       </div>
-    
-      <!-- Right Section: Gear, Notification, and User Icons -->
-      <div class="header-right">
-        <button class="promotion-button">
-          <span>Upgrade Now</span>
-          <img src="/images/icons/rocket-lunch.png" alt="Promotion Icon"/>
-        </button>
-        
-        <!-- Gear Icon (Settings) -->
-        <img src="/images/icons/setting.png" alt="Settings Icon" class="gear-icon" tabindex="0" role="button" aria-label="Settings" onclick="openSettings(event)" />
-        <!-- Settings Menu -->
-        <div id="settings-menu" class="settings-menu">
-          <ul class="settings-links">
-            <!-- LANGUAGE -->
-            <li>
-              <span>Language</span>
-              <select class="menu-select" id="language-select">
-                <option value="en">English (EN)</option>
-                <option value="es">Español (ES)</option>
-                <option value="fr">Français (FR)</option>
-                <option value="de">Deutsch (DE)</option>
-                <option value="zh">中文 (ZH)</option>
-              </select>
-            </li>
-        
-            <!-- CURRENCY -->
-            <li>
-              <span>Currency</span>
-              <select class="menu-select" id="currency-select">
-                <option value="usd">USD</option>
-                <option value="btc">BTC</option>
-                <option value="eur">EUR</option>
-                <option value="mxn">MXN</option>
-                <option value="gbp">GBP</option>
-              </select>
-            </li>
-        
-            <!-- DARK MODE -->
-            <li>
-              <span>Dark Mode</span>
-              <label class="switch">
-                <input type="checkbox" id="dark-mode-toggle" />
-                <span class="slider round"></span>
-              </label>
-            </li>
-        
-            <!-- NOTIFICATION ORDER -->
-            <li>
-              <span>Notifications</span>
-              <select class="menu-select" id="notification-order">
-                <option value="recent">Most Recent</option>
-                <option value="unread">Unread First</option>
-                <option value="priority">Priority</option>
-              </select>
-            </li>
-          </ul>
-        </div>
-        
-        <!-- Notification Icon -->
-        <img src="/images/icons/notification.png" alt="Notification Icon" class="notification-icon" tabindex="0" role="button" aria-label="Notifications" />
-    
-        <!-- User Icon -->
-        <img src="/images/icons/user.png" alt="User Icon" class="user-icon" onclick="toggleMenu1(event)" id="profile-icon3" tabindex="0" role="button" aria-label="User Profile" />
-        
-        <!-- SUbmenu for the user -->
-        <div id="profile-menu" class="profile-menu">
-          <div class="profile-header">
-            <img src="/images/icons/account.png" alt="User Icon" class="profile-picture" id="profile-picture"/>
-            <div class="profile-info">
-              <p class="profile-name" id="user-name">Loading...</p>
-              <span class="profile-email" id="user-email">Loading...</span>
-            </div>
+    </div>
+  
+    <!-- Right Section: Gear, Notification, and User Icons -->
+    <div class="header-right">
+      <button class="promotion-button">
+        <span>Upgrade Now</span>
+        <img src="/images/icons/rocket-lunch.png" alt="Promotion Icon"/>
+      </button>
+      
+      <!-- Gear Icon (Settings) -->
+      <img src="/images/icons/setting.png" alt="Settings Icon" class="gear-icon" tabindex="0" role="button" aria-label="Settings" onclick="openSettings(event)" />
+      <!-- Settings Menu -->
+      <div id="settings-menu" class="settings-menu">
+        <ul class="settings-links">
+          <!-- LANGUAGE -->
+          <li>
+            <span>Language</span>
+            <select class="menu-select" id="language-select">
+              <option value="en">English (EN)</option>
+              <option value="es">Español (ES)</option>
+              <option value="fr">Français (FR)</option>
+              <option value="de">Deutsch (DE)</option>
+              <option value="zh">中文 (ZH)</option>
+            </select>
+          </li>
+      
+          <!-- CURRENCY -->
+          <li>
+            <span>Currency</span>
+            <select class="menu-select" id="currency-select">
+              <option value="usd">USD</option>
+              <option value="btc">BTC</option>
+              <option value="eur">EUR</option>
+              <option value="mxn">MXN</option>
+              <option value="gbp">GBP</option>
+            </select>
+          </li>
+      
+          <!-- DARK MODE -->
+          <li>
+            <span>Dark Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="dark-mode-toggle" />
+              <span class="slider round"></span>
+            </label>
+          </li>
+      
+          <!-- NOTIFICATION ORDER -->
+          <li>
+            <span>Notifications</span>
+            <select class="menu-select" id="notification-order">
+              <option value="recent">Most Recent</option>
+              <option value="unread">Unread First</option>
+              <option value="priority">Priority</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Notification Icon -->
+      <img src="/images/icons/notification.png" alt="Notification Icon" class="notification-icon" tabindex="0" role="button" aria-label="Notifications" />
+  
+      <!-- User Icon (toggles the mobile/profile navigation) -->
+      <img src="/images/icons/user.png" alt="User Icon" class="user-icon" onclick="toggleMenu1(event)" id="profile-icon3" tabindex="0" role="button" aria-label="User Profile" />
+      
+      <!-- Mobile Navigation / Profile Menu -->
+      <div id="profile-menu" class="profile-menu">
+        <!-- Close button (visible on mobile only) -->
+        <span class="close-menu" onclick="toggleMenu1(event)">&#10005;</span>
+        <div class="profile-header">
+          <img src="/images/icons/account.png" alt="User Icon" class="profile-picture" id="profile-picture"/>
+          <div class="profile-info">
+            <p class="profile-name" id="user-name">Loading...</p>
+            <span class="profile-email" id="user-email">Loading...</span>
           </div>
-          <hr />
-          <ul class="menu-links">
-            <li onclick="window.location.href='/settings/profile';">
-              <img src="/images/icons/user2.png" alt="Profile Icon" class="menu-icon" />
-              User Profile
-            </li>
-            <li onclick="window.location.href='/settings/preferences';">
-              <img src="/images/icons/preferences.png" alt="Settings Icon" class="menu-icon"/>
-              Preferences
-            </li>
-            <li onclick="window.location.href='/settings/billing';" style="padding: 7px 15px;">
-              <img src="/images/icons/billing_plan.png" alt="Billing & Planss Icon" class="menu-icon"/>
-              Billing & Plans
-              <img src="/images/icons/free.png" alt="More Info Icon" class="menu-icon-right"/>
-            </li>
-            <li onclick="window.location.href='/settings/billing';">
-              <img src="/images/icons/shield2.png" alt="Billing & Planss Icon" class="menu-icon"/>
-              Security(2FA)
-            </li>
-            <li onclick="log_out(event)">
-              <img src="/images/icons/logout.png" alt="Logout Icon" class="menu-icon" />
-              Sign Out
-            </li>
-            <hr />
-            <li onclick="window.location.href='/terms-policies';">
-                <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" />
-                Terms &amp; Policies
-            </li>
-            <li>
-              <img src="/images/icons/help.png" alt="Help Icon" class="menu-icon" />
-              Help
-            </li>
-          </ul>
         </div>
+        <hr />
+        <ul class="menu-links">
+          <li onclick="window.location.href='/settings/profile';">
+            <img src="/images/icons/user2.png" alt="Profile Icon" class="menu-icon" />
+            User Profile
+          </li>
+          <li onclick="window.location.href='/settings/preferences';">
+            <img src="/images/icons/preferences.png" alt="Settings Icon" class="menu-icon"/>
+            Preferences
+          </li>
+          <li onclick="window.location.href='/settings/billing';" style="padding: 7px 15px;">
+            <img src="/images/icons/billing_plan.png" alt="Billing & Plans Icon" class="menu-icon"/>
+            Billing & Plans
+            <img src="/images/icons/free.png" alt="More Info Icon" class="menu-icon-right"/>
+          </li>
+          <li onclick="window.location.href='/settings/billing';">
+            <img src="/images/icons/shield2.png" alt="Security Icon" class="menu-icon"/>
+            Security (2FA)
+          </li>
+          <li onclick="log_out(event)">
+            <img src="/images/icons/logout.png" alt="Logout Icon" class="menu-icon" />
+            Sign Out
+          </li>
+          <hr />
+          <li onclick="window.location.href='/terms-policies';">
+              <img src="/images/terms-and-conditions.png" alt="Terms Icon" class="menu-icon" />
+              Terms &amp; Policies
+          </li>
+          <li>
+            <img src="/images/icons/help.png" alt="Help Icon" class="menu-icon" />
+            Help
+          </li>
+        </ul>
       </div>
-    </header>
+    </div>
+  </header>
+  
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">

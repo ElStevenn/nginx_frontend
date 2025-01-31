@@ -45,7 +45,7 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: var(--header-gap); /* Space between logo and text */
+  gap: var(--header-gap);
   cursor: pointer;
 }
 
@@ -62,7 +62,9 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-/*Promotion Button*/
+/* =========================
+   PROMOTION BUTTON
+========================= */
 .promotion-button {
   display: flex;
   align-items: center;
@@ -71,7 +73,7 @@
     164deg,
     rgba(45, 51, 205, 1) -3%,
     rgb(255, 136, 0) 35%,
-    rgb(93 120 255) 100%
+    rgb(93, 120, 255) 100%
   );
   color: white;
   border: none;
@@ -79,12 +81,12 @@
   padding: 10px 13px;
   cursor: pointer;
   margin-right: 10px;
-  background-size: 300% 300%; /* Prepare for animation */
-  transition: background 1s ease; /* Smooth return for non-hover states */
+  background-size: 300% 300%;
+  transition: background 1s ease;
 }
 
 .promotion-button:hover {
-  animation: gradient-animation 2s ease forwards; /* Play animation once on hover */
+  animation: gradient-animation 2s ease forwards;
 }
 
 @keyframes gradient-animation {
@@ -116,16 +118,16 @@
    CENTER SECTION STYLES
 ========================= */
 .header-center {
-  flex: 1; /* Allows the center section to take up available space */
+  flex: 1;
   display: flex;
-  justify-content: center; /* Centers the search bar horizontally */
+  justify-content: center;
 }
 
 .search-container {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between search icon and input */
+  gap: 10px;
   background-color: var(--search-bg-color);
   border: 1px solid var(--search-border-color);
   border-radius: 20px;
@@ -168,7 +170,7 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: var(--header-right-gap); /* Space between gear, notification, and user icons */
+  gap: var(--header-right-gap);
   position: relative;
 }
 
@@ -267,12 +269,9 @@
   border-radius: 10px;
   box-shadow: 0px 0px 15px var(--profile-menu-shadow);
   z-index: 2000;
-  /* Increased width for a larger submenu */
   width: 260px;
   color: var(--header-text-color);
   font-family: 'Roboto', sans-serif;
-
-  /* Reveal animation */
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -287,9 +286,53 @@
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
-  padding: 10px; 
+  padding: 10px;
 }
 
+/* Hide close button on desktop */
+.profile-menu .close-menu {
+  display: none;
+}
+
+/* =========================
+   PROFILE MENU - MOBILE ADAPTATION
+========================= */
+@media (max-width: 600px) {
+  .profile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 0;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+  .profile-menu.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .profile-menu .close-menu {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: var(--header-text-color);
+    cursor: pointer;
+  }
+}
+
+/* =========================
+   PROFILE HEADER & MENU LINKS
+========================= */
 .profile-header {
   display: flex;
   align-items: center;
@@ -313,7 +356,6 @@
 
 .profile-info .profile-email {
   font-size: 13px;
-  /* font-weight: bold; */
   margin-bottom: 3px;
 }
 
@@ -336,15 +378,15 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 5px; /* space between items */
+  row-gap: 5px;
 }
 
 .menu-links li {
-  padding: 12px 15px; /* more padding for bigger feel */
+  padding: 12px 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between icon and text */
+  gap: 10px;
   transition: background-color 0.3s ease;
 }
 
@@ -377,7 +419,6 @@
   filter: invert(100%);
   margin-left: 20px;
 }
-
 
 /* =========================
    RESPONSIVE DESIGN
@@ -420,6 +461,47 @@
   }
 }
 
+@media (max-width: 950px) {
+  .search-container {
+    display: none !important;
+  }
+  .header-center,
+  .search-container {
+    display: none !important;
+  }
+  .header-left .logo {
+    width: 35px;
+    height: 35px;
+  }
+  .header-left .logo-text {
+    font-size: 24px;
+  }
+  .header-right {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .promotion-button {
+    margin-right: 5px;
+  }
+
+  .promotion-button span {
+    font-size: 14px;
+  }
+
+  .promotion-button img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .promotion-button span {
+    display: none;
+  }
+}
+
 /* - - SETTINGS MENU - - */
 .settings-menu {
   position: absolute;
@@ -433,8 +515,6 @@
   width: 250px;
   padding: 10px;
   z-index: 2000;
-
-  /* HIDDEN BY DEFAULT */
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -462,7 +542,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px; /* Increased gap for more spacing */
+  gap: 10px;
   transition: background-color 0.3s ease;
 }
 
@@ -478,7 +558,7 @@
 }
 
 .settings-menu span {
-  flex: 1; /* Ensures span and selectors/labels align in the same row */
+  flex: 1;
 }
 
 .settings-menu select.menu-select {
@@ -539,51 +619,4 @@
 
 .settings-menu label.switch input:checked + .slider:before {
   transform: translateX(14px);
-}
-
-@media (max-width: 950px) {
-  .search-container {
-    display: none !important;
-  }
-
-  /* Shrink or hide the big search bar */
-  .header-center,
-  .search-container {
-    display: none !important;
-  }
-
-  /* Tweak logo if desired */
-  .header-le ft.logo {
-    width: 35px;
-    height: 35px;
-  }
-  .header-left .logo-text {
-    font-size: 24px;
-  }
-
-  /* Slightly reduce the gap on the right icons */
-  .header-right {
-    gap: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .promotion-button {
-    margin-right: 5px;
-  }
-
-  .promotion-button span {
-    font-size: 14px;
-  }
-
-  .promotion-button img {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-@media (max-width: 430px) {
-  .promotion-button span {
-    display: none;
-  }
 }
